@@ -3,23 +3,24 @@ import './style.css'
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
 import { About } from './components/About'
+import { Service } from './components/Service'
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = document.querySelector<HTMLDivElement>('#app')!
 
-  // 1) Montamos el Header fijo
+  // 1) Header fijo
   const headerEl = Header()
   app.appendChild(headerEl)
 
-  // 2) Creamos un contenedor principal para el flujo normal (Hero, About, etc.)
-  // Ajusta el padding-top para compensar el header fijo
+  // 2) Contenedor principal (Hero, About, Services, etc.)
   const mainEl = document.createElement('main')
   mainEl.className = 'bg-black text-white pt-[220px]'
 
-  // 3) Agregamos el Hero y el About
+  // 3) Agregar las secciones
   mainEl.appendChild(Hero())
   mainEl.appendChild(About())
+  mainEl.appendChild(Service())
 
-  // 4) Agregamos el contenedor principal al DOM
+  // 4) Añadir el contenedor al DOM
   app.appendChild(mainEl)
 })
