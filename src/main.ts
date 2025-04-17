@@ -4,6 +4,8 @@ import { Header } from './components/Header'
 import { Hero } from './components/Hero'
 import { About } from './components/About'
 import { Service } from './components/Service'
+import {Unisync} from "./components/Unisync.ts";
+import { Contact } from "./components/Contact"
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = document.querySelector<HTMLDivElement>('#app')!
@@ -20,6 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
   mainEl.appendChild(Hero())
   mainEl.appendChild(About())
   mainEl.appendChild(Service())
+  mainEl.appendChild(Unisync())
+  mainEl.appendChild(Contact())
 
   // 4) Añadir el contenedor al DOM
   app.appendChild(mainEl)

@@ -15,7 +15,7 @@ export function Service() {
       </h2>
       <div class="flex justify-center mt-2">
         <img
-          src="/src/assets/marker-icon-small.png"
+          src="/src/assets/marker-icon.png"
           alt="Marker icon"
           class="w-[91px] h-[25px]"
         />
@@ -81,7 +81,7 @@ export function Service() {
         <!-- Marker icon centrado en su propio contenedor -->
         <div class="flex justify-center w-full mt-8">
           <img
-            src="/src/assets/marker-icon-small.png"
+            src="/src/assets/marker-icon.png"
             alt="Marker icon"
             class="w-[91px] h-[25px]"
           />
@@ -114,7 +114,7 @@ export function Service() {
         <!-- Separador: marker-icon centrado en su propio div -->
         <div class="flex justify-center w-full mt-8">
           <img
-            src="/src/assets/marker-icon-small.png"
+            src="/src/assets/marker-icon.png"
             alt="Marker icon"
             class="w-[91px] h-[25px]"
           />
@@ -134,10 +134,6 @@ export function Service() {
 </div>
       <!-- Columna Derecha: Imagen (rectángulo) 485×720 con esquinas 55px -->
       <div class="col-span-6 flex justify-center">
-        <img
-          src="/src/assets/optimizacion-empresarial-ia.png"
-          class="w-[485px] h-[720px] object-cover rounded-[55px]"
-        />
       </div>
     </div>
   `

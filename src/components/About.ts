@@ -14,9 +14,9 @@ export function About() {
         NOSOTROS
       </h2>
       <div class="flex justify-center mt-10">
-        <!-- Icono marker-icon-small.png (91×25) -->
+        <!-- Icono marker-icon.png (91×25) -->
         <img
-          src="/src/assets/marker-icon-small.png"
+          src="/src/assets/marker-icon.png"
           alt="Marker icon"
           class="w-[91px] h-[25px]"
         />
