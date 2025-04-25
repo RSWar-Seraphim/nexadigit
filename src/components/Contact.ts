@@ -3,14 +3,22 @@ import { t, onLangChange } from './i18n'
 export function Contact() {
   const contactEl = document.createElement('section')
 
+  contactEl.id = 'contact'
+
   /* ---------- render ---------- */
   const render = () => {
     contactEl.className =
-      'w-full px-4 text-white flex flex-col items-center mt-32'
+      'w-full px-4 text-white flex flex-col items-center -mt-8 relative'
 
+    contactEl.style.background =
+        'linear-gradient(to bottom, rgba(0,111,73,0.30) 0%, #000000 100%)'
+
+    contactEl.style.width        = '100vw'
+    contactEl.style.marginLeft   = 'calc(50% - 50vw)'
+    contactEl.style.marginRight  = 'calc(50% - 50vw)'
     contactEl.innerHTML = `
       <!-- Encabezado -->
-      <h2 class="font-montserrat font-bold text-[45px] text-center">
+      <h2 class="font-montserrat font-bold text-[45px] text-center mt-14">
         ${t('contact_title')}
       </h2>
       <p class="font-montserrat font-bold text-[15px] text-center mt-1">
@@ -19,7 +27,7 @@ export function Contact() {
       <img src="/src/assets/marker-icon.png" class="w-[91px] h-[25px] mx-auto mt-4"/>
 
       <!-- Formulario + Mapa -->
-      <div class="grid grid-cols-12 gap-0 mt-10 w-full max-w-[960px] mx-auto">
+      <div class="grid grid-cols-12 gap-0 mt-10 pt-16 w-full max-w-[960px] mx-auto">
         <!-- Formulario -->
         <form class="col-span-6 bg-white p-6 flex flex-col gap-3 rounded-l-lg shadow-lg relative z-30 -mr-px">
           <label class="font-montserrat text-xs text-black/70 text-left">

@@ -143,3 +143,16 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+@keyframes zoomInOut {
+  0%, 100% {
+    transform: scale(1) translate(-50%, -50%);
+  }
+  50% {
+    transform: scale(1.02001) translate(-50%, -50%);
+  }
+}
+
+.animate-zoom {
+  animation: zoomInOut 10s ease-in-out infinite;
+}

@@ -5,6 +5,8 @@ export function Hero() {
   const heroEl = document.createElement('section')
   heroEl.className = 'w-full max-w-[1238px] mx-auto px-[64px] mt-12'
 
+  heroEl.id = 'home'
+
   const render = () => {
     const lang = getLang()
 
@@ -34,7 +36,7 @@ export function Hero() {
             <img
               src="/src/assets/arrow_hero_section_down.svg"
               alt="${t('hero_bg_arrow_decor')}"
-              class="absolute z-0 w-[428px] h-[635px] pointer-events-none top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2"
+              class="absolute z-0 w-[428px] h-[635px] pointer-events-none top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 animate-zoom"
             />
           </div>
 
@@ -73,17 +75,17 @@ export function Hero() {
             <img
               src="/src/assets/novosit-logo.png"
               alt="${t('hero_partner_novosit')}"
-              class="w-[125px] h-[40px]"
+              class="w-[135px] h-[40px] mb-1.3"
             />
             <img
-              src="/src/assets/NVIDIA_logo.png"
+              src="/src/assets/gemini_logo.png"
               alt="${t('hero_partner_nvidia')}"
-              class="w-[140px] h-[30px]"
+              class="w-[145px] h-[55px] mb-2"
             />
             <img
-              src="/src/assets/openai.png"
+              src="/src/assets/chatgpt-logo-white.webp"
               alt="${t('hero_partner_openai')}"
-              class="w-[135px] h-[37px]"
+              class="w-[180px] h-[55px] mt-2"
             />
           </div>
         </div>

@@ -7,6 +7,7 @@ export const en = {
   lang_dropdown: 'Language dropdown arrow',
   lang_toggle_arrow: 'Arrow indicating language selector',
   linkedin: 'LinkedIn',
+  discord: 'Discord',
   instagram: 'Instagram',
   facebook: 'Facebook',
   nav_home: 'HOME',
@@ -60,8 +61,8 @@ export const en = {
 
 
   /* === UniSync section (ya tenías estos) === */
-  unisync_tagline1:          'One single platform',
-  unisync_tagline2:          'Multiple AI solutions.',
+  unisync_tagline1:          'One SMART Platform',
+  unisync_tagline2:          'Countless AI Benefits.',
   unisync_ft1_title:         'AI Automation',
   unisync_ft1_desc:          'Intelligent agents perform tasks automatically, enhancing efficiency and minimizing operational errors.',
   unisync_ft1_img_alt:       'AI Automation icon',
@@ -69,16 +70,21 @@ export const en = {
   unisync_ft2_desc:          'Manage projects, finances, and operations from one dashboard within an optimized, unified interface.',
   unisync_ft2_img_alt:       'Centralized Management icon',
   unisync_ft3_title:         'Customized Modules',
-  unisync_ft3_desc:          'We create tailored solutions to expand UniSync according to your needs: analysis, proposal, budgeting and delivery — quoted separately.',
+  unisync_ft3_desc:          'We create tailored solutions to effectively expand UniSync according to your specific needs and goals: detailed analysis, customized proposal, precise budgeting, and timely delivery.',
   unisync_ft3_img_alt:       'Customized Modules icon',
+  unisync_ft4_img_alt:       'Real-time analytics icon',
+  unisync_ft4_title:         'Real-Time Analytics',
+  unisync_ft4_desc:          'Monitor performance across departments in real time. Make data-driven decisions using intelligent dashboards and AI-enhanced insights.',
   unisync_cta:               'REQUEST A DEMO →',
+  unisync_stat_title:       'Real-World Benefits of',
+  unisync_stat_subtitle:     'Smart AI Solutions',
   unisync_stat1:             'Businesses that integrated AI have experienced a 40 % increase in productivity.',
   unisync_stat2:             'The global AI market is projected to reach $407 billion by 2027, growing annually by 36.2 %.',
   unisync_stat3:             '77 % of companies already use or are actively exploring AI for their business processes.',
+  unisync_stat4:             '80% of business leaders say AI will boost productivity within 5 years.',
   unisync_laptop_alt:        'Laptop interface',
   unisync_face3d_alt:        '3D face illustration',
   unisync_building_alt:      'AI building illustration',
-
   /* Contact */
   contact_title:      'CONTACT US',
   contact_subtitle:   'We’ll reply immediately and help you get started.',
