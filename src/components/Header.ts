@@ -28,23 +28,26 @@ export function Header() {
 
     /* ---------- plantilla ---------- */
     headerEl.innerHTML = `
-      <!-- MOBILE NAVBAR (≤ md) -------------------------------------------- -->
-      <div class="flex items-center justify-between px-4 h-14 bg-[#006E49]/50 md:hidden">
-        <!-- Burger button -->
-        <button id="burger-btn" aria-label="Open menu" class="p-1">
-          <img src="/src/assets/icon-hamburger-menu.svg" class="w-6 h-6 brightness-0 invert" alt="Menu" />
+      <!-- MOBILE NAVBAR -->
+      <div class="relative flex items-center h-14 bg-[#006E49]/50 md:hidden">
+        <!-- Burger -->
+        <button id="burger-btn" class="p-3">
+          <img src="/src/assets/icon-hamburger-menu.svg" class="w-6 h-6 brightness-0 invert" />
         </button>
-
-        <!-- Mini logo blanco -->
-        <img src="/src/assets/fav-icon-logo.svg" alt="NexaDigit logo" class="w-[25px] h-[31.02px] brightness-0 invert" />
-
-        <!-- Language toggle (mobile) -->
-        <button id="lang-toggle-mobile" class="flex items-center gap-1">
+      
+        <!-- Logo centrado absoluto -->
+        <img src="/src/assets/fav-icon-logo.svg"
+             class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+                    w-[25px] h-[31.02px] brightness-0 invert" />
+      
+        <!-- Lang toggle -->
+        <button id="lang-toggle-mobile" class="ml-auto flex items-center gap-1 pr-3">
           <span class="lowercase text-xs">${lang}</span>
           <img src="${flag}" class="w-[18px] h-[18px]" />
-          <img src="/src/assets/top-bar-icon-double-arrow-left.svg" class="w-5 h-5">
+          <img src="/src/assets/top-bar-icon-double-arrow-left.svg" class="w-3 h-3 sm:w-5 sm:h-5" />
         </button>
       </div>
+
 
       <!-- DESKTOP HEADER (≥ md) ------------------------------------------- -->
       <div class="hidden md:block">

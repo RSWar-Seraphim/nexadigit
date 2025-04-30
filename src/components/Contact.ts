@@ -8,7 +8,7 @@ export function Contact() {
   /* ---------- render ---------- */
   const render = () => {
     contactEl.className =
-      'w-full px-4 text-white flex flex-col items-center -mt-8 relative'
+      'hidden sm:block w-full px-4 text-white flex flex-col items-center -mt-8 relative'
 
     contactEl.style.background =
         'linear-gradient(to bottom, rgba(0,111,73,0.30) 0%, #000000 100%)'

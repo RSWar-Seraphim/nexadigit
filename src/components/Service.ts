@@ -42,7 +42,7 @@ export function Service() {
   /* ——————————— plantilla ——————————— */
   const render = () => {
     el.className =
-      'w-full max-w-[956px] min-h-[941px] mx-auto mt-24 px-4 text-white'
+      'hidden sm:block w-full max-w-[956px] min-h-[941px] mx-auto mt-24 px-4 text-white'
 
     el.innerHTML = `
       <!-- 1) ENCABEZADO GENERAL DE SERVICIOS -->

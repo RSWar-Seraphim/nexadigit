@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   /* 2) Elemento <main> con padding superior (alto del header) */
   const mainEl = document.createElement('main')
-  mainEl.className = 'bg-black text-white pt-[260px]'  // 260 = HEADER_OFFSET
+  mainEl.className = 'bg-black text-white pt-20 sm:pt-[260px]'  // 260 = HEADER_OFFSET
 
   /* 3) Secciones en orden */
   mainEl.append(

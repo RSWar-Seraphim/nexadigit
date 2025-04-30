@@ -65,7 +65,7 @@ export function About() {
   const render = () => {
     /* ➋ scroll-mt para que el título quede libre debajo del header fijo */
     aboutEl.className =
-      'w-full max-w-[1000px] mx-auto mt-24 px-4 text-white scroll-mt-[160px]'
+      'hidden sm:block w-full max-w-[1000px] mx-auto mt-24 px-4 text-white scroll-mt-[160px]'
 
     aboutEl.innerHTML = `
       <!-- Encabezado -->

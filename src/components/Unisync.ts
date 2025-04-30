@@ -18,7 +18,7 @@ export function Unisync() {
     const unisyncFeatures1Size = lang === 'en' ? 'text-[65px]'  : 'text-[65px]'
     const unisyncFeatures2Size = lang === 'en' ? 'text-[60px]'  : 'text-[60px]'
 
-    unisyncEl.className = 'w-full max-w-[956px] mx-auto mt-24 px-4 text-white'
+    unisyncEl.className = 'hidden sm:block w-full max-w-[956px] mx-auto mt-24 px-4 text-white'
 
     unisyncEl.innerHTML = `
       <!-- Encabezado UniSync -->
