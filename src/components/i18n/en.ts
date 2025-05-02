@@ -87,7 +87,7 @@ export const en = {
   unisync_building_alt:      'AI building illustration',
   /* Contact */
   contact_title:      'CONTACT US',
-  contact_subtitle:   'We’ll reply immediately and help you get started.',
+  contact_subtitle:   'We’ll reply immediately',
   contact_hands_img_alt: 'Decorative hands illustration',
 
   /* Form Labels */

@@ -32,7 +32,7 @@ export function Header() {
       <div class="relative flex items-center h-14 bg-[#006E49]/50 md:hidden">
         <!-- Burger -->
         <button id="burger-btn" class="p-3">
-          <img src="/src/assets/icon-hamburger-menu.svg" class="w-6 h-6 brightness-0 invert" />
+          <img src="/src/assets/icon-hamburger-menu.svg" class="w-3.5 h-3.5 brightness-0 invert" />
         </button>
       
         <!-- Logo centrado absoluto -->

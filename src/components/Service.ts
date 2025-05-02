@@ -1,173 +1,249 @@
-// src/components/Service.ts
+// ──────────────────────────────────────────
+// src/components/Service.ts   (mobile + desktop intacto)
+// ──────────────────────────────────────────
 import { t, onLangChange } from './i18n'
 
 export function Service() {
   const el = document.createElement('section')
-
   el.id = 'services'
 
-  /* ——————————— estado del carrusel ——————————— */
-  let carouselTimer: number | undefined // ID del setInterval
-
-  /** Reinicia el carrusel cada vez que se re-renderiza */
-  const initCarousel = () => {
-  if (carouselTimer) clearInterval(carouselTimer)
-
-  const WIDTH  = 360      // nuevo ancho
-  const GAP    = 28
-  const DELAY  = 5000
-  const startIndex = 3    // 4.ª imagen al centro (3-1-3)
-
-  const track = el.querySelector<HTMLDivElement>('#carouselTrack')
-  if (!track) return
-  const imgs = Array.from(track.querySelectorAll<HTMLImageElement>('.carousel-img'))
-  if (!imgs.length) return
-
-  let index = startIndex
-
-  const centre = (i: number) => {
-    const offset = i * (WIDTH + GAP)
-    track.style.transform =
-      `translateX(calc(50% - ${WIDTH / 2}px - ${offset}px))`
-    imgs.forEach((img, k) => (img.style.opacity = k === i ? '1' : '0.5'))
+  /* ─────────────── Carrusel DESKTOP ─────────────── */
+  let desktopTimer: number | undefined
+  const initCarouselDesktop = () => {
+    if (desktopTimer) clearInterval(desktopTimer)
+    const WIDTH = 360, GAP = 28, DELAY = 5000, start = 3
+    const track = el.querySelector<HTMLDivElement>('#carouselTrack')
+    if (!track) return
+    const imgs = [...track.querySelectorAll<HTMLImageElement>('.carousel-img')]
+    let i = start
+    const centre = (k: number) => {
+      track.style.transform =
+        `translateX(calc(50% - ${WIDTH / 2}px - ${k * (WIDTH + GAP)}px))`
+      imgs.forEach((img, idx) => (img.style.opacity = idx === k ? '1' : '0.5'))
+    }
+    centre(i)
+    desktopTimer = window.setInterval(() => {
+      i = (i + 1) % imgs.length
+      centre(i)
+    }, DELAY)
   }
 
-  centre(index)
-  carouselTimer = window.setInterval(() => {
-    index = (index + 1) % imgs.length   // desliza desde la derecha
-    centre(index)
-  }, DELAY)
-}
+  /* ─────────────── Carrusel MOBILE ─────────────── */
+  let mobileTimer: number | undefined
+  const initCarouselMobile = () => {
+    if (mobileTimer) clearInterval(mobileTimer)
+    const WIDTH = 165, GAP = 16, DELAY = 5000
+    const track = el.querySelector<HTMLDivElement>('#carouselTrackMobile')
+    if (!track) return
+    const imgs = track.querySelectorAll('img')
+    let i = 0
+    const slide = (k: number) =>
+      (track.style.transform = `translateX(calc(50% - ${WIDTH / 2}px - ${k * (WIDTH + GAP)}px))`)
+    slide(i)
+    mobileTimer = window.setInterval(() => {
+      i = (i + 1) % imgs.length
+      slide(i)
+    }, DELAY)
+  }
 
-  /* ——————————— plantilla ——————————— */
+  /* ───────────────────────── render ───────────────────────── */
   const render = () => {
-    el.className =
-      'hidden sm:block w-full max-w-[956px] min-h-[941px] mx-auto mt-24 px-4 text-white'
+    el.className = 'w-full max-w-[956px] mx-auto px-4 text-white scroll-mt-[160px]'
 
-    el.innerHTML = `
-      <!-- 1) ENCABEZADO GENERAL DE SERVICIOS -->
-      <div class="text-center">
-        <h2 class="font-montserrat font-bold text-[45px] leading-none">
-          ${t('services_section_title')}
-        </h2>
-        <div class="my-3 flex justify-center">
-        <img
-          src="/src/assets/marker-icon.png"
-          class="w-[91px] h-[25px]"
-          alt=""
-        />
-        </div>
-      </div>
+    el.innerHTML = /* html */`
+<!-- ========== MOBILE (≤639 px) ========== -->
+<div class="block mt-12 sm:hidden">
+  <!-- Encabezado -->
+  <h2 class="text-center font-montserrat font-bold text-[24px] leading-none">
+    ${t('services_section_title')}
+  </h2>
+  <div class="flex justify-center mt-3">
+    <img src="/src/assets/marker-icon.png" class="w-[65px] h-[18px]" alt="" />
+  </div>
 
-  <div class="flex flex-col items-center mt-10 w-full">
-    <!-- título -->
-    <h3 class="font-montserrat font-bold text-[25px] text-center w-full">
-      ${t('services_block1_title')}
-    </h3>
-  
-    <!-- wrapper: sobresale a ambos lados -->
-    <div id="carouselWrapper"
-       class="relative w-[130%] lg:w-[160%] -mx-[15%] lg:-mx-[30%] overflow-hidden mt-6"
-       style="height:540px;">        <!-- ↓ 540 px -->
-    <div id="carouselTrack"
-         class="flex gap-7 transition-transform duration-1000
-                ease-[cubic-bezier(.4,0,.2,1)]">
+  <!-- Bloque 1 -->
+  <h3 class="mt-8 font-montserrat font-bold text-[12px] text-center uppercase">
+    ${t('services_block1_title')}
+  </h3>
+
+  <!-- Carrusel mini -->
+  <div class="mt-4 relative overflow-hidden w-full" style="height:233px">
+    <div id="carouselTrackMobile"
+         class="flex gap-4 transition-transform duration-700 ease-out">
       ${[
-        'service-photo-one.png',
-        'service-photo-two.png',
-        'service-photo-three.png',
-        'service-photo-four.png',
-        'service-photo-five.png',
-        'service-photo-six.png',
+        'service-photo-one.png','service-photo-two.png','service-photo-three.png',
+        'service-photo-four.png','service-photo-five.png','service-photo-six.png',
         'service-photo-seven.png',
-      ]
-         .map(
-    (src) =>
-      `<img src="/src/assets/${src}"
-            width="360" height="540"
-            class="carousel-img object-cover rounded-[55px] opacity-50"
-            alt="AI service photo">`,
-  )
-  .join('')}
+      ].map(src=>`
+        <img src="/src/assets/${src}"
+             class="w-[165px] h-[233px] object-cover rounded-[15px] flex-none"
+             alt="AI service">`).join('')}
     </div>
   </div>
 
-
-  <!-- arrow + descripción + CTA -->
-  <img src="/src/assets/arrow-right-about.svg"
-       alt="" aria-hidden="true"
-       class="mt-4 w-[25px] h-[25px] rotate-90" />
-  <p class="font-montserrat font-medium text-[20px] leading-relaxed
-            text-center mt-4 max-w-[618px]">
+  <p class="mt-6 font-montserrat font-medium text-[9px] leading-relaxed text-center px-2">
     ${t('services_block1_desc')}
   </p>
-  <button class="mt-8 w-[325px] h-[87px] bg-[#006E49] text-white
-                 font-bold uppercase rounded-[8px] flex items-center
+
+  <button class="mt-6 mx-auto w-[107px] h-[29px] bg-[#006E49] text-white
+                 font-medium text-[7px] uppercase rounded-[6px] flex items-center
                  justify-center">
     ${t('services_block1_cta')}
   </button>
-</div>
 
+   
+<!-- 🔹 BLOQUE 2 – cuadro izq., texto centrado en card 🔹 -->
+<div class="mt-9 flex justify-center">
+  <div class="relative w-[236px] h-[200px]">   <!-- tarjeta fija -->
+    <!-- cuadro decorativo -->
+    <div class="absolute -left-1 top-0 w-[250px] h-[150px] rounded-[20px] z-[1]"
+         style="background:linear-gradient(145deg,rgba(0,110,73,.05),rgba(0,212,141,.05));">
+    </div>
 
-     <div class="mx-auto mt-20 grid grid-rows-2 grid-cols-[450px_minmax(0,1fr)]
-            gap-y-16 gap-x-10 max-w-[900px]">
-
-  <!-- Bloque A -->
-  <div class="row-start-1 col-start-1 flex justify-center">
-  <div class="w-[450px] h-[450px] min-w-[450px] flex-none
-              bg-[#006E49]/20 rounded-[55px]"></div>
-</div>
-
-  <div class="row-start-1 col-start-2 flex items-center">
-    <div class="max-w-[521px] text-left">
-      <h3 class="font-montserrat font-bold text-[30px] leading-tight">
+    <!-- contenido limitado y centrado -->
+    <div class="relative z-10 max-w-[185px] mx-auto flex flex-col items-start justify-center mt-7">
+      <h3 class="text-center font-montserrat font-bold text-[12px] leading-[15px] uppercase">
         ${t('services_block2_title')}
       </h3>
-      <div class="my-3 flex justify-center">
-        <img
-          src="/src/assets/marker-icon.png"
-          class="w-[91px] h-[25px]"
-          alt=""
-        />
-      </div>
-      <p class="font-montserrat font-medium text-[15px] leading-relaxed">
+
+      <img src="/src/assets/marker-icon.png"
+           class="my-1 mx-auto w-[39px] h-[10px]"
+           alt="" />
+
+      <p class="text-center font-medium text-[8px] leading-relaxed">
         ${t('services_block2_desc')}
       </p>
     </div>
   </div>
+</div>
 
-  <!-- Bloque B -->
-  <div class="row-start-2 col-start-1 flex items-center">
-    <div class="max-w-[521px] text-left">
-      <h3 class="font-montserrat font-bold text-[30px] leading-tight">
+<!-- 🔹 BLOQUE 3 – cuadro der., texto centrado en card 🔹 -->
+<div class=" flex justify-center">
+  <div class="relative w-[236px] h-[200px]">
+    <!-- cuadro decorativo -->
+    <div class="absolute -right-1 top-0 w-[250px] h-[150px] rounded-[20px] z-[1]"
+         style="background:linear-gradient(145deg,rgba(0,110,73,.05),rgba(0,212,141,.05));">
+    </div>
+
+    <!-- contenido limitado y centrado -->
+    <div class="relative z-10 max-w-[185px] mx-auto flex flex-col items-end justify-center mt-7">
+      <h3 class="font-montserrat font-bold text-[12px] leading-[15px] uppercase">
         ${t('services_block3_title')}
       </h3>
-      <div class="my-3 flex justify-center">
-      <img
-        src="/src/assets/marker-icon.png"
-        class="w-[91px] h-[25px]"
-        alt=""
-      />
-    </div>
-      <p class="font-montserrat font-medium text-[15px] leading-relaxed">
+
+      <img src="/src/assets/marker-icon.png"
+           class="my-1 mx-auto w-[39px] h-[10px]"
+           alt="" />
+
+      <p class="font-montserrat font-medium text-[8px] leading-relaxed">
         ${t('services_block3_desc')}
       </p>
     </div>
   </div>
-
-  <div class="row-start-2 col-start-2 flex justify-center">
-  <div class="w-[450px] h-[450px] min-w-[450px] flex-none
-              bg-[#006E49]/20 rounded-[55px]"></div>
 </div>
-`
 
-    /* Después de pintar, activa el carrusel */
-    initCarousel()
+</div>
+
+
+
+      <!-- ========== DESKTOP (original) ========== -->
+      <div class="hidden sm:block mt-12">
+        <!-- 1) ENCABEZADO -->
+        <div class="text-center">
+          <h2 class="font-montserrat font-bold text-[45px] leading-none">
+            ${t('services_section_title')}
+          </h2>
+          <div class="my-3 flex justify-center">
+            <img src="/src/assets/marker-icon.png" class="w-[91px] h-[25px]" alt="" />
+          </div>
+        </div>
+
+        <!-- 2) BLOQUE 1 con carrusel grande -->
+        <div class="flex flex-col items-center mt-10 w-full">
+          <h3 class="font-montserrat font-bold text-[25px] text-center">
+            ${t('services_block1_title')}
+          </h3>
+
+          <div id="carouselWrapper"
+               class="relative w-[130%] lg:w-[160%] -mx-[15%] lg:-mx-[30%] overflow-hidden mt-6"
+               style="height:540px;">
+            <div id="carouselTrack"
+                 class="flex gap-7 transition-transform duration-1000 ease-[cubic-bezier(.4,0,.2,1)]">
+              ${[
+                'service-photo-one.png',
+                'service-photo-two.png',
+                'service-photo-three.png',
+                'service-photo-four.png',
+                'service-photo-five.png',
+                'service-photo-six.png',
+                'service-photo-seven.png',
+              ]
+                .map(
+                  (src) =>
+                    `<img src="/src/assets/${src}"
+                          width="360" height="540"
+                          class="carousel-img object-cover rounded-[55px] opacity-50"
+                          alt="AI service photo">`,
+                )
+                .join('')}
+            </div>
+          </div>
+
+          <img src="/src/assets/arrow-right-about.svg" class="mt-4 w-[25px] h-[25px] rotate-90" alt="" aria-hidden="true" />
+          <p class="font-montserrat font-medium text-[20px] leading-relaxed text-center mt-4 max-w-[618px]">
+            ${t('services_block1_desc')}
+          </p>
+          <button class="mt-8 w-[325px] h-[87px] bg-[#006E49] text-white font-bold uppercase rounded-[8px] flex items-center justify-center">
+            ${t('services_block1_cta')}
+          </button>
+        </div>
+
+        <!-- 3) BLOQUES 2-3 -->
+        <div class="mx-auto mt-20 grid grid-rows-2 grid-cols-[450px_minmax(0,1fr)] gap-y-16 gap-x-10 max-w-[900px]">
+          <!-- Bloque A -->
+          <div class="row-start-1 col-start-1 flex justify-center">
+            <div class="w-[450px] h-[450px] bg-[#006E49]/20 rounded-[55px]"></div>
+          </div>
+          <div class="row-start-1 col-start-2 flex items-center">
+            <div class="max-w-[521px] text-left">
+              <h3 class="font-montserrat font-bold text-[30px] leading-tight">
+                ${t('services_block2_title')}
+              </h3>
+              <div class="my-3 flex justify-center">
+                <img src="/src/assets/marker-icon.png" class="w-[91px] h-[25px]" alt="" />
+              </div>
+              <p class="font-montserrat font-medium text-[15px] leading-relaxed">
+                ${t('services_block2_desc')}
+              </p>
+            </div>
+          </div>
+
+          <!-- Bloque B -->
+          <div class="row-start-2 col-start-1 flex items-center">
+            <div class="max-w-[521px] text-left">
+              <h3 class="font-montserrat font-bold text-[30px] leading-tight">
+                ${t('services_block3_title')}
+              </h3>
+              <div class="my-3 flex justify-center">
+                <img src="/src/assets/marker-icon.png" class="w-[91px] h-[25px]" alt="" />
+              </div>
+              <p class="font-montserrat font-medium text-[15px] leading-relaxed">
+                ${t('services_block3_desc')}
+              </p>
+            </div>
+          </div>
+          <div class="row-start-2 col-start-2 flex justify-center">
+            <div class="w-[450px] h-[450px] bg-[#006E49]/20 rounded-[55px]"></div>
+          </div>
+        </div>
+      </div>
+    `
+
+    initCarouselDesktop()
+    initCarouselMobile()
   }
 
-  /* Primer pintado + reinicio cuando cambie el idioma */
   render()
   onLangChange(render)
-
   return el
 }
