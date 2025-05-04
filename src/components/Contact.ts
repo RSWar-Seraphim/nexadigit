@@ -113,7 +113,7 @@ export function Contact() {
   <!-- formulario + mapa -->
   <div class="grid grid-cols-12 gap-0 mt-10 pt-16 w-full max-w-[960px] mx-auto">
     <!-- formulario -->
-    <form class="col-span-6 bg-white p-6 flex flex-col gap-3 rounded-l-lg shadow-lg relative z-30 -mr-px">
+    <form class="text-left col-span-6 bg-white p-6 flex flex-col gap-3 rounded-l-lg shadow-lg relative z-30 -mr-px">
       <label class="font-montserrat text-xs text-black/70">
         ${t('form_label_name')}
       </label>
