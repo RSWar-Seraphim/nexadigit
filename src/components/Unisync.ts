@@ -100,15 +100,15 @@ export function Unisync() {
   
   <!-- ░░░░░  MOBILE – estadísticas (sin edificio) ░░░░░ -->
 <div
-  class="sm:hidden relative w-full flex flex-col items-center mt-7 overflow-hidden"
+  class="sm:hidden  relative w-full flex flex-col items-center mt-7 overflow-hidden"
 >
   <!-- fondo edificio -->
   <img
     src="/src/assets/building-ai-unisync.png"
     alt="AI building" aria-hidden="true"
     class="absolute bottom-0 left-1/2 -translate-x-1/2
-           h-full w-auto max-w-none          /* llena alto; puede exceder ancho */
-           object-cover object-bottom        /* recorta arriba, alinea abajo */
+           h-full w-auto max-w-none         
+           object-cover object-bottom        
            opacity-[0.15]
            pointer-events-none select-none"
   />
@@ -257,7 +257,7 @@ export function Unisync() {
       <div class="w-[35px] h-[35px] bg-[#006E49] rounded-full flex items-center justify-center">
         <img src="${icon}" class="w-4 h-4" alt="">
       </div>
-      <p class="font-montserrat font-medium text-[15px] leading-relaxed">
+      <p class="font-montserrat font-medium text-[8px] leading-relaxed">
         ${t(key)}
       </p>
     </div>`
