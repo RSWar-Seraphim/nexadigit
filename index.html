@@ -7,8 +7,31 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>NexaDigit</title>
   </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+    <body>
+     <div id="loader"
+     style="
+       position:fixed;
+       inset:0;
+       display:flex;
+       align-items:center;
+       justify-content:center;
+       background:#0F221D;
+       z-index:9999;
+       transition:opacity .5s;
+     ">
+
+  <img src="/src/assets/fav-icon-logo.svg"
+       alt="NexaDigit logo"
+       width="64" height="64"
+       style="filter:brightness(0) invert(1);"
+       class="animate-heartbeat" />
+</div>
+
+
+
+      <div id="app"></div>
+      <script type="module" src="/src/main.ts"></script>
+    </body>
+
+
 </html>

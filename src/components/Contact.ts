@@ -8,7 +8,7 @@ export function Contact() {
   const render = () => {
     /* estilos comunes al <section> */
     contactEl.className =
-      'w-full px-4 text-white flex flex-col items-center mt-20 sm:-mt-8 relative'
+      'w-full px-4 text-white flex flex-col items-center mt-0 sm:-mt-8 relative'
     contactEl.style.background =
       'linear-gradient(to bottom,rgba(0,111,73,.30) 0%,#000 100%)'
     contactEl.style.width       = '100vw'

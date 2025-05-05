@@ -99,60 +99,49 @@ export function Unisync() {
   </div>
   
   <!-- ░░░░░  MOBILE – estadísticas (sin edificio) ░░░░░ -->
-<div class="sm:hidden w-[70%] flex flex-col items-center text-center gap-6 mt-7">
+<div
+  class="sm:hidden relative w-full flex flex-col items-center mt-7 overflow-hidden"
+>
+  <!-- fondo edificio -->
+  <img
+    src="/src/assets/building-ai-unisync.png"
+    alt="AI building" aria-hidden="true"
+    class="absolute bottom-0 left-1/2 -translate-x-1/2
+           h-full w-auto max-w-none          /* llena alto; puede exceder ancho */
+           object-cover object-bottom        /* recorta arriba, alinea abajo */
+           opacity-[0.15]
+           pointer-events-none select-none"
+  />
 
-  <!-- título + marcador -->
-  <h2 class="font-montserrat font-bold text-[17px] leading-tight max-w-[280px]">
-    ${t('unisync_stat_title')}
-  </h2>
-  <h3 class="text-[20px] font-montserrat font-bold -mt-5">
-      ${t('unisync_stat_subtitle').replace('IA','<span class="text-[#00cc88]">IA</span>')}
-    </h3>
-  <img src="/src/assets/marker-icon.png" class="mb-3 w-[45px] h-[8px]" alt="" />
-
-  <!-- estadísticas -->
-  <div class="flex flex-col items-center gap-14">
-    <!-- stat 1 -->
-    <div class="flex flex-col items-center gap-4 max-w-[260px]">
-      <div class="w-[20px] h-[20px] bg-[#006E49] rounded-full flex items-center justify-center">
-        <img src="/src/assets/unisync-graph-icon.svg" class="w-2 h-2" alt="" />
-      </div>
-      <p class="font-montserrat font-medium text-[8px] leading-relaxed">
-        ${t('unisync_stat1')}
-      </p>
+  <!-- contenido estadístico -->
+  <div
+    class="relative z-10 w-[70%] flex flex-col items-center text-center gap-6 pb-2"
+  >
+    <!-- título + marcador -->
+    <div class="flex flex-col items-center gap-1">
+      <h2 class="font-montserrat font-bold text-[17px] leading-tight max-w-[280px]">
+        ${t('unisync_stat_title')}
+      </h2>
+      <h3 class="text-[20px] font-montserrat font-bold">
+        ${t('unisync_stat_subtitle').replace('IA','<span class="text-[#00cc88]">IA</span>')}
+      </h3>
+      <img
+        src="/src/assets/marker-icon.png"
+        class="w-[45px] h-[8px] mb-1"
+        alt=""
+      />
     </div>
 
-    <!-- stat 2 -->
-    <div class="flex flex-col items-center gap-4 max-w-[260px]">
-      <div class="w-[20px] h-[20px] bg-[#006E49] rounded-full flex items-center justify-center">
-        <img src="/src/assets/unisync-world.svg" class="w-2 h-2" alt="" />
-      </div>
-      <p class="font-montserrat font-medium text-[8px] leading-relaxed">
-        ${t('unisync_stat2')}
-      </p>
-    </div>
-
-    <!-- stat 3 -->
-    <div class="flex flex-col items-center gap-4 max-w-[260px]">
-      <div class="w-[20px] h-[20px] bg-[#006E49] rounded-full flex items-center justify-center">
-        <img src="/src/assets/unisync-corporate.svg" class="w-2 h-2" alt="" />
-      </div>
-      <p class="font-montserrat font-medium text-[8px] leading-relaxed">
-        ${t('unisync_stat3')}
-      </p>
-    </div>
-
-    <!-- stat 4 -->
-    <div class="flex flex-col items-center gap-4 max-w-[260px]">
-      <div class="w-[20px] h-[20px] bg-[#006E49] rounded-full flex items-center justify-center">
-        <img src="/src/assets/unisync-up.svg" class="w-2 h-2" alt="" />
-      </div>
-      <p class="font-montserrat font-medium text-[8px] leading-relaxed">
-        ${t('unisync_stat4')}
-      </p>
+    <!-- estadísticas -->
+    <div class="flex flex-col items-center gap-14">
+      ${stat('/src/assets/unisync-graph-icon.svg', 'unisync_stat1')}
+      ${stat('/src/assets/unisync-world.svg', 'unisync_stat2')}
+      ${stat('/src/assets/unisync-corporate.svg', 'unisync_stat3')}
+      ${stat('/src/assets/unisync-up.svg', 'unisync_stat4')}
     </div>
   </div>
 </div>
+
 
 
 
