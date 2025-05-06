@@ -29,7 +29,7 @@ export function Header() {
     /* ---------- plantilla ---------- */
     headerEl.innerHTML = `
       <!-- MOBILE NAVBAR -->
-      <div class="relative flex items-center h-14 bg-[#006E49]/50 md:hidden">
+      <div class="relative flex items-center h-14 bg-[#006E49]/50 lg:hidden">
         <!-- Burger -->
         <button id="burger-btn" class="p-3">
           <img src="/src/assets/icon-hamburger-menu.svg" class="w-3.5 h-3.5 brightness-0 invert" />
@@ -50,7 +50,7 @@ export function Header() {
 
 
       <!-- DESKTOP HEADER (≥ md) ------------------------------------------- -->
-      <div class="hidden md:block">
+      <div class="hidden lg:block">
         <!-- Top bar -->
         <div class="mt-4 w-full max-w-[1238px] mx-auto px-4 py-2 grid grid-cols-1 items-center lg:grid-cols-12 lg:px-[64px]">
           <div class="col-span-6 flex items-center gap-2">

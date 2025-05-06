@@ -1,5 +1,5 @@
 // ──────────────────────────────────────────
-// src/components/About.ts   (desktop intacto + mobile con dos highlights refinados)
+// src/components/About.ts   (desktop intacto + md refinado + mobile igual)
 // ──────────────────────────────────────────
 import { t, onLangChange } from './i18n'
 
@@ -21,20 +21,32 @@ export function About() {
       : ''
 
     return `
-      <div class="grid grid-cols-12 items-center gap-4 min-h-[170px] pl-4 md:pl-6 ${rowExtra}">
+      <div class="grid grid-cols-12 items-center gap-4 lg:min-h-[170px] md:min-h-[145px] pl-4
+                 md:pl-2 md:gap-5 ${rowExtra}">
+        <!-- Col‑1: icon (hidden en md, visible de nuevo en lg) -->
         <div class="col-span-5 flex items-center gap-3">
-          <div class="w-[35px] h-[35px] bg-[#006E49] rounded-full flex items-center justify-center">
-            <img src="${icon}" alt="${t(titleKey)} icon" class="w-4 h-4" />
+          <div class="w-[35px] h-[35px] md:w-[30px] md:h-[30px] bg-[#006E49] rounded-full flex items-center justify-center
+                       lg:flex">
+            <img src="${icon}" alt="${t(titleKey)} icon" class="w-4 h-4 md:w-3.5 md:h-3.5" />
           </div>
-          <h3 class="font-montserrat font-bold text-[25px] uppercase leading-tight">
+          <h3 class="font-montserrat font-bold
+                     text-[25px] md:text-[20px] lg:text-[25px]
+                     uppercase leading-tight tracking-tight">
             ${t(titleKey)}
           </h3>
         </div>
-        <div class="col-span-1 flex items-center justify-center">
-          <img src="/src/assets/arrow-right-about.svg" alt="Arrow separator" class="w-[25px] h-[25px]" />
+
+        <div class="col-span-1 lg:flex items-center justify-center">
+          <img src="/src/assets/arrow-right-about.svg"
+               alt="Arrow separator"
+               class="md:w-[20px] md:h-[20px] w-[25px] h-[25px]" />
         </div>
+
+        <!-- Col‑3: descripción -->
         <div class="col-span-6 flex flex-col justify-center">
-          <p class="font-montserrat font-medium text-[20px] leading-relaxed text-left">
+          <p class="font-montserrat font-medium
+                    text-[20px] md:text-[13px] lg:text-[20px]
+                    leading-relaxed text-left tracking-tight">
             ${t(descKey)}
           </p>
         </div>
@@ -50,9 +62,9 @@ export function About() {
     descKey: I18nKey,
     highlight = false
   ) => {
-    const wrapperBase = 'relative w-[236px] h-[200px] flex items-center justify-center';
-    const highlightClasses = highlight ? 'bg-[#006E49]/10 rounded-tl-[20px] rounded-tr-[20px]' : '';
-    const highlightStyle   = highlight ? 'style="border-bottom:0.5px solid #D9D9D9;"' : '';
+    const wrapperBase = 'relative w-[236px] h-[200px] flex items-center justify-center'
+    const highlightClasses = highlight ? 'bg-[#006E49]/10 rounded-tl-[20px] rounded-tr-[20px]' : ''
+    const highlightStyle = highlight ? 'style="border-bottom:0.5px solid #D9D9D9;"' : ''
 
     return `
     <div class="mt-6 flex justify-center">
@@ -81,11 +93,13 @@ export function About() {
     aboutEl.innerHTML = `
       <!-- Header -->
       <div class="text-center">
-        <h2 class="font-montserrat font-bold text-[24px] sm:text-[45px] leading-none">
+        <h2 class="font-montserrat font-bold
+                   text-[24px] md:text-[32px] lg:text-[45px] leading-none">
           ${t('about_title')}
         </h2>
-        <div class="flex justify-center mt-4 sm:mt-10">
-          <img src="/src/assets/marker-icon.png" alt="Marker icon" class="w-[70px] h-[18px] sm:w-[91px] sm:h-[25px]" />
+        <div class="flex justify-center mt-4 lg:mt-10 md:mt-2">
+          <img src="/src/assets/marker-icon.png" alt="Marker icon"
+               class="w-[70px] h-[18px] sm:w-[91px] sm:h-[25px]" />
         </div>
       </div>
 
@@ -97,7 +111,7 @@ export function About() {
         ${itemRowMobile('/src/assets/about-human-icon.svg','about_item4_title','about_item4_desc', false)}
       </div>
 
-      <!-- DESKTOP version -->
+      <!-- DESKTOP style, active desde md pero con ajustes -->
       <div class="hidden sm:block mt-10">
         <div class="grid grid-rows-4 gap-10">
           ${itemRowDesktop('/src/assets/about-processor-icon.svg','about_item1_title','about_item1_desc', true)}

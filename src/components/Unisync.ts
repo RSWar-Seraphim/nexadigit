@@ -115,7 +115,7 @@ export function Unisync() {
 
   <!-- contenido estadístico -->
   <div
-    class="relative z-10 w-[70%] flex flex-col items-center text-center gap-6 pb-2"
+    class="relative z-10 w-[70%] flex flex-col items-center text-center gap-6 pb-12"
   >
     <!-- título + marcador -->
     <div class="flex flex-col items-center gap-1">
@@ -133,7 +133,7 @@ export function Unisync() {
     </div>
 
     <!-- estadísticas -->
-    <div class="flex flex-col items-center gap-14">
+    <div class="flex flex-col items-center gap-14  w-[70%]">
       ${stat('/src/assets/unisync-graph-icon.svg', 'unisync_stat1')}
       ${stat('/src/assets/unisync-world.svg', 'unisync_stat2')}
       ${stat('/src/assets/unisync-corporate.svg', 'unisync_stat3')}
@@ -146,6 +146,7 @@ export function Unisync() {
 
 
 </div>
+
 
 <!-- ░░░░░  DESKTOP  ░░░░░ -->
 <div class="hidden sm:block">
@@ -251,16 +252,17 @@ export function Unisync() {
 `
   }
 
-  /* helper estadística */
-  const stat = (icon: string, key: Parameters<typeof t>[0]) => `
-    <div class="flex flex-col items-center gap-4 max-w-[380px]">
-      <div class="w-[35px] h-[35px] bg-[#006E49] rounded-full flex items-center justify-center">
-        <img src="${icon}" class="w-4 h-4" alt="">
-      </div>
-      <p class="font-montserrat font-medium text-[8px] leading-relaxed">
-        ${t(key)}
-      </p>
-    </div>`
+ /* helper estadística */
+const stat = (icon: string, key: Parameters<typeof t>[0]) => `
+  <div class="flex flex-col items-center gap-4 max-w-[380px]">
+    <div class="sm:w-[35px] sm:h-[35px] w-[20px] h-[20px] bg-[#006E49] rounded-full flex items-center justify-center">
+      <img src="${icon}" class="w-3 h-3 sm:w-4 sm:h-4" alt="">
+    </div>
+    <p class="font-montserrat font-medium text-[8px] leading-relaxed
+               sm:text-[15px]">        
+      ${t(key)}
+    </p>
+  </div>`
 
   render()
   onLangChange(render)
