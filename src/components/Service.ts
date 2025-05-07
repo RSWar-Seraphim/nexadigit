@@ -262,7 +262,7 @@ el.innerHTML = /* html */`
          ${t('services_block1_title')}
       </h3>
       <div id="carouselWrapper"
-         class="relative w-[130%] lg:w-[160%] -mx-[15%] lg:-mx-[30%] overflow-hidden mt-6"
+         class="relative w-full xl:w-[160%] xl:-mx-[30%] overflow-hidden mt-6"
          style="height:540px;">
          <div id="carouselTrack"
             class="flex gap-7 transition-transform duration-1000 ease-[cubic-bezier(.4,0,.2,1)]">

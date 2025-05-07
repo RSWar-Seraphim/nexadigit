@@ -16,15 +16,15 @@ export function Hero() {
     /* Tamaños de texto */
     const title1Size =
       lang === 'en'
-        ? 'text-[22.5px] ml:text-[31px]  lg:text-[83px] md:text-[57px]'
-        : 'text-[20px]   ml:text-[28px]  lg:text-[77px] md:text-[51px]'
+        ? 'text-[22.5px] ml:text-[31px] lg:text-[70px] xl:text-[83px] md:text-[57px]'
+        : 'text-[20px]   ml:text-[28px] lg:text-[63px] xl:text-[77px] md:text-[51px]'
 
     const title2Size =
       lang === 'en'
-        ? 'text-[30px]   ml:text-[41px]  lg:text-[109px] md:text-[75px]'
-        : 'text-[25px]   ml:text-[34px]  lg:text-[94px] md:text-[63px]'
+        ? 'text-[30px]   ml:text-[41px] lg:text-[90px] xl:text-[109px] md:text-[75px]'
+        : 'text-[25px]   ml:text-[34px] lg:text-[78px] xl:text-[94px] md:text-[63px]'
 
-    const brandSize  = 'text-[65px] ml:text-[90px] lg:text-[240px] md:text-[165px]'
+    const brandSize  = 'text-[65px] ml:text-[90px] lg:text-[210px] xl:text-[240px] md:text-[165px]'
 
     const logosMargin = lang === 'en' ? 'mt-6 lg:mt-16' : 'mt-8 lg:mt-20'
 

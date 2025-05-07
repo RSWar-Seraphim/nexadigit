@@ -18,7 +18,10 @@ export function Header() {
     const flag   = lang === 'es'
       ? '/src/assets/top-bar-icon-dominican-flag.svg'
       : '/src/assets/top-bar-icon-usa-flag.svg'
-    const navGap = lang === 'en' ? 'gap-[140px]' : 'gap-[125px]'
+    /* ─────────────────── parámetros dinámicos ─────────────────── */
+const navGap = lang === 'en'
+  ? 'gap-[90px] xl:gap-[140px]'      // en 1024 px y +, 90 px; en ≥1280 px, 140 px
+  : 'gap-[80px] xl:gap-[125px]'
 
     /* SEO dinámico */
     document.title = t('page_title')
@@ -52,8 +55,11 @@ export function Header() {
       <!-- DESKTOP HEADER (≥ md) ------------------------------------------- -->
       <div class="hidden lg:block">
         <!-- Top bar -->
-        <div class="mt-4 w-full max-w-[1238px] mx-auto px-4 py-2 grid grid-cols-1 items-center lg:grid-cols-12 lg:px-[64px]">
-          <div class="col-span-6 flex items-center gap-2">
+        <div class="mt-4 w-full
+            lg:max-w-[960px] xl:max-w-[1238px]
+            mx-auto px-4 lg:px-8 xl:px-[64px]
+            grid grid-cols-1 items-center lg:grid-cols-12">
+                      <div class="col-span-6 flex items-center gap-2">
             <img src="/src/assets/top-bar-icon-location.svg" class="w-[21px] h-[21px]"/>
             <span>${t('location_label')}</span>
           </div>
@@ -72,9 +78,13 @@ export function Header() {
         </div>
 
         <!-- Navbar -->
-        <nav class="w-full max-w-[1238px] mx-auto px-[64px] pt-4 pb-2 mt-6 grid grid-cols-12 items-center">
+        <nav class="w-full
+           lg:max-w-[960px] xl:max-w-[1238px]
+           mx-auto lg:px-8 xl:px-[64px]
+           pt-4 pb-2 mt-6 grid grid-cols-12 items-center">
           <ul id="nav-list"
-              class="relative col-span-11 flex items-center ${navGap} font-semibold text-[18px] leading-none select-none">
+                class="relative col-span-11 flex items-center ${navGap}
+             font-semibold text-[18px] leading-none select-none">
             <div id="nav-highlight"
                  class="absolute top-0 left-0 w-[80px] h-[130px] bg-[#006E49] rounded-tl-[15px] transition-all duration-300 ease-in-out -z-10">
               <div class="absolute bottom-[35px] left-1/2 -translate-x-1/2 w-5 h-[3px] bg-white"></div>
