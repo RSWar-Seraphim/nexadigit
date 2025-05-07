@@ -8,7 +8,7 @@ export function Contact() {
   const render = () => {
     /* estilos comunes al <section> */
     contactEl.className =
-      'w-full px-4 text-white flex flex-col items-center mt-0 sm:-mt-8 relative'
+      'w-full px-4 text-white flex flex-col items-center mt-0 lg:-mt-8 relative'
     contactEl.style.background =
       'linear-gradient(to bottom,rgba(0,111,73,.30) 0%,#000 100%)'
     contactEl.style.width       = '100vw'
@@ -19,7 +19,7 @@ export function Contact() {
 <!-- ░░░░░  MOBILE – CONTACT ░░░░░ -->
 <div class="sm:hidden w-full flex flex-col items-center">
   <!-- encabezado -->
-<h2 class="font-montserrat font-bold text-[24px] text-center mt-12">
+<h2 class="font-montserrat font-bold text-[24px] text-center mt-12 md:mt-4 lg:mt-14">
   ${t('contact_title')}
 </h2>
 <p class="font-montserrat font-medium text-[10px] text-center mt-1">
@@ -111,9 +111,9 @@ export function Contact() {
   <img src="/src/assets/marker-icon.png" class="w-[91px] h-[25px] mx-auto mt-4" />
 
   <!-- formulario + mapa -->
-  <div class="grid grid-cols-12 gap-0 mt-10 pt-16 w-full max-w-[960px] mx-auto">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 mt-10 pt-16 w-full max-w-[960px] mx-auto">
     <!-- formulario -->
-    <form class="text-left col-span-6 bg-white p-6 flex flex-col gap-3 rounded-l-lg shadow-lg relative z-30 -mr-px">
+    <form class="text-left col-span-6 bg-white p-6 flex flex-col gap-3 rounded-lg lg:rounded-l-lg shadow-lg relative z-30 lg:-mr-px">
       <label class="font-montserrat text-xs text-black/70">
         ${t('form_label_name')}
       </label>
@@ -145,7 +145,7 @@ export function Contact() {
     </form>
 
     <!-- mapa -->
-    <div class="col-span-6 relative rounded-r-lg overflow-hidden -ml-px z-10">
+    <div class="col-span-6 relative rounded-r-lg overflow-hidden -ml-px z-10 md:hidden lg:block">
       <div id="leaflet-map" class="w-full h-[504px] rounded overflow-hidden"></div>
     </div>
   </div>
@@ -158,7 +158,7 @@ export function Contact() {
   </div>
 
   <!-- footer -->
-  <footer class="hidden sm:block w-full mt-20 pt-10 pb-6 text-[12px] font-montserrat font-semibold">
+  <footer class="hidden sm:block w-full mt-20 pt-10 pb-6 text-[12px] md:text-[9px] font-montserrat font-semibold">
   <div class="max-w-[960px] mx-auto grid grid-cols-3 items-center">
     <!-- © texto -->
     <span class="justify-self-start">

@@ -191,7 +191,7 @@ el.innerHTML = /* html */`
       </div>
             <img src="/src/assets/arrow-right-about.svg" class="mt-4 w-[15px] h-[15px] rotate-90" alt="" aria-hidden="true" />
 
-      <p class="font-montserrat font-medium text-[12px] leading-relaxed text-center mt-4 max-w-[90%] md:max-w-[40%]">
+      <p class="font-montserrat font-medium text-[12px] leading-relaxed text-center mt-4 max-w-[90%] md:max-w-[48%]">
          ${t('services_block1_desc')}
       </p>
       <button class="mt-6 w-[180px] h-[40px] bg-[#006E49] text-white font-bold uppercase rounded-[8px] flex items-center justify-center text-[10px]">
@@ -199,42 +199,51 @@ el.innerHTML = /* html */`
       </button>
    </div>
    <!-- 3) BLOQUES 2‑3 (cuadros 50 % tamaño) -->
-   <div class="mx-auto mt-16 grid grid-rows-2 grid-cols-[225px_minmax(0,1fr)] gap-y-12 gap-x-6 max-w-[600px]">
-      <!-- Bloque A -->
-      <div class="row-start-1 col-start-1 flex justify-center">
-         <div class="w-[225px] h-[225px] bg-[#006E49]/20 rounded-[30px]"></div>
-      </div>
-      <div class="row-start-1 col-start-2 flex items-center">
-         <div class="max-w-[90%] text-left">
-            <h3 class="font-montserrat font-bold text-[20px] leading-tight">
-               ${t('services_block2_title')}
-            </h3>
-            <div class="my-2 flex justify-center">
-               <img src="/src/assets/marker-icon.png" class="w-[70px] h-[18px]" alt="" />
-            </div>
-            <p class="font-montserrat font-medium text-[13px] leading-relaxed">
-               ${t('services_block2_desc')}
-            </p>
-         </div>
-      </div>
-      <!-- Bloque B -->
-      <div class="row-start-2 col-start-1 flex items-center">
-         <div class="max-w-[90%] text-left">
-            <h3 class="font-montserrat font-bold text-[20px] leading-tight">
-               ${t('services_block3_title')}
-            </h3>
-            <div class="my-2 flex justify-center">
-               <img src="/src/assets/marker-icon.png" class="w-[70px] h-[18px]" alt="" />
-            </div>
-            <p class="font-montserrat font-medium text-[13px] leading-relaxed">
-               ${t('services_block3_desc')}
-            </p>
-         </div>
-      </div>
-      <div class="row-start-2 col-start-2 flex justify-center">
-         <div class="w-[225px] h-[225px] bg-[#006E49]/20 rounded-[30px]"></div>
-      </div>
-   </div>
+<!-- 3) BLOQUES 2‑3 (tablet) -->
+<div
+  class="mx-auto mt-16 grid
+         grid-cols-2 grid-rows-2         <!-- 2×2 -->
+         gap-x-6 gap-y-14                <!-- 24 px horiz / 56 px vert -->
+         max-w-[720px]">                 <!-- un poco más ancho -->
+
+  <!-- ░░ Fila 1 ░░ -->
+  <!-- Cuadro A -->
+  <div class="ml-12">         <!-- lo acerca al texto -->
+    <div class="w-[280px] h-[220px] bg-[#006E49]/20 rounded-[25px]"></div>
+  </div>
+
+  <!-- Texto A -->
+  <div class="self-center max-w-[300px] text-left">
+    <h3 class="font-montserrat font-bold text-[18px] leading-tight">
+      ${t('services_block2_title')}
+    </h3>
+    <div class="my-2 flex justify-center">
+      <img src="/src/assets/marker-icon.png" class="w-[70px] h-[18px]" alt="" />
+    </div>
+    <p class="font-montserrat font-medium text-[13px] leading-relaxed">
+      ${t('services_block2_desc')}
+    </p>
+  </div>
+
+  <!-- ░░ Fila 2 ░░ -->
+  <!-- Texto B -->
+  <div class="self-center max-w-[300px] text-left justify-self-end">
+    <h3 class="font-montserrat font-bold text-[18px] leading-tight">
+      ${t('services_block3_title')}
+    </h3>
+    <div class="my-2 flex justify-center">
+      <img src="/src/assets/marker-icon.png" class="w-[70px] h-[18px]" alt="" />
+    </div>
+    <p class="font-montserrat font-medium text-[13px] leading-relaxed">
+      ${t('services_block3_desc')}
+    </p>
+  </div>
+
+  <!-- Cuadro B -->
+  <div>
+    <div class="w-[280px] h-[220px] bg-[#006E49]/20 rounded-[25px]"></div>
+  </div>
+</div>
 </div>
 <!-- ========== DESKTOP (original) ========== -->
 <div class="hidden lg:block mt-12">

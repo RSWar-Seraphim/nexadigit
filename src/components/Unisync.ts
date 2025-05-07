@@ -13,8 +13,9 @@ export function Unisync() {
     /* tamaños desktop (no cambian) */
     const unisyncStats1Size   = 'text-[45px]'
     const unisyncStats2Size   = lang === 'en' ? 'text-[55px]' : 'text-[36px]'
-    const unisyncFeatures1Size = 'text-[65px]'
-    const unisyncFeatures2Size = 'text-[60px]'
+    /* NUEVO: tamaños responsivos para tagline */
+    const unisyncFeatures1Size = 'md:text-[50px] lg:text-[65px]'
+    const unisyncFeatures2Size = 'md:text-[47px] lg:text-[60px]'
     const tagline2 = t('unisync_tagline2')
     .replace('IA', '<span class="text-[#00cc88]">IA</span>')
     .replace('AI', '<span class="text-[#00cc88]">AI</span>')
@@ -163,7 +164,7 @@ export function Unisync() {
       <h2 class="font-montserrat font-bold ${unisyncFeatures1Size}">
         ${t('unisync_tagline1')}
       </h2>
-      <h3 class="font-montserrat font-bold ${unisyncFeatures2Size} mt-2">
+      <h3 class="font-montserrat font-bold ${unisyncFeatures2Size} lg:mt-2">
         ${t('unisync_tagline2').replace('IA','<span class="text-[#00cc88]">IA</span>')}
       </h3>
       <div class="flex justify-center mt-4">
@@ -175,37 +176,37 @@ export function Unisync() {
   <!-- características 2×2 -->
   <div class="mx-auto mt-16 grid grid-cols-2 grid-rows-2 gap-0 max-w-[1116px]">
     <div class="bg-[#006E49]/40 rounded-tl-[45px] p-10 text-left">
-      <h4 class="font-montserrat font-bold text-[28px] leading-tight">
+      <h4 class="font-montserrat font-bold md:text-[20px] text-[28px] leading-tight">
         ${t('unisync_ft1_title')}
       </h4>
-      <p class="font-montserrat font-medium text-[15px] leading-relaxed mt-4">
+      <p class="font-montserrat font-medium md:text-[12px] text-[15px] leading-relaxed mt-4">
         ${t('unisync_ft1_desc')}
       </p>
     </div>
 
     <div class="p-10 text-left">
-      <h4 class="font-montserrat font-bold text-[28px] leading-tight">
+      <h4 class="font-montserrat font-bold md:text-[20px] text-[28px] leading-tight">
         ${t('unisync_ft3_title')}
       </h4>
-      <p class="font-montserrat font-medium text-[15px] leading-relaxed mt-4">
+      <p class="font-montserrat font-medium md:text-[12px] text-[15px] leading-relaxed mt-4">
         ${t('unisync_ft3_desc')}
       </p>
     </div>
 
     <div class="p-10 text-left">
-      <h4 class="font-montserrat font-bold text-[28px] leading-tight">
+      <h4 class="font-montserrat font-bold md:text-[20px] text-[28px] leading-tight">
         ${t('unisync_ft4_title')}
       </h4>
-      <p class="font-montserrat font-medium text-[15px] leading-relaxed mt-4">
+      <p class="font-montserrat font-medium md:text-[12px] text-[15px] leading-relaxed mt-4">
         ${t('unisync_ft4_desc')}
       </p>
     </div>
 
     <div class="bg-[#006E49]/40 rounded-br-[45px] p-10 text-left">
-      <h4 class="font-montserrat font-bold text-[28px] leading-tight">
+      <h4 class="font-montserrat md:text-[20px] font-bold text-[28px] leading-tight">
         ${t('unisync_ft2_title')}
       </h4>
-      <p class="font-montserrat font-medium text-[15px] leading-relaxed mt-4">
+      <p class="font-montserrat font-medium md:text-[12px] text-[15px] leading-relaxed mt-4">
         ${t('unisync_ft2_desc')}
       </p>
     </div>
@@ -234,11 +235,11 @@ export function Unisync() {
   <div class="grid grid-cols-12 items-center gap-8 mt-16">
     <div class="col-span-6 flex justify-center">
       <img src="/src/assets/building-ai-unisync.png"
-           class="w-[478px] h-[939px] object-contain"
+           class="lg:w-[478px] lg:h-[939px] object-contain"
            alt="${t('unisync_building_alt')}" />
     </div>
 
-    <div class="col-span-6 flex flex-col items-center gap-20 text-center">
+    <div class="col-span-6 flex flex-col items-center gap-11 text-center">
       ${stat('/src/assets/unisync-graph-icon.svg','unisync_stat1')}
       ${stat('/src/assets/unisync-world.svg','unisync_stat2')}
       ${stat('/src/assets/unisync-corporate.svg','unisync_stat3')}

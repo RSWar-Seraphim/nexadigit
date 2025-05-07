@@ -100,7 +100,7 @@ body {
 /* ≥ 768 px — si quieres conservar el centrado en pantallas grandes */
 @media (min-width: 768px) {
   body {
-    display: flex;
+    /*display: flex;*/
     place-items: center;
   }
 }
