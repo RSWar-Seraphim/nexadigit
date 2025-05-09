@@ -138,6 +138,12 @@ h1 {
   color: #888;
 }
 
+/* ./src/style.css o tu hoja global */
+html, body {
+  overflow-x: clip;       /* oculta todo lo que exceda el viewport */
+}
+
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;

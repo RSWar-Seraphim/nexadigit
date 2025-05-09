@@ -14,8 +14,8 @@ export function Unisync() {
     const unisyncStats1Size   = 'text-[45px]'
     const unisyncStats2Size   = lang === 'en' ? 'text-[55px]' : 'text-[36px]'
     /* NUEVO: tamaños responsivos para tagline */
-    const unisyncFeatures1Size = 'md:text-[50px] lg:text-[65px]'
-    const unisyncFeatures2Size = 'md:text-[47px] lg:text-[60px]'
+    const unisyncFeatures1Size = 'sm:text-[46px] md:text-[50px] lg:text-[65px]'
+    const unisyncFeatures2Size = 'sm:text-[40px] md:text-[47px] lg:text-[60px]'
     const tagline2 = t('unisync_tagline2')
     .replace('IA', '<span class="text-[#00cc88]">IA</span>')
     .replace('AI', '<span class="text-[#00cc88]">AI</span>')
@@ -154,7 +154,7 @@ export function Unisync() {
   <!-- cabecera + portátil -->
   <div class="text-center">
     <img src="/src/assets/marker-icon.png" class="mx-auto" alt="" aria-hidden="true" />
-    <h1 class="font-petrov-sans font-bold text-[190px] leading-none mt-4">UniSync</h1>
+    <h1 class="font-petrov-sans font-bold text-[190px] sm:text-[150px] leading-none mt-4">UniSync</h1>
     <img src="/src/assets/laptop_screen_unisync.png"
          class="mx-auto mt-14 w-[85%]"
          alt="${t('unisync_laptop_alt')}" />
@@ -260,7 +260,8 @@ const stat = (icon: string, key: Parameters<typeof t>[0]) => `
       <img src="${icon}" class="w-3 h-3 sm:w-4 sm:h-4" alt="">
     </div>
     <p class="font-montserrat font-medium text-[8px] leading-relaxed
-               sm:text-[15px]">        
+               md:text-[15px] 
+               sm:text-[12px]">        
       ${t(key)}
     </p>
   </div>`

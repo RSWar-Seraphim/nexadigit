@@ -21,7 +21,7 @@ export function About() {
       : ''
 
     return `
-      <div class="grid grid-cols-12 items-center gap-4 lg:min-h-[170px] md:min-h-[145px] pl-4
+      <div class="sm:min-h-[145px] grid grid-cols-12 items-center gap-4 lg:min-h-[170px] md:min-h-[145px] pl-4
                  md:pl-2 md:gap-5 ${rowExtra}">
         <!-- Col‑1: icon (hidden en md, visible de nuevo en lg) -->
         <div class="col-span-5 flex items-center gap-3">
@@ -31,7 +31,9 @@ export function About() {
           </div>
           <h3 class="font-montserrat font-bold
                      text-[25px] md:text-[20px] lg:text-[25px]
-                     uppercase leading-tight tracking-tight">
+                     uppercase leading-tight tracking-tight
+                     sm:text-[15px]
+                     ">
             ${t(titleKey)}
           </h3>
         </div>
@@ -39,14 +41,16 @@ export function About() {
         <div class="col-span-1 lg:flex items-center justify-center">
           <img src="/src/assets/arrow-right-about.svg"
                alt="Arrow separator"
-               class="md:w-[20px] md:h-[20px] w-[25px] h-[25px]" />
+               class="md:w-[20px] md:h-[20px] w-[25px] h-[25px] sm:w-[15px] sm:h-[15px]" />
         </div>
 
         <!-- Col‑3: descripción -->
         <div class="col-span-6 flex flex-col justify-center">
           <p class="font-montserrat font-medium
-                    text-[20px] md:text-[13px] lg:text-[20px]
-                    leading-relaxed text-left tracking-tight">
+                    text-[20px] sm:text-[15px] md:text-[13px] lg:text-[20px]
+                    leading-relaxed text-left tracking-tight
+                    
+                    ">
             ${t(descKey)}
           </p>
         </div>

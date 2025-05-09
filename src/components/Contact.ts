@@ -145,7 +145,7 @@ export function Contact() {
     </form>
 
     <!-- mapa -->
-    <div class="col-span-6 relative rounded-r-lg overflow-hidden -ml-px z-10 md:hidden lg:block">
+    <div class="col-span-6 relative rounded-r-lg overflow-hidden -ml-px z-10 sm:hidden md:hidden lg:block">
       <div id="leaflet-map" class="w-full h-[504px] rounded overflow-hidden"></div>
     </div>
   </div>
@@ -158,7 +158,7 @@ export function Contact() {
   </div>
 
   <!-- footer -->
-  <footer class="hidden sm:block w-full mt-20 pt-10 pb-6 text-[12px] md:text-[9px] font-montserrat font-semibold">
+  <footer class="hidden sm:block w-full mt-20 pt-10 pb-6 text-[12px] sm:text-[7px] lg:text-[12px] md:text-[9px] font-montserrat font-semibold">
   <div class="max-w-[960px] mx-auto grid grid-cols-3 items-center">
     <!-- © texto -->
     <span class="justify-self-start">

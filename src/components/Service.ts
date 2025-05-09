@@ -111,7 +111,7 @@ el.innerHTML = /* html */`
    <p class="mt-6 font-montserrat font-medium text-[9px] leading-relaxed text-center px-2">
       ${t('services_block1_desc')}
    </p>
-   <button class="mt-6 mx-auto w-[107px] h-[29px] bg-[#006E49] text-white
+   <button data-book-meeting class="mt-6 mx-auto w-[107px] h-[29px] bg-[#006E49] text-white
       font-medium text-[7px] uppercase rounded-[6px] flex items-center
       justify-center">
    ${t('services_block1_cta')}
@@ -191,10 +191,10 @@ el.innerHTML = /* html */`
       </div>
             <img src="/src/assets/arrow-right-about.svg" class="mt-4 w-[15px] h-[15px] rotate-90" alt="" aria-hidden="true" />
 
-      <p class="font-montserrat font-medium text-[12px] leading-relaxed text-center mt-4 max-w-[90%] md:max-w-[48%]">
+      <p class="font-montserrat font-medium text-[12px] leading-relaxed text-center mt-4 max-w-[90%] md:max-w-[48%] sm:max-w-[60%]">
          ${t('services_block1_desc')}
       </p>
-      <button class="mt-6 w-[180px] h-[40px] bg-[#006E49] text-white font-bold uppercase rounded-[8px] flex items-center justify-center text-[10px]">
+      <button data-book-meeting class="mt-6 w-[180px] h-[40px] bg-[#006E49] text-white font-bold uppercase rounded-[8px] flex items-center justify-center text-[10px]">
       ${t('services_block1_cta')}
       </button>
    </div>
@@ -204,17 +204,18 @@ el.innerHTML = /* html */`
   class="mx-auto mt-16 grid
          grid-cols-2 grid-rows-2         <!-- 2×2 -->
          gap-x-6 gap-y-14                <!-- 24 px horiz / 56 px vert -->
+         sm:max-w-[640px]
          max-w-[720px]">                 <!-- un poco más ancho -->
 
   <!-- ░░ Fila 1 ░░ -->
   <!-- Cuadro A -->
-  <div class="ml-12">         <!-- lo acerca al texto -->
+  <div class="ml-12 sm:ml-0 sm:self-center">         <!-- lo acerca al texto -->
     <div class="w-[280px] h-[220px] bg-[#006E49]/20 rounded-[25px]"></div>
   </div>
 
   <!-- Texto A -->
   <div class="self-center max-w-[300px] text-left">
-    <h3 class="font-montserrat font-bold text-[18px] leading-tight">
+    <h3 class="sm:text-[20px] font-montserrat font-bold text-[18px] leading-tight">
       ${t('services_block2_title')}
     </h3>
     <div class="my-2 flex justify-center">
@@ -228,7 +229,7 @@ el.innerHTML = /* html */`
   <!-- ░░ Fila 2 ░░ -->
   <!-- Texto B -->
   <div class="self-center max-w-[300px] text-left justify-self-end">
-    <h3 class="font-montserrat font-bold text-[18px] leading-tight">
+    <h3 class="sm:text-[20px] font-montserrat font-bold text-[18px] leading-tight">
       ${t('services_block3_title')}
     </h3>
     <div class="my-2 flex justify-center">
@@ -262,7 +263,11 @@ el.innerHTML = /* html */`
          ${t('services_block1_title')}
       </h3>
       <div id="carouselWrapper"
-         class="relative w-full xl:w-[160%] xl:-mx-[30%] overflow-hidden mt-6"
+         class="relative
+            w-full               lg:w-full
+            xl:w-[140%]           2xl:w-[160%]
+            mx-0                 xl:-mx-[20%] 2xl:-mx-[30%]
+            overflow-hidden mt-6"
          style="height:540px;">
          <div id="carouselTrack"
             class="flex gap-7 transition-transform duration-1000 ease-[cubic-bezier(.4,0,.2,1)]">
@@ -289,9 +294,13 @@ el.innerHTML = /* html */`
       <p class="font-montserrat font-medium text-[20px] leading-relaxed text-center mt-4 max-w-[618px]">
          ${t('services_block1_desc')}
       </p>
-      <button class="mt-8 w-[325px] h-[87px] bg-[#006E49] text-white font-bold uppercase rounded-[8px] flex items-center justify-center">
-      ${t('services_block1_cta')}
-      </button>
+      <!-- BOTÓN: Book a Meeting -->
+<button data-book-meeting
+  class="mt-8 w-[325px] h-[87px] bg-[#006E49] text-white font-bold uppercase rounded-[8px] flex items-center justify-center hover:bg-[#00573a] transition">
+  ${t('services_block1_cta')}
+</button>
+
+
    </div>
    <!-- 3) BLOQUES 2-3 -->
    <div class="mx-auto mt-20 grid grid-rows-2 grid-cols-[450px_minmax(0,1fr)] gap-y-16 gap-x-10 max-w-[900px]">
@@ -332,11 +341,111 @@ el.innerHTML = /* html */`
    </div>
 </div>
 `
+
+// 👉 añade esto DESPUÉS de el.innerHTML = `...` y ANTES de initCarousel…
+const modalHTML = /* html */ `
+<!-- 🌑 Contenedor global (hidden hasta abrir) -->
+<div id="bookMeetingModal" class="fixed inset-0 z-50 hidden flex items-center justify-center">
+
+  <!-- ░░ Overlay ---------------------------- -->
+  <div id="bmOverlay"
+       class="absolute inset-0 bg-black/40 backdrop-blur-sm
+              opacity-0 transition-opacity duration-300 ease-out"></div>
+
+  <!-- ░░ Panel ------------------------------ -->
+  <div id="bmPanel"
+       class="relative mx-auto my-auto w-full max-w-[22rem] sm:max-w-md md:max-w-lg
+              bg-white text-black rounded-2xl shadow-xl p-5 sm:p-6 pt-12
+              opacity-0 scale-95 pointer-events-none        /* estado-cerrado */
+              transition-all duration-300 ease-out">
+    
+    <!-- X -->
+    <button id="closeBookMeetingModal"
+            class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center
+                   bg-primary text-white rounded-full hover:bg-[#00573a]">
+      &times;
+    </button>
+
+    <h2 class="text-lg sm:text-xl font-bold font-montserrat text-primary text-center">
+      Book a Meeting
+    </h2>
+    <p class="text-[11px] sm:text-xs mt-1 text-gray-600 text-center leading-relaxed">
+      Schedule a visit to our facilities or a meeting at your business.
+    </p>
+
+    <form class="space-y-3 sm:space-y-4 mt-5">
+      <input type="text" placeholder="Your name"
+             class="w-full bg-white text-black border border-gray-300 rounded px-3 py-2 text-sm
+                    focus:outline-none focus:ring-2 focus:ring-primary" />
+      <input type="email" placeholder="Your email"
+             class="w-full bg-white text-black border border-gray-300 rounded px-3 py-2 text-sm
+                    focus:outline-none focus:ring-2 focus:ring-primary" />
+      <input type="tel" placeholder="Phone number"
+             class="w-full bg-white text-black border border-gray-300 rounded px-3 py-2 text-sm
+                    focus:outline-none focus:ring-2 focus:ring-primary" />
+      <select
+        class="w-full bg-white text-black border border-gray-300 rounded px-3 py-2 text-sm
+               focus:outline-none focus:ring-2 focus:ring-primary">
+        <option selected disabled>Choose meeting type</option>
+        <option value="office">Visit our facilities</option>
+        <option value="onsite">At your business</option>
+        <option value="zoom">Zoom meeting</option>
+        <option value="discord">Discord meeting</option>
+      </select>
+      <input type="date"
+             class="w-full bg-white text-black border border-gray-300 rounded px-3 py-2 text-sm
+                    focus:outline-none focus:ring-2 focus:ring-primary" />
+      <button type="submit"
+              class="w-full bg-primary text-white py-2 px-4 rounded font-semibold
+                     hover:bg-[#00573a] transition">
+        Confirm Booking
+      </button>
+    </form>
+  </div>
+</div>`
+el.insertAdjacentHTML('beforeend', modalHTML)
+
+
+
 initCarouselDesktop()
 initCarouselMobile()
   initCarouselMd()
 }
 render()
 onLangChange(render)
+
+    setTimeout(() => {
+  const modal    = document.getElementById('bookMeetingModal')!
+  const overlay  = document.getElementById('bmOverlay')!
+  const panel    = document.getElementById('bmPanel')!
+  const closeBtn = document.getElementById('closeBookMeetingModal')!
+  const triggers = el.querySelectorAll<HTMLButtonElement>('[data-book-meeting]')
+
+  // ✨ abrir con animación
+  const open = () => {
+    modal.classList.remove('hidden')        // muestra contenedor (flex)
+
+    // Espera 1 frame → se ve estado cerrado (opacity-0)
+    requestAnimationFrame(() => {
+      overlay.classList.remove('opacity-0')
+      panel.classList.remove('opacity-0', 'scale-95', 'pointer-events-none')
+    })
+  }
+
+  // ✨ cerrar con animación inversa
+  const close = () => {
+    overlay.classList.add('opacity-0')
+    panel.classList.add('opacity-0', 'scale-95', 'pointer-events-none')
+    setTimeout(() => modal.classList.add('hidden'), 300)  // ⌛ igual que duration-300
+  }
+
+  triggers.forEach(btn => btn.addEventListener('click', open))
+  closeBtn.addEventListener('click', close)
+  modal.addEventListener('click', e => { if (e.target === overlay) close() })
+}, 0)
+
+
+
+
 return el
 }

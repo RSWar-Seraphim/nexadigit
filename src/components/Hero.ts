@@ -7,7 +7,7 @@ export function Hero() {
   const heroEl = document.createElement('section')
   // eliminamos margen superior en mobile; vuelve a aparecer en desktop
   heroEl.className =
-    'w-full max-w-[1238px] mx-auto px-4 lg:px-[64px] md:mt-12 lg:mt-12 scroll-mt-[64px]'
+    'w-full max-w-[1238px] mx-auto px-4 lg:px-[64px] ml:mt-12 md:mt-12 lg:mt-12 scroll-mt-[64px]'
   heroEl.id = 'home'
 
   const render = () => {
@@ -16,15 +16,15 @@ export function Hero() {
     /* Tamaños de texto */
     const title1Size =
       lang === 'en'
-        ? 'text-[22.5px] ml:text-[31px] lg:text-[70px] xl:text-[83px] md:text-[57px]'
-        : 'text-[20px]   ml:text-[28px] lg:text-[63px] xl:text-[77px] md:text-[51px]'
+        ? 'text-[22.5px] ml:text-[31px] lg:text-[70px] xl:text-[83px] md:text-[57px] sm:text-[45px]'
+        : 'text-[20px]   ml:text-[28px] lg:text-[63px] xl:text-[77px] md:text-[51px] sm:text-[40px]'
 
     const title2Size =
       lang === 'en'
-        ? 'text-[30px]   ml:text-[41px] lg:text-[90px] xl:text-[109px] md:text-[75px]'
-        : 'text-[25px]   ml:text-[34px] lg:text-[78px] xl:text-[94px] md:text-[63px]'
+        ? 'text-[30px]   ml:text-[41px] lg:text-[90px] xl:text-[109px] md:text-[75px] sm:text-[60px]'
+        : 'text-[25px]   ml:text-[34px] lg:text-[78px] xl:text-[94px] md:text-[63px] sm:text-[50px]'
 
-    const brandSize  = 'text-[65px] ml:text-[90px] lg:text-[210px] xl:text-[240px] md:text-[165px]'
+    const brandSize  = 'text-[65px] ml:text-[90px] lg:text-[210px] xl:text-[240px] md:text-[165px] sm:text-[130px]'
 
     const logosMargin = lang === 'en' ? 'mt-6 lg:mt-16' : 'mt-8 lg:mt-20'
 
@@ -47,13 +47,13 @@ export function Hero() {
             <img
               src="/src/assets/arrow_hero_section_down.svg"
               alt="${t('hero_bg_arrow_decor')}"
-              class="absolute z-0 w-[120px] h-[190px] lg:w-[428px] lg:h-[635px] ml:w-[135px] ml:h-[290px]
+              class="sm:w-[350px] sm:h-[350px] absolute z-0 w-[120px] h-[190px] lg:w-[428px] lg:h-[635px] ml:w-[135px] ml:h-[290px]
                       md:w-[500px] md:h-[500px] top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none animate-zoom"
             />
           </div>
 
           <!-- FORM CTA -->
-          <div class="mt-10 md:mt-28 lg:mt-32 flex justify-center items-center gap-2">
+          <div class="mt-10 sm:mt-20 md:mt-28 lg:mt-32 flex justify-center items-center gap-2">
             <input
               type="email"
               placeholder="${t('hero_email_placeholder')}"
@@ -78,23 +78,33 @@ export function Hero() {
       <div class="grid grid-cols-12 ${logosMargin}">
         <div class="col-span-12 flex justify-center">
           <div
-            class="w-full max-w-[330px] lg:max-w-[1071px] h-[65px] lg:h-[125px] bg-[#006E49]
+            class="w-full max-w-[330px] lg:max-w-[850px] h-[65px] lg:h-[160px] bg-[#006E49]
                    rounded-[35px] lg:rounded-[55px] flex items-center justify-center gap-5 lg:gap-8 px-3 lg:px-4
-                   md:h-[100px] md:gap-8 md:px-4 md:max-w-[630px]
+                   md:h-[100px] md:gap-8 md:px-4 md:max-w-[630px] sm:h-[105px] sm:max-w-[550px]
+             
                    "
+                   
           >
             <img src="/src/assets/ms-gold-partner.png"   alt="${t('hero_partner_ms')}"
                  class="w-[55px]  h-[14px]  lg:w-[150px] lg:h-[40px]
+                 sm:w-[105px] sm:h-[28px]
                  md:w-[105px] md:h-[28px]
                  " />
             <img src="/src/assets/novosit-logo.png"       alt="${t('hero_partner_novosit')}"
                  class="w-[55px]  h-[15px]  lg:w-[135px] lg:h-[40px]
+                  sm:w-[105px] sm:h-[28px]
                   md:w-[105px] md:h-[28px]" />
             <img src="/src/assets/gemini_logo.png"
              alt="Logo GEMINI"
-             class="hidden md:inline-block lg:inline-block w-[60px] h-[24px] lg:w-[145px] lg:h-[55px]  md:w-[105px] md:h-[38px] md:-mt-2" />
+             class="hidden sm:inline-block md:inline-block lg:inline-block w-[60px] h-[24px] lg:w-[145px] lg:h-[55px]
+               md:w-[105px] md:h-[38px] 
+               sm:w-[105px] sm:h-[38px]
+               sm:-mt-2
+               md:-mt-2" />
             <img src="/src/assets/chatgpt-logo-white.webp" alt="${t('hero_partner_openai')}"
-                 class="mt-1 w-[105px]  h-[28px]  lg:w-[180px] lg:h-[55px] md:w-[105px] md:h-[31px] md:mt-1" />
+                 class="mt-1 w-[105px]  h-[28px]  lg:w-[180px] lg:h-[55px] md:w-[105px] md:h-[31px]
+                  sm:w-[105px] sm:h-[31px]
+                  md:mt-1" />
           </div>
         </div>
       </div>
