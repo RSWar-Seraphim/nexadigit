@@ -6,6 +6,8 @@
   import { Service }  from './components/Service'
   import { Unisync }  from './components/Unisync'
   import { Contact }  from './components/Contact'
+  import './components/bookMeetingModal'
+
 
   /* -------------------------------------------------------- */
   /* Esperamos al DOM y luego construimos TODA la página      */
