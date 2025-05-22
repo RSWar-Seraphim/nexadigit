@@ -22,7 +22,7 @@
 
     /* 2) Elemento <main> con padding superior (alto del header) */
     const mainEl = document.createElement('main')
-    mainEl.className = 'bg-black text-white pt-20 ml:pt-14 lg:pt-[260px]'
+    mainEl.className = 'text-white'
   // 260 = HEADER_OFFSET
 
     /* 3) Secciones en orden */

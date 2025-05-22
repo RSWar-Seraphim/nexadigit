@@ -29,17 +29,17 @@ export function Contact() {
 
 <!-- formulario -->
 <!-- formulario – mobile -->
-<form class="w-full max-w-[450px] bg-white rounded shadow-lg mt-8 p-5 flex flex-col gap-3">
+<form id="contact-form" class="w-full max-w-[450px] bg-white rounded shadow-lg mt-8 p-5 flex flex-col gap-3">
   <label class="font-montserrat text-[10px] text-black/70 text-left">
     ${t('form_label_name')}
   </label>
-  <input type="text" placeholder="John"
+  <input type="firstName" placeholder="John"
          class="border p-2 rounded outline-none bg-white text-[11px] placeholder:text-[11px]" />
 
   <label class="font-montserrat text-[10px] text-black/70 text-left">
     ${t('form_label_lastname')}
   </label>
-  <input type="text" placeholder="Doe"
+  <input type="lastName" placeholder="Doe"
          class="border p-2 rounded outline-none bg-white text-[11px] placeholder:text-[11px]" />
 
   <label class="font-montserrat text-[10px] text-black/70 text-left">
@@ -51,7 +51,7 @@ export function Contact() {
   <label class="font-montserrat text-[10px] text-black/70 text-left">
     ${t('form_label_message')}
   </label>
-  <textarea rows="4" placeholder="${t('form_label_message')}"
+  <textarea name="message" rows="4" placeholder="${t('form_label_message')}"
             class="border p-2 rounded outline-none resize-none bg-white text-[11px] placeholder:text-[11px]"></textarea>
 
   <button type="submit"
@@ -113,17 +113,17 @@ export function Contact() {
   <!-- formulario + mapa -->
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 mt-10 pt-16 w-full max-w-[960px] mx-auto">
     <!-- formulario -->
-    <form class="text-left col-span-6 bg-white p-6 flex flex-col gap-3 rounded-lg lg:rounded-l-lg shadow-lg relative z-30 lg:-mr-px">
+    <form id="contact-form" class="text-left col-span-6 bg-white p-6 flex flex-col gap-3 rounded-lg lg:rounded-l-lg shadow-lg relative z-30 lg:-mr-px">
       <label class="font-montserrat text-xs text-black/70">
         ${t('form_label_name')}
       </label>
-      <input type="text" placeholder="John"
+      <input type="firstName" placeholder="John"
              class="border p-2 rounded outline-none bg-white" />
 
       <label class="font-montserrat text-xs text-black/70">
         ${t('form_label_lastname')}
       </label>
-      <input type="text" placeholder="Doe"
+      <input type="lastName" placeholder="Doe"
              class="border p-2 rounded outline-none bg-white" />
 
       <label class="font-montserrat text-xs text-black/70">
@@ -135,7 +135,7 @@ export function Contact() {
       <label class="font-montserrat text-xs text-black/70">
         ${t('form_label_message')}
       </label>
-      <textarea rows="4" placeholder="${t('form_label_message')}"
+      <textarea name="message" rows="4" placeholder="${t('form_label_message')}"
                 class="border p-2 rounded outline-none resize-none bg-white"></textarea>
 
       <button type="submit"

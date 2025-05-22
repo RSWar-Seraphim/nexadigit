@@ -1,128 +1,200 @@
 // ──────────────────────────────────────────
-// src/components/Hero.ts   (ajuste spacing + mobile fine-tune)
+// src/components/Hero.ts
+// Ajustes responsive:
+//   • Diseño móvil se usa hasta < lg (≤ 1023 px)
+//   • Altura 100 % cuando portrait (< lg) y desktop (≥ lg).
+//   • En landscape < lg la altura es auto.
+//   • Corrección de márgenes del bloque inferior (partners + arrow) para que
+//     la flecha no se corte en sm/md (641‑1023 px).
 // ──────────────────────────────────────────
 import { t, getLang, onLangChange } from './i18n'
 
 export function Hero() {
-  const heroEl = document.createElement('section')
-  // eliminamos margen superior en mobile; vuelve a aparecer en desktop
-  heroEl.className =
-    'w-full max-w-[1238px] mx-auto px-4 lg:px-[64px] ml:mt-12 md:mt-12 lg:mt-12 scroll-mt-[64px]'
-  heroEl.id = 'home'
+  const hero = document.createElement('section')
+  hero.id = 'home'
+  hero.className = [
+  'w-full md:mx-0 max-w-[1238px] md:max-w-none mx-auto',
+  'px-4 md:px-6 lg:px-[64px] scroll-mt-[64px]',
+  'relative',
 
+  /* Altura mínima = viewport libre de header */
+  'portrait:min-h-[calc(100dvh-var(--header-h))]',
+  'lg:min-h-[calc(100dvh-var(--header-h))]',
+
+  /* Distribución vertical */
+  'flex flex-col lg:justify-start tall:justify-center',
+
+  /* ¡Sin overflow interno! */
+  'overflow-visible',
+
+  /* Padding-top cero en desktop, se conserva en mobile */
+  'pt-0 sm:pt-12 md:pt-12 lg:pt-[calc(var(--header-h)+28px)]',
+].join(' ')
+
+
+
+  /* ──────────────── template MÓVIL ──────────────── */
+  const mobileTemplate = (lang: string) => {
+    /* (solo se muestra el Brand; títulos se suprimieron) */
+    const brand = [
+      /* por anchura */
+      'ms:text-[68px] mm:text-[78px] ml:text-[85px] sm:text-[150px]',
+    ].join(' ')
+
+    return /* html */ `
+      <!-- Visible hasta < lg (teléfonos y tablets) -->
+      <div class="lg:hidden h-full flex flex-col">
+        <!-- Contenido desplazable -->
+        <img src="/src/assets/marker-icon.png" class="mt-8 md:tall:mt-16 w-[180px] h-[40px] self-center flex-none lg:hidden" alt="">
+
+        <div class="mt-2 flex-grow flex flex-col justify-center items-center overflow-y-auto overflow-x-hidden scrollbar-none">
+          <h1 class="font-petrov-sans leading-none w-full
+           ms:text-[68px] mm:text-[78px] ml:text-[85px]
+           sm:!text-[120px] md:!text-[125px] my-3 md:tall:my-auto ${brand}">
+            ${t('hero_brand')}
+          </h1>
+
+          <!-- Carrusel -->
+          <div class="mt-6 flex justify-center overflow-hidden gap-3 sm:gap-6 md:gap-8 ">
+            <div id="heroMobileTrack" class="flex transition-transform duration-700 ease-out gap-[clamp(10px,3.2vw,16px)]">
+              ${['service-photo-one.png', 'service-photo-two.png', 'service-photo-three.png']
+                .map(src => `<img src="/src/assets/${src}" class="w-[clamp(90px,28vw,110px)]
+                  h-[clamp(127px,40vw,155px)]
+                  sm:w-[clamp(110px,26vw,140px)]
+                  sm:h-[clamp(150px,36vw,190px)]
+                  md:w-[clamp(130px,24vw,165px)]
+                  md:h-[clamp(175px,32vw,225px)]
+                  object-cover rounded-[15px] flex-none" alt="slide">`)
+                .join('')}
+            </div>
+          </div>
+          <div class="my-auto md:tall:my-2 flex flex-col items-center">
+          <p class="mx-auto mt-5 text-center font-montserrat font-medium leading-[160%]
+                    w-[270px] text-[9px] sm:w-[320px] sm:text-[10.5px]
+                    md:w-[380px] md:text-[12px]">
+            ${t('mid_desc')}
+          </p>
+          <div class="my-auto md:tall:my-0 md:tall:mt-12 flex flex-col items-center">
+            <img src="/src/assets/marker-icon.png" class="mt-8 w-[42px] h-[14px]" alt="">
+
+            <p class="w-[127px] sm:w-[160px] md:w-[160px]
+                      text-[9px] sm:text-[10px] md:text-[12px] md:mt-4">
+              ${t('mid_tagline')}
+            </p>
+
+            <div class="mt-6 flex justify-center">
+              <button data-book-meeting class="w-[90px] h-[24px] bg-[#006E49] text-white font-montserrat font-bold text-[5px] uppercase rounded-[6px] flex items-center justify-center">
+                ${t('services_block1_cta')}
+              </button>
+            </div>
+          </div>
+          </div>
+        </div>
+
+        <!-- Partners + flecha SIEMPRE visibles al fondo -->
+        <div class="flex-shrink-0 w-full flex flex-col items-center pb-4 sm:pb-2">
+          <div class="mt-10 flex justify-center">
+            <div class="w-full max-w-[330px] h-[65px] bg-[#006E49] rounded-[35px] flex items-center justify-center gap-5 px-10">
+              <img src="/src/assets/ms-gold-partner.png" class="w-[55px] h-[14px]" alt="${t('hero_partner_ms')}">
+              <img src="/src/assets/novosit-logo.png" class="w-[55px] h-[15px]" alt="${t('hero_partner_novosit')}">
+              <img src="/src/assets/chatgpt-logo-white.webp" class="w-[75px] h-[20px]" alt="${t('hero_partner_openai')}">
+            </div>
+          </div>
+          <div class="mt-4 sm:mt-2 mb-2 sm:mb-0 flex justify-center">
+            <img src="/src/assets/header-scroll-down.svg" class="w-[26px] h-[26px] animate-bounce" alt="">
+          </div>
+        </div>
+      </div>`
+  }
+
+  /* ──────────────── template DESKTOP ──────────────── */
+  const desktopTemplate = (lang: string) => {
+    // const title1 = lang === 'en' ? 'text-[22.5px] sm:text-[32px] md:text-[55px] lg:text-[70px] xl:text-[83px]' : 'text-[20px] sm:text-[30px] md:text-[50px] lg:text-[63px] xl:text-[77px]'
+    // const title2 = lang === 'en' ? 'text-[30px] sm:text-[45px] md:text-[72px] lg:text-[90px] xl:text-[109px]' : 'text-[25px] sm:text-[40px] md:text-[62px] lg:text-[78px] xl:text-[94px]'
+    // const brand = 'text-[65px] sm:text-[95px] md:text-[155px] lg:text-[210px] xl:text-[240px]'
+    const h2a  = lang === 'en' ? 'fluid-h2-en'   : 'fluid-h2-es'
+    const h2b  = lang === 'en' ? 'fluid-h2-2-en' : 'fluid-h2-2-es'
+    const logosMargin = 'mt-6 md:mt-12 lg:mt-16 lg:mt-20'
+
+    return /* html */ `
+<div class="hidden lg:flex lg:flex-col lg:items-center lg:justify-center lg:h-[calc(100svh-var(--header-h))] lg:space-y-5">
+  <div class="hidden lg:grid grid-cols-12 gap-0 lg:gap-4">
+    <div class="col-span-12 justify-center h-md:mt-[10px]">
+      <img src="/src/assets/marker-icon.png" class="mb-8 w-[238px] h-[65px] self-center flex-none mx-auto lg:hidden" alt="">
+      <h2 class="font-montserrat font-extrabold leading-tight fluid-h2 short:shrink-12 ${h2a}">${t('hero_title_part1')}</h2>
+      <h2 class="font-montserrat font-extrabold leading-tight fluid-h2-2 short:shrink-12 ${h2b}">${t('hero_title_part2')}</h2>
+
+      <div class="relative inline-block mt-3">
+        <h1 class="relative z-10 font-petrov-sans fluid-brand short:shrink-12 leading-none whitespace-nowrap  ">${t('hero_brand')}</h1>
+        <img src="/src/assets/arrow_hero_section_down.svg" class="absolute z-0
+         w-[120px] h-[190px]
+         sm:w-[350px] sm:h-[350px]
+         lg:w-[300px] lg:h-[560px]          
+         xl:w-[280px] xl:h-[500px]          
+         2xl:w-[460px] 2xl:h-[460px]          
+         top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2
+         pointer-events-none animate-zoom"" alt="">
+      </div>
+
+      <div class="mt-10 sm:mt-20 md:mt-20 lg:mt-30 flex justify-center items-center gap-2">
+        <input type="email" placeholder="${t('hero_email_placeholder')}" class="w-[180px] h-[28px] md:w-[250px] md:h-[45px] lg:w-[314px] lg:h-[45px] bg-white rounded-[8px] text-black placeholder:text-[8px] md:placeholder:text-[13px] lg:placeholder:text-[15px] text-xs lg:text-base px-3 lg:px-4">
+        <button class="bg-[#006E49] flex items-center justify-center h-[28px] p-2 rounded-[8px] md:h-[45px] md:px-4 lg:h-[45px] lg:px-4">
+          <img src="/src/assets/icon-send.svg" class="w-4 h-4 brightness-0 invert" alt="">
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="hidden lg:grid grid-cols-12 ${logosMargin}">
+    <div class="col-span-12 flex justify-center">
+      <div class="w-full max-w-[380px] sm:max-w-[700px] md:max-w-[900px] lg:w-[700px]
+              sm:h-[100px] h-[65px] lg:h-[80px]
+              bg-[#006E49] rounded-[25px] lg:rounded-[18px]
+              flex items-center justify-center gap-8 lg:gap-12 px-3 lg:px-4">
+        <img src="/src/assets/ms-gold-partner.png" class="w-[100px] h-[26px] " alt="${t('hero_partner_ms')}">
+        <img src="/src/assets/novosit-logo.png" class="w-[95px] h-[25px] mb-1 " alt="${t('hero_partner_novosit')}">
+        <img src="/src/assets/chatgpt-logo-white.webp" class="w-[120px] h-[35px] " alt="${t('hero_partner_openai')}">
+        <img src="/src/assets/gemini_logo.png" class="mb-3 w-[80px] h-[30px] " alt="gemini logo">
+      </div>
+    </div>
+  </div>
+  <div class="hidden lg:grid grid-cols-12">
+    <div class="col-span-12 flex justify-center lg:mb-12">
+      <img src="/src/assets/header-scroll-down.svg" class="w-[26px] h-[26px] md:w-[45px] md:h-[45px] lg:w-[45px] lg:h-[45px] animate-bounce" alt="">
+    </div>
+  </div>
+</div>`
+  }
+
+  /* ---------- render ---------- */
   const render = () => {
     const lang = getLang()
-
-    /* Tamaños de texto */
-    const title1Size =
-      lang === 'en'
-        ? 'text-[22.5px] ml:text-[31px] lg:text-[70px] xl:text-[83px] md:text-[57px] sm:text-[45px]'
-        : 'text-[20px]   ml:text-[28px] lg:text-[63px] xl:text-[77px] md:text-[51px] sm:text-[40px]'
-
-    const title2Size =
-      lang === 'en'
-        ? 'text-[30px]   ml:text-[41px] lg:text-[90px] xl:text-[109px] md:text-[75px] sm:text-[60px]'
-        : 'text-[25px]   ml:text-[34px] lg:text-[78px] xl:text-[94px] md:text-[63px] sm:text-[50px]'
-
-    const brandSize  = 'text-[65px] ml:text-[90px] lg:text-[210px] xl:text-[240px] md:text-[165px] sm:text-[130px]'
-
-    const logosMargin = lang === 'en' ? 'mt-6 lg:mt-16' : 'mt-8 lg:mt-20'
-
-    heroEl.innerHTML = `
-      <div class="grid grid-cols-12 gap-0 lg:gap-4">
-        <div class="col-span-12 text-center">
-          <!-- TÍTULOS -->
-          <h2 class="font-montserrat font-extrabold leading-tight ${title1Size}">
-            ${t('hero_title_part1')}
-          </h2>
-          <h2 class="font-montserrat font-extrabold leading-tight mt-0.5 ${title2Size}">
-            ${t('hero_title_part2')}
-          </h2>
-
-          <!-- MARCA + FLECHA -->
-          <div class="relative inline-block mt-3">
-            <h1 class="relative z-10 font-petrov-sans ${brandSize} leading-none whitespace-nowrap">
-              ${t('hero_brand')}
-            </h1>
-            <img
-              src="/src/assets/arrow_hero_section_down.svg"
-              alt="${t('hero_bg_arrow_decor')}"
-              class="sm:w-[350px] sm:h-[350px] absolute z-0 w-[120px] h-[190px] lg:w-[428px] lg:h-[635px] ml:w-[135px] ml:h-[290px]
-                      md:w-[500px] md:h-[500px] top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none animate-zoom"
-            />
-          </div>
-
-          <!-- FORM CTA -->
-          <div class="mt-10 sm:mt-20 md:mt-28 lg:mt-32 flex justify-center items-center gap-2">
-            <input
-              type="email"
-              placeholder="${t('hero_email_placeholder')}"
-              class="w-[180px] h-[28px] md:w-[250px] md:h-[45px] lg:w-[314px] lg:h-[57px] bg-white rounded-[6px] lg:rounded-[12px]
-                     text-black placeholder:text-[8px] md:placeholder:text-[13px] lg:placeholder:text-[15px] text-xs lg:text-base px-3 lg:px-4"
-            />
-           <button class="bg-[#006E49] flex items-center justify-center
-                  h-[28px] p-2 rounded-[8px]
-                  md:h-[43px] md:px-4
-                  lg:h-[50px] lg:px-4 lg:rounded-[8px]">
-               <img src="/src/assets/icon-send.svg"
-                   alt="${t('hero_cta_send_alt')}"
-                   class="w-4 h-4 lg:w-4 lg:h-4 brightness-0 invert" />
-           </button>
-
-
-          </div>
-        </div>
-      </div>
-
-      <!-- PARTNERS -->
-      <div class="grid grid-cols-12 ${logosMargin}">
-        <div class="col-span-12 flex justify-center">
-          <div
-            class="w-full max-w-[330px] lg:max-w-[850px] h-[65px] lg:h-[160px] bg-[#006E49]
-                   rounded-[35px] lg:rounded-[55px] flex items-center justify-center gap-5 lg:gap-8 px-3 lg:px-4
-                   md:h-[100px] md:gap-8 md:px-4 md:max-w-[630px] sm:h-[105px] sm:max-w-[550px]
-             
-                   "
-                   
-          >
-            <img src="/src/assets/ms-gold-partner.png"   alt="${t('hero_partner_ms')}"
-                 class="w-[55px]  h-[14px]  lg:w-[150px] lg:h-[40px]
-                 sm:w-[105px] sm:h-[28px]
-                 md:w-[105px] md:h-[28px]
-                 " />
-            <img src="/src/assets/novosit-logo.png"       alt="${t('hero_partner_novosit')}"
-                 class="w-[55px]  h-[15px]  lg:w-[135px] lg:h-[40px]
-                  sm:w-[105px] sm:h-[28px]
-                  md:w-[105px] md:h-[28px]" />
-            <img src="/src/assets/gemini_logo.png"
-             alt="Logo GEMINI"
-             class="hidden sm:inline-block md:inline-block lg:inline-block w-[60px] h-[24px] lg:w-[145px] lg:h-[55px]
-               md:w-[105px] md:h-[38px] 
-               sm:w-[105px] sm:h-[38px]
-               sm:-mt-2
-               md:-mt-2" />
-            <img src="/src/assets/chatgpt-logo-white.webp" alt="${t('hero_partner_openai')}"
-                 class="mt-1 w-[105px]  h-[28px]  lg:w-[180px] lg:h-[55px] md:w-[105px] md:h-[31px]
-                  sm:w-[105px] sm:h-[31px]
-                  md:mt-1" />
-          </div>
-        </div>
-      </div>
-
-      <!-- FLECHA SCROLL -->
-      <div class="grid grid-cols-12 mt-6 lg:mt-8">
-        <div class="col-span-12 flex justify-center">
-          <img
-            src="/src/assets/header-scroll-down.svg"
-            alt="${t('hero_arrow_down_box')}"
-            class="w-[26px] h-[26px] lg:w-[45px] lg:h-[45px] animate-bounce cursor-pointer"
-          />
-        </div>
-      </div>
-    `
+    hero.innerHTML = mobileTemplate(lang) + desktopTemplate(lang)
   }
 
   render()
   onLangChange(render)
-  return heroEl
+
+  /* Carrusel autoplay (móvil) */
+  const autoplay = () => {
+    const track = hero.querySelector<HTMLDivElement>('#heroMobileTrack')
+    if (!track) return
+    const W = 110, GAP = 16, DELAY = 4000
+    let i = 0
+/* <<<<<<<<<<<<<<  ✨ Windsurf Command ⭐ >>>>>>>>>>>>>>>> */
+    /**
+     * Updates the `style.transform` property of the `#heroMobileTrack` element, to translate it horizontally by an amount calculated from the current `i` value, the slide width `W`, and the gap between slides `GAP`.
+     * The calculation is as follows: `calc(50% - ${W / 2}px - ${i * (W + GAP)}px)`.
+     * This function is called on page load and every `DELAY` milliseconds, to animate the autoplay of the mobile hero carousel.
+     */
+/* <<<<<<<<<<  fe26a658-3b1f-4073-be70-157b96a90cb2  >>>>>>>>>>> */
+    const move = () => (track.style.transform = `translateX(calc(50% - ${W / 2}px - ${i * (W + GAP)}px))`)
+    move()
+    setInterval(() => {
+      i = (i + 1) % track.children.length
+      move()
+    }, DELAY)
+  }
+  requestAnimationFrame(autoplay)
+
+  return hero
 }

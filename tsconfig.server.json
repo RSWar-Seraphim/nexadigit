@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "ES2021",          // incluye Promise
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "lib": ["ES2021", "DOM"],    // DOM → tipos de fetch
+    "types": ["node"],           // añade process, Buffer, etc.
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "include": ["api/**/*.ts"]     // sólo las funciones
+}

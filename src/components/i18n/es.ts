@@ -32,6 +32,8 @@ export const es = {
   hero_partner_novosit: 'Logo Novosit',
   hero_partner_openai: 'Logo OpenAI',
   hero_arrow_down_box: 'Flecha hacia abajo debajo de logos',
+  mid_desc: 'Asesoramos a las empresas en la integración de IA y estrategias para optimizar procesos esenciales, impulsar la innovación, el crecimiento sostenible y maximizar su ventaja competitiva.',
+  mid_tagline: 'Prepara tu negocio para prosperar en la nueva era de la IA.',
 
   // About
 

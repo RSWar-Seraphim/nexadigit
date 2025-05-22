@@ -15,6 +15,8 @@
   font-family: 'PetrovSans', sans-serif;
 }
 
+
+
 body {
   font-family: 'Montserrat', sans-serif;
 }
@@ -97,13 +99,6 @@ body {
   min-height: 100vh;
 }
 
-/* ≥ 768 px — si quieres conservar el centrado en pantallas grandes */
-@media (min-width: 768px) {
-  body {
-    /*display: flex;*/
-    place-items: center;
-  }
-}
 
 h1 {
   font-size: 3.2em;
@@ -138,11 +133,34 @@ h1 {
   color: #888;
 }
 
+@media (min-height:1180px){
+  .hero-brand{
+    font-size: clamp(72px, 18vw, 108px);   /* ejemplo */
+  }
+}
+
+
+
+/*@media (max-height: 917px) {      !* iPhone SE tiene 667 px *!*/
+/*  #heroMobileTrack { display: none; }*/
+/*}*/
+
+@media (max-height: 768px) {      /* iPhone SE tiene 667 px */
+  #heroMobileTrack { display: none; }
+}
+
+@supports (padding: max(0px)) {
+  section#home { padding-bottom: max(env(safe-area-inset-bottom), 0.5rem); }
+}
+
+
+
 /* ./src/style.css o tu hoja global */
 html, body {
   overflow-x: clip;       /* oculta todo lo que exceda el viewport */
 }
 
+:root { --header-h: 56px; }
 
 button {
   border-radius: 8px;
@@ -166,6 +184,18 @@ button:focus-visible {
  a:hover {
     color: #00D48D;
   }
+
+.full-vh {
+  min-height: 100vh;   /* fallback universal */
+  height: 100vh;
+}
+@supports (height: 100dvh) {
+  .full-vh {
+    min-height: 100dvh;
+    height: 100dvh;
+  }
+}
+
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -196,4 +226,16 @@ button:focus-visible {
 /* ancho fijo para forzar el wrap de títulos mobile */
 @layer utilities {
   .w-title-mobile { max-width: 300px; }   /* ≈ anchura de Figma */
+  /* H2 y “brand” fluidos – se reducen en pantallas bajas */
+  .fluid-h2     { font-size: clamp(67px, 3.8vw, 85px); }
+  .fluid-h2-2   { font-size: clamp(89px, 5vw, 113px); }
+  /* NexaDigit */
+  .fluid-brand { font-size: clamp(198px, 11vw, 250px); }
+  /* Si aún sobra poco espacio en ≤ 850 px de alto, reduce 12 % extra */
+
+   /* Español (ligeramente más pequeño) */
+  .fluid-h2-es      { font-size: clamp(60px, 3.4vw, 63px); }
+  .fluid-h2-2-es    { font-size: clamp(75px, 4.5vw, 78px); }
+
+  .short\:shrink-12 { transform: scale(.88); transform-origin: top center; }
 }

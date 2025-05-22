@@ -214,7 +214,7 @@ export function Unisync() {
 
   <!-- CTA -->
   <div class="flex flex-col items-center mt-24">
-    <button class="w-[325px] h-[87px] bg-[#006E49]/40 rounded font-montserrat font-bold uppercase tracking-wide flex items-center justify-center">
+    <button data-book-meeting class="w-[325px] h-[87px] bg-[#006E49]/40 rounded font-montserrat font-bold uppercase tracking-wide flex items-center justify-center">
       ${t('unisync_cta')}
     </button>
   </div>

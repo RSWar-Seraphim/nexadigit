@@ -32,7 +32,8 @@ export const en = {
   hero_partner_novosit: 'Novosit logo',
   hero_partner_openai: 'OpenAI logo',
   hero_arrow_down_box: 'Downward arrow below partner logos',
-
+  mid_desc: 'We advise companies on AI integration and strategies to optimize core business processes and operational models, empowering them to improve efficiency, drive innovation, sustainable growth, and maximize competitive advantage.',
+  mid_tagline: 'Prepare your business to thrive in the new era of AI.',
   // About
   about_title:          'ABOUT US',
   about_item1_title:    'AI INNOVATION',
