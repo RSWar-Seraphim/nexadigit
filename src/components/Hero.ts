@@ -128,7 +128,8 @@ export function Hero() {
       <div class="relative inline-block mt-3">
         <h1 class="relative z-10 font-petrov-sans fluid-brand short:shrink-12 leading-none whitespace-nowrap  ">${t('hero_brand')}</h1>
         <img src="/src/assets/arrow_hero_section_down.svg" class="absolute z-0
-         lg:w-[600px] lg:h-[560px]          
+         xl-h-lg:w-[500px] xl-h-lg:h-[600px]
+         lg:w-[600px] lg:h-[450px]          
          top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2
          4k:w-[380px]  4k:h-[660px]
          pointer-events-none animate-zoom
@@ -151,12 +152,12 @@ export function Hero() {
          lg:px-4 4k:h-[55px]
          h-xl:h-[55px]
          4k:-mt-9
-         xl-h-lg:mt-9
+         xl-h-lg:-mt-9  
        
          ">
         <button class="bg-[#006E49] flex items-center justify-center h-[28px] p-2 
         rounded-[8px] md:h-[45px] md:px-4 lg:h-[45px] lg:px-4 4k:h-[55px]
-        h-xl:h-[55px]  4k:-mt-9 xl-h-lg:mt-9">
+        h-xl:h-[55px]  4k:-mt-9 xl-h-lg:-mt-9">
           <img src="/src/assets/icon-send.svg" class="w-4 h-4 brightness-0 invert" alt="">
         </button>
       </div>
@@ -169,7 +170,9 @@ export function Hero() {
               bg-[#006E49] rounded-[25px] lg:rounded-[18px]
               flex items-center justify-center gap-8 lg:gap-12 px-3 lg:px-4
               h-xl:h-[110px]
-              4k:h-[110px]">
+              4k:h-[110px]
+              xl-h-lg:h-[120px]
+              ">
         <img src="/src/assets/ms-gold-partner.png" class="w-[100px] h-[26px] " alt="${t('hero_partner_ms')}">
         <img src="/src/assets/novosit-logo.png" class="w-[95px] h-[25px] mb-1 " alt="${t('hero_partner_novosit')}">
         <img src="/src/assets/chatgpt-logo-white.webp" class="w-[120px] h-[35px] " alt="${t('hero_partner_openai')}">

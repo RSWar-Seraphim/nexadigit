@@ -230,12 +230,12 @@ button:focus-visible {
   .fluid-h2-en     { font-size: clamp(67px, 3.8vw, 95px); }
   .fluid-h2-2-en   { font-size: clamp(89px, 5vw, 116px); }
   /* NexaDigit */
-  .fluid-brand { font-size: clamp(198px, 11vw, 255px); }
+  .fluid-brand { font-size: clamp(205px, 11vw, 255px); }
   /* Si aún sobra poco espacio en ≤ 850 px de alto, reduce 12 % extra */
 
    /* Español (ligeramente más pequeño) */
-  .fluid-h2-es      { font-size: clamp(78px, 3.4vw, 63px); }
-  .fluid-h2-2-es    { font-size: clamp(96px, 4.5vw, 78px); }
+  .fluid-h2-es      { font-size: clamp(63px, 3.4vw, 63px); }
+  .fluid-h2-2-es    { font-size: clamp(77px, 4.5vw, 78px); }
 
   .short\:shrink-12 { transform: scale(.88); transform-origin: top center; }
 
