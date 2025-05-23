@@ -64,7 +64,8 @@ export function Hero() {
                   sm:h-[clamp(150px,36vw,190px)]
                   md:w-[clamp(130px,24vw,165px)]
                   md:h-[clamp(175px,32vw,225px)]
-                  object-cover rounded-[15px] flex-none" alt="slide">`)
+                  object-cover rounded-[15px] flex-none
+                  " alt="slide">`)
                 .join('')}
             </div>
           </div>
@@ -121,24 +122,41 @@ export function Hero() {
   <div class="hidden lg:grid grid-cols-12 gap-0 lg:gap-4">
     <div class="col-span-12 justify-center h-md:mt-[10px]">
       <img src="/src/assets/marker-icon.png" class="mb-8 w-[238px] h-[65px] self-center flex-none mx-auto lg:hidden" alt="">
-      <h2 class="font-montserrat font-extrabold leading-tight fluid-h2 short:shrink-12 ${h2a}">${t('hero_title_part1')}</h2>
+      <h2 class="font-montserrat font-extrabold leading-tight  fluid-h2 short:shrink-12 ${h2a}">${t('hero_title_part1')}</h2>
       <h2 class="font-montserrat font-extrabold leading-tight fluid-h2-2 short:shrink-12 ${h2b}">${t('hero_title_part2')}</h2>
 
       <div class="relative inline-block mt-3">
         <h1 class="relative z-10 font-petrov-sans fluid-brand short:shrink-12 leading-none whitespace-nowrap  ">${t('hero_brand')}</h1>
         <img src="/src/assets/arrow_hero_section_down.svg" class="absolute z-0
-         w-[120px] h-[190px]
-         sm:w-[350px] sm:h-[350px]
-         lg:w-[300px] lg:h-[560px]          
-         xl:w-[280px] xl:h-[500px]          
-         2xl:w-[460px] 2xl:h-[460px]          
+         lg:w-[600px] lg:h-[560px]          
          top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2
-         pointer-events-none animate-zoom"" alt="">
+         4k:w-[380px]  4k:h-[660px]
+         pointer-events-none animate-zoom
+         "" alt="">
       </div>
 
-      <div class="mt-10 sm:mt-20 md:mt-20 lg:mt-30 flex justify-center items-center gap-2">
-        <input type="email" placeholder="${t('hero_email_placeholder')}" class="w-[180px] h-[28px] md:w-[250px] md:h-[45px] lg:w-[314px] lg:h-[45px] bg-white rounded-[8px] text-black placeholder:text-[8px] md:placeholder:text-[13px] lg:placeholder:text-[15px] text-xs lg:text-base px-3 lg:px-4">
-        <button class="bg-[#006E49] flex items-center justify-center h-[28px] p-2 rounded-[8px] md:h-[45px] md:px-4 lg:h-[45px] lg:px-4">
+      <div class="mt-10 sm:mt-20 md:mt-20 lg:mt-30 flex justify-center items-center gap-2 
+      4k:mt-40
+      4k:pb-8
+      xl-h-lg:pb-3
+      xl-h-lg:mt-40">
+        <input type="email" placeholder="${t('hero_email_placeholder')}" class="w-[180px] 
+        h-[28px] md:w-[250px] md:h-[45px] 
+        lg:w-[314px] lg:h-[45px]
+         bg-white rounded-[8px] 
+         text-black placeholder:text-[8px] 
+         md:placeholder:text-[13px] 
+         lg:placeholder:text-[15px] 
+         text-xs lg:text-base px-3
+         lg:px-4 4k:h-[55px]
+         h-xl:h-[55px]
+         4k:-mt-9
+         xl-h-lg:mt-9
+       
+         ">
+        <button class="bg-[#006E49] flex items-center justify-center h-[28px] p-2 
+        rounded-[8px] md:h-[45px] md:px-4 lg:h-[45px] lg:px-4 4k:h-[55px]
+        h-xl:h-[55px]  4k:-mt-9 xl-h-lg:mt-9">
           <img src="/src/assets/icon-send.svg" class="w-4 h-4 brightness-0 invert" alt="">
         </button>
       </div>
@@ -149,7 +167,9 @@ export function Hero() {
       <div class="w-full max-w-[380px] sm:max-w-[700px] md:max-w-[900px] lg:w-[700px]
               sm:h-[100px] h-[65px] lg:h-[80px]
               bg-[#006E49] rounded-[25px] lg:rounded-[18px]
-              flex items-center justify-center gap-8 lg:gap-12 px-3 lg:px-4">
+              flex items-center justify-center gap-8 lg:gap-12 px-3 lg:px-4
+              h-xl:h-[110px]
+              4k:h-[110px]">
         <img src="/src/assets/ms-gold-partner.png" class="w-[100px] h-[26px] " alt="${t('hero_partner_ms')}">
         <img src="/src/assets/novosit-logo.png" class="w-[95px] h-[25px] mb-1 " alt="${t('hero_partner_novosit')}">
         <img src="/src/assets/chatgpt-logo-white.webp" class="w-[120px] h-[35px] " alt="${t('hero_partner_openai')}">

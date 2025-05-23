@@ -227,15 +227,43 @@ button:focus-visible {
 @layer utilities {
   .w-title-mobile { max-width: 300px; }   /* ≈ anchura de Figma */
   /* H2 y “brand” fluidos – se reducen en pantallas bajas */
-  .fluid-h2     { font-size: clamp(67px, 3.8vw, 85px); }
-  .fluid-h2-2   { font-size: clamp(89px, 5vw, 113px); }
+  .fluid-h2-en     { font-size: clamp(67px, 3.8vw, 95px); }
+  .fluid-h2-2-en   { font-size: clamp(89px, 5vw, 116px); }
   /* NexaDigit */
-  .fluid-brand { font-size: clamp(198px, 11vw, 250px); }
+  .fluid-brand { font-size: clamp(198px, 11vw, 255px); }
   /* Si aún sobra poco espacio en ≤ 850 px de alto, reduce 12 % extra */
 
    /* Español (ligeramente más pequeño) */
-  .fluid-h2-es      { font-size: clamp(60px, 3.4vw, 63px); }
-  .fluid-h2-2-es    { font-size: clamp(75px, 4.5vw, 78px); }
+  .fluid-h2-es      { font-size: clamp(78px, 3.4vw, 63px); }
+  .fluid-h2-2-es    { font-size: clamp(96px, 4.5vw, 78px); }
 
   .short\:shrink-12 { transform: scale(.88); transform-origin: top center; }
+
+  /* Arrow below the brand */
+  .hero-arrow   { @apply absolute z-0 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none animate-zoom; }
+  .hero-arrow   { width:clamp(120px,18vh,350px); height:clamp(190px,28vh,660px); }
+
+  /* Input + button group  (use mt that grows with height) */
+  .cta-block    { @apply flex justify-center items-center gap-2; }
+  .cta-block    { margin-top:clamp(2.5rem,6vh,6rem); }
+
+  /* Partner pill */
+  .partner-pill { @apply flex items-center justify-center gap-8 rounded-[18px] bg-[#006E49] px-3 lg:px-4; }
+  .partner-pill { height:clamp(65px,9vh,110px); }
+
+
+  /* ajuste cuando el alto ≥920px */
+  @media (min-height:920px){
+    .fluid-h2-en      { font-size: clamp(85px, 4vmin,100px); }
+    .fluid-h2-2-en    { font-size: clamp(113px,5vmin,130px); }
+    .fluid-brand   { font-size: clamp(250px,12vmin,300px); }
+  }
+
+    @media (min-height:920px){
+    .fluid-h2-es      { font-size: clamp(79px, 4vmin,100px); }
+    .fluid-h2-2-es    { font-size: clamp(96px,5vmin,130px); }
+  }
+
 }
+
+

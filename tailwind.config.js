@@ -22,8 +22,8 @@ module.exports = {
         'h-ultra': { raw: '(min-height: 1150px)' },
         /* alto */
         'h-sm': { raw: '(min-height: 760px)'  },
+        'h-xl': { raw: '(min-height: 920px)' },
         'h-md': { raw: '(min-height: 800px)'  },
-        'h-lg': { raw: '(min-height: 900px)'  },
       },
       keyframes: {
         heartbeat: {
@@ -40,10 +40,22 @@ module.exports = {
 
   /* ───────── Plugins ───────── */
   plugins: [
-    // variantes por altura de viewport
-    function ({ addVariant }) {
-      addVariant('tall',  '@media (min-height: 1200px)');
-      addVariant('short', '@media (max-height: 850px)');
+    ({ addVariant }) => {
+       addVariant('h-lg', '@media (min-height: 920px)');
+        addVariant(
+        'xl-h-lg',
+        '@media (min-width:1280px) and (min-height:920px)',);
+        addVariant(
+        'lg-h-lg',
+        '@media (min-width:1024px) and (min-height:920px)',);
+        addVariant(
+        '2xl-h-lg',
+        '@media (min-width:1440px) and (min-height:920px)',);
+         addVariant(
+        '3xl-h-lg',
+        '@media (min-width:1920px) and (min-height:920px)',);
+       addVariant('tall',  '@media (min-height: 1200px)');
+       addVariant('short', '@media (max-height: 850px)');
     },
 
     // utilitario .active (tu scroll.ts)
