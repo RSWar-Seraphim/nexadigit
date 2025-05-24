@@ -106,9 +106,13 @@ export function Header() {
             </div>
           </div>
         </div>
-        <nav class="w-full lg:max-w-[960px] xl:max-w-[1238px] mx-auto lg:px-8 xl:px-[64px] pt-2 pb-1 mt-4 grid grid-cols-12 items-center">
+        <header class="w-full flex justify-center mt-4">
+        <nav class="w-full max-w-[960px] px-8 flex items-center justify-between
+           h-20 rounded-full bg-gradient-to-r from-[#006E49]/60 to-[#001C13]/60
+           shadow-lg overflow-hidden lg:max-w-[960px] xl:max-w-[1238px] mx-auto
+         lg:px-8 xl:px-[64px] py-2 mt-4 grid-cols-12 backdrop-blur-md backdrop-saturate-150 ">
           <ul id="nav-list" class="relative col-span-11 flex items-center ${navGap} font-semibold text-[16px] leading-none">
-            <div id="nav-highlight" class="absolute top-4 left-0 h-[90px] bg-[#006E49] rounded-lg transition-all duration-300 ease-in-out -z-10">
+            <div id="nav-highlight" class="absolute top-4 left-0 h-[90px]  transition-all -z-10">
               <div class="absolute bottom-[16px] left-1/2 -translate-x-1/2 w-5 h-[2.5px] bg-white"></div>
             </div>
             <li data-link="home" class="nav-item w-[80px] h-[130px] flex flex-col justify-center items-center cursor-pointer"><span>${t('nav_home')}</span></li>
@@ -123,6 +127,7 @@ export function Header() {
             </a>
           </div>
         </nav>
+        </header>
       </div>
     `
 

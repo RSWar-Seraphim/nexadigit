@@ -125,18 +125,19 @@ export function Hero() {
       <h2 class="font-montserrat font-extrabold leading-tight  fluid-h2 short:shrink-12 ${h2a}">${t('hero_title_part1')}</h2>
       <h2 class="font-montserrat font-extrabold leading-tight fluid-h2-2 short:shrink-12 ${h2b}">${t('hero_title_part2')}</h2>
 
-      <div class="relative inline-block mt-3">
+      <div class="relative inline-block -mt-3">
         <h1 class="relative z-10 font-petrov-sans fluid-brand short:shrink-12 leading-none whitespace-nowrap  ">${t('hero_brand')}</h1>
         <img src="/src/assets/arrow_hero_section_down.svg" class="absolute z-0
          xl-h-lg:w-[500px] xl-h-lg:h-[600px]
-         lg:w-[600px] lg:h-[450px]          
+         lg:w-[800px] lg:h-[500px]          
          top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2
          4k:w-[380px]  4k:h-[660px]
          pointer-events-none animate-zoom
+         lg:-mt-2
          "" alt="">
       </div>
 
-      <div class="mt-10 sm:mt-20 md:mt-20 lg:mt-30 flex justify-center items-center gap-2 
+      <div class="mt-10 sm:mt-20 md:mt-20 lg:mt-35 flex justify-center items-center gap-2 
       4k:mt-40
       4k:pb-8
       xl-h-lg:pb-3
@@ -153,11 +154,11 @@ export function Hero() {
          h-xl:h-[55px]
          4k:-mt-9
          xl-h-lg:-mt-9  
-       
+         lg:mt-5   
          ">
         <button class="bg-[#006E49] flex items-center justify-center h-[28px] p-2 
         rounded-[8px] md:h-[45px] md:px-4 lg:h-[45px] lg:px-4 4k:h-[55px]
-        h-xl:h-[55px]  4k:-mt-9 xl-h-lg:-mt-9">
+        h-xl:h-[55px]  4k:-mt-9 xl-h-lg:-mt-9 lg:mt-5">
           <img src="/src/assets/icon-send.svg" class="w-4 h-4 brightness-0 invert" alt="">
         </button>
       </div>
@@ -167,16 +168,25 @@ export function Hero() {
     <div class="col-span-12 flex justify-center">
       <div class="w-full max-w-[380px] sm:max-w-[700px] md:max-w-[900px] lg:w-[700px]
               sm:h-[100px] h-[65px] lg:h-[80px]
-              bg-[#006E49] rounded-[25px] lg:rounded-[18px]
               flex items-center justify-center gap-8 lg:gap-12 px-3 lg:px-4
-              h-xl:h-[110px]
+              h-xl:h-[90px]
               4k:h-[110px]
               xl-h-lg:h-[120px]
-              ">
-        <img src="/src/assets/ms-gold-partner.png" class="w-[100px] h-[26px] " alt="${t('hero_partner_ms')}">
-        <img src="/src/assets/novosit-logo.png" class="w-[95px] h-[25px] mb-1 " alt="${t('hero_partner_novosit')}">
-        <img src="/src/assets/chatgpt-logo-white.webp" class="w-[120px] h-[35px] " alt="${t('hero_partner_openai')}">
-        <img src="/src/assets/gemini_logo.png" class="mb-3 w-[80px] h-[30px] " alt="gemini logo">
+              overflow-hidden">
+              
+        <div id="partnerTrack"
+       class="flex items-center justify-center gap-8 lg:gap-12
+              transition-transform duration-700 ease-out">
+          <!-- 7 logos = los 4 originales + 3 nuevos -->
+          <img src="/src/assets/ms-gold-partner.png"  class="w-[100px] h-[26px]"  alt="${t('hero_partner_ms')}">
+          <img src="/src/assets/novosit-logo.png"      class="w-[95px]  h-[25px] mb-1" alt="${t('hero_partner_novosit')}">
+          <img src="/src/assets/chatgpt-logo-white.webp" class="w-[120px] h-[35px]" alt="${t('hero_partner_openai')}">
+          <img src="/src/assets/gemini_logo.png"        class="w-[80px]  h-[30px] mb-3" alt="Gemini logo">
+          <!-- NUEVOS -->
+          <img src="/src/assets/claude-logo.png"        class="w-[95px]  h-[22px]" alt="Claude logo">
+          <img src="/src/assets/NVIDIA_logo.png"        class="w-[98px]  h-[18px]" alt="NVIDIA logo">
+          <img src="/src/assets/deepseek-logo.png"      class="w-[95px]  h-[17px]" alt="DeepSeek logo">
+        </div>
       </div>
     </div>
   </div>
@@ -218,6 +228,42 @@ export function Hero() {
     }, DELAY)
   }
   requestAnimationFrame(autoplay)
+
+/* ───────── Carrusel partners sin huecos ───────── */
+const partnersAutoplay = () => {
+  const track = hero.querySelector<HTMLDivElement>('#partnerTrack')
+  if (!track) return
+
+  const GAP = 48          // matching lg:gap-12 (48 px)
+  const SPEED = 700       // duración de la animación (ms)
+  const DELAY = 5000      // espera entre pases (ms)
+
+  const slide = () => {
+    const first = track.children[0] as HTMLElement
+    if (!first) return
+    const step = first.offsetWidth + GAP   // ancho real + gap
+
+    /* 1. Animamos */
+    track.style.transition = `transform ${SPEED}ms ease-out`
+    track.style.transform = `translateX(-${step}px)`
+
+    /* 2. Al acabar la transición, recolocamos */
+    const onEnd = () => {
+      track.style.transition = 'none'      // sin animación
+      track.style.transform = 'translateX(0)'
+      track.appendChild(first)             // pasamos 1er logo al final
+    }
+    track.addEventListener('transitionend', onEnd, { once: true })
+  }
+
+  slide()                                  // primer movimiento
+  setInterval(slide, DELAY)                // loop cada 3 s
+}
+requestAnimationFrame(partnersAutoplay)
+
+
+
+
 
   return hero
 }

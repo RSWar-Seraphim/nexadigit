@@ -17,13 +17,13 @@ module.exports = {
         ms:  '320px', mm: '375px', ml: '425px',
         sm:  '640px', md: '768px', lg: '1024px',
         xl: '1280px', '2xl': '1440px',
-        'xl-h-lg': { raw: '(min-width:1280px) and (min-height:920px)' },
+        'xl-h-lg': { raw: '(min-width:1280px) and (min-height:960px)' },
         '3xl': '1920px',      //  WQHD
         '4k' : '2560px',      //  UHD (DPR 1) o 4 K escalado al 150 %
         'h-ultra': { raw: '(min-height: 1150px)' },
         /* alto */
         'h-sm': { raw: '(min-height: 760px)'  },
-        'h-xl': { raw: '(min-height: 920px)' },
+        'h-xl': { raw: '(min-height: 960px)' },
         'h-md': { raw: '(min-height: 800px)'  },
       },
       keyframes: {
