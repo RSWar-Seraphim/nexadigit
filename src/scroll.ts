@@ -1,5 +1,8 @@
 // src/scroll.ts
-const HEADER_OFFSET = 260;
+
+const HEADER_EL      = document.querySelector<HTMLElement>('header')!
+
+const HEADER_OFFSET  = HEADER_EL.offsetHeight + HEADER_EL.offsetTop + 10   /* ej. 56 px */
 const ACTIVE_CLASS  = 'active';
 
 interface SectionData { id: string; top: number }

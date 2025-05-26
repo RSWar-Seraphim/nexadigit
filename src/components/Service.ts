@@ -8,27 +8,88 @@ el.id = 'services'
 /* ─────────────── Carrusel DESKTOP ─────────────── */
 let desktopTimer: number | undefined
 const initCarouselDesktop = () => {
-if (desktopTimer) clearInterval(desktopTimer)
-const WIDTH = 360, GAP = 28, DELAY = 5000, start = 3
-const track = el.querySelector
-<HTMLDivElement>
-('#carouselTrack')
-if (!track) return
-const imgs = [...track.querySelectorAll
-<HTMLImageElement>
-('.carousel-img')]
-let i = start
-const centre = (k: number) => {
-track.style.transform =
-`translateX(calc(50% - ${WIDTH / 2}px - ${k * (WIDTH + GAP)}px))`
-imgs.forEach((img, idx) => (img.style.opacity = idx === k ? '1' : '0.5'))
-}
-centre(i)
-desktopTimer = window.setInterval(() => {
-i = (i + 1) % imgs.length
-centre(i)
-}, DELAY)
-}
+  if (desktopTimer) clearInterval(desktopTimer);
+
+  const track = el.querySelector<HTMLDivElement>('#carouselTrack');
+  if (!track) return;
+
+  const GAP     = 28;
+  const SPEED   = 700;
+  const DELAY   = 5000;
+  const visible = 5;                        // cuántas se ven a la vez
+  const leftCnt = Math.floor(visible / 2);  // las que van a la izquierda
+
+  const firstImg = track.querySelector<HTMLImageElement>('img');
+  if (!firstImg) return;
+
+  const ready = firstImg.complete
+    ? Promise.resolve()
+    : new Promise<void>(res =>
+        firstImg.addEventListener('load', () => res(), { once: true }),
+      );
+
+  ready.then(() => {
+    const W = firstImg.clientWidth;
+
+    /* 1️⃣  Gira DOM para que el slide central sea el primero */
+    for (let i = 0; i < leftCnt; i++) track.appendChild(track.children[0]);
+
+    /* 2️⃣  Duplica slides: nunca faltará relleno a la derecha */
+    const need = visible + leftCnt + 2; // margen de seguridad
+    const orig = Array.from(track.children);
+    let idx = 0;
+    while (track.children.length < need) {
+      track.appendChild(orig[idx++ % orig.length].cloneNode(true));
+    }
+
+    /* 3️⃣  Offset que centra el primer hijo */
+    const OFFSET = `calc(50% - ${(W / 2) + (W + GAP) * leftCnt}px)`;
+
+    track.style.transition = 'none';
+    track.style.transform = `translateX(${OFFSET})`;
+    track.classList.remove('opacity-0', 'pointer-events-none', 'preload');
+
+    /* 4️⃣  Autoplay sin “rebote” visual */
+    const slide = () => {
+      const first = track.children[0] as HTMLElement;
+      const STEP  = first.clientWidth + GAP;
+
+      // a) anima un paso a la izquierda
+      track.style.transition = `transform ${SPEED}ms cubic-bezier(.4,0,.2,1)`;
+      track.style.transform  = `translateX(calc(${OFFSET} - ${STEP}px))`;
+
+      // b) cuando termina, recoloca y vuelve al offset original SIN transición
+      track.addEventListener(
+        'transitionend',
+        () => {
+          track.style.transition = 'none';
+          track.appendChild(first);              // 1.º → final
+          track.style.transform = `translateX(${OFFSET})`;
+        },
+        { once: true }
+      );
+    };
+
+    desktopTimer = window.setInterval(slide, DELAY);
+
+    /* 5️⃣  Sigue centrado al redimensionar */
+    window.addEventListener('resize', () => {
+      track.style.transition = 'none';
+      track.style.transform  = `translateX(${OFFSET})`;
+    });
+  });
+};
+
+
+
+
+
+
+
+
+
+
+
 /* ─────────────── Carrusel MOBILE ─────────────── */
 let mobileTimer: number | undefined
 const initCarouselMobile = () => {
@@ -263,32 +324,33 @@ el.innerHTML = /* html */`
          ${t('services_block1_title')}
       </h3>
       <div id="carouselWrapper"
-         class="relative
-            w-full               lg:w-full
-            xl:w-[140%]           2xl:w-[160%]
-            mx-0                 xl:-mx-[20%] 2xl:-mx-[30%]
-            overflow-hidden mt-6"
-         style="height:540px;">
+     class="relative
+            w-full lg:w-full
+            xl:w-[140%] 2xl:w-[160%]
+            mx-0 xl:-mx-[20%] 2xl:-mx-[30%]
+            3xl:w-[100%]
+            overflow-hidden mt-6
+            h-[420px]               <!-- lg (280×420) -->
+            xl:h-[465px]            <!-- xl (310×465) -->
+            2xl:h-[502px]           <!-- 2xl (335×502) -->
+            3xl:h-[353px]           <!-- 3xl (250×375) -->
+            4k:h-[540px]">
          <div id="carouselTrack"
-            class="flex gap-7 transition-transform duration-1000 ease-[cubic-bezier(.4,0,.2,1)]">
-            ${[
-            'service-photo-one.png',
-            'service-photo-two.png',
-            'service-photo-three.png',
-            'service-photo-four.png',
-            'service-photo-five.png',
-            'service-photo-six.png',
-            'service-photo-seven.png',
-            ]
-            .map(
-            (src) =>
-            `<img src="/src/assets/${src}"
-               width="360" height="540"
-               class="carousel-img object-cover rounded-[55px] opacity-50"
-               alt="AI service photo">`,
-            )
-            .join('')}
-         </div>
+     class="flex gap-7 transition-transform duration-1000 ease-[cubic-bezier(.4,0,.2,1)]">
+  ${[
+    'service-photo-one.png','service-photo-two.png','service-photo-three.png',
+    'service-photo-four.png','service-photo-five.png','service-photo-six.png',
+    'service-photo-seven.png',
+  ].map(src => `
+    <img src="/src/assets/${src}"
+         class="carousel-img object-cover rounded-[45px] opacity-50 flex-none
+                w-[280px] h-[420px]               <!-- lg   (1024-1279) -->
+                xl:w-[310px] xl:h-[465px]         <!-- xl   (1280-1439) -->
+                2xl:w-[335px] 2xl:h-[502px]       <!-- 2xl  (1440-1919) -->
+                3xl:w-[235px] 3xl:h-[353px]       <!-- 3xl ≥1920 -->
+                4k:w-[360px] 4k:h-[540px]"  alt="AI service photo">`).join('')}
+</div>
+
       </div>
       <img src="/src/assets/arrow-right-about.svg" class="mt-4 w-[25px] h-[25px] rotate-90" alt="" aria-hidden="true" />
       <p class="font-montserrat font-medium text-[20px] leading-relaxed text-center mt-4 max-w-[618px]">

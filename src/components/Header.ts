@@ -122,10 +122,16 @@ export function Header() {
             <li data-link="contact" class="nav-item cursor-pointer"><span>${t('nav_contact')}</span></li>
           </ul>
           <div class="col-span-1 flex justify-end">
-            <a href="tel:${t('phone_number_link', '')}" data-book-meeting aria-label="${t('alt_call_button', 'Llamar')}">
-              <img src="/src/assets/nav-bar-icon-call-button.svg" class="w-9 h-9 cursor-pointer" alt=""/>
-            </a>
-          </div>
+  <a href="tel:${t('phone_number_link', '')}"
+     data-book-meeting
+     aria-label="${t('alt_call_button', 'Llamar')}">
+    <img src="/src/assets/nav-bar-icon-call-button.svg"
+         class="w-9 h-9 cursor-pointer hover:animate-call-shake"
+         alt="">
+  </a>
+</div>
+
+
         </nav>
         </header>
       </div>

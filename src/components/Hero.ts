@@ -28,7 +28,7 @@ export function Hero() {
   'overflow-visible',
 
   /* Padding-top cero en desktop, se conserva en mobile */
-  'pt-0 sm:pt-12 md:pt-12 lg:pt-[calc(var(--header-h)+28px)]',
+  'pt-0 sm:pt-12 md:pt-12 lg:pt-[calc(var(--header-h)+28px)]'
 ].join(' ')
 
 
@@ -43,7 +43,7 @@ export function Hero() {
 
     return /* html */ `
       <!-- Visible hasta < lg (teléfonos y tablets) -->
-      <div class="lg:hidden h-full flex flex-col">
+      <div class="lg:hidden flex-1 flex flex-col pt-12 hero-mobile-fill pt-header-mob full-vh">
         <!-- Contenido desplazable -->
         <img src="/src/assets/marker-icon.png" class="mt-8 md:tall:mt-16 w-[180px] h-[40px] self-center flex-none lg:hidden" alt="">
 
@@ -122,7 +122,7 @@ export function Hero() {
   <div class="hidden lg:grid grid-cols-12 gap-0 lg:gap-4">
     <div class="col-span-12 justify-center h-md:mt-[10px]">
       <img src="/src/assets/marker-icon.png" class="mb-8 w-[238px] h-[65px] self-center flex-none mx-auto lg:hidden" alt="">
-      <h2 class="font-montserrat font-extrabold leading-tight  fluid-h2 short:shrink-12 ${h2a}">${t('hero_title_part1')}</h2>
+      <h2 class="font-montserrat font-extrabold leading-tight fluid-h2 short:shrink-12 ${h2a}">${t('hero_title_part1')}</h2>
       <h2 class="font-montserrat font-extrabold leading-tight fluid-h2-2 short:shrink-12 ${h2b}">${t('hero_title_part2')}</h2>
 
       <div class="relative inline-block -mt-3">
@@ -156,11 +156,24 @@ export function Hero() {
          xl-h-lg:-mt-9  
          lg:mt-5   
          ">
-        <button class="bg-[#006E49] flex items-center justify-center h-[28px] p-2 
-        rounded-[8px] md:h-[45px] md:px-4 lg:h-[45px] lg:px-4 4k:h-[55px]
-        h-xl:h-[55px]  4k:-mt-9 xl-h-lg:-mt-9 lg:mt-5">
-          <img src="/src/assets/icon-send.svg" class="w-4 h-4 brightness-0 invert" alt="">
-        </button>
+        <button
+  class="bg-[#006E49] hover:bg-[#00a16b]
+         flex items-center justify-center
+         h-[28px] p-2 rounded-[8px]
+         md:h-[45px] md:px-4 lg:h-[45px] lg:px-4
+         4k:h-[55px] h-xl:h-[55px] 4k:-mt-9 xl-h-lg:-mt-9 lg:mt-5
+
+         border-none focus:border-none focus-visible:border-none   /* ⬅︎ aquí */
+         focus:outline-none  focus:ring-0
+         focus-visible:outline-none focus-visible:ring-0
+         transition-colors duration-200">
+  <img src="/src/assets/icon-send.svg"
+       class="w-4 h-4 brightness-0 invert"
+       alt="">
+</button>
+
+
+
       </div>
     </div>
   </div>
@@ -191,17 +204,43 @@ export function Hero() {
     </div>
   </div>
   <div class="hidden lg:grid grid-cols-12">
-    <div class="col-span-12 flex justify-center lg:mb-12">
-      <img src="/src/assets/header-scroll-down.svg" class="w-[26px] h-[26px] md:w-[45px] md:h-[45px] lg:w-[45px] lg:h-[45px] animate-bounce" alt="">
-    </div>
+  <div class="col-span-12 flex justify-center lg:mb-12">
+    <!-- Botón circular (todo rebota) -->
+    <a href="#about"
+       aria-label="Ir a la sección About"
+       class="w-8 h-8 md:w-10 md:h-10            /* Ø 32-40 px */
+              rounded-full bg-[#006E49]
+              hover:bg-[#00a16b] transition-colors duration-200
+              flex items-center justify-center inline-flex
+              animate-bounce-mini">              <!-- 🡐 rebote global -->
+
+      <img src="/src/assets/header-arrow-down.svg"
+           class="w-[14px] h-[14px] md:w-[16px] md:h-[16px]
+                  group-hover:scale-105 transition-transform duration-200"
+           alt="">
+    </a>
   </div>
+</div>
+
+
+
+
 </div>`
   }
 
+let partnerTimer: number | undefined
+
   /* ---------- render ---------- */
   const render = () => {
+       /* 1.  Si el carrusel desktop estaba corriendo, lo detengo */
+    if (partnerTimer) clearInterval(partnerTimer)
+
+    /* 2.  Vuelvo a inyectar los templates (ya lo hacías) */
     const lang = getLang()
     hero.innerHTML = mobileTemplate(lang) + desktopTemplate(lang)
+
+    /* 3.  Arranco otra vez el autoplay desktop y guardo su ID */
+    partnerTimer = startPartnersAutoplay()
   }
 
   render()
@@ -229,40 +268,39 @@ export function Hero() {
   }
   requestAnimationFrame(autoplay)
 
-/* ───────── Carrusel partners sin huecos ───────── */
-const partnersAutoplay = () => {
-  const track = hero.querySelector<HTMLDivElement>('#partnerTrack')
-  if (!track) return
 
-  const GAP = 48          // matching lg:gap-12 (48 px)
-  const SPEED = 700       // duración de la animación (ms)
-  const DELAY = 5000      // espera entre pases (ms)
+
+/* Carrusel partners sin huecos */
+function startPartnersAutoplay(): number | undefined {
+  const track = hero.querySelector<HTMLDivElement>('#partnerTrack')
+  if (!track) return undefined
+
+  const GAP   = 48           // lg:gap-12
+  const SPEED = 700          // duración animación
+  const DELAY = 3000         // 3 s
 
   const slide = () => {
     const first = track.children[0] as HTMLElement
     if (!first) return
-    const step = first.offsetWidth + GAP   // ancho real + gap
+    const STEP = first.offsetWidth + GAP
 
-    /* 1. Animamos */
     track.style.transition = `transform ${SPEED}ms ease-out`
-    track.style.transform = `translateX(-${step}px)`
+    track.style.transform  = `translateX(-${STEP}px)`
 
-    /* 2. Al acabar la transición, recolocamos */
-    const onEnd = () => {
-      track.style.transition = 'none'      // sin animación
-      track.style.transform = 'translateX(0)'
-      track.appendChild(first)             // pasamos 1er logo al final
-    }
-    track.addEventListener('transitionend', onEnd, { once: true })
+    track.addEventListener(
+      'transitionend',
+      () => {
+        track.style.transition = 'none'
+        track.style.transform  = 'translateX(0)'
+        track.appendChild(first)
+      },
+      { once: true }
+    )
   }
 
-  slide()                                  // primer movimiento
-  setInterval(slide, DELAY)                // loop cada 3 s
+  /* ⬇️  ⬇️  ⬇️  NO llamamos slide() aquí  ⬇️  ⬇️  ⬇️ */
+  return setInterval(slide, DELAY)   // el primer movimiento ocurre tras 3 s
 }
-requestAnimationFrame(partnersAutoplay)
-
-
-
 
 
   return hero

@@ -227,19 +227,25 @@ button:focus-visible {
   animation: zoomInOut 10s ease-in-out infinite;
 }
 
+/* Hace que TODAS las navegaciones por anclas se desplacen suavemente */
+html {
+  scroll-behavior: smooth;
+}
+
+
 /* ancho fijo para forzar el wrap de títulos mobile */
 @layer utilities {
   .w-title-mobile { max-width: 300px; }   /* ≈ anchura de Figma */
   /* H2 y “brand” fluidos – se reducen en pantallas bajas */
-  .fluid-h2-en     { font-size: clamp(80px, 3.8vw, 95px); }
-  .fluid-h2-2-en   { font-size: clamp(105px, 5vw, 116px); }
+  .fluid-h2-en     { font-size: clamp(78px, 3.8vw, 95px); }
+  .fluid-h2-2-en   { font-size: clamp(104px, 5vw, 116px); }
   /* NexaDigit */
   .fluid-brand { font-size: clamp(230px, 11vw, 255px); }
   /* Si aún sobra poco espacio en ≤ 850 px de alto, reduce 12 % extra */
 
    /* Español (ligeramente más pequeño) */
-  .fluid-h2-es      { font-size: clamp(63px, 3.4vw, 63px); }
-  .fluid-h2-2-es    { font-size: clamp(77px, 4.5vw, 78px); }
+  .fluid-h2-es      { font-size: clamp(69px, 3.4vw, 63px); }
+  .fluid-h2-2-es    { font-size: clamp(85px, 4.5vw, 78px); }
 
   .short\:shrink-12 { transform: scale(.88); transform-origin: top center; }
 
@@ -255,6 +261,45 @@ button:focus-visible {
   .partner-pill { @apply flex items-center justify-center gap-8 rounded-[18px] bg-[#006E49] px-3 lg:px-4; }
   .partner-pill { height:clamp(65px,9vh,110px); }
 
+@layer utilities {
+  @keyframes call-shake {
+    /* Pequeña vibración (teléfono sonando) */
+    0%,100% { transform: rotate(0deg); }
+    20%     { transform: rotate(14deg); }
+    40%     { transform: rotate(-14deg); }
+    60%     { transform: rotate(10deg); }
+    80%     { transform: rotate(-10deg); }
+  }
+  .animate-call-shake {
+    animation: call-shake 0.8s ease-in-out 1;
+  }
+}
+
+
+  .animate-call-shake {
+    animation: call-shake 0.8s ease-in-out 1;
+  }
+
+  @keyframes bounce-mini {
+    /* Desplaza el botón un 12 % de su altura: apenas 4 px */
+    0%, 100% { transform: translateY(-12%); }
+    50%      { transform: translateY(0);    }
+  }
+  .animate-bounce-mini {
+    animation: bounce-mini 1s infinite;
+  }
+
+/* Ajuste hero: de 1024 px a 1120 px máx. */
+  @media (max-width:1135px) {
+    /* EN */
+    .fluid-h2-en     { font-size: clamp(69px, 5.4vw, 78px); }
+    .fluid-h2-2-en   { font-size: clamp(92px, 6.5vw, 95px); }
+    .fluid-brand     { font-size: clamp(210px, 13vw, 220px); }
+
+    /* ES – un pelín más pequeño a la izquierda del rango */
+    .fluid-h2-es     { font-size: clamp(62px, 5vw, 69px); }
+    .fluid-h2-2-es   { font-size: clamp(76px, 6vw, 85px); }
+  }
 
   /* ajuste cuando el alto ≥920px */
   @media (min-height:960px){
@@ -268,6 +313,28 @@ button:focus-visible {
     .fluid-h2-2-es    { font-size: clamp(96px,5vmin,130px); }
   }
 
+}
+
+@layer utilities {
+
+  /* Solo móviles: fuerza altura EXACTA */
+  @media (max-width: 639px) {
+    .hero-mobile-fill {
+      height:      calc(100svh - var(--header-h));
+      min-height:  calc(100svh - var(--header-h));
+    }
+  }
+}
+
+
+@layer utilities {
+  /* Padding-top = header (56 px) + 12 px extra */
+  .pt-header-mob {
+    padding-top: calc(var(--header-h) + 12px);
+  }
+
+  /* a partir de sm (≥640 px) ya usas el pt-12 que tenías */
+  @screen sm { .pt-header-mob { padding-top: 0; } }
 }
 
 
