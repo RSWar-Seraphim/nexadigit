@@ -9,7 +9,6 @@ el.id = 'services'
 let desktopTimer: number | undefined
 const initCarouselDesktop = () => {
   if (desktopTimer) clearInterval(desktopTimer);
-
   const track = el.querySelector<HTMLDivElement>('#carouselTrack');
   if (!track) return;
 
@@ -137,13 +136,16 @@ slide(i)
     }, DELAY)
   }
 /* ───────────────────────── render ───────────────────────── */
-const render = () => {
+  const btnLabel = t('services_block1_cta');
+  const render = () => {
+
 el.className = 'w-full max-w-[956px] mx-auto px-4 text-white scroll-mt-[160px]'
 el.innerHTML = /* html */`
+
 <!-- ========== MOBILE (≤639 px) ========== -->
 <div class="block mt-12 sm:hidden">
    <!-- Encabezado -->
-   <h2 class="text-center font-montserrat font-bold text-[24px] leading-none">
+   <h2 class="text-center font-montserrat font-bold text-title leading-none">
       ${t('services_section_title')}
    </h2>
    <div class="flex justify-center mt-3">
@@ -169,7 +171,7 @@ el.innerHTML = /* html */`
 
    </div>
 
-   <p class="mt-6 font-montserrat font-medium text-[9px] leading-relaxed text-center px-2">
+   <p class="mt-6 font-montserrat font-medium text-[8px] leading-relaxed text-center px-2">
       ${t('services_block1_desc')}
    </p>
    <button data-book-meeting class="mt-6 mx-auto w-[107px] h-[29px] bg-[#006E49] text-white
@@ -311,7 +313,7 @@ el.innerHTML = /* html */`
 <div class="hidden lg:block mt-12">
    <!-- 1) ENCABEZADO -->
    <div class="text-center">
-      <h2 class="font-montserrat font-bold text-[45px] leading-none">
+      <h2 class="font-montserrat font-bold text-title leading-none">
          ${t('services_section_title')}
       </h2>
       <div class="my-3 flex justify-center">
@@ -353,54 +355,73 @@ el.innerHTML = /* html */`
 
       </div>
       <img src="/src/assets/arrow-right-about.svg" class="mt-4 w-[25px] h-[25px] rotate-90" alt="" aria-hidden="true" />
-      <p class="font-montserrat font-medium text-[20px] leading-relaxed text-center mt-4 max-w-[618px]">
+      <p class="font-montserrat font-medium text-body leading-relaxed text-center mt-4 max-w-[618px]">
          ${t('services_block1_desc')}
       </p>
       <!-- BOTÓN: Book a Meeting -->
 <button data-book-meeting
-  class="mt-8 w-[325px] h-[87px] bg-[#006E49] text-white font-bold uppercase rounded-[8px] flex items-center justify-center hover:bg-[#00573a] transition">
-  ${t('services_block1_cta')}
+  class="
+    mt-8 w-[225px] h-[67px]
+    bg-[#006E49] hover:bg-[#00a16b]        /* primario + hover */
+    text-white font-bold uppercase rounded-[8px]
+    flex items-center justify-center
+    transition-colors duration-200
+
+    border-0                                   /* sin borde */
+    focus:outline-none focus:ring-0 focus:ring-offset-0
+    focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0
+    active:outline-none active:ring-0 active:ring-offset-0
+  ">${btnLabel}
 </button>
+
+
+
 
 
    </div>
    <!-- 3) BLOQUES 2-3 -->
-   <div class="mx-auto mt-20 grid grid-rows-2 grid-cols-[450px_minmax(0,1fr)] gap-y-16 gap-x-10 max-w-[900px]">
-      <!-- Bloque A -->
-      <div class="row-start-1 col-start-1 flex justify-center">
-         <div class="w-[450px] h-[450px] bg-[#006E49]/20 rounded-[55px]"></div>
+<div class="mx-auto mt-20 grid grid-rows-2 grid-cols-[415px_minmax(0,1fr)] gap-y-16 gap-x-10 max-w-[900px]">
+
+  <!-- BLOQUE A -->
+  <div class="row-start-1 col-start-1 flex justify-center">
+    <div class="w-[415px] h-[415px] bg-[#006E49]/20 rounded-[35px]"></div>
+  </div>
+
+  <div class="row-start-1 col-start-2 flex items-center">
+    <div class="w-[415px] min-h-[415px] text-left flex flex-col justify-center">
+      <h3 class="font-montserrat font-bold text-[25px] leading-tight">
+        ${t('services_block2_title')}
+      </h3>
+      <div class="my-3 flex justify-center">
+        <img src="/src/assets/marker-icon.png" class="w-[91px] h-[25px]" alt="" />
       </div>
-      <div class="row-start-1 col-start-2 flex items-center">
-         <div class="max-w-[521px] text-left">
-            <h3 class="font-montserrat font-bold text-[30px] leading-tight">
-               ${t('services_block2_title')}
-            </h3>
-            <div class="my-3 flex justify-center">
-               <img src="/src/assets/marker-icon.png" class="w-[91px] h-[25px]" alt="" />
-            </div>
-            <p class="font-montserrat font-medium text-[15px] leading-relaxed">
-               ${t('services_block2_desc')}
-            </p>
-         </div>
+      <p class="font-montserrat font-medium text-[15px] leading-relaxed">
+        ${t('services_block2_desc')}
+      </p>
+    </div>
+  </div>
+
+  <!-- BLOQUE B -->
+  <div class="row-start-2 col-start-1 flex items-center">
+    <div class="w-[415px] min-h-[415px] text-left flex flex-col justify-center">
+      <h3 class="font-montserrat font-bold text-[25px] leading-tight">
+        ${t('services_block3_title')}
+      </h3>
+      <div class="my-3 flex justify-center">
+        <img src="/src/assets/marker-icon.png" class="w-[91px] h-[25px]" alt="" />
       </div>
-      <!-- Bloque B -->
-      <div class="row-start-2 col-start-1 flex items-center">
-         <div class="max-w-[521px] text-left">
-            <h3 class="font-montserrat font-bold text-[30px] leading-tight">
-               ${t('services_block3_title')}
-            </h3>
-            <div class="my-3 flex justify-center">
-               <img src="/src/assets/marker-icon.png" class="w-[91px] h-[25px]" alt="" />
-            </div>
-            <p class="font-montserrat font-medium text-[15px] leading-relaxed">
-               ${t('services_block3_desc')}
-            </p>
-         </div>
-      </div>
-      <div class="row-start-2 col-start-2 flex justify-center">
-         <div class="w-[450px] h-[450px] bg-[#006E49]/20 rounded-[55px]"></div>
-      </div>
-   </div>
+      <p class="font-montserrat font-medium text-[15px] leading-relaxed">
+        ${t('services_block3_desc')}
+      </p>
+    </div>
+  </div>
+
+  <div class="row-start-2 col-start-2 flex justify-center">
+    <div class="w-[415px] h-[415px] bg-[#006E49]/20 rounded-[35px]"></div>
+  </div>
+
+</div>
+
 </div>
 `
     

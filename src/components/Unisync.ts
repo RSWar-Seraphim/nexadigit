@@ -214,9 +214,22 @@ export function Unisync() {
 
   <!-- CTA -->
   <div class="flex flex-col items-center mt-24">
-    <button data-book-meeting class="w-[325px] h-[87px] bg-[#006E49]/40 rounded font-montserrat font-bold uppercase tracking-wide flex items-center justify-center">
-      ${t('unisync_cta')}
-    </button>
+    <button data-book-meeting
+  class="
+    w-[225px] h-[67px]           
+    bg-[#006E49] hover:bg-[#00a16b]      
+    text-white font-montserrat font-bold uppercase tracking-wide
+    rounded-[8px] flex items-center justify-center
+    transition-colors duration-200
+
+    border-0
+    focus:outline-none focus:ring-0 focus:ring-offset-0
+    focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0
+    active:outline-none active:ring-0 active:ring-offset-0
+  ">
+  ${t('unisync_cta')}
+</button>
+
   </div>
   
   <div class="mt-12">

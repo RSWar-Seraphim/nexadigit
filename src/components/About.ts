@@ -29,11 +29,7 @@ export function About() {
                        lg:flex">
             <img src="${icon}" alt="${t(titleKey)} icon" class="w-4 h-4 md:w-3.5 md:h-3.5" />
           </div>
-          <h3 class="font-montserrat font-bold
-                     text-[25px] md:text-[20px] lg:text-[25px]
-                     uppercase leading-tight tracking-tight
-                     sm:text-[15px]
-                     ">
+          <h3 class="aside-text-about">
             ${t(titleKey)}
           </h3>
         </div>
@@ -47,7 +43,7 @@ export function About() {
         <!-- Col‑3: descripción -->
         <div class="col-span-6 flex flex-col justify-center">
           <p class="font-montserrat font-medium
-                    text-[20px] sm:text-[15px] md:text-[13px] lg:text-[20px]
+                    text-body
                     leading-relaxed text-left tracking-tight
                     
                     ">
@@ -97,11 +93,10 @@ export function About() {
     aboutEl.innerHTML = `
       <!-- Header -->
       <div class="text-center">
-        <h2 class="font-montserrat font-bold
-                   text-[24px] md:text-[32px] lg:text-[45px] leading-none">
+        <h2 class="text-title">
           ${t('about_title')}
         </h2>
-        <div class="flex justify-center mt-4 lg:mt-10 md:mt-2">
+        <div class="flex justify-center mt-2 md:mt-2">
           <img src="/src/assets/marker-icon.png" alt="Marker icon"
                class="w-[70px] h-[18px] sm:w-[91px] sm:h-[25px]" />
         </div>

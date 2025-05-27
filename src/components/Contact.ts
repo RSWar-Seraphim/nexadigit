@@ -111,44 +111,69 @@ export function Contact() {
   <img src="/src/assets/marker-icon.png" class="w-[91px] h-[25px] mx-auto mt-4" />
 
   <!-- formulario + mapa -->
-  <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 mt-10 pt-16 w-full max-w-[960px] mx-auto">
-    <!-- formulario -->
-    <form id="contact-form" class="text-left col-span-6 bg-white p-6 flex flex-col gap-3 rounded-lg lg:rounded-l-lg shadow-lg relative z-30 lg:-mr-px">
-      <label class="font-montserrat text-xs text-black/70">
-        ${t('form_label_name')}
-      </label>
-      <input type="firstName" placeholder="John"
-             class="border p-2 rounded outline-none bg-white" />
+<div
+  class="mt-10 w-full max-w-[960px] mx-auto
+         overflow-hidden rounded-[20px] shadow-lg
+         grid grid-cols-1 lg:grid-cols-2 bg-white">
 
-      <label class="font-montserrat text-xs text-black/70">
-        ${t('form_label_lastname')}
-      </label>
-      <input type="lastName" placeholder="Doe"
-             class="border p-2 rounded outline-none bg-white" />
+  <!-- ▸ Formulario (col-1) -->
+ <!-- ▸ Formulario -->
+<form id="contact-form"
+      class="p-6 flex flex-col gap-4">
 
-      <label class="font-montserrat text-xs text-black/70">
-        ${t('form_label_email')}
-      </label>
-      <input type="email" placeholder="john@gmail.com"
-             class="border p-2 rounded outline-none bg-white" />
+  <!-- Nombre -->
+  <label class="font-montserrat text-xs text-black/70 text-left">
+    ${t('form_label_name')}
+  </label>
+  <input type="text"
+         placeholder="John"
+         class="border p-2 rounded outline-none bg-white
+                text-black placeholder:text-black/50"/>
 
-      <label class="font-montserrat text-xs text-black/70">
-        ${t('form_label_message')}
-      </label>
-      <textarea name="message" rows="4" placeholder="${t('form_label_message')}"
-                class="border p-2 rounded outline-none resize-none bg-white"></textarea>
+  <!-- Apellido -->
+  <label class="font-montserrat text-xs text-black/70 text-left">
+    ${t('form_label_lastname')}
+  </label>
+  <input type="text"
+         placeholder="Doe"
+         class="border p-2 rounded outline-none bg-white
+                text-black placeholder:text-black/50"/>
 
-      <button type="submit"
-              class="bg-[#006E49] hover:bg-[#00cc88] transition-colors text-white font-bold h-[45px] mt-2 rounded">
-        ${t('form_submit')}
-      </button>
-    </form>
+  <!-- Email -->
+  <label class="font-montserrat text-xs text-black/70 text-left">
+    ${t('form_label_email')}
+  </label>
+  <input type="email"
+         placeholder="john@gmail.com"
+         class="border p-2 rounded outline-none bg-white
+                text-black placeholder:text-black/50"/>
 
-    <!-- mapa -->
-    <div class="col-span-6 relative rounded-r-lg overflow-hidden -ml-px z-10 sm:hidden md:hidden lg:block">
-      <div id="leaflet-map" class="w-full h-[504px] rounded overflow-hidden"></div>
-    </div>
+  <!-- Mensaje -->
+  <label class="font-montserrat text-xs text-black/70 text-left">
+    ${t('form_label_message')}
+  </label>
+  <textarea rows="4"
+            placeholder="${t('form_label_message')}"
+            class="border p-2 rounded outline-none resize-none bg-white
+                   text-black placeholder:text-black/50"></textarea>
+
+  <!-- Botón -->
+  <button
+    class="h-[45px] mt-2 rounded
+           bg-[#006E49] hover:bg-[#00a16b] transition-colors
+           text-white font-bold">
+    ${t('form_submit')}
+  </button>
+</form>
+
+
+  <!-- ▸ Mapa (col-2, sólo desktop) -->
+  <div class="hidden lg:block h-[504px]">
+    <div id="leaflet-map"
+         class="w-full h-full pointer-events-none rounded-r-[20px]"></div>
   </div>
+</div>
+
 
   <!-- manos decorativas -->
   <div class="w-full flex justify-center mt-20">

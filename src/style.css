@@ -338,3 +338,31 @@ html {
 }
 
 
+
+
+@layer components {
+   .text-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: clamp(24px, 5vw, 45px);
+    line-height: 1.1;
+  }
+
+  .text-body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500; /* equivalente a font-medium */
+    font-size: clamp(8px, 3.5vw, 20px);
+    line-height: 1.6;
+    text-align: left;
+    letter-spacing: -0.01em;
+  }
+
+  .aside-text-about {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: clamp(15px, 4vw, 25px);
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    text-transform: uppercase;
+  }
+}
