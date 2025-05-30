@@ -179,7 +179,7 @@ export function Unisync() {
       <h4 class="font-montserrat font-bold md:text-[20px] text-[28px] leading-tight">
         ${t('unisync_ft1_title')}
       </h4>
-      <p class="font-montserrat font-medium md:text-[12px] text-[15px] leading-relaxed mt-4">
+      <p class="font-montserrat font-medium  text-[15px] leading-relaxed mt-4">
         ${t('unisync_ft1_desc')}
       </p>
     </div>
@@ -188,7 +188,7 @@ export function Unisync() {
       <h4 class="font-montserrat font-bold md:text-[20px] text-[28px] leading-tight">
         ${t('unisync_ft3_title')}
       </h4>
-      <p class="font-montserrat font-medium md:text-[12px] text-[15px] leading-relaxed mt-4">
+      <p class="font-montserrat font-medium text-[15px] leading-relaxed mt-4">
         ${t('unisync_ft3_desc')}
       </p>
     </div>
@@ -197,7 +197,7 @@ export function Unisync() {
       <h4 class="font-montserrat font-bold md:text-[20px] text-[28px] leading-tight">
         ${t('unisync_ft4_title')}
       </h4>
-      <p class="font-montserrat font-medium md:text-[12px] text-[15px] leading-relaxed mt-4">
+      <p class="font-montserrat font-medium  text-[15px] leading-relaxed mt-4">
         ${t('unisync_ft4_desc')}
       </p>
     </div>
@@ -206,7 +206,7 @@ export function Unisync() {
       <h4 class="font-montserrat md:text-[20px] font-bold text-[28px] leading-tight">
         ${t('unisync_ft2_title')}
       </h4>
-      <p class="font-montserrat font-medium md:text-[12px] text-[15px] leading-relaxed mt-4">
+      <p class="font-montserrat font-medium text-[15px] leading-relaxed mt-4">
         ${t('unisync_ft2_desc')}
       </p>
     </div>

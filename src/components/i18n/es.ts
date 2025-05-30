@@ -68,8 +68,8 @@ export const es = {
   unisync_building_alt:  'Ilustración edificio IA',
   unisync_tagline1:          'Una sola plataforma',
   unisync_tagline2:          'Múltiples soluciones IA.',
-  unisync_ft1_title:         'Automatización con IA',
-  unisync_ft1_desc:          'Agentes inteligentes que ejecutan tareas sin intervención manual, mejorando la eficiencia y reduciendo errores operativos.',
+  unisync_ft1_title:         'Agentes de IA',
+  unisync_ft1_desc:          'Agentes digitales que automatizan y ejecutan tareas de forma autónoma (sin intervención humana), optimizando procesos operativos y aumentando la eficiencia empresarial.',
   unisync_ft1_img_alt:       'Icono de Automatización IA',
   unisync_ft2_title:         'Gestión Centralizada',
   unisync_ft2_desc:          'Maneja proyectos, finanzas y operaciones desde un único panel, en un entorno unificado y optimizado.',
@@ -80,7 +80,7 @@ export const es = {
   unisync_ft4_img_alt:       'Ícono de analítica en tiempo real',
   unisync_ft4_title:         'Analítica en Tiempo Real',
   unisync_ft4_desc:          'Supervisa el rendimiento de cada área en tiempo real. Toma decisiones basadas en datos con paneles inteligentes e insights potenciados por IA.',
-  unisync_cta:               'SOLICITA UNA DEMO →',
+  unisync_cta:               'SOLICITA UNA DEMO',
   unisync_stat_title:        'Beneficios reales de las',
   unisync_stat_subtitle:     'Soluciones inteligentes de IA',
   unisync_stat1:             'Las empresas que han integrado IA han experimentado un incremento del 40 % en su productividad.',
@@ -90,7 +90,7 @@ export const es = {
 
   /* Contacto */
   contact_title:      'CONTÁCTANOS',
-  contact_subtitle:   'Respondemos de inmediato para ayudarte a comenzar.',
+  contact_subtitle:   'Respondemos al instante para ayudarte.',
   contact_hands_img_alt: 'Manos decorativas',
 
   /* Etiquetas del formulario */

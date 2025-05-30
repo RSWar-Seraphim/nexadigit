@@ -191,7 +191,7 @@ export function Contact() {
     </span>
 
     <!-- logo -->
-    <img src="/src/assets/fav-icon-logo.svg"
+    <img data-link="home" src="/src/assets/fav-icon-logo.svg"
          class="justify-self-center w-[26px] h-[26px] filter brightness-0 invert" alt="NexaDigit" />
 
     <!-- links -->

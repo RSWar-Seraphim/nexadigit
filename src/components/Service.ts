@@ -284,7 +284,7 @@ el.innerHTML = /* html */`
     <div class="my-2 flex justify-center">
       <img src="/src/assets/marker-icon.png" class="w-[70px] h-[18px]" alt="" />
     </div>
-    <p class="font-montserrat font-medium text-[13px] leading-relaxed">
+    <p class="font-montserrat font-medium text-[15px] leading-relaxed">
       ${t('services_block2_desc')}
     </p>
   </div>
@@ -298,7 +298,7 @@ el.innerHTML = /* html */`
     <div class="my-2 flex justify-center">
       <img src="/src/assets/marker-icon.png" class="w-[70px] h-[18px]" alt="" />
     </div>
-    <p class="font-montserrat font-medium text-[13px] leading-relaxed">
+    <p class="font-montserrat font-medium text-[15px] leading-relaxed">
       ${t('services_block3_desc')}
     </p>
   </div>
@@ -332,10 +332,10 @@ el.innerHTML = /* html */`
             mx-0 xl:-mx-[20%] 2xl:-mx-[30%]
             3xl:w-[100%]
             overflow-hidden mt-6
-            h-[420px]               <!-- lg (280×420) -->
-            xl:h-[465px]            <!-- xl (310×465) -->
-            2xl:h-[502px]           <!-- 2xl (335×502) -->
-            3xl:h-[353px]           <!-- 3xl (250×375) -->
+            h-[420px]               
+            xl:h-[465px]            
+            2xl:h-[502px]           
+            3xl:h-[353px]          
             4k:h-[540px]">
          <div id="carouselTrack"
      class="flex gap-7 transition-transform duration-1000 ease-[cubic-bezier(.4,0,.2,1)]">
