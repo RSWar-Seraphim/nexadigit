@@ -100,7 +100,7 @@ export function Contact() {
 </div>
 
 <!-- ░░░░░  DESKTOP ░░░░░ -->
-<div class="hidden sm:block w-full flex flex-col items-center">
+<div class="hidden sm:block w-full flex-col items-center">
   <!-- encabezado -->
   <h2 class="font-montserrat font-bold text-[45px] text-center mt-14">
     ${t('contact_title')}

@@ -14,8 +14,8 @@ export function Unisync() {
     const unisyncStats1Size   = 'text-[45px]'
     const unisyncStats2Size   = lang === 'en' ? 'text-[55px]' : 'text-[36px]'
     /* NUEVO: tamaños responsivos para tagline */
-    const unisyncFeatures1Size = 'sm:text-[46px] md:text-[50px] lg:text-[65px]'
-    const unisyncFeatures2Size = 'sm:text-[40px] md:text-[47px] lg:text-[60px]'
+    const title1Class = lang === 'en' ? 'unisync-title-1-en' : 'unisync-title-1-es'
+    const title2Class = lang === 'en' ? 'unisync-title-2-en' : 'unisync-title-2-es'
     const tagline2 = t('unisync_tagline2')
     .replace('IA', '<span class="text-[#00cc88]">IA</span>')
     .replace('AI', '<span class="text-[#00cc88]">AI</span>')
@@ -153,19 +153,19 @@ export function Unisync() {
 <div class="hidden sm:block">
   <!-- cabecera + portátil -->
   <div class="text-center">
-    <img src="/src/assets/marker-icon.png" class="mx-auto" alt="" aria-hidden="true" />
+    <img id="unisync-marker" src="/src/assets/marker-icon.png" class="mx-auto" alt="" aria-hidden="true" />
     <h1 class="font-petrov-sans font-bold text-[190px] sm:text-[150px] leading-none mt-4">UniSync</h1>
     <img src="/src/assets/laptop_screen_unisync.png"
          class="mx-auto mt-14 w-[85%]"
          alt="${t('unisync_laptop_alt')}" />
 
     <!-- tagline -->
-    <div class="mt-12">
-      <h2 class="font-montserrat font-bold ${unisyncFeatures1Size}">
+    <div class="mt-8">
+      <h2 class="font-montserrat font-bold ${title1Class}">
         ${t('unisync_tagline1')}
       </h2>
-      <h3 class="font-montserrat font-bold ${unisyncFeatures2Size} lg:mt-2">
-        ${t('unisync_tagline2').replace('IA','<span class="text-[#00cc88]">IA</span>')}
+      <h3 class="font-montserrat font-bold ${title2Class} lg:-mt-4">
+        ${t('unisync_tagline2')}
       </h3>
       <div class="flex justify-center mt-4">
         <img src="/src/assets/marker-icon.png" class="w-[91px] h-[25px]" alt="" aria-hidden="true" />

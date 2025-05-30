@@ -366,3 +366,43 @@ html {
     text-transform: uppercase;
   }
 }
+
+/* Español */
+.unisync-title-1-es { font-size: clamp(28px, 5vw, 66px); }
+.unisync-title-2-es { font-size: clamp(25px, 4.7vw, 55px); }
+
+/* Inglés (los valores pueden ser mayores si la frase es más corta en inglés) */
+.unisync-title-1-en { font-size: clamp(32px, 6vw, 65px); }
+.unisync-title-2-en { font-size: clamp(28px, 5.2vw, 63px); }
+
+/* Header siempre encima de todo */
+header, .header, .top-navbar {
+  z-index: 50 !important; /* Puedes subir el valor si lo necesitas */
+  position: relative;     /* Asegúrate de que tenga posición */
+}
+
+/* Modal BOOK A MEETING por encima de todo */
+.modal-book-meeting, .modal, .your-modal-class {
+  z-index: 100 !important; /* Súbelo más si el header también usa z-50 */
+  position: fixed;         /* O absolute, depende de tu modal */
+}
+
+/* Forzar el mapa a estar más abajo en la pila */
+#leaflet-map, .leaflet-container {
+  z-index: 10 !important;  /* O menos, lo suficiente para que esté debajo */
+  position: relative;
+}
+
+.hero-title-1-en {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: clamp(23px, 6vw, 50px);
+  line-height: 1.1;
+}
+
+.hero-title-1-es {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: clamp(21px, 5vw, 45px);
+  line-height: 1.1;
+}

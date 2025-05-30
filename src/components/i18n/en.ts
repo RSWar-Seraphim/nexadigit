@@ -51,7 +51,7 @@ export const en = {
   services_block1_title:     'INNOVATION STRATEGY CONSULTING',
   services_block1_img_alt:   'Happy business people in a meeting',
   services_block1_desc:      'We advise companies on AI integration and strategies to optimize core business processes and operational models.',
-  services_block1_cta:       'BOOK A MEETING →',
+  services_block1_cta:       'BOOK A MEETING',
 
   services_block2_title:     'SPECIALIZED CORPORATE SKILLS TRAINING',
   services_block2_img_alt:   'Entrepreneurs discussing documents',

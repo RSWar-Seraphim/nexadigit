@@ -29,7 +29,7 @@ export function Header() {
   const lockScroll = () => document.documentElement.classList.add('overflow-hidden')
   const unlockScroll = () => document.documentElement.classList.remove('overflow-hidden')
   const MAIN_SELECTOR = 'main'
-  const SCROLL_ANIMATION_DURATION = 600 // milisegundos
+  const SCROLL_ANIMATION_DURATION = 100 // milisegundos
 
   /** Dinámicamente calcula la altura visible del top‑bar móvil. */
   const getMobileHeaderOffset = () => {
@@ -52,6 +52,26 @@ export function Header() {
     requestAnimationFrame(step)
   }
 
+  const closeMobileMenu = (callbackAfterAnimation?: () => void) => {
+    const mainContent = document.querySelector(MAIN_SELECTOR) as HTMLElement | null;
+    const mobileTopBar = headerEl.querySelector('#mobile-top-bar') as HTMLElement | null;
+
+    mobileMenuEl.classList.add('-translate-x-full');
+    mobileMenuEl.classList.remove('translate-x-0');
+    mobileTopBar?.classList.remove('opacity-0', 'pointer-events-none');
+
+    if (mainContent) {
+      mainContent.classList.remove('blur-sm', 'pointer-events-none');
+    }
+
+    if (callbackAfterAnimation) {
+      setTimeout(callbackAfterAnimation, 300); // 300ms es la duración de la animación del menú
+    } else {
+      setTimeout(unlockScroll, 300);
+    }
+  };
+
+
   const render = () => {
     const lang = getLang()
     const flag = lang === 'es'
@@ -71,7 +91,6 @@ export function Header() {
     }
     meta.content = t('meta_description')
 
-    // El z-index de mobile-top-bar (z-[55]) es relativo al z-50 de headerEl.
     headerEl.innerHTML = `
       <div id="mobile-top-bar" class="relative flex items-center h-14 bg-[#006E49]/80 lg:hidden z-[55] select-none transition-opacity duration-300">
         <button id="burger-btn" class="p-3">
@@ -122,41 +141,25 @@ export function Header() {
             <li data-link="contact" class="nav-item cursor-pointer"><span>${t('nav_contact')}</span></li>
           </ul>
           <div class="col-span-1 flex justify-end">
-  <a href="tel:${t('phone_number_link', '')}"
-     data-book-meeting
-     aria-label="${t('alt_call_button', 'Llamar')}">
-    <img src="/src/assets/nav-bar-icon-call-button.svg"
-         class="w-9 h-9 cursor-pointer hover:animate-call-shake"
-         alt="">
-  </a>
-</div>
-
-
+            <a href="tel:${t('phone_number_link', '')}" data-book-meeting aria-label="${t('alt_call_button', 'Llamar')}">
+              <img src="/src/assets/nav-bar-icon-call-button.svg" class="w-9 h-9 cursor-pointer hover:animate-call-shake" alt="">
+            </a>
+          </div>
         </nav>
         </header>
       </div>
-    `
+    `;
 
-    /* ——— ACTUALIZA LA VARIABLE CSS ——— */
-  const setHeaderH = () =>
-    document.documentElement!.style.setProperty(
-      '--header-h',
-      `${headerEl.offsetHeight}px`
-    )
-
-  // 1) en el mismo frame en que se pinta:
-  requestAnimationFrame(setHeaderH)
-
-  // 2) al redimensionar la ventana:
-  window.addEventListener('resize', setHeaderH, { passive: true })
+    const setHeaderH = () => document.documentElement!.style.setProperty('--header-h', `${headerEl.offsetHeight}px`);
+    requestAnimationFrame(setHeaderH);
+    window.addEventListener('resize', setHeaderH, { passive: true });
 
     mobileMenuEl.innerHTML = `
       <div class="flex items-center h-14 bg-[#006E49]/50 w-full px-3 relative select-none">
         <button id="close-menu-btn" class="p-1">
           <img src="/src/assets/menu-cancel-icon.svg" class="w-4 h-4 brightness-0 invert" alt="${t('alt_close_menu', 'Cerrar menú')}"/>
         </button>
-        <img src="/src/assets/fav-icon-logo.svg"
-             class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[25px] h-[31.02px] brightness-0 invert" alt="${t('alt_logo_menu', 'Logo')}"/>
+        <img src="/src/assets/fav-icon-logo.svg" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[25px] h-[31.02px] brightness-0 invert" alt="${t('alt_logo_menu', 'Logo')}"/>
         <button id="lang-toggle-mobile-menu" class="ml-auto flex items-center gap-1">
           <img src="${flag}" class="w-[18px] h-[18px]" alt="${t('alt_lang_flag_menu', 'Bandera idioma')}"/>
         </button>
@@ -176,212 +179,240 @@ export function Header() {
       <div class="pb-8 px-6 flex justify-around items-center select-none">
         ${['discord', 'linkedin', 'instagram', 'facebook'].map(s => `
           <a href="${t('social_link_' + s, '#')}" target="_blank" rel="noopener noreferrer" aria-label="${t('alt_social_' + s + '_mobile', s)}">
-            <img data-src="/src/assets/top-bar-icon-${s}.svg"
-                 src="/src/assets/top-bar-icon-${s}.svg"
-                 class="social-icon-mobile w-6 h-6 cursor-pointer brightness-0 invert hover:opacity-75" alt=""/>
-          </a>
-        `).join('')}
+            <img data-src="/src/assets/top-bar-icon-${s}.svg" src="/src/assets/top-bar-icon-${s}.svg" class="social-icon-mobile w-6 h-6 cursor-pointer brightness-0 invert hover:opacity-75" alt=""/>
+          </a>`).join('')}
       </div>
-    `
+    `;
 
     if (!document.body.contains(mobileMenuEl)) {
-      document.body.appendChild(mobileMenuEl)
+      document.body.appendChild(mobileMenuEl);
     }
 
-    const desktopLangToggle = headerEl.querySelector('#lang-toggle-desktop')
-    desktopLangToggle?.addEventListener('click', () => {
-      setLang(getLang() === 'es' ? 'en' : 'es')
-    })
+    // Language Toggles
+    const desktopLangToggle = headerEl.querySelector('#lang-toggle-desktop');
+    desktopLangToggle?.addEventListener('click', () => setLang(getLang() === 'es' ? 'en' : 'es'));
+    const mobileMainLangToggle = headerEl.querySelector('#lang-toggle-mobile-main');
+    mobileMainLangToggle?.addEventListener('click', (e) => { e.stopPropagation(); setLang(getLang() === 'es' ? 'en' : 'es'); });
+    const mobileMenuLangToggle = mobileMenuEl.querySelector('#lang-toggle-mobile-menu');
+    mobileMenuLangToggle?.addEventListener('click', (e) => { e.stopPropagation(); setLang(getLang() === 'es' ? 'en' : 'es'); });
 
-    const mobileMainLangToggle = headerEl.querySelector('#lang-toggle-mobile-main')
-    mobileMainLangToggle?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      setLang(getLang() === 'es' ? 'en' : 'es')
-    })
-
-    const mobileMenuLangToggle = mobileMenuEl.querySelector('#lang-toggle-mobile-menu')
-    mobileMenuLangToggle?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      setLang(getLang() === 'es' ? 'en' : 'es');
-    })
-
+    // Social Icon Hover
     headerEl.querySelectorAll<HTMLImageElement>('.social-icon').forEach(img => {
-      const baseSrc = img.dataset.src
-      const hoverSrc = img.dataset.hover
-      if (baseSrc && hoverSrc) {
-        img.onmouseenter = () => { img.src = hoverSrc }
-        img.onmouseleave = () => { img.src = baseSrc }
-      }
-    })
+      const baseSrc = img.dataset.src; const hoverSrc = img.dataset.hover;
+      if (baseSrc && hoverSrc) { img.onmouseenter = () => { img.src = hoverSrc; }; img.onmouseleave = () => { img.src = baseSrc; }; }
+    });
 
-    const burgerBtn = headerEl.querySelector('#burger-btn') as HTMLButtonElement | null
-    const closeMenuBtn = mobileMenuEl.querySelector('#close-menu-btn') as HTMLButtonElement | null
-
+    // Burger Menu Logic
+    const burgerBtn = headerEl.querySelector('#burger-btn') as HTMLButtonElement | null;
+    const closeMenuBtn = mobileMenuEl.querySelector('#close-menu-btn') as HTMLButtonElement | null;
     const openMobileMenu = () => {
-      const mainContent = document.querySelector(MAIN_SELECTOR) as HTMLElement | null
-      const mobileTopBar = headerEl.querySelector('#mobile-top-bar') as HTMLElement | null
+      const mainContent = document.querySelector(MAIN_SELECTOR) as HTMLElement | null;
+      const mobileTopBar = headerEl.querySelector('#mobile-top-bar') as HTMLElement | null;
+      mobileMenuEl.classList.remove('-translate-x-full'); mobileMenuEl.classList.add('translate-x-0');
+      mobileTopBar?.classList.add('opacity-0', 'pointer-events-none');
+      if (mainContent) mainContent.classList.add('blur-sm', 'pointer-events-none');
+      lockScroll();
+    };
+    burgerBtn?.addEventListener('click', e => { e.stopPropagation(); openMobileMenu(); });
+    closeMenuBtn?.addEventListener('click', e => { e.stopPropagation(); closeMobileMenu(); });
 
-      mobileMenuEl.classList.remove('-translate-x-full')
-      mobileMenuEl.classList.add('translate-x-0')
-      // Fade out top‑bar en lugar de ocultarlo de golpe
-      mobileTopBar?.classList.add('opacity-0', 'pointer-events-none')
-
-      if (mainContent) {
-        mainContent.classList.add('blur-sm', 'pointer-events-none')
-      }
-      lockScroll()
-    }
-
-    const closeMobileMenu = () => {
-      const mainContent = document.querySelector(MAIN_SELECTOR) as HTMLElement | null
-      const mobileTopBar = headerEl.querySelector('#mobile-top-bar') as HTMLElement | null
-
-      mobileMenuEl.classList.add('-translate-x-full')
-      mobileMenuEl.classList.remove('translate-x-0')
-      // Re‑aparece suavemente
-      mobileTopBar?.classList.remove('opacity-0', 'pointer-events-none')
-
-      if (mainContent) {
-        mainContent.classList.remove('blur-sm', 'pointer-events-none')
-      }
-      unlockScroll()
-    }
-
-    burgerBtn?.addEventListener('click', e => {
-      e.stopPropagation()
-      openMobileMenu()
-    })
-    closeMenuBtn?.addEventListener('click', e => {
-      e.stopPropagation()
-      closeMobileMenu()
-    })
-
-    // Cierre tocando fuera
-    if (window.__headerDocClickListener) {
-      document.removeEventListener('click', window.__headerDocClickListener)
-    }
+    if (window.__headerDocClickListener) document.removeEventListener('click', window.__headerDocClickListener);
     window.__headerDocClickListener = (event: MouseEvent) => {
-      const target = event.target as Node
-      const currentBurgerBtn = headerEl.querySelector('#burger-btn')
-      if (
-        mobileMenuEl.classList.contains('translate-x-0') &&
-        !mobileMenuEl.contains(target) &&
-        (!currentBurgerBtn || !currentBurgerBtn.contains(target))
-      ) {
-        closeMobileMenu()
+      const target = event.target as Node;
+      const currentBurgerBtn = headerEl.querySelector('#burger-btn');
+      if (mobileMenuEl.classList.contains('translate-x-0') && !mobileMenuEl.contains(target) && (!currentBurgerBtn || !currentBurgerBtn.contains(target))) {
+        closeMobileMenu();
       }
-    }
-    document.addEventListener('click', window.__headerDocClickListener)
+    };
+    document.addEventListener('click', window.__headerDocClickListener);
 
     // ————————————————————————————
-    // Navegación dentro del menú móvil (offset & scroll mejorados)
+    // Navegación dentro del menú móvil
     // ————————————————————————————
-    const mobileNavItems = mobileMenuEl.querySelectorAll<HTMLLIElement>('.mobile-nav-item')
-
+    const mobileNavItems = mobileMenuEl.querySelectorAll<HTMLLIElement>('.mobile-nav-item');
     mobileNavItems.forEach(li => {
       li.addEventListener('click', e => {
-        e.preventDefault()
-        const id = li.dataset.link
-        if (!id) return
-        closeMobileMenu()
-        setTimeout(() => {
-          const section = document.getElementById(id)
-          if (section) {
-            const offset = getMobileHeaderOffset()
-            const topPos = section.getBoundingClientRect().top + window.scrollY - offset
-            smoothScrollTo(topPos) // scroll más suave y con offset correcto
-            if (window.innerWidth >= 1024 && window.__moveNavHighlight) {
-              window.__moveNavHighlight(id)
-            }
-          }
-        }, 300) // espera a que termine la animación del menú
-      })
-    })
+        e.preventDefault();
+        e.stopPropagation();
 
-    const navList = headerEl.querySelector('#nav-list') as HTMLElement | null
-    const highlightEl = headerEl.querySelector('#nav-highlight') as HTMLElement | null
+        const id = li.dataset.link;
+        if (!id) return;
+
+        const performScrollAndUnlock = () => {
+          const section = document.getElementById(id);
+          if (section) {
+            const mobileHeaderActualHeight = getMobileHeaderOffset();
+            const desiredRespite = 30; // Respiro para móvil
+            const finalMobileOffset = mobileHeaderActualHeight + desiredRespite;
+            const topPos = section.getBoundingClientRect().top + window.scrollY - finalMobileOffset;
+
+            smoothScrollTo(topPos, SCROLL_ANIMATION_DURATION);
+
+            setTimeout(() => {
+              unlockScroll();
+              if (window.innerWidth >= 1024 && window.__moveNavHighlight) {
+                 window.__moveNavHighlight(id);
+              }
+            }, SCROLL_ANIMATION_DURATION);
+          } else {
+            unlockScroll();
+          }
+        };
+        closeMobileMenu(performScrollAndUnlock);
+      });
+    });
+
+    // ————————————————————————————
+    // Navegación Escritorio
+    // ————————————————————————————
+    const navList = headerEl.querySelector('#nav-list') as HTMLElement | null;
+    const highlightEl = headerEl.querySelector('#nav-highlight') as HTMLElement | null;
 
     if (navList && highlightEl) {
-      const navItems = Array.from(headerEl.querySelectorAll<HTMLLIElement>('li.nav-item'))
-      const PAD_X = 16
-      const HEADER_Y_DESKTOP = 260
-      let activeTab: HTMLLIElement | null = navItems.find(item => item.classList.contains('active')) || (navItems.length > 0 ? navItems[0] : null)
+      const navItems = Array.from(headerEl.querySelectorAll<HTMLLIElement>('li.nav-item')); // Desktop nav items
+      const PAD_X = 16;
+      const HEADER_Y_DESKTOP = 260; // Offset estándar para secciones de escritorio
+      let activeTab: HTMLLIElement | null = navItems.find(item => item.classList.contains('active')) || (navItems.length > 0 ? navItems[0] : null);
 
       const paintHighlight = (el: HTMLElement | null) => {
-        if (!el || !navList || !highlightEl) return
-        const rect = el.getBoundingClientRect()
-        const isHome = el.dataset.link === 'home'
-        const width = isHome ? rect.width : rect.width + PAD_X * 2
-        const leftPosition = el.offsetLeft - (isHome ? 0 : PAD_X)
-        highlightEl.style.width = `${width}px`
-        highlightEl.style.transform = `translateX(${leftPosition}px)`
-      }
+        if (!el || !navList || !highlightEl) return;
+        const rect = el.getBoundingClientRect();
+        const isHome = el.dataset.link === 'home';
+        const width = isHome ? rect.width : rect.width + PAD_X * 2;
+        const leftPosition = el.offsetLeft - (isHome ? 0 : PAD_X);
+        highlightEl.style.width = `${width}px`;
+        highlightEl.style.transform = `translateX(${leftPosition}px)`;
+      };
 
       const setActiveClass = (el: HTMLElement | null) => {
-        navItems.forEach(li => li.classList.remove('active'))
-        if (el) el.classList.add('active')
-      }
+        navItems.forEach(navLi => navLi.classList.remove('active'));
+        if (el) el.classList.add('active');
+      };
 
-      const scrollToSectionDesktop = (id: string) => {
-        const section = document.getElementById(id)
-        if (section) {
-          const topPos = section.getBoundingClientRect().top + window.scrollY - HEADER_Y_DESKTOP
-          window.scrollTo({ top: topPos, behavior: 'smooth' })
-        }
-      }
-
+      /* ================= DESKTOP NAV ITEMS (clic + hover) ================= */
       navItems.forEach(li => {
         li.addEventListener('click', e => {
-          e.preventDefault()
-          const currentTargetLi = e.currentTarget as HTMLLIElement
-          const linkId = currentTargetLi.dataset.link
-          if (linkId) {
-            scrollToSectionDesktop(linkId)
-            activeTab = currentTargetLi
-            paintHighlight(activeTab)
-            setActiveClass(activeTab)
-          }
-        })
-        li.addEventListener('mouseenter', () => paintHighlight(li))
-        li.addEventListener('mouseleave', () => paintHighlight(activeTab))
-      })
+          e.preventDefault();
 
-      window.addEventListener('resize', () => paintHighlight(activeTab))
+          const currentTargetLi = e.currentTarget as HTMLLIElement;
+          const linkId = currentTargetLi.dataset.link;
+          if (!linkId) return;
+
+          let finalScrollTargetY: number | null = null;
+          let scrollBehaviorForThisClick: ScrollBehavior = 'smooth';
+          let calculatedScrollTargetForUniSync: number | null = null; // Variable específica para el log de UniSync
+
+          if (linkId === 'unisync' && window.innerWidth >= 1024) {
+            e.stopPropagation();
+            scrollBehaviorForThisClick = 'auto';
+            const marker = document.getElementById('unisync-marker') as HTMLElement | null;
+            if (marker) {
+              const DESIRED_MARKER_CENTER_FROM_VIEWPORT_TOP = 100;
+              const markerRect = marker.getBoundingClientRect();
+              const markerScrollY = window.scrollY;
+              const markerOffsetHeight = marker.offsetHeight;
+              const markerCenterAbsoluteY = markerRect.top + markerScrollY + (markerOffsetHeight / 2);
+              calculatedScrollTargetForUniSync = markerCenterAbsoluteY - DESIRED_MARKER_CENTER_FROM_VIEWPORT_TOP;
+              finalScrollTargetY = calculatedScrollTargetForUniSync;
+
+              // console.log('[UniSync Scroll Debug - header.ts controlled]');
+              // console.log({ // Mantenemos este log si es útil
+              //   DESIRED_MARKER_CENTER_FROM_VIEWPORT_TOP,
+              //   viewportHeight: window.innerHeight,
+              //   markerCenterAbsoluteY,
+              //   markerRectTop_beforeScroll: markerRect.top,
+              //   currentScrollY_beforeScroll: markerScrollY,
+              //   calculatedScrollTarget_UniSync: calculatedScrollTargetForUniSync
+              // });
+
+            } else {
+              // Fallback para UniSync Desktop si no hay marker
+              // console.warn('UniSync scroll (desktop): No se encontró marker. Usando scroll estándar de header.');
+              const section = document.getElementById(linkId);
+              if (section) finalScrollTargetY = section.getBoundingClientRect().top + window.scrollY - HEADER_Y_DESKTOP;
+            }
+          } else {
+            // Lógica de scroll estándar para el resto de secciones de ESCRITORIO
+            const section = document.getElementById(linkId);
+            if (section) {
+              finalScrollTargetY = section.getBoundingClientRect().top + window.scrollY - HEADER_Y_DESKTOP;
+            }
+          }
+
+          if (finalScrollTargetY !== null) {
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            let targetToScroll = finalScrollTargetY;
+            if (targetToScroll < 0) targetToScroll = 0;
+            if (targetToScroll > maxScroll) targetToScroll = maxScroll;
+
+            // console.log(`DESKTOP Applying scroll to: ${targetToScroll.toFixed(1)} for section ${linkId} with behavior: ${scrollBehaviorForThisClick}`);
+            window.scrollTo({ top: targetToScroll, behavior: scrollBehaviorForThisClick });
+
+            if (linkId === 'unisync' && window.innerWidth >= 1024) { // Solo para diagnóstico de UniSync Desktop
+              setTimeout(() => {
+                const currentMarker = document.getElementById('unisync-marker');
+                let markerTopAfterScroll = 'N/A'; let markerCenterViewportAfterScroll = 'N/A';
+                if (currentMarker) {
+                    const markerRectAfter = currentMarker.getBoundingClientRect();
+                    markerTopAfterScroll = markerRectAfter.top.toFixed(1);
+                    markerCenterViewportAfterScroll = (markerRectAfter.top + markerRectAfter.height / 2).toFixed(1);
+                }
+                // console.log(
+                //     `[UniSync DIAGNOSTIC - DESKTOP] After 1s for target ${targetToScroll.toFixed(1)}:\n` +
+                //     `  window.scrollY: ${window.scrollY.toFixed(1)}\n` +
+                //     `  Marker Top in Viewport: ${markerTopAfterScroll}px\n` +
+                //     `  Marker Center in Viewport: ${markerCenterViewportAfterScroll}px\n`+
+                //     `  (Viewport Height: ${window.innerHeight}px, Desired Marker Center: 100px)` // Hardcoded 100 for DESIRED...
+                // );
+              }, 1000);
+            }
+          }
+
+          activeTab = currentTargetLi;
+          paintHighlight(activeTab);
+          setActiveClass(activeTab);
+        });
+
+        li.addEventListener('mouseenter', () => paintHighlight(li));
+        li.addEventListener('mouseleave', () => paintHighlight(activeTab));
+      });
+
+      window.addEventListener('resize', () => paintHighlight(activeTab));
 
       window.__moveNavHighlight = (id: string) => {
-        const targetNavItem = headerEl.querySelector<HTMLLIElement>(`li.nav-item[data-link="${id}"]`)
+        const targetNavItem = headerEl.querySelector<HTMLLIElement>(`li.nav-item[data-link="${id}"]`);
         if (targetNavItem && targetNavItem !== activeTab) {
-          activeTab = targetNavItem
-          paintHighlight(activeTab)
-          setActiveClass(activeTab)
+          activeTab = targetNavItem;
+          paintHighlight(activeTab);
+          setActiveClass(activeTab);
         } else if (targetNavItem && targetNavItem === activeTab) {
-            paintHighlight(targetNavItem)
+            paintHighlight(targetNavItem);
         }
-      }
+      };
+
       requestAnimationFrame(() => {
         if(activeTab){
-            paintHighlight(activeTab)
-            setActiveClass(activeTab)
+            paintHighlight(activeTab);
+            setActiveClass(activeTab);
         } else if (navItems.length > 0) {
-            activeTab = navItems[0];
+            activeTab = navItems[0]; // Default to first item if no active tab
             paintHighlight(activeTab);
             setActiveClass(activeTab);
         }
-      })
+      });
     }
 
+    // Asegurar que si el menú móvil está abierto al cargar/renderizar, se aplique el blur y lockScroll
     if (mobileMenuEl.classList.contains('translate-x-0')) {
-      const mainContent = document.querySelector(MAIN_SELECTOR) as HTMLElement | null
-      const mobileTopBar = headerEl.querySelector('#mobile-top-bar') as HTMLElement | null
-      mobileTopBar?.classList.add('opacity-0', 'pointer-events-none')
-      if (mainContent) {
-        mainContent.classList.add('blur-sm', 'pointer-events-none')
-      }
-      lockScroll()
+      const mainContent = document.querySelector(MAIN_SELECTOR) as HTMLElement | null;
+      const mobileTopBar = headerEl.querySelector('#mobile-top-bar') as HTMLElement | null;
+      mobileTopBar?.classList.add('opacity-0', 'pointer-events-none');
+      if (mainContent) mainContent.classList.add('blur-sm', 'pointer-events-none');
+      lockScroll();
     }
-  }
+  };
 
-  render()
-  onLangChange(render)
-  return headerEl
+  render();
+  onLangChange(render); // Re-render on language change
+  return headerEl;
 }
