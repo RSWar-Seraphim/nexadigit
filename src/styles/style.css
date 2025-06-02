@@ -1,0 +1,364 @@
+/* ------------------- Fonts ------------------- */
+
+/* Google Fonts: Montserrat (regular, semi-bold, bold) */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+/* PetrovSans (local font) */
+@font-face {
+  font-family: 'PetrovSans';
+  src: url('../assets/fonts/PetrovSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* Utility class for PetrovSans */
+.font-petrov-sans { font-family: 'PetrovSans', sans-serif; }
+
+
+/* ------------------- Tailwind ------------------- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* ------------------- Base Styles ------------------- */
+
+/* Global font */
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: black;
+  position: relative;
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/* Main background overlays (for effects/layering) */
+body::before, body::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: black;
+  z-index: -2;
+}
+body::before { opacity: 1; }
+body::after  { opacity: 0.9; z-index: -1; }
+
+html, body { overflow-x: clip; }
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: rgba(255,255,255,0.87);
+  background-color: #242424;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --header-h: 56px;
+}
+
+/* ------------------- Layout & Containers ------------------- */
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.background-container {
+  position: relative;
+  width: 100%;
+  min-height: 800px;
+}
+.background-container::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 800px;
+  background-image: url('../assets/abstract-green-design.jpeg');
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+/* ------------------- Typography ------------------- */
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+  transition: color 0.2s;
+}
+a:hover { color: #00D48D; }
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+/* Hero Titles & Responsive Headings (EN & ES) */
+.hero-title-1-en, .hero-title-1-es {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  line-height: 1.1;
+}
+.hero-title-1-en { font-size: clamp(23px, 6vw, 50px); }
+.hero-title-1-es { font-size: clamp(21px, 5vw, 45px); }
+
+/* Fluid responsive titles (EN & ES) */
+.unisync-title-1-en { font-size: clamp(32px, 6vw, 65px); }
+.unisync-title-2-en { font-size: clamp(28px, 5.2vw, 63px); }
+.unisync-title-1-es { font-size: clamp(28px, 5vw, 66px); }
+.unisync-title-2-es { font-size: clamp(25px, 4.7vw, 55px); }
+
+/* Utility for mobile title width */
+@layer utilities {
+  .w-title-mobile { max-width: 300px; }
+}
+
+/* Generic fluid headings */
+@layer utilities {
+  .fluid-h2-en     { font-size: clamp(78px, 3.8vw, 95px); }
+  .fluid-h2-2-en   { font-size: clamp(104px, 5vw, 116px); }
+  .fluid-h2-es     { font-size: clamp(69px, 3.4vw, 63px); }
+  .fluid-h2-2-es   { font-size: clamp(85px, 4.5vw, 78px); }
+  .fluid-brand     { font-size: clamp(230px, 11vw, 255px); }
+}
+
+/* Shrink for short screens */
+@layer utilities {
+  .short\:shrink-12 { transform: scale(.88); transform-origin: top center; }
+}
+
+/* ------------------- Components ------------------- */
+@layer components {
+  .text-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: clamp(24px, 5vw, 45px);
+    line-height: 1.1;
+  }
+  .text-body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: clamp(8px, 3.5vw, 20px);
+    line-height: 1.6;
+    text-align: left;
+    letter-spacing: -0.01em;
+  }
+  .aside-text-about {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: clamp(15px, 4vw, 25px);
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    text-transform: uppercase;
+  }
+}
+
+/* Buttons */
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover { border-color: #646cff; }
+button:focus,
+button:focus-visible { outline: 4px auto -webkit-focus-ring-color; }
+
+/* Cards, Logos, Misc */
+.card { padding: 2em; }
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover        { filter: drop-shadow(0 0 2em #646cffaa); }
+.logo.vanilla:hover{ filter: drop-shadow(0 0 2em #3178c6aa); }
+
+.read-the-docs { color: #888; }
+
+/* ------------------- Hero, Partner, CTA ------------------- */
+@media (min-height:1180px){
+  .hero-brand { font-size: clamp(72px, 18vw, 108px); }
+}
+
+/* Hero arrow + input/button cta block + partner pill */
+@layer utilities {
+  .hero-arrow   { @apply absolute z-0 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none animate-zoom; }
+  .hero-arrow   { width:clamp(120px,18vh,350px); height:clamp(190px,28vh,660px); }
+  .cta-block    { @apply flex justify-center items-center gap-2; margin-top:clamp(2.5rem,6vh,6rem);}
+  .partner-pill { @apply flex items-center justify-center gap-8 rounded-[18px] bg-[#006E49] px-3 lg:px-4; height:clamp(65px,9vh,110px);}
+}
+
+/* Only on mobile: force exact height for hero */
+@media (max-width: 639px) {
+  .hero-mobile-fill {
+    height:      calc(100svh - var(--header-h));
+    min-height:  calc(100svh - var(--header-h));
+  }
+}
+
+/* Header padding adjustment on mobile */
+@layer utilities {
+  .pt-header-mob { padding-top: calc(var(--header-h) + 12px);}
+  @screen sm { .pt-header-mob { padding-top: 0; } }
+}
+
+/* Responsive adjustments for hero/headings on certain breakpoints */
+@media (max-width:1135px) {
+  .fluid-h2-en   { font-size: clamp(69px, 5.4vw, 78px); }
+  .fluid-h2-2-en { font-size: clamp(92px, 6.5vw, 95px); }
+  .fluid-brand   { font-size: clamp(210px, 13vw, 220px);}
+  .fluid-h2-es   { font-size: clamp(62px, 5vw, 69px);}
+  .fluid-h2-2-es { font-size: clamp(76px, 6vw, 85px);}
+}
+@media (min-height:960px){
+  .fluid-h2-en      { font-size: clamp(85px, 4vmin,100px);}
+  .fluid-h2-2-en    { font-size: clamp(113px,5vmin,130px);}
+  .fluid-brand      { font-size: clamp(250px,12vmin,300px);}
+  .fluid-h2-es      { font-size: clamp(79px, 4vmin,100px);}
+  .fluid-h2-2-es    { font-size: clamp(96px,5vmin,130px);}
+}
+
+/* ------------------- Animations ------------------- */
+@keyframes zoomInOut {
+  0%, 100%   { transform: scale(1) translate(-50%, -50%);}
+  50%        { transform: scale(1.02001) translate(-50%, -50%);}
+}
+.animate-zoom { animation: zoomInOut 10s ease-in-out infinite; }
+
+@keyframes call-shake {
+  0%,100% { transform: rotate(0deg);}
+  20%     { transform: rotate(14deg);}
+  40%     { transform: rotate(-14deg);}
+  60%     { transform: rotate(10deg);}
+  80%     { transform: rotate(-10deg);}
+}
+.animate-call-shake { animation: call-shake 0.8s ease-in-out 1; }
+
+@keyframes bounce-mini {
+  0%, 100% { transform: translateY(-12%);}
+  50%      { transform: translateY(0);}
+}
+.animate-bounce-mini { animation: bounce-mini 1s infinite; }
+
+/* ------------------- Miscellaneous ------------------- */
+
+/* Always keep header/navbar on top */
+header, .header, .top-navbar {
+  z-index: 50 !important;
+  position: relative;
+}
+
+/* Modal above all (except maybe alerts) */
+.modal-book-meeting, .modal, .your-modal-class {
+  z-index: 100 !important;
+  position: fixed;
+}
+
+/* Leaflet map always below modal/header */
+#leaflet-map, .leaflet-container {
+  z-index: 10 !important;
+  position: relative;
+}
+
+/* Full viewport height utility */
+.full-vh {
+  min-height: 100vh;
+  height: 100vh;
+}
+@supports (height: 100dvh) {
+  .full-vh {
+    min-height: 100dvh;
+    height: 100dvh;
+  }
+}
+
+/* App-wide smooth anchor scroll */
+html { scroll-behavior: smooth; }
+
+
+/* ------------------- Color Scheme: Light Mode Tweaks ------------------- */
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover { color: #006F49;}
+  /* button { background-color: #f9f9f9;} */
+}
+
+/* Hide hero track for small screens */
+@media (max-height: 768px) {
+  #heroMobileTrack { display: none; }
+}
+
+/* Safe-area padding for iOS browsers */
+@supports (padding: max(0px)) {
+  section#home { padding-bottom: max(env(safe-area-inset-bottom), 0.5rem);}
+}
+
+@media (min-width: 1024px) {
+  .hero-section-with-bg {
+    position: relative;
+    z-index: 1;
+  }
+  .hero-section-with-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/src/assets/background-header.svg');
+    background-repeat: no-repeat;
+    background-position: center 250px;
+    background-size: 1454px 654px;
+    opacity: 0.3; /* nuevo mínimo */
+    pointer-events: none;
+    z-index: 0;
+    animation: hero-bg-breathe 6s ease-in-out infinite;
+  }
+  .hero-section-with-bg > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+@keyframes hero-bg-breathe {
+  0%   { opacity: 0.1; }
+  40%  { opacity: 0.4; }
+  60%  { opacity: 0.4; }
+  100% { opacity: 0.1; }
+}
+
+footer a {
+  color: #fff !important;
+}
+
+footer a:hover {
+  color: #00D48D !important;
+}
+
+/* En tu hoja global o tailwind.css */
+button {
+  border: 0 !important;
+}
+
+
+.nx-notify-x:focus,
+.nx-notify-x:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+

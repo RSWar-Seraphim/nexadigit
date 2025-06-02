@@ -102,4 +102,10 @@ export const en = {
   footer_cookie  : 'Cookie Settings',
   footer_copy : '© 2025 NexaDigit. All rights reserved.',
 
+  notify_email_success: "Thanks for subscribing!",
+  notify_email_error: "We couldn’t subscribe you. Please try again.",
+  notify_contact_success: "Message sent successfully!",
+  notify_contact_error: "Error: Could not send.",
+  notify_contact_network_error: "Network error. Please try again."
+
 }

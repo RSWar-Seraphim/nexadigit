@@ -1,72 +1,53 @@
 // ──────────────────────────────────────────
-// src/components/About.ts   (desktop intacto + md refinado + mobile igual)
+// src/components/About.ts   (desktop intacto + md refinado + mobile igual, refactorizado)
 // ──────────────────────────────────────────
 import { t, onLangChange } from './i18n'
 
-export function About() {
-  const aboutEl = document.createElement('section')
-  aboutEl.id = 'about'
+type I18nKey = Parameters<typeof t>[0]
 
-  type I18nKey = Parameters<typeof t>[0]
-
-  /* ---------- helpers ---------- */
-  const itemRowDesktop = (
-    icon: string,
-    titleKey: I18nKey,
-    descKey: I18nKey,
-    highlight = false
-  ) => {
-    const rowExtra = highlight
-      ? 'relative bg-[#006E49]/40 rounded-tl-[55px] border-b border-white'
-      : ''
-
-    return `
-      <div class="sm:min-h-[145px] grid grid-cols-12 items-center gap-4 lg:min-h-[170px] md:min-h-[145px] pl-4
-                 md:pl-2 md:gap-5 ${rowExtra}">
-        <!-- Col‑1: icon (hidden en md, visible de nuevo en lg) -->
-        <div class="col-span-5 flex items-center gap-3">
-          <div class="w-[35px] h-[35px] md:w-[30px] md:h-[30px] bg-[#006E49] rounded-full flex items-center justify-center
-                       lg:flex">
-            <img src="${icon}" alt="${t(titleKey)} icon" class="w-4 h-4 md:w-3.5 md:h-3.5" />
-          </div>
-          <h3 class="aside-text-about">
-            ${t(titleKey)}
-          </h3>
+// Helper: Row desktop
+function itemRowDesktop(
+  icon: string,
+  titleKey: I18nKey,
+  descKey: I18nKey,
+  highlight = false
+) {
+  const rowExtra = highlight
+    ? 'relative bg-[#006E49]/40 rounded-tl-[55px] border-b border-white'
+    : ''
+  return `
+    <div class="sm:min-h-[145px] grid grid-cols-12 items-center gap-4 lg:min-h-[170px] md:min-h-[145px] pl-4
+               md:pl-2 md:gap-5 ${rowExtra}">
+      <div class="col-span-5 flex items-center gap-3">
+        <div class="w-[35px] h-[35px] md:w-[30px] md:h-[30px] bg-[#006E49] rounded-full flex items-center justify-center lg:flex">
+          <img src="${icon}" alt="${t(titleKey)} icon" class="w-4 h-4 md:w-3.5 md:h-3.5" />
         </div>
+        <h3 class="aside-text-about">${t(titleKey)}</h3>
+      </div>
+      <div class="col-span-1 lg:flex items-center justify-center">
+        <img src="/src/assets/arrow-right-about.svg"
+             alt="Arrow separator"
+             class="md:w-[20px] md:h-[20px] w-[25px] h-[25px] sm:w-[15px] sm:h-[15px]" />
+      </div>
+      <div class="col-span-6 flex flex-col justify-center">
+        <p class="font-montserrat font-medium text-body leading-relaxed text-left tracking-tight">
+          ${t(descKey)}
+        </p>
+      </div>
+    </div>`
+}
 
-        <div class="col-span-1 lg:flex items-center justify-center">
-          <img src="/src/assets/arrow-right-about.svg"
-               alt="Arrow separator"
-               class="md:w-[20px] md:h-[20px] w-[25px] h-[25px] sm:w-[15px] sm:h-[15px]" />
-        </div>
-
-        <!-- Col‑3: descripción -->
-        <div class="col-span-6 flex flex-col justify-center">
-          <p class="font-montserrat font-medium
-                    text-body
-                    leading-relaxed text-left tracking-tight
-                    
-                    ">
-            ${t(descKey)}
-          </p>
-        </div>
-      </div>`
-  }
-
-  /**
-   * Mobile card: highlights (1 & 3) — top radius 20 px + only bottom stroke 0.5 px #D9D9D9.
-   */
-  const itemRowMobile = (
-    icon: string,
-    titleKey: I18nKey,
-    descKey: I18nKey,
-    highlight = false
-  ) => {
-    const wrapperBase = 'relative w-[236px] h-[200px] flex items-center justify-center'
-    const highlightClasses = highlight ? 'bg-[#006E49]/10 rounded-tl-[20px] rounded-tr-[20px]' : ''
-    const highlightStyle = highlight ? 'style="border-bottom:0.5px solid #D9D9D9;"' : ''
-
-    return `
+// Helper: Row mobile
+function itemRowMobile(
+  icon: string,
+  titleKey: I18nKey,
+  descKey: I18nKey,
+  highlight = false
+) {
+  const wrapperBase = 'relative w-[236px] h-[200px] flex items-center justify-center'
+  const highlightClasses = highlight ? 'bg-[#006E49]/10 rounded-tl-[20px] rounded-tr-[20px]' : ''
+  const highlightStyle = highlight ? 'style="border-bottom:0.5px solid #D9D9D9;"' : ''
+  return `
     <div class="mt-6 flex justify-center">
       <div class="${wrapperBase} ${highlightClasses}" ${highlightStyle}>
         <div class="max-w-[185px] mx-auto flex flex-col items-center text-center">
@@ -83,10 +64,14 @@ export function About() {
         </div>
       </div>
     </div>`
-  }
+}
 
-  /* ---------- render ---------- */
-  const render = () => {
+// Entry point
+export function About() {
+  const aboutEl = document.createElement('section')
+  aboutEl.id = 'about'
+
+  function render() {
     aboutEl.className =
       'w-full max-w-[1000px] mx-auto mt-6 sm:mt-24 px-4 text-white scroll-mt-[160px]'
 

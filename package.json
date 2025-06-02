@@ -4,22 +4,30 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "concurrently \"npm:dev:vite\" \"npm:dev:server\"",
     "build": "tsc && vite build",
+    "dev:vite": "vite",
+    "dev:server": "nodemon server/index.js",
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/express": "^5.0.2",
     "@types/node": "^22.15.17",
     "@types/node-fetch": "^2.6.12",
     "autoprefixer": "^10.4.21",
+    "concurrently": "^8.0.1",
+    "nodemon": "^3.1.10",
     "postcss": "^8.5.3",
     "tailwindcss": "^3.3.3",
     "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
     "typescript": "~5.7.2",
     "vite": "^6.2.0"
   },
   "dependencies": {
     "@vercel/node": "^2.3.0",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
     "node-fetch": "^3.3.2"
   }
 }

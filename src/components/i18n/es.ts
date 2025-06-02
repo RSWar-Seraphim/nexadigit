@@ -103,4 +103,11 @@ export const es = {
   footer_privacy : 'Privacidad',
   footer_terms   : 'Términos',
   footer_cookie  : 'Cookies',
+
+  notify_email_success: "¡Gracias por suscribirte!",
+  notify_email_error: "No pudimos suscribirte. Intenta de nuevo.",
+  notify_contact_success: "¡Mensaje enviado con éxito!",
+  notify_contact_error: "Error: No se pudo enviar.",
+  notify_contact_network_error: "Error de red. Intenta de nuevo."
+
 }

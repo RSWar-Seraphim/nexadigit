@@ -1,56 +1,65 @@
 // src/scroll.ts
 
-const HEADER_EL      = document.querySelector<HTMLElement>('header')!
-
-const HEADER_OFFSET  = HEADER_EL.offsetHeight + HEADER_EL.offsetTop + 10   /* ej. 56 px */
-const ACTIVE_CLASS  = 'active';
+const ACTIVE_CLASS = 'active';
 
 interface SectionData { id: string; top: number }
-let sections: SectionData[] = [];
 
+let sections: SectionData[] = [];
+let headerEl: HTMLElement | null = null;
+let headerOffset = 0;
+
+// --- Measure header height and section positions ---
 function measureSections() {
+  headerEl = document.querySelector<HTMLElement>('header');
+  headerOffset = headerEl ? headerEl.offsetHeight + headerEl.offsetTop + 10 : 56;
+
   sections = [...document.querySelectorAll<HTMLElement>('section[id]')].map(sec => ({
-    id : sec.id,
-    top: sec.getBoundingClientRect().top + scrollY - HEADER_OFFSET
+    id: sec.id,
+    top: sec.getBoundingClientRect().top + scrollY - headerOffset,
   })).sort((a, b) => a.top - b.top);
 }
 
+// --- Update the active tab according to scroll position ---
 function updateActiveFromScroll() {
   if (!sections.length) return;
   const scrollPos = scrollY;
-
   let current = sections[0];
+
   for (const sec of sections) {
-    /* margen de tolerancia de 2 px ↓↓↓ */
-    if (scrollPos + 2 >= sec.top) current = sec;
+    if (scrollPos + 2 >= sec.top) current = sec; // tolerance margin
     else break;
   }
   setActiveTab(current.id);
 }
 
-const links = [...document.querySelectorAll<HTMLElement>('[data-link]')];
+// --- Toggle active class on nav links and move highlight if available ---
 function setActiveTab(id: string) {
+  const links = [...document.querySelectorAll<HTMLElement>('[data-link]')];
   links.forEach(l => l.classList.toggle(ACTIVE_CLASS, l.dataset.link === id));
-  window.__moveNavHighlight?.(id);
+  (window as any).__moveNavHighlight?.(id);
 }
 
+// --- Enable smooth scroll for all [data-link] elements ---
 function enableSmoothClicks() {
   document.addEventListener('click', e => {
     const link = (e.target as HTMLElement).closest<HTMLElement>('[data-link]');
     if (!link) return;
 
     e.preventDefault();
-    measureSections();                              // ★ recalcula justo antes
-    const id  = link.dataset.link!;
+    measureSections(); // recalculate before scrolling
+
+    const id = link.dataset.link!;
     const sec = document.getElementById(id);
     const top = sec
-      ? sec.getBoundingClientRect().top + scrollY - HEADER_OFFSET
+      ? sec.getBoundingClientRect().top + scrollY - headerOffset
       : 0;
+
     scrollTo({ top, behavior: 'smooth' });
   });
 }
 
-function init() {
+// --- Main initializer ---
+function initScrollHandling() {
   measureSections();
   enableSmoothClicks();
   updateActiveFromScroll();
@@ -66,7 +75,7 @@ function init() {
     }
   });
 
-  addEventListener('resize', () => {               // ventanas ↔
+  addEventListener('resize', () => {
     measureSections();
     updateActiveFromScroll();
   });
@@ -77,6 +86,9 @@ function init() {
   });
 }
 
-document.readyState === 'loading'
-  ? addEventListener('DOMContentLoaded', init)
-  : init();
+// --- Run initializer on DOM ready ---
+if (document.readyState === 'loading') {
+  addEventListener('DOMContentLoaded', initScrollHandling);
+} else {
+  initScrollHandling();
+}

@@ -8,6 +8,7 @@
 //     la flecha no se corte en sm/md (641‑1023 px).
 // ──────────────────────────────────────────
 import { t, getLang, onLangChange } from './i18n'
+import { notify } from './notify'
 
 export function Hero() {
   const hero = document.createElement('section')
@@ -17,24 +18,25 @@ export function Hero() {
   'px-4 md:px-6 lg:px-[64px] scroll-mt-[64px]',
   'relative',
 
-  /* Altura mínima = viewport libre de header */
   'portrait:min-h-[calc(100dvh-var(--header-h))]',
   'lg:min-h-[calc(100dvh-var(--header-h))]',
-
-  /* Distribución vertical */
   'flex flex-col lg:justify-start tall:justify-center',
-
-  /* ¡Sin overflow interno! */
   'overflow-visible',
+  'pt-0 sm:pt-12 md:pt-12 lg:pt-[calc(var(--header-h)+28px)]',
 
-  /* Padding-top cero en desktop, se conserva en mobile */
-  'pt-0 sm:pt-12 md:pt-12 lg:pt-[calc(var(--header-h)+28px)]'
+  // AQUÍ VAN LAS NUEVAS CLASES
+  'hero-section-with-bg',
+  'lg:bg-no-repeat',
+  'lg:bg-center',
+  'lg:bg-[length:1454px_654px]',
+  // Puedes ajustar la posición con:
+  //'lg:bg-[position:50%_40px]' // si quieres afinar vertical
 ].join(' ')
    /* ──────────────── template MÓVIL ──────────────── */
   const mobileTemplate = (lang: string) => {
     return /* html */ `
       <!-- Visible hasta < lg (teléfonos y tablets) -->
-      <div class="lg:hidden relative flex-1 flex flex-col pt-12 hero-mobile-fill pt-header-mob full-vh items-center">
+      <div class="lg:hidden  relative flex-1 flex flex-col pt-12 hero-mobile-fill pt-header-mob full-vh items-center">
         <!-- Títulos -->
         <div class="mt-8 px-4 text-center">
           <h2 class="font-montserrat font-extrabold leading-tight ${lang === 'en' ? 'ms:text-[23px] mm:text-[26.5px] ml:text-[29px] sm:!text-[40px] md:!text-[50px]' : ' sm:!text-[36px] md:!text-[45px] ml:text-[26px] mm:text-[24px] ms:text-[21px]'}">${t('hero_title_part1')}</h2>
@@ -117,35 +119,37 @@ export function Hero() {
       4k:pb-8
       xl-h-lg:pb-3
       xl-h-lg:mt-40">
-        <input type="email" placeholder="${t('hero_email_placeholder')}" class="w-[180px] 
-        h-[28px] md:w-[250px] md:h-[45px] 
-        lg:w-[314px] lg:h-[45px]
-         bg-white rounded-[8px] 
-         text-black placeholder:text-[8px] 
-         md:placeholder:text-[13px] 
-         lg:placeholder:text-[15px] 
-         text-xs lg:text-base px-3
-         lg:px-4 4k:h-[55px]
-         h-xl:h-[55px]
-         4k:-mt-9
-         xl-h-lg:-mt-9  
-         lg:mt-5   
-         ">
-        <button
-  class="bg-[#006E49] hover:bg-[#00a16b]
-         flex items-center justify-center
-         h-[28px] p-2 rounded-[8px]
-         md:h-[45px] md:px-4 lg:h-[45px] lg:px-4
-         4k:h-[55px] h-xl:h-[55px] 4k:-mt-9 xl-h-lg:-mt-9 lg:mt-5
+       <form id="hero-email-form" class="flex items-center gap-2 lg:gap-3">
+  <input name="email"
+         type="email"
+         required
+         placeholder="${t('hero_email_placeholder')}"
+         class="w-[180px] 
+                h-[28px] md:w-[250px] md:h-[45px] 
+                lg:w-[314px] lg:h-[45px]
+                bg-white rounded-[8px] 
+                text-black placeholder:text-[8px] 
+                md:placeholder:text-[13px] 
+                lg:placeholder:text-[15px] 
+                text-xs lg:text-base px-3
+                lg:px-4 4k:h-[55px] h-xl:h-[55px]
+                4k:-mt-9 xl-h-lg:-mt-9 lg:mt-5" />
 
-         border-none focus:border-none focus-visible:border-none   /* ⬅︎ aquí */
-         focus:outline-none  focus:ring-0
-         focus-visible:outline-none focus-visible:ring-0
-         transition-colors duration-200">
-  <img src="/src/assets/icon-send.svg"
-       class="w-4 h-4 brightness-0 invert"
-       alt="">
-</button>
+  <button type="submit"
+          class="bg-[#006E49] hover:bg-[#00a16b]
+                 flex items-center justify-center
+                 h-[28px] p-2 rounded-[8px]
+                 md:h-[45px] md:px-4 lg:h-[45px] lg:px-4
+                 4k:h-[55px] h-xl:h-[55px] 4k:-mt-9 xl-h-lg:-mt-9 lg:mt-5
+                 border-none focus:border-none focus-visible:border-none
+                 focus:outline-none focus:ring-0
+                 focus-visible:outline-none focus-visible:ring-0
+                 transition-colors duration-200">
+    <img src="/src/assets/icon-send.svg"
+         class="w-4 h-4 brightness-0 invert" alt="">
+  </button>
+</form>
+
 
 
 
@@ -204,32 +208,51 @@ export function Hero() {
 </div>`
   }
 
+
   // render, autoplay y carousel partners girando igual al desktop
   let desktopPartnerTimer: number | undefined
   let mobilePartnerTimer: number | undefined
 
   function startPartnersAutoplay(): number | undefined {
-    const track = hero.querySelector<HTMLDivElement>("#partnerTrack")
-    if (!track) return undefined
-    const GAP = 48, SPEED = 700, DELAY = 3000
-    const slide = () => {
-      const first = track.children[0] as HTMLElement
-      if (!first) return
-      const STEP = first.offsetWidth + GAP
-      track.style.transition = `transform ${SPEED}ms ease-out`
-      track.style.transform  = `translateX(-${STEP}px)`
-      track.addEventListener(
-        'transitionend',
-        () => {
-          track.style.transition = 'none'
-          track.style.transform  = 'translateX(0)'
-          track.appendChild(first)
-        },
-        { once: true }
-      )
+  const track = hero.querySelector<HTMLDivElement>('#partnerTrack')
+  if (!track) return undefined
+
+  const GAP_PX          = 48          // distancia entre logos
+  const PX_PER_SECOND   = 30          // velocidad (ajusta a tu gusto)
+  let   offset          = 0           // acumulado de translateX
+  let   lastTimestamp   = 0           // para calcular delta-t
+  let   rafId: number   // devolveremos este ID por si luego quieres cancelarlo
+
+  // aseguramos que no haya transiciones bruscas
+  track.style.transition = 'none'
+
+  const step = (ts: number) => {
+    if (!lastTimestamp) lastTimestamp = ts
+    const dt = (ts - lastTimestamp) / 1000 // segundos desde el frame anterior
+    lastTimestamp = ts
+
+    // desplazamos a la izquierda
+    offset -= PX_PER_SECOND * dt
+    track.style.transform = `translateX(${offset}px)`
+
+    // si el primer logo salió por completo, lo mandamos al final
+    const first = track.children[0] as HTMLElement
+    if (first) {
+      const stepWidth = first.offsetWidth + GAP_PX
+      if (Math.abs(offset) >= stepWidth) {
+        offset += stepWidth         // reajustamos la base
+        track.appendChild(first)    // lo movemos al final
+        track.style.transform = `translateX(${offset}px)`
+      }
     }
-    return setInterval(slide, DELAY)
+
+    rafId = requestAnimationFrame(step)
   }
+
+  rafId = requestAnimationFrame(step)
+  return rafId                      // devuélvelo si luego necesitas cancelarlo
+}
+
 
   function startMobilePartners(): number | undefined {
     const track = hero.querySelector<HTMLDivElement>("#partnerTrackMobile")
@@ -254,11 +277,37 @@ export function Hero() {
     return setInterval(slide, DELAY)
   }
 
+  function attachHeroEmailForm() {
+  const form = hero.querySelector<HTMLFormElement>('#hero-email-form');
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = (new FormData(form)).get('email') as string;
+    if (!email) return;
+
+    const res = await fetch('/api/mailerlite', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+
+    if (res.ok) {
+      notify(t('notify_email_success'), 'success');
+      form.reset();
+    } else {
+      notify(t('notify_email_error'), 'error');
+    }
+  });
+}
+
+
   const render = () => {
     if (desktopPartnerTimer) clearInterval(desktopPartnerTimer)
     if (mobilePartnerTimer) clearInterval(mobilePartnerTimer)
     const lang = getLang()
     hero.innerHTML = mobileTemplate(lang) + desktopTemplate(lang)
+    attachHeroEmailForm()
     desktopPartnerTimer = startPartnersAutoplay()
     mobilePartnerTimer = startMobilePartners()
   }
@@ -268,4 +317,3 @@ export function Hero() {
 
   return hero
 }
-

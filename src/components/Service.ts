@@ -1,146 +1,96 @@
 // ──────────────────────────────────────────
-// src/components/Service.ts   (mobile + desktop intacto)
+// src/components/Service.ts   (refactorizado, mobile + desktop intacto)
 // ──────────────────────────────────────────
 import { t, onLangChange } from './i18n'
+
 export function Service() {
-const el = document.createElement('section')
-el.id = 'services'
-/* ─────────────── Carrusel DESKTOP ─────────────── */
-let desktopTimer: number | undefined
-const initCarouselDesktop = () => {
-  if (desktopTimer) clearInterval(desktopTimer);
-  const track = el.querySelector<HTMLDivElement>('#carouselTrack');
-  if (!track) return;
+  const el = document.createElement('section')
+  el.id = 'services'
 
-  const GAP     = 28;
-  const SPEED   = 700;
-  const DELAY   = 5000;
-  const visible = 5;                        // cuántas se ven a la vez
-  const leftCnt = Math.floor(visible / 2);  // las que van a la izquierda
+  // ————————————————————————————————————————
+  // Un solo helper para cualquier carrusel (id, gap, delay)
+  // ————————————————————————————————————————
+  let timers: { [key: string]: number | undefined } = {}
 
-  const firstImg = track.querySelector<HTMLImageElement>('img');
-  if (!firstImg) return;
-
-  const ready = firstImg.complete
-    ? Promise.resolve()
-    : new Promise<void>(res =>
-        firstImg.addEventListener('load', () => res(), { once: true }),
-      );
-
-  ready.then(() => {
-    const W = firstImg.clientWidth;
-
-    /* 1️⃣  Gira DOM para que el slide central sea el primero */
-    for (let i = 0; i < leftCnt; i++) track.appendChild(track.children[0]);
-
-    /* 2️⃣  Duplica slides: nunca faltará relleno a la derecha */
-    const need = visible + leftCnt + 2; // margen de seguridad
-    const orig = Array.from(track.children);
-    let idx = 0;
-    while (track.children.length < need) {
-      track.appendChild(orig[idx++ % orig.length].cloneNode(true));
-    }
-
-    /* 3️⃣  Offset que centra el primer hijo */
-    const OFFSET = `calc(50% - ${(W / 2) + (W + GAP) * leftCnt}px)`;
-
-    track.style.transition = 'none';
-    track.style.transform = `translateX(${OFFSET})`;
-    track.classList.remove('opacity-0', 'pointer-events-none', 'preload');
-
-    /* 4️⃣  Autoplay sin “rebote” visual */
-    const slide = () => {
-      const first = track.children[0] as HTMLElement;
-      const STEP  = first.clientWidth + GAP;
-
-      // a) anima un paso a la izquierda
-      track.style.transition = `transform ${SPEED}ms cubic-bezier(.4,0,.2,1)`;
-      track.style.transform  = `translateX(calc(${OFFSET} - ${STEP}px))`;
-
-      // b) cuando termina, recoloca y vuelve al offset original SIN transición
-      track.addEventListener(
-        'transitionend',
-        () => {
-          track.style.transition = 'none';
-          track.appendChild(first);              // 1.º → final
-          track.style.transform = `translateX(${OFFSET})`;
-        },
-        { once: true }
-      );
-    };
-
-    desktopTimer = window.setInterval(slide, DELAY);
-
-    /* 5️⃣  Sigue centrado al redimensionar */
-    window.addEventListener('resize', () => {
-      track.style.transition = 'none';
-      track.style.transform  = `translateX(${OFFSET})`;
-    });
-  });
-};
-
-
-
-
-
-
-
-
-
-
-
-/* ─────────────── Carrusel MOBILE ─────────────── */
-let mobileTimer: number | undefined
-const initCarouselMobile = () => {
-if (mobileTimer) clearInterval(mobileTimer)
-const WIDTH = 165, GAP = 16, DELAY = 5000
-const track = el.querySelector
-<HTMLDivElement>
-('#carouselTrackMobile')
-if (!track) return
-const imgs = track.querySelectorAll('img')
-let i = 0
-const slide = (k: number) =>
-(track.style.transform = `translateX(calc(50% - ${WIDTH / 2}px - ${k * (WIDTH + GAP)}px))`)
-slide(i)
-mobileTimer = window.setInterval(() => {
-i = (i + 1) % imgs.length
-slide(i)
-}, DELAY)
-}
-
- /* ─────────────── Carrusel TABLET (MD) ─────────────── */
-  let mdTimer: number | undefined
-  const initCarouselMd = () => {
-    if (mdTimer) clearInterval(mdTimer)
-
-    // usa los mismos tamaños que el markup de tablet
-    const WIDTH  = 220          // ancho de la mini‑foto
-    const GAP    = 16           // gap‑4 → 16 px
-    const DELAY  = 5000         // igual que mobile/desktop
-    const track  = el.querySelector<HTMLDivElement>('#carouselTrackMd')
+  function initCarousel(params: {
+    trackId: string,
+    gap: number,
+    delay: number,
+    visible: number
+  }) {
+    const { trackId, gap, delay, visible } = params
+    if (timers[trackId]) clearInterval(timers[trackId])
+    const track = el.querySelector<HTMLDivElement>('#' + trackId)
     if (!track) return
 
-    const imgs = [...track.querySelectorAll<HTMLImageElement>('img')]
-    let i = 0
+    const SPEED   = 700
+    const leftCnt = Math.floor(visible / 2)
+    const firstImg = track.querySelector<HTMLImageElement>('img')
+    if (!firstImg) return
 
-    const slide = (k: number) => {
-      track.style.transform =
-        `translateX(calc(50% - ${WIDTH / 2}px - ${k * (WIDTH + GAP)}px))`
-    }
+    const ready = firstImg.complete
+      ? Promise.resolve()
+      : new Promise<void>(res =>
+        firstImg.addEventListener('load', () => res(), { once: true }),
+      )
 
-    slide(i)                                        // centra la 1.ª imagen
-    mdTimer = window.setInterval(() => {            // arranca autoplay
-      i = (i + 1) % imgs.length
-      slide(i)
-    }, DELAY)
+    ready.then(() => {
+      const W = firstImg.clientWidth
+
+      // 1️⃣ Gira DOM para que el slide central sea el primero
+      for (let i = 0; i < leftCnt; i++) track.appendChild(track.children[0])
+
+      // 2️⃣ Duplica slides: nunca faltará relleno a la derecha
+      const need = visible + leftCnt + 2 // margen de seguridad
+      const orig = Array.from(track.children)
+      let idx = 0
+      while (track.children.length < need) {
+        track.appendChild(orig[idx++ % orig.length].cloneNode(true))
+      }
+
+      // 3️⃣ Offset que centra el primer hijo
+      const OFFSET = `calc(50% - ${(W / 2) + (W + gap) * leftCnt}px)`
+
+      track.style.transition = 'none'
+      track.style.transform  = `translateX(${OFFSET})`
+      track.classList.remove('opacity-0', 'pointer-events-none', 'preload')
+
+      // 4️⃣ Autoplay sin rebote visual
+      const slide = () => {
+        const first = track.children[0] as HTMLElement
+        const STEP  = first.clientWidth + gap
+
+        track.style.transition = `transform ${SPEED}ms cubic-bezier(.4,0,.2,1)`
+        track.style.transform  = `translateX(calc(${OFFSET} - ${STEP}px))`
+
+        track.addEventListener(
+          'transitionend',
+          () => {
+            track.style.transition = 'none'
+            track.appendChild(first)              // 1.º → final
+            track.style.transform = `translateX(${OFFSET})`
+          },
+          { once: true }
+        )
+      }
+
+      timers[trackId] = window.setInterval(slide, delay)
+
+      // 5️⃣ Sigue centrado al redimensionar
+      window.addEventListener('resize', () => {
+        track.style.transition = 'none'
+        track.style.transform  = `translateX(${OFFSET})`
+      })
+    })
   }
-/* ───────────────────────── render ───────────────────────── */
+
+  // ————————————————————————————————————————
+  // Render (markup intacto)
+  // ————————————————————————————————————————
   const btnLabel = t('services_block1_cta');
   const render = () => {
-
-el.className = 'w-full max-w-[956px] mx-auto px-4 text-white scroll-mt-[160px]'
-el.innerHTML = /* html */`
+    el.className = 'w-full max-w-[956px] mx-auto px-4 text-white scroll-mt-[160px]'
+    el.innerHTML = /* html */`
 
 <!-- ========== MOBILE (≤639 px) ========== -->
 <div class="block mt-12 sm:hidden">
@@ -171,7 +121,8 @@ el.innerHTML = /* html */`
 
    </div>
 
-   <p class="mt-6 font-montserrat font-medium text-[8px] leading-relaxed text-center px-2">
+   <p class="font-montserrat font-medium text-[10px] leading-relaxed text-center mt-4
+          max-w-[90%] mx-auto">
       ${t('services_block1_desc')}
    </p>
    <button data-book-meeting class="mt-6 mx-auto w-[107px] h-[29px] bg-[#006E49] text-white
@@ -262,17 +213,16 @@ el.innerHTML = /* html */`
       </button>
    </div>
    <!-- 3) BLOQUES 2‑3 (cuadros 50 % tamaño) -->
-<!-- 3) BLOQUES 2‑3 (tablet) -->
 <div
   class="mx-auto mt-16 grid
-         grid-cols-2 grid-rows-2         <!-- 2×2 -->
-         gap-x-6 gap-y-14                <!-- 24 px horiz / 56 px vert -->
+         grid-cols-2 grid-rows-2
+         gap-x-6 gap-y-14
          sm:max-w-[640px]
-         max-w-[720px]">                 <!-- un poco más ancho -->
+         max-w-[720px]">
 
   <!-- ░░ Fila 1 ░░ -->
   <!-- Cuadro A -->
-  <div class="ml-12 sm:ml-0 sm:self-center">         <!-- lo acerca al texto -->
+  <div class="ml-12 sm:ml-0 sm:self-center">
     <div class="w-[280px] h-[220px] bg-[#006E49]/20 rounded-[25px]"></div>
   </div>
 
@@ -332,10 +282,10 @@ el.innerHTML = /* html */`
             mx-0 xl:-mx-[20%] 2xl:-mx-[30%]
             3xl:w-[100%]
             overflow-hidden mt-6
-            h-[420px]               
-            xl:h-[465px]            
-            2xl:h-[502px]           
-            3xl:h-[353px]          
+            h-[420px]
+            xl:h-[465px]
+            2xl:h-[502px]
+            3xl:h-[353px]
             4k:h-[540px]">
          <div id="carouselTrack"
      class="flex gap-7 transition-transform duration-1000 ease-[cubic-bezier(.4,0,.2,1)]">
@@ -346,10 +296,10 @@ el.innerHTML = /* html */`
   ].map(src => `
     <img src="/src/assets/${src}"
          class="carousel-img object-cover rounded-[45px] opacity-50 flex-none
-                w-[280px] h-[420px]               <!-- lg   (1024-1279) -->
-                xl:w-[310px] xl:h-[465px]         <!-- xl   (1280-1439) -->
-                2xl:w-[335px] 2xl:h-[502px]       <!-- 2xl  (1440-1919) -->
-                3xl:w-[235px] 3xl:h-[353px]       <!-- 3xl ≥1920 -->
+                w-[280px] h-[420px]
+                xl:w-[310px] xl:h-[465px]
+                2xl:w-[335px] 2xl:h-[502px]
+                3xl:w-[235px] 3xl:h-[353px]
                 4k:w-[360px] 4k:h-[540px]"  alt="AI service photo">`).join('')}
 </div>
 
@@ -362,29 +312,33 @@ el.innerHTML = /* html */`
 <button data-book-meeting
   class="
     mt-8 w-[225px] h-[67px]
-    bg-[#006E49] hover:bg-[#00a16b]        /* primario + hover */
+    bg-[#006E49] hover:bg-[#00a16b]
     text-white font-bold uppercase rounded-[8px]
     flex items-center justify-center
     transition-colors duration-200
 
-    border-0                                   /* sin borde */
+    border-0
     focus:outline-none focus:ring-0 focus:ring-offset-0
     focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0
     active:outline-none active:ring-0 active:ring-offset-0
   ">${btnLabel}
 </button>
-
-
-
-
-
    </div>
    <!-- 3) BLOQUES 2-3 -->
 <div class="mx-auto mt-20 grid grid-rows-2 grid-cols-[415px_minmax(0,1fr)] gap-y-16 gap-x-10 max-w-[900px]">
 
   <!-- BLOQUE A -->
   <div class="row-start-1 col-start-1 flex justify-center">
-    <div class="w-[415px] h-[415px] bg-[#006E49]/20 rounded-[35px]"></div>
+    <div class="w-[415px] h-[415px] rounded-[35px] overflow-hidden flex items-center justify-center">
+    <video
+    src="/src/assets/service-video-main-two.mp4"
+    class="w-full h-full object-cover"
+    autoplay
+    loop
+    muted
+    playsinline></video>
+</div>
+
   </div>
 
   <div class="row-start-1 col-start-2 flex items-center">
@@ -417,23 +371,31 @@ el.innerHTML = /* html */`
   </div>
 
   <div class="row-start-2 col-start-2 flex justify-center">
-    <div class="w-[415px] h-[415px] bg-[#006E49]/20 rounded-[35px]"></div>
+      <div class="row-start-1 col-start-1 flex justify-center">
+    <div class="w-[415px] h-[415px] rounded-[35px] overflow-hidden flex items-center justify-center">
+    <video
+    src="/src/assets/man-walking.mp4"
+    class="w-full h-full object-cover"
+    autoplay
+    loop
+    muted
+    playsinline></video>
+</div>
   </div>
 
 </div>
-
 </div>
 `
-    
+    // Carruseles según el breakpoint
+    initCarousel({ trackId: "carouselTrack", gap: 28, delay: 5000, visible: 5 })      // desktop
+    initCarousel({ trackId: "carouselTrackMobile", gap: 16, delay: 5000, visible: 5 }) // mobile
+    initCarousel({ trackId: "carouselTrackMd", gap: 16, delay: 5000, visible: 5 })     // tablet/md
+  }
+  render()
 
-initCarouselDesktop()
-initCarouselMobile()
-  initCarouselMd()
-}
-render()
-onLangChange(render)
+  onLangChange(render)
 
-    setTimeout(() => {
+setTimeout(() => {
   const modal    = document.getElementById('bookMeetingModal')!
   const overlay  = document.getElementById('bmOverlay')!
   const panel    = document.getElementById('bmPanel')!
@@ -442,9 +404,7 @@ onLangChange(render)
 
   // ✨ abrir con animación
   const open = () => {
-    modal.classList.remove('hidden')        // muestra contenedor (flex)
-
-    // Espera 1 frame → se ve estado cerrado (opacity-0)
+    modal.classList.remove('hidden')
     requestAnimationFrame(() => {
       overlay.classList.remove('opacity-0')
       panel.classList.remove('opacity-0', 'scale-95', 'pointer-events-none')
@@ -455,16 +415,19 @@ onLangChange(render)
   const close = () => {
     overlay.classList.add('opacity-0')
     panel.classList.add('opacity-0', 'scale-95', 'pointer-events-none')
-    setTimeout(() => modal.classList.add('hidden'), 300)  // ⌛ igual que duration-300
+    setTimeout(() => modal.classList.add('hidden'), 300)
   }
 
   triggers.forEach(btn => btn.addEventListener('click', open))
   closeBtn.addEventListener('click', close)
   modal.addEventListener('click', e => { if (e.target === overlay) close() })
+
+  // 🚀 Ajusta la velocidad del video aquí:
+  const vid = el.querySelector<HTMLVideoElement>('#mi-video-service')
+  if (vid) vid.playbackRate = 0.5 // Cambia a 0.7, 0.8 si quieres menos lento
+
 }, 0)
 
 
-
-
-return el
+  return el
 }
