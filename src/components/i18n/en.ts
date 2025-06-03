@@ -106,6 +106,32 @@ export const en = {
   notify_email_error: "We couldn’t subscribe you. Please try again.",
   notify_contact_success: "Message sent successfully!",
   notify_contact_error: "Error: Could not send.",
-  notify_contact_network_error: "Network error. Please try again."
+  notify_contact_network_error: "Network error. Please try again.",
+
+  /* ——— ALT & aria labels ——— */
+  alt_arrow_icon:              'Arrow icon',
+  alt_burger_menu:             'Open menu',
+  alt_call_button:             'Call NexaDigit',
+  alt_close_menu:              'Close menu',
+  alt_decorative_separator:    'Decorative separator',
+  alt_lang_flag_desktop:       'Language flag',
+  alt_lang_flag_mobile_main:   'Language flag',
+  alt_logo_menu:               'NexaDigit logo',
+  alt_logo_mobile:             'NexaDigit logo',
+  alt_location_icon:           'Location icon',
+  alt_switch_lang:             'Switch language',
+
+  /* Social icons (desktop) */
+  alt_social_discord:   'Discord icon',
+  alt_social_linkedin:  'LinkedIn icon',
+  alt_social_instagram: 'Instagram icon',
+
+  /* Social icons (mobile) */
+  alt_social_discord_mobile:   'Discord icon',
+  alt_social_linkedin_mobile:  'LinkedIn icon',
+  alt_social_instagram_mobile: 'Instagram icon',
+  alt_decorative_marker: 'Decorative marker',
+  alt_scroll_down: 'Scroll down to next section',
+  hero_partner_track: 'Technology-partner carousel'
 
 }

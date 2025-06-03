@@ -108,6 +108,34 @@ export const es = {
   notify_email_error: "No pudimos suscribirte. Intenta de nuevo.",
   notify_contact_success: "¡Mensaje enviado con éxito!",
   notify_contact_error: "Error: No se pudo enviar.",
-  notify_contact_network_error: "Error de red. Intenta de nuevo."
+  notify_contact_network_error: "Error de red. Intenta de nuevo.",
+
+  /* ——— ALT & aria labels ——— */
+  alt_arrow_icon:              'Icono flecha',
+  alt_burger_menu:             'Abrir menú',
+  alt_call_button:             'Llamar a NexaDigit',
+  alt_close_menu:              'Cerrar menú',
+  alt_decorative_separator:    'Separador decorativo',
+  alt_lang_flag_desktop:       'Bandera de idioma',
+  alt_lang_flag_mobile_main:   'Bandera de idioma',
+  alt_logo_menu:               'Logo NexaDigit',
+  alt_logo_mobile:             'Logo NexaDigit',
+  alt_location_icon:           'Icono ubicación',
+  alt_switch_lang:             'Cambiar idioma',
+
+  /* Iconos sociales (escritorio) */
+  alt_social_discord:   'Icono Discord',
+  alt_social_linkedin:  'Icono LinkedIn',
+  alt_social_instagram: 'Icono Instagram',
+
+  /* Iconos sociales (móvil) */
+  alt_social_discord_mobile:   'Icono Discord',
+  alt_social_linkedin_mobile:  'Icono LinkedIn',
+  alt_social_instagram_mobile: 'Icono Instagram',
+  phone_number_link: 'Llamar a NexaDigit',
+
+  alt_decorative_marker: 'Separador decorativo',
+  alt_scroll_down: 'Desplazar a la siguiente sección',
+  hero_partner_track: 'Carrusel de marcas tecnológicas asociadas'
 
 }

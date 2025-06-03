@@ -1,7 +1,3 @@
-// ──────────────────────────────────────────
-// src/components/Header.ts (Refactorizado)
-// Mantenibilidad, modularidad y separación de lógica/UI/eventos
-// ──────────────────────────────────────────
 
 import { t, getLang, setLang, onLangChange } from './i18n';
 
@@ -12,45 +8,101 @@ const MAIN_SELECTOR = 'main';
 const SCROLL_ANIMATION_DURATION = 100; // ms
 const HEADER_Y_DESKTOP = 260;
 const SOCIALS = [
-  { key: 'discord', url: 'https://discord.gg/XTUg2WKtZU' },
-  { key: 'linkedin', url: 'https://www.linkedin.com/company/107399409' },
+  { key: 'discord',   url: 'https://discord.gg/XTUg2WKtZU' },
+  { key: 'linkedin',  url: 'https://www.linkedin.com/company/107399409' },
   { key: 'instagram', url: 'https://www.instagram.com/nexadigit.io' }
 ];
 
-// Utils
-function lockScroll() {
-  document.documentElement.classList.add('overflow-hidden');
-}
-function unlockScroll() {
-  document.documentElement.classList.remove('overflow-hidden');
+/* ──────────────────────────────  SEO helpers  ────────────────────────────── */
+/* ① Preload imágenes críticas (mejora LCP) */
+const PRELOAD_IMAGES = [
+  '/src/assets/fav-icon-logo.svg',
+  '/src/assets/top-bar-icon-dominican-flag.svg',
+  '/src/assets/top-bar-icon-usa-flag.svg'
+];
+function ensurePreload(src: string, asType: 'image' | 'font' | 'script' = 'image') {
+  if (!document.querySelector(`link[rel="preload"][href="${src}"]`)) {
+    const l = document.createElement('link');
+    l.rel = 'preload';
+    l.as  = asType;
+    l.href = src;
+    document.head.appendChild(l);
+  }
 }
 
-function smoothScrollTo(targetY: number, duration = SCROLL_ANIMATION_DURATION) {
-  const startY = window.scrollY;
-  const distance = targetY - startY;
-  const startTime = performance.now();
-  function step(now: number) {
-    const elapsed = now - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    window.scrollTo(0, startY + distance * progress);
-    if (progress < 1) requestAnimationFrame(step);
+/* ② Skip-link para accesibilidad (solo 1×) */
+function ensureSkipLink() {
+  if (!document.getElementById('skip-to-content')) {
+    const a = document.createElement('a');
+    a.id = 'skip-to-content';
+    a.href = '#main';
+    a.className =
+      'sr-only focus:not-sr-only absolute top-0 left-0 bg-black text-white p-2 z-[1000]';
+    a.textContent = 'Skip to main content';
+    document.body.prepend(a);
   }
+}
+
+/* ③ Canonical + hreflang (multi-idioma) */
+function ensureHreflang() {
+  const lang  = getLang();            // 'es' | 'en'
+  const other = lang === 'es' ? 'en' : 'es';
+  const base  = location.origin + '/';
+  ([
+    ['canonical', lang],
+    ['alternate', other]
+  ] as Array<[string,string]>).forEach(([rel,l]) => {
+    let link = document.querySelector<HTMLLinkElement>(
+      `link[rel="${rel}"]${rel==='alternate'?`[hreflang="${l}"]`:''}`
+    );
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = rel;
+      if (rel === 'alternate') link.hreflang = l;
+      document.head.appendChild(link);
+    }
+    link.href = base + (l === 'es' ? 'es/' : 'en/');
+  });
+}
+
+/* ④ JSON-LD idempotente (Organization / SiteNavigation) */
+function injectJsonLdOnce(id: string, obj: Record<string, any>) {
+  if (!document.getElementById(id)) {
+    const s = document.createElement('script');
+    s.id   = id;
+    s.type = 'application/ld+json';
+    s.textContent = JSON.stringify(obj);
+    document.head.appendChild(s);
+  }
+}
+
+// Utils
+const lockScroll   = () => document.documentElement.classList.add('overflow-hidden');
+const unlockScroll = () => document.documentElement.classList.remove('overflow-hidden');
+
+function smoothScrollTo(targetY: number, duration = SCROLL_ANIMATION_DURATION) {
+  const startY  = window.scrollY;
+  const dist    = targetY - startY;
+  const startTs = performance.now();
+  const step = (now: number) => {
+    const progress = Math.min((now - startTs) / duration, 1);
+    window.scrollTo(0, startY + dist * progress);
+    if (progress < 1) requestAnimationFrame(step);
+  };
   requestAnimationFrame(step);
 }
 
-function getMobileHeaderOffset(headerEl: HTMLElement) {
-  const mobileTopBar = headerEl.querySelector('#mobile-top-bar') as HTMLElement | null;
-  return mobileTopBar ? mobileTopBar.offsetHeight : 0;
-}
+const getMobileHeaderOffset = (headerEl: HTMLElement) =>
+  (headerEl.querySelector('#mobile-top-bar') as HTMLElement | null)?.offsetHeight ?? 0;
 
 function updateMetaDescription(desc: string) {
-  let meta = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
+  let meta = document.querySelector<HTMLMetaElement>('meta[name="description"]');
   if (!meta) {
     meta = document.createElement('meta');
     meta.name = 'description';
     document.head.appendChild(meta);
   }
-  meta.content = desc;
+  if (meta.content !== desc) meta.content = desc;
 }
 
 // ————————————————————————————————————————
@@ -63,17 +115,17 @@ function renderMobileTopBar(lang: string): string {
   return `
     <div id="mobile-top-bar" class="relative flex items-center h-14 bg-[#006E49]/80 lg:hidden z-[55] select-none transition-opacity duration-300">
       <button id="burger-btn" class="p-3">
-        <img src="/src/assets/icon-hamburger-menu.svg" class="w-3.5 h-3.5 brightness-0 invert" alt="${t('alt_burger_menu', 'Abrir menú')}" />
+        <img src="/src/assets/icon-hamburger-menu.svg" class="w-3.5 h-3.5 brightness-0 invert" alt="${t('alt_burger_menu')}" />
       </button>
       <img id="mobile-main-logo" src="/src/assets/fav-icon-logo.svg"
-        class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[25px] h-[31.02px] brightness-0 invert" alt="${t('alt_logo_mobile', 'Logo')}" />
+           class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[25px] h-[31.02px] brightness-0 invert"
+           alt="${t('alt_logo_mobile')}" />
       <button id="lang-toggle-mobile-main" class="ml-auto flex items-center gap-1 pr-3">
         <span class="lowercase text-xs">${lang}</span>
-        <img src="${flag}" class="w-[18px] h-[18px]" alt="${t('alt_lang_flag_mobile_main', 'Bandera idioma')}" />
-        <img src="/src/assets/top-bar-icon-double-arrow-left.svg" class="w-3 h-3 sm:w-5 sm:h-5 brightness-0 invert" alt="${t('alt_arrow_icon', 'Icono flecha')}" />
+        <img src="${flag}" class="w-[18px] h-[18px]" alt="${t('alt_lang_flag_mobile_main')}" />
+        <img src="/src/assets/top-bar-icon-double-arrow-left.svg" class="w-3 h-3 sm:w-5 sm:h-5 brightness-0 invert" alt="${t('alt_arrow_icon')}" />
       </button>
-    </div>
-  `;
+    </div>`;
 }
 
 function renderDesktopTopBar(lang: string): string {
@@ -82,56 +134,63 @@ function renderDesktopTopBar(lang: string): string {
     : '/src/assets/top-bar-icon-usa-flag.svg';
   const navGap = lang === 'en' ? 'gap-[90px] xl:gap-[140px]' : 'gap-[80px] xl:gap-[125px]';
 
-  // Socials HTML
-  const socialsHtml = SOCIALS.map(s => `
-    <a href="${s.url}" target="_blank" rel="noopener noreferrer" aria-label="${t('alt_social_' + s.key, s.key)}">
-      <img data-src="/src/assets/top-bar-icon-${s.key}.svg"
-           data-hover="/src/assets/top-bar-icon-${s.key}-hover.svg"
-           src="/src/assets/top-bar-icon-${s.key}.svg"
-           class="social-icon w-[21px] h-[21px] cursor-pointer" alt=""/>
-    </a>
-  `).join('');
+    const socialsHtml = SOCIALS.map(s => `
+      <a href="${s.url}"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="${(t as any)(`alt_social_${s.key}`)}">
+    
+        <img loading="lazy"
+             data-src="/src/assets/top-bar-icon-${s.key}.svg"
+             data-hover="/src/assets/top-bar-icon-${s.key}-hover.svg"
+             src="/src/assets/top-bar-icon-${s.key}.svg"
+             class="social-icon w-[21px] h-[21px] cursor-pointer"
+             alt=""/>
+      </a>
+    `).join('');
+
 
   return `
     <div class="hidden lg:block select-none">
       <div class="mt-4 w-full lg:max-w-[960px] xl:max-w-[1238px] mx-auto px-4 lg:px-8 xl:px-[64px] grid grid-cols-1 items-center lg:grid-cols-12">
         <div class="col-span-6 flex items-center gap-2">
-          <img src="/src/assets/top-bar-icon-location.svg" class="w-[21px] h-[21px]" alt="${t('alt_location_icon', 'Ubicación')}"/>
+          <img src="/src/assets/top-bar-icon-location.svg" class="w-[21px] h-[21px]" alt="${t('alt_location_icon')}"/>
           <span>${t('location_label')}</span>
         </div>
         <div class="col-span-6 flex justify-end items-center gap-1.5">
           ${socialsHtml}
           <div id="lang-toggle-desktop" class="flex items-center gap-1 ml-3 cursor-pointer">
             <span class="lowercase">${lang}</span>
-            <img src="${flag}" class="w-[21px] h-[21px]" alt="${t('alt_lang_flag_desktop', 'Bandera idioma')}"/>
-            <img src="/src/assets/top-bar-icon-double-arrow-left.svg" class="w-5 h-5 brightness-0 invert" alt="${t('alt_arrow_icon', 'Icono flecha')}"/>
+            <img src="${flag}" class="w-[21px] h-[21px]" alt="${t('alt_lang_flag_desktop')}"/>
+            <img src="/src/assets/top-bar-icon-double-arrow-left.svg" class="w-5 h-5 brightness-0 invert" alt="${t('alt_arrow_icon')}"/>
           </div>
         </div>
       </div>
       <header class="w-full flex justify-center mt-4">
-        <nav class="w-full max-w-[960px] px-8 flex items-center justify-between
-           h-20 rounded-full bg-gradient-to-r from-[#006E49]/60 to-[#001C13]/60
-           shadow-lg overflow-hidden lg:max-w-[960px] xl:max-w-[1238px] mx-auto
-           lg:px-8 xl:px-[64px] py-2 mt-4 grid-cols-12 backdrop-blur-md backdrop-saturate-150 ">
-          <ul id="nav-list" class="relative col-span-11 flex items-center ${navGap} font-semibold text-[16px] leading-none">
-            <div id="nav-highlight" class="absolute top-4 left-0 h-[90px]  transition-all -z-10">
+        <!-- Añadimos landmark y mantenemos UI intacta -->
+        <nav role="navigation" aria-label="Primary"
+             class="w-full max-w-[960px] px-8 flex items-center justify-between
+                    h-20 rounded-full bg-gradient-to-r from-[#006E49]/60 to-[#001C13]/60
+                    shadow-lg overflow-hidden lg:max-w-[960px] xl:max-w-[1238px] mx-auto
+                    lg:px-8 xl:px-[64px] py-2 mt-4 grid-cols-12 backdrop-blur-md backdrop-saturate-150 ">
+          <ul id="nav-list" class="relative col-span-11 flex items-center ${navGap} font-bold text-[16px] leading-none">
+            <div id="nav-highlight" class="absolute top-4 left-0 h-[90px] transition-all -z-10">
               <div class="absolute bottom-[16px] left-1/2 -translate-x-1/2 w-5 h-[2.5px] bg-white"></div>
             </div>
-            <li data-link="home" class="nav-item w-[80px] h-[130px] flex flex-col justify-center items-center cursor-pointer"><span>${t('nav_home')}</span></li>
-            <li data-link="about" class="nav-item cursor-pointer"><span>${t('nav_about')}</span></li>
+            <li data-link="home"     class="nav-item w-[80px] h-[130px] flex flex-col justify-center items-center cursor-pointer"><span>${t('nav_home')}</span></li>
+            <li data-link="about"    class="nav-item cursor-pointer"><span>${t('nav_about')}</span></li>
             <li data-link="services" class="nav-item cursor-pointer"><span>${t('nav_services')}</span></li>
-            <li data-link="unisync" class="nav-item cursor-pointer"><span>${t('nav_unisync')}</span></li>
-            <li data-link="contact" class="nav-item cursor-pointer"><span>${t('nav_contact')}</span></li>
+            <li data-link="unisync"  class="nav-item cursor-pointer"><span>${t('nav_unisync')}</span></li>
+            <li data-link="contact"  class="nav-item cursor-pointer"><span>${t('nav_contact')}</span></li>
           </ul>
           <div class="col-span-1 flex justify-end">
-            <a href="tel:${t('phone_number_link', '')}" data-book-meeting aria-label="${t('alt_call_button', 'Llamar')}">
+            <a href="tel:${t('phone_number_link')}" data-book-meeting aria-label="${t('alt_call_button')}">
               <img src="/src/assets/nav-bar-icon-call-button.svg" class="w-9 h-9 cursor-pointer hover:animate-call-shake" alt="">
             </a>
           </div>
         </nav>
       </header>
-    </div>
-  `;
+    </div>`;
 }
 
 function renderMobileMenu(lang: string): string {
@@ -139,39 +198,64 @@ function renderMobileMenu(lang: string): string {
     ? '/src/assets/top-bar-icon-dominican-flag.svg'
     : '/src/assets/top-bar-icon-usa-flag.svg';
 
-  const socialsHtml = SOCIALS.map(s => `
-    <a href="${s.url}" target="_blank" rel="noopener noreferrer" aria-label="${t('alt_social_' + s.key + '_mobile', s.key)}">
-      <img data-src="/src/assets/top-bar-icon-${s.key}.svg" src="/src/assets/top-bar-icon-${s.key}.svg" class="social-icon-mobile w-6 h-6 cursor-pointer brightness-0 invert hover:opacity-75" alt=""/>
-    </a>
-  `).join('');
+      /* íconos sociales con carga diferida */
+    const socialsHtml = SOCIALS.map(s => `
+      <a href="${s.url}"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="${(t as any)(`alt_social_${s.key}_mobile`)}">
+    
+        <img loading="lazy"
+             data-src="/src/assets/top-bar-icon-${s.key}.svg"
+             src="/src/assets/top-bar-icon-${s.key}.svg"
+             class="social-icon-mobile w-6 h-6 cursor-pointer brightness-0 invert hover:opacity-75"
+             alt=""/>
+      </a>
+    `).join('');
+
 
   return `
     <div class="flex items-center h-14 bg-[#006E49]/50 w-full px-3 relative select-none">
-      <button id="close-menu-btn" class="p-1">
-        <img src="/src/assets/menu-cancel-icon.svg" class="w-4 h-4 brightness-0 invert" alt="${t('alt_close_menu', 'Cerrar menú')}"/>
+      <button id="close-menu-btn" class="p-1" aria-label="${t('alt_close_menu')}">
+        <img src="/src/assets/menu-cancel-icon.svg" class="w-4 h-4 brightness-0 invert" alt=""/>
       </button>
-      <img src="/src/assets/fav-icon-logo.svg" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[25px] h-[31.02px] brightness-0 invert" alt="${t('alt_logo_menu', 'Logo')}"/>
-      <button id="lang-toggle-mobile-menu" class="ml-auto flex items-center gap-1">
-        <img src="${flag}" class="w-[18px] h-[18px]" alt="${t('alt_lang_flag_menu', 'Bandera idioma')}"/>
+
+      <!-- logo -->
+      <img src="/src/assets/fav-icon-logo.svg"
+           class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+                  w-[25px] h-[31.02px] brightness-0 invert"
+           alt="${t('alt_logo_menu')}"/>
+
+      <!-- switch idioma -->
+      <button id="lang-toggle-mobile-menu"
+              class="ml-auto flex items-center gap-1"
+              aria-label="${t('alt_switch_lang')}">
+        <img src="${flag}" class="w-[18px] h-[18px]" alt=""/>
       </button>
     </div>
-    <nav class="flex-grow mt-10">
+
+    <!-- landmark accesible -->
+    <nav role="navigation" aria-label="Menú móvil" class="flex-grow mt-10">
       <ul class="flex flex-col gap-12 items-center text-[14px] font-bold w-full text-center">
-        <li data-link="home" class="mobile-nav-item cursor-pointer hover:text-gray-300 w-full py-2"><span>${t('nav_home')}</span></li>
-        <li data-link="about" class="mobile-nav-item cursor-pointer hover:text-gray-300 w-full py-2"><span>${t('nav_about')}</span></li>
+        <li data-link="home"     class="mobile-nav-item cursor-pointer hover:text-gray-300 w-full py-2"><span>${t('nav_home')}</span></li>
+        <li data-link="about"    class="mobile-nav-item cursor-pointer hover:text-gray-300 w-full py-2"><span>${t('nav_about')}</span></li>
         <li data-link="services" class="mobile-nav-item cursor-pointer hover:text-gray-300 w-full py-2"><span>${t('nav_services')}</span></li>
-        <li data-link="unisync" class="mobile-nav-item cursor-pointer hover:text-gray-300 w-full py-2"><span>${t('nav_unisync')}</span></li>
-        <li data-link="contact" class="mobile-nav-item cursor-pointer hover:text-gray-300 w-full py-2"><span>${t('nav_contact')}</span></li>
+        <li data-link="unisync"  class="mobile-nav-item cursor-pointer hover:text-gray-300 w-full py-2"><span>${t('nav_unisync')}</span></li>
+        <li data-link="contact"  class="mobile-nav-item cursor-pointer hover:text-gray-300 w-full py-2"><span>${t('nav_contact')}</span></li>
       </ul>
     </nav>
+
     <div class="my-8 flex justify-center">
-      <img src="/src/assets/marker-icon-2.webp" alt="${t('alt_decorative_separator', 'Separador')}" class="w-[100px] h-auto opacity-80" />
+      <img src="/src/assets/marker-icon-2.webp"
+           alt="${t('alt_decorative_separator')}"
+           class="w-[100px] h-auto opacity-80" />
     </div>
+
     <div class="pb-8 px-6 flex justify-around items-center select-none">
       ${socialsHtml}
-    </div>
-  `;
+    </div>`;
 }
+
 
 // ————————————————————————————————————————
 // Listeners por sección
@@ -203,22 +287,50 @@ function setupSocialIconHover(headerEl: HTMLElement) {
   });
 }
 
-function setupBurgerMenu(headerEl: HTMLElement, mobileMenuEl: HTMLElement, closeMobileMenu: (cb?: () => void) => void, openMobileMenu: () => void) {
-  const burgerBtn = headerEl.querySelector('#burger-btn') as HTMLButtonElement | null;
-  const closeMenuBtn = mobileMenuEl.querySelector('#close-menu-btn') as HTMLButtonElement | null;
-  burgerBtn?.addEventListener('click', e => { e.stopPropagation(); openMobileMenu(); });
-  closeMenuBtn?.addEventListener('click', e => { e.stopPropagation(); closeMobileMenu(); });
-  // Click outside para cerrar
-  if (window.__headerDocClickListener) document.removeEventListener('click', window.__headerDocClickListener);
+function setupBurgerMenu(
+  headerEl: HTMLElement,
+  mobileMenuEl: HTMLElement,
+  closeMobileMenu: (cb?: () => void) => void,
+  openMobileMenu: () => void
+) {
+  const burgerBtn     = headerEl.querySelector<HTMLButtonElement>('#burger-btn');
+  const closeMenuBtn  = mobileMenuEl.querySelector<HTMLButtonElement>('#close-menu-btn');
+
+  // Los EventListener tipados evitan el error “Argument types do not match parameters”
+  const onBurgerClick: EventListener = (e) => {
+    e.stopPropagation();
+    openMobileMenu();
+  };
+  const onCloseClick: EventListener = (e) => {
+    e.stopPropagation();
+    closeMobileMenu();
+  };
+
+  burgerBtn?.addEventListener('click', onBurgerClick);
+  closeMenuBtn?.addEventListener('click', onCloseClick);
+
+  /* Click fuera para cerrar */
+  if (window.__headerDocClickListener) {
+    document.removeEventListener('click', window.__headerDocClickListener);
+  }
+
   window.__headerDocClickListener = (event: MouseEvent) => {
-    const target = event.target as Node;
-    const currentBurgerBtn = headerEl.querySelector('#burger-btn');
-    if (mobileMenuEl.classList.contains('translate-x-0') && !mobileMenuEl.contains(target) && (!currentBurgerBtn || !currentBurgerBtn.contains(target))) {
+    const target          = event.target as Node;
+    const currentBurger   = headerEl.querySelector('#burger-btn');
+    const menuIsOpen      = mobileMenuEl.classList.contains('translate-x-0');
+
+    if (
+      menuIsOpen &&
+      !mobileMenuEl.contains(target) &&
+      (!currentBurger || !currentBurger.contains(target))
+    ) {
       closeMobileMenu();
     }
   };
+
   document.addEventListener('click', window.__headerDocClickListener);
 }
+
 
 function setupMobileNavigation(mobileMenuEl: HTMLElement, headerEl: HTMLElement, closeMobileMenu: (cb?: () => void) => void) {
   mobileMenuEl.querySelectorAll<HTMLLIElement>('.mobile-nav-item').forEach(menuItem => {
@@ -352,6 +464,9 @@ function setupDesktopNavigation(headerEl: HTMLElement) {
 // Header principal (Entry point)
 // ————————————————————————————————————————
 export function Header() {
+  ensureSkipLink();                              // accesibilidad
+  PRELOAD_IMAGES.forEach(src => ensurePreload(src));
+
   const headerEl = document.createElement('header');
   headerEl.setAttribute('role', 'banner');
   headerEl.className =
@@ -398,6 +513,27 @@ export function Header() {
     const lang = getLang();
     document.title = t('page_title');
     updateMetaDescription(t('meta_description'));
+
+    /* 🔹 2)  METATAGS multi-idioma cada vez que cambia el idioma */
+    ensureHreflang();
+
+    /* 🔹 3)  JSON-LD (se inyecta solo la 1ª vez gracias a injectJsonLdOnce) */
+    injectJsonLdOnce('org-json', {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "NexaDigit",
+      "url":  location.origin,
+      "logo": location.origin + "/src/assets/fav-icon-logo.svg",
+      "telephone": t('phone_number_link'),
+      "sameAs": SOCIALS.map(s => s.url)
+    });
+    injectJsonLdOnce('nav-json', {
+      "@context": "https://schema.org",
+      "@type": "SiteNavigationElement",
+      "name": ["Home","About","Services","UniSync","Contact"],
+      "url":  ["#home","#about","#services","#unisync","#contact"]
+                .map(h => location.origin + '/' + h)
+    });
 
     // Header principal y menú mobile
     headerEl.innerHTML = [
