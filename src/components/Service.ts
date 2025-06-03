@@ -276,17 +276,14 @@ export function Service() {
          ${t('services_block1_title')}
       </h3>
       <div id="carouselWrapper"
-     class="relative
-            w-full lg:w-full
-            xl:w-[140%] 2xl:w-[160%]
-            mx-0 xl:-mx-[20%] 2xl:-mx-[30%]
-            3xl:w-[100%]
-            overflow-hidden mt-6
+     class="
             h-[420px]
-            xl:h-[465px]
-            2xl:h-[502px]
-            3xl:h-[353px]
-            4k:h-[540px]">
+            relative
+            w-full lg:w-full
+            xl:w-[120%] 
+            mx-0 xl:-mx-[20%] 2xl:-mx-[30%]
+            4k:h-[540px]
+            overflow-hidden mt-6">
          <div id="carouselTrack"
      class="flex gap-7 transition-transform duration-1000 ease-[cubic-bezier(.4,0,.2,1)]">
   ${[
@@ -297,9 +294,6 @@ export function Service() {
     <img src="/src/assets/${src}"
          class="carousel-img object-cover rounded-[45px] opacity-50 flex-none
                 w-[280px] h-[420px]
-                xl:w-[310px] xl:h-[465px]
-                2xl:w-[335px] 2xl:h-[502px]
-                3xl:w-[235px] 3xl:h-[353px]
                 4k:w-[360px] 4k:h-[540px]"  alt="AI service photo">`).join('')}
 </div>
 
