@@ -12,7 +12,7 @@ const MAIN_SELECTOR = 'main';
 const SCROLL_ANIMATION_DURATION = 100; // ms
 const HEADER_Y_DESKTOP = 260;
 const SOCIALS = [
-  { key: 'discord', url: '#' },
+  { key: 'discord', url: 'https://discord.gg/XTUg2WKtZU' },
   { key: 'linkedin', url: 'https://www.linkedin.com/company/107399409' },
   { key: 'instagram', url: 'https://www.instagram.com/nexadigit.io' }
 ];

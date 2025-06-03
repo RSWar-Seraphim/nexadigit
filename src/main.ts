@@ -1,5 +1,3 @@
-// src/main.ts
-
 import './styles/style.css'
 import { Header }   from './components/Header'
 import { Hero }     from './components/Hero'
@@ -8,9 +6,10 @@ import { Service }  from './components/Service'
 import { Unisync }  from './components/Unisync'
 import { Contact }  from './components/Contact'
 import { showLegalModal } from './components/PrivacyModal'
+import { autoDetectLang } from './components/i18n/autoDetectLang'
+import { setLang } from './components/i18n'
 
-
-// --- Utility: Mounts each section into #app in the correct order ---
+/* --- Utility: Mounts each section into #app in the correct order --- */
 function renderApp() {
   const app = document.querySelector<HTMLDivElement>('#app')
   if (!app) return
@@ -35,8 +34,8 @@ function renderApp() {
   app.appendChild(mainEl)
 }
 
-// --- Utility: Hide the loader after app is mounted ---
-function hideLoader(delay = 6000) {
+/* --- Utility: Hide the loader after app is mounted --- */
+function hideLoader(delay = 900) { // Cambié a 900 como tu comentario, ajusta si quieres
   const loader = document.getElementById('loader')
   if (!loader) return
   setTimeout(() => {
@@ -45,24 +44,30 @@ function hideLoader(delay = 6000) {
   }, delay)
 }
 
-// --- App entry point ---
+/* --- App entry point --- */
 document.addEventListener('DOMContentLoaded', async () => {
-  renderApp()
-  await import('./scroll') // Dynamically load scroll functionality (after DOM ready)
-  hideLoader(900)         // 6s for testing; change or remove in prod!
-})
+  // 1. Detecta idioma automáticamente (solo si el usuario no eligió manual)
+  const detectedLang = await autoDetectLang();
+  setLang(detectedLang); // Actualiza globalmente
 
+  // 2. Render normal
+  renderApp();
+
+  // 3. Funcionalidad adicional
+  await import('./scroll');
+  hideLoader(900);
+});
+
+/* --- Calendly delegation --- */
 declare const Calendly: any;
 
-// Delegación global: abre Calendly popup en cualquier botón/enlace con [data-book-meeting]
 document.addEventListener('click', (e) => {
   const btn = (e.target as HTMLElement).closest('[data-book-meeting]');
   if (btn) {
     e.preventDefault();
     Calendly.initPopupWidget({
-  url: 'https://calendly.com/kreyes-nexadigit/30min?hide_event_type_details=1&primary_color=006E49'
-  });
-
+      url: 'https://calendly.com/kreyes-nexadigit/30min?hide_event_type_details=1&primary_color=006E49'
+    });
     return false;
   }
 });
@@ -75,4 +80,3 @@ document.addEventListener('click', (e) => {
     showLegalModal(type);
   }
 });
-

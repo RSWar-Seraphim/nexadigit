@@ -3,10 +3,42 @@
 // ──────────────────────────────────────────
 import { t, onLangChange, getLang } from './i18n'
 
-// Helper: Bloque estadístico
+// Helper común: aplica el stagger y muestra/oculta
+// ✅ Versión mínima y correcta
+function attachScrollReveal(root: HTMLElement) {
+  // 1. Selecciona los elementos animables
+  const items = Array.from(
+    root.querySelectorAll<HTMLElement>('.unisync-animate')
+  )
+
+  // 2. Asigna el stagger (0 s, 0.10 s, 0.20 s…)
+  items.forEach((el, idx) =>
+    el.style.setProperty('--delay', `${idx * 0.10}s`)
+  )
+
+  // 3. Crea el IO
+  const io = new IntersectionObserver(
+    entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-shown')
+          io.unobserve(e.target)          // solo una vez
+        }
+      })
+    },
+    { rootMargin: '0px 0px 15% 0px', threshold: 0 }
+  )
+
+  // 4. ¡No olvides observar!
+  items.forEach(el => io.observe(el))
+}
+
+
+
+// Bloque estadístico
 function stat(icon: string, key: Parameters<typeof t>[0]) {
   return `
-    <div class="flex flex-col items-center gap-4 max-w-[380px]">
+    <div class="unisync-animate is-hidden flex flex-col items-center gap-4 max-w-[380px]">
       <div class="sm:w-[35px] sm:h-[35px] w-[20px] h-[20px] bg-[#006E49] rounded-full flex items-center justify-center">
         <img src="${icon}" class="w-3 h-3 sm:w-4 sm:h-4" alt="">
       </div>
@@ -46,7 +78,8 @@ export function Unisync() {
   <img src="/src/assets/marker-icon.webp" class="mx-auto w-[239px] h-[65px]" alt="" />
   <h1 class="font-petrov-sans font-bold text-[60px] leading-none mt-6">UniSync</h1>
   <img src="/src/assets/laptop_screen_unisync.webp"
-       class="mx-auto mt-10 w-[90%]"
+       loading="lazy" decoding="async"
+       class="unisync-animate is-hidden mx-auto mt-10 w-[90%]"
        alt="${t('unisync_laptop_alt')}" />
   <div class="mt-12 px-4">
     <h2 class="font-montserrat font-bold text-[20px] leading-tight">
@@ -57,7 +90,7 @@ export function Unisync() {
   </div>
 </div>
 
-<!-- ░░░░░  MOBILE – características 4 × 1  ░░░░░ -->
+<!-- ░░░░░  MOBILE – características 4 × 1  ░░░░░ -->
 <div class="mt-12 flex flex-col items-center gap-9 sm:hidden">
   ${mobileFeatureCard1()}
   ${mobileFeatureCard2()}
@@ -67,7 +100,7 @@ export function Unisync() {
   <!-- ░░░░░  MOBILE – CTA ░░░░░ -->
   <div class="sm:hidden flex justify-center -mt-2">
     <button
-      class="text-[8px] w-[145px] h-[45px] bg-[#006E49]/40 font-montserrat font-bold uppercase tracking-wide flex items-center justify-center">
+      class="unisync-animate is-hidden text-[8px] w-[145px] h-[45px] bg-[#006E49]/40 font-montserrat font-bold uppercase tracking-wide flex items-center justify-center">
       ${t('unisync_cta')}
     </button>
   </div>
@@ -76,6 +109,7 @@ export function Unisync() {
   <div class="sm:hidden  relative w-full flex flex-col items-center mt-7 overflow-hidden">
     <img
       src="/src/assets/building-ai-unisync.webp"
+      loading="lazy" decoding="async"
       alt="AI building" aria-hidden="true"
       class="absolute bottom-0 left-1/2 -translate-x-1/2
              h-full w-auto max-w-none         
@@ -110,7 +144,8 @@ export function Unisync() {
     <img id="unisync-marker" src="/src/assets/marker-icon.webp" class="mx-auto" alt="" aria-hidden="true" />
     <h1 class="font-petrov-sans font-bold text-[190px] sm:text-[150px] leading-none mt-4">UniSync</h1>
     <img src="/src/assets/laptop_screen_unisync.webp"
-         class="mx-auto mt-14 w-[85%]"
+         loading="lazy" decoding="async"
+         class="unisync-animate is-hidden mx-auto mt-14 w-[85%]"
          alt="${t('unisync_laptop_alt')}" />
     <!-- tagline -->
     <div class="mt-8">
@@ -135,17 +170,12 @@ export function Unisync() {
   <!-- CTA -->
   <div class="flex flex-col items-center mt-24">
     <button data-book-meeting
-      class="
+      class="unisync-animate is-hidden
         w-[225px] h-[67px]           
         bg-[#006E49] hover:bg-[#00a16b]      
         text-white font-montserrat font-bold uppercase tracking-wide
         rounded-[8px] flex items-center justify-center
-        transition-colors duration-200
-        border-0
-        focus:outline-none focus:ring-0 focus:ring-offset-0
-        focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0
-        active:outline-none active:ring-0 active:ring-offset-0
-      ">
+        transition-colors duration-200">
       ${t('unisync_cta')}
     </button>
   </div>
@@ -164,7 +194,8 @@ export function Unisync() {
   <div class="grid grid-cols-12 items-center gap-8 mt-16">
     <div class="col-span-6 flex justify-center">
       <img src="/src/assets/building-ai-unisync.webp"
-           class="lg:w-[478px] lg:h-[939px] object-contain"
+           loading="lazy" decoding="async"
+           class="unisync-animate is-hidden lg:w-[478px] lg:h-[939px] object-contain"
            alt="${t('unisync_building_alt')}" />
     </div>
     <div class="col-span-6 flex flex-col items-center gap-11 text-center">
@@ -176,12 +207,14 @@ export function Unisync() {
   </div>
 </div>
 `
+    // aplica el efecto tras cada render
+    requestAnimationFrame(() => attachScrollReveal(el))
   }
 
-  // Helper cards para evitar repeticiones
+  // Helpers de las tarjetas (móviles y desktop) con clase unisync-animate
   function mobileFeatureCard1() {
     return `
-    <div class="relative w-[80%]">
+    <div class="unisync-animate is-hidden relative w-[80%]">
       <div class="absolute inset-0 bg-[#006E49]/40 rounded-tl-[45px] rounded-br-[45px]"></div>
       <div class="relative z-10 px-6 py-8">
         <h4 class="font-montserrat font-bold text-[12px] leading-[15px] uppercase">
@@ -195,7 +228,7 @@ export function Unisync() {
   }
   function mobileFeatureCard2() {
     return `
-    <div class="w-[90%] px-6">
+    <div class="unisync-animate is-hidden w-[90%] px-6">
       <h4 class="font-montserrat font-bold text-[12px] leading-[15px] uppercase">
         ${t('unisync_ft3_title')}
       </h4>
@@ -206,7 +239,7 @@ export function Unisync() {
   }
   function mobileFeatureCard3() {
     return `
-    <div class="relative w-[80%]">
+    <div class="unisync-animate is-hidden relative w-[80%]">
       <div class="absolute inset-0 bg-[#006E49]/40 rounded-tl-[45px] rounded-br-[45px]"></div>
       <div class="relative z-10 px-6 py-8">
         <h4 class="font-montserrat font-bold text-[12px] leading-[15px] uppercase">
@@ -220,7 +253,7 @@ export function Unisync() {
   }
   function mobileFeatureCard4() {
     return `
-    <div class="w-[90%] px-6">
+    <div class="unisync-animate is-hidden w-[90%] px-6">
       <h4 class="font-montserrat font-bold text-[12px] leading-[15px] uppercase">
         ${t('unisync_ft2_title')}
       </h4>
@@ -232,7 +265,7 @@ export function Unisync() {
 
   function desktopFeatureCard1() {
     return `
-    <div class="bg-[#006E49]/40 rounded-tl-[45px] p-10 text-left">
+    <div class="unisync-animate is-hidden bg-[#006E49]/40 rounded-tl-[45px] p-10 text-left">
       <h4 class="font-montserrat font-bold md:text-[20px] text-[28px] leading-tight">
         ${t('unisync_ft1_title')}
       </h4>
@@ -243,7 +276,7 @@ export function Unisync() {
   }
   function desktopFeatureCard2() {
     return `
-    <div class="p-10 text-left">
+    <div class="unisync-animate is-hidden p-10 text-left">
       <h4 class="font-montserrat font-bold md:text-[20px] text-[28px] leading-tight">
         ${t('unisync_ft3_title')}
       </h4>
@@ -254,7 +287,7 @@ export function Unisync() {
   }
   function desktopFeatureCard3() {
     return `
-    <div class="p-10 text-left">
+    <div class="unisync-animate is-hidden p-10 text-left">
       <h4 class="font-montserrat font-bold md:text-[20px] text-[28px] leading-tight">
         ${t('unisync_ft4_title')}
       </h4>
@@ -265,7 +298,7 @@ export function Unisync() {
   }
   function desktopFeatureCard4() {
     return `
-    <div class="bg-[#006E49]/40 rounded-br-[45px] p-10 text-left">
+    <div class="unisync-animate is-hidden bg-[#006E49]/40 rounded-br-[45px] p-10 text-left">
       <h4 class="font-montserrat md:text-[20px] font-bold text-[28px] leading-tight">
         ${t('unisync_ft2_title')}
       </h4>
@@ -276,6 +309,9 @@ export function Unisync() {
   }
 
   render()
-  onLangChange(render)
+  onLangChange(() => {
+    render()
+    // el scroll-reveal se re-inyecta dentro de render()
+  })
   return el
 }

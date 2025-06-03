@@ -283,6 +283,7 @@ export function Service() {
             xl:w-[120%] 
             mx-0 xl:-mx-[20%] 2xl:-mx-[30%]
             4k:h-[540px]
+            4k:w-[125%]
             overflow-hidden mt-6">
          <div id="carouselTrack"
      class="flex gap-7 transition-transform duration-1000 ease-[cubic-bezier(.4,0,.2,1)]">

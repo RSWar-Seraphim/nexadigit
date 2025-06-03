@@ -126,7 +126,7 @@ export function Hero() {
          placeholder="${t('hero_email_placeholder')}"
          class="w-[180px] 
                 h-[28px] md:w-[250px] md:h-[45px] 
-                lg:w-[314px] lg:h-[45px]
+                lg:w-[314px] lg:h-[45px]w
                 bg-white rounded-[8px] 
                 text-black placeholder:text-[8px] 
                 md:placeholder:text-[13px] 

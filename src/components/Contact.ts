@@ -1,7 +1,40 @@
+// ──────────────────────────────────────────
+// src/components/Contact.ts  (con scroll-reveal)
+// ──────────────────────────────────────────
 import { t, onLangChange } from './i18n'
 import { notify } from './notify'
+import { FooterMobile, FooterDesktop } from './Footer'
+/* ╭─────────────────────────────────────────╮
+   │ 1. UTILIDAD: efecto scroll-reveal sutil │
+   ╰─────────────────────────────────────────╯ */
+function attachScrollReveal(root: HTMLElement) {
+  const items = Array.from(
+    root.querySelectorAll<HTMLElement>('.contact-animate')
+  )
 
+  /* stagger: 0 s, 0.10 s, 0.20 s… */
+  items.forEach((el, idx) =>
+    el.style.setProperty('--delay', `${idx * 0.10}s`)
+  )
 
+  const io = new IntersectionObserver(
+    entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-shown')
+          io.unobserve(e.target)              // solo una vez
+        }
+      })
+    },
+    { rootMargin: '0px 0px 15% 0px', threshold: 0 }
+  )
+
+  items.forEach(el => io.observe(el))
+}
+
+/* ╭─────────────────────────────────────────╮
+   │ 2.  COMPONENTE CONTACT                  │
+   ╰─────────────────────────────────────────╯ */
 export function Contact() {
   const contactEl = document.createElement('section')
   contactEl.id = 'contact'
@@ -9,13 +42,17 @@ export function Contact() {
   /* ───────── helpers de marcado ───────── */
   const renderMobile = () => `
 <div class="sm:hidden w-full flex flex-col items-center">
-  <h2 class="font-montserrat font-bold text-[24px] text-center mt-12 md:mt-4 lg:mt-14">${t('contact_title')}</h2>
-  <p  class="font-montserrat font-medium text-[10px] text-center mt-1">${t('contact_subtitle')}</p>
-  <img src="/src/assets/marker-icon.webp" class="w-[55px] h-[15px] mx-auto mt-3"/>
+  <h2 class="contact-animate is-hidden font-montserrat font-bold text-[24px] text-center mt-12 md:mt-4 lg:mt-14">
+    ${t('contact_title')}
+  </h2>
+  <p  class="contact-animate is-hidden font-montserrat font-medium text-[10px] text-center mt-1">
+    ${t('contact_subtitle')}
+  </p>
+  <img src="/src/assets/marker-icon.webp" class="contact-animate is-hidden w-[55px] h-[15px] mx-auto mt-3"/>
 
   <!-- FORM MOBILE -->
   <form id="contact-form-mobile"
-        class="w-full max-w-[450px] bg-white rounded shadow-lg mt-8 p-5 flex flex-col gap-3">
+        class="contact-animate is-hidden w-full max-w-[450px] bg-white rounded shadow-lg mt-8 p-5 flex flex-col gap-3">
     <label class="font-montserrat text-[10px] text-black/70 text-left">${t('form_label_name')}</label>
     <input name="first_name"  type="text" placeholder="John" class="text-black border p-2 rounded outline-none bg-white text-[11px]"/>
 
@@ -29,54 +66,26 @@ export function Contact() {
     <textarea name="message"  rows="4" placeholder="${t('form_label_message')}"
               class="border p-2 rounded outline-none resize-none bg-white text-[11px] text-black"></textarea>
 
-     <button
-        type="submit"
-        class="
-          h-[35px]
-          bg-[#006E49] hover:bg-[#00a16b]
-          text-[11px]
-          text-white font-montserrat font-bold  tracking-wide
-          rounded-[8px] flex items-center justify-center
-          transition-colors duration-200
-          border-0
-          focus:outline-none focus:ring-0 focus:ring-offset-0
-          focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0
-          active:outline-none active:ring-0 active:ring-offset-0
-          mt-2
-        ">
+     <button type="submit"
+        class="h-[35px] bg-[#006E49] hover:bg-[#00a16b] text-[11px] text-white font-montserrat font-bold tracking-wide rounded-[8px] flex items-center justify-center transition-colors duration-200 mt-2">
          ${t('form_submit')}
-      </button>
+     </button>
   </form>
 
   <img src="/src/assets/contact-hands.webp" alt="${t('contact_hands_img_alt')}"
-       class="w-[550px] h-auto object-contain mt-16"/>
+       class="contact-animate is-hidden w-[550px] h-auto object-contain mt-16"/>
 
-  ${renderFooterMobile()}
+  ${FooterMobile()}
 </div>`
 
-  const renderFooterMobile = () => `
-<footer class="w-full mt-16 pb-8 text-[5px] font-montserrat font-semibold text-white">
-  <div class="relative max-w-[500px] mx-auto flex items-center justify-between">
-    <span>${t('footer_copy')}</span>
-    <img data-link="home" src="/src/assets/fav-icon-logo.svg"
-         class="cursor-pointer absolute left-1/2 -translate-x-1/2 w-[15px] h-[15px] filter brightness-0 invert" alt="NexaDigit"/>
-    <span class="flex gap-1.5">
-      <a href="#" class="text-white hover:underline" data-legal="privacy">${t('footer_privacy')}</a>
-      <a href="#" class="text-white hover:underline">${t('footer_terms')}</a>
-      <a href="#" class="text-white hover:underline">${t('footer_cookie')}</a>
-    </span>
-
-
-  </div>
-</footer>`
 
   const renderDesktop = () => `
 <div class="hidden sm:block w-full flex-col items-center">
-  <h2 class="font-montserrat font-bold text-[45px] text-center mt-14">${t('contact_title')}</h2>
-  <p  class="font-montserrat font-bold text-[15px] text-center mt-1">${t('contact_subtitle')}</p>
-  <img src="/src/assets/marker-icon.webp" class="w-[91px] h-[25px] mx-auto mt-4"/>
+  <h2 class="contact-animate is-hidden font-montserrat font-bold text-[45px] text-center mt-14">${t('contact_title')}</h2>
+  <p  class="contact-animate is-hidden font-montserrat font-bold text-[15px] text-center mt-1">${t('contact_subtitle')}</p>
+  <img src="/src/assets/marker-icon.webp" class="contact-animate is-hidden w-[91px] h-[25px] mx-auto mt-4"/>
 
-  <div class="mt-10 w-full max-w-[960px] mx-auto overflow-hidden rounded-[20px] shadow-lg
+  <div class="contact-animate is-hidden mt-10 w-full max-w-[960px] mx-auto overflow-hidden rounded-[20px] shadow-lg
               grid grid-cols-1 lg:grid-cols-2 bg-white">
     <!-- FORM DESKTOP -->
     <form id="contact-form-desktop" class="p-6 flex flex-col gap-4">
@@ -93,23 +102,10 @@ export function Contact() {
       <textarea name="message" rows="4" placeholder="${t('form_label_message')}"
                 class="border p-2 rounded outline-none resize-none bg-white text-black"></textarea>
 
-      <button
-        type="submit"
-        class="
-          h-[45px]
-          bg-[#006E49] hover:bg-[#00a16b]
-          text-white font-montserrat font-bold  tracking-wide
-          rounded-[8px] flex items-center justify-center
-          transition-colors duration-200
-          border-0
-          focus:outline-none focus:ring-0 focus:ring-offset-0
-          focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0
-          active:outline-none active:ring-0 active:ring-offset-0
-          mt-2
-        ">
+      <button type="submit"
+        class="h-[45px] bg-[#006E49] hover:bg-[#00a16b] text-white font-montserrat font-bold tracking-wide rounded-[8px] flex items-center justify-center transition-colors duration-200 mt-2">
          ${t('form_submit')}
       </button>
-
     </form>
 
     <div class="hidden lg:block h-[540px]">
@@ -117,27 +113,12 @@ export function Contact() {
     </div>
   </div>
 
-  <div class="w-full flex justify-center mt-20">
+  <div class="contact-animate is-hidden w-full flex justify-center mt-20">
     <img src="/src/assets/contact-hands.webp" alt="${t('contact_hands_img_alt')}"
          class="w-[795px] h-[611px] object-contain"/>
   </div>
-
-  ${renderFooterDesktop()}
+        ${FooterDesktop()}
 </div>`
-
-  const renderFooterDesktop = () => `
-<footer class="hidden sm:block w-full mt-20 pt-10 pb-6 text-[12px] font-montserrat font-semibold">
-  <div class="max-w-[960px] mx-auto grid grid-cols-3 items-center">
-    <span>${t('footer_copy')}</span>
-    <img data-link="home" src="/src/assets/fav-icon-logo.svg" class="cursor-pointer justify-self-center w-[26px] h-[26px] filter brightness-0 invert"
-         alt="NexaDigit"/>
-    <span class="justify-self-end flex gap-6">
-      <a data-legal="privacy" class="cursor-pointer">${t('footer_privacy')}</a>
-      <a data-legal="terms" class="cursor-pointer">${t('footer_terms')}</a>
-      <a data-legal="cookie" class="cursor-pointer">${t('footer_cookie')}</a>
-    </span>
-  </div>
-</footer>`
 
   /* ───────── Leaflet helpers ───────── */
   function loadLeaflet() {
@@ -179,45 +160,44 @@ export function Contact() {
 
   /* ───────── Envío del formulario ───────── */
   function attachFormHandlers() {
-  const forms = contactEl.querySelectorAll<HTMLFormElement>('#contact-form-mobile, #contact-form-desktop')
-  forms.forEach(form => {
-    form.addEventListener('submit', async (ev) => {
-      ev.preventDefault()
-      const fd = new FormData(form)
+    const forms = contactEl.querySelectorAll<HTMLFormElement>('#contact-form-mobile, #contact-form-desktop')
+    forms.forEach(form => {
+      form.addEventListener('submit', async (ev) => {
+        ev.preventDefault()
+        const fd = new FormData(form)
 
-      const payload = {
-        firstName:  fd.get('first_name'),
-        lastName:   fd.get('last_name'),
-        email:      fd.get('email'),
-        message:    fd.get('message')
-      }
-
-      try {
-        const res = await fetch('/api/mailerlite', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        })
-
-        if (res.ok) {
-          notify(t('notify_contact_success'), 'success')
-          form.reset()
-        } else {
-          const err = await res.json()
-          notify(t('notify_contact_error') + ' ' + (err.error || ''), 'error')
+        const payload = {
+          firstName:  fd.get('first_name'),
+          lastName:   fd.get('last_name'),
+          email:      fd.get('email'),
+          message:    fd.get('message')
         }
-      } catch (err) {
-        notify(t('notify_contact_network_error'), 'error')
-      }
-    })
-  })
-}
 
+        try {
+          const res = await fetch('/api/mailerlite', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          })
+
+          if (res.ok) {
+            notify(t('notify_contact_success'), 'success')
+            form.reset()
+          } else {
+            const err = await res.json()
+            notify(t('notify_contact_error') + ' ' + (err.error || ''), 'error')
+          }
+        } catch (err) {
+          notify(t('notify_contact_network_error'), 'error')
+        }
+      })
+    })
+  }
 
   /* ───────── Render principal ───────── */
   function render() {
     contactEl.className =
-      'w-full px-4 text-white flex flex-col items-center mt-0 lg:-mt-8 relative'
+      'scroll-mt-[96px] w-full px-4 text-white flex flex-col items-center mt-0 lg:-mt-8 relative'
     contactEl.style.background = 'linear-gradient(to bottom,rgba(0,111,73,.30) 0%,#000 100%)'
     contactEl.style.width       = '100vw'
     contactEl.style.marginLeft  = 'calc(50% - 50vw)'
@@ -226,6 +206,9 @@ export function Contact() {
     contactEl.innerHTML = renderMobile() + renderDesktop()
     attachFormHandlers()
     loadLeaflet()
+
+    /* activa el scroll-reveal */
+    requestAnimationFrame(() => attachScrollReveal(contactEl))
   }
 
   render()
