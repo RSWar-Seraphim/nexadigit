@@ -57,7 +57,7 @@ function itemRowMobile(
           <h3 class="font-montserrat font-bold text-[12px] leading-[15px] uppercase">
             ${t(titleKey)}
           </h3>
-          <img src="/src/assets/marker-icon.png" class="my-1 w-[39px] h-[10px]" alt="" />
+          <img src="/src/assets/marker-icon.webp" class="my-1 w-[39px] h-[10px]" alt="" />
           <p class="font-montserrat font-medium text-[8px] leading-relaxed">
             ${t(descKey)}
           </p>
@@ -82,7 +82,7 @@ export function About() {
           ${t('about_title')}
         </h2>
         <div class="flex justify-center mt-2 md:mt-2">
-          <img src="/src/assets/marker-icon.png" alt="Marker icon"
+          <img src="/src/assets/marker-icon.webp" alt="Marker icon"
                class="w-[70px] h-[18px] sm:w-[91px] sm:h-[25px]" />
         </div>
       </div>

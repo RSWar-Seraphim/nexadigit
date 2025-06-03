@@ -11,7 +11,7 @@ export function Contact() {
 <div class="sm:hidden w-full flex flex-col items-center">
   <h2 class="font-montserrat font-bold text-[24px] text-center mt-12 md:mt-4 lg:mt-14">${t('contact_title')}</h2>
   <p  class="font-montserrat font-medium text-[10px] text-center mt-1">${t('contact_subtitle')}</p>
-  <img src="/src/assets/marker-icon.png" class="w-[55px] h-[15px] mx-auto mt-3"/>
+  <img src="/src/assets/marker-icon.webp" class="w-[55px] h-[15px] mx-auto mt-3"/>
 
   <!-- FORM MOBILE -->
   <form id="contact-form-mobile"
@@ -48,7 +48,7 @@ export function Contact() {
       </button>
   </form>
 
-  <img src="/src/assets/contact-hands.png" alt="${t('contact_hands_img_alt')}"
+  <img src="/src/assets/contact-hands.webp" alt="${t('contact_hands_img_alt')}"
        class="w-[550px] h-auto object-contain mt-16"/>
 
   ${renderFooterMobile()}
@@ -74,7 +74,7 @@ export function Contact() {
 <div class="hidden sm:block w-full flex-col items-center">
   <h2 class="font-montserrat font-bold text-[45px] text-center mt-14">${t('contact_title')}</h2>
   <p  class="font-montserrat font-bold text-[15px] text-center mt-1">${t('contact_subtitle')}</p>
-  <img src="/src/assets/marker-icon.png" class="w-[91px] h-[25px] mx-auto mt-4"/>
+  <img src="/src/assets/marker-icon.webp" class="w-[91px] h-[25px] mx-auto mt-4"/>
 
   <div class="mt-10 w-full max-w-[960px] mx-auto overflow-hidden rounded-[20px] shadow-lg
               grid grid-cols-1 lg:grid-cols-2 bg-white">
@@ -118,7 +118,7 @@ export function Contact() {
   </div>
 
   <div class="w-full flex justify-center mt-20">
-    <img src="/src/assets/contact-hands.png" alt="${t('contact_hands_img_alt')}"
+    <img src="/src/assets/contact-hands.webp" alt="${t('contact_hands_img_alt')}"
          class="w-[795px] h-[611px] object-contain"/>
   </div>
 
@@ -169,7 +169,7 @@ export function Contact() {
     const map = L.map(mapContainer, { zoomControl: false, attributionControl: false })
                 .setView([lat, lng], 18)
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.webp',
       { maxZoom: 19 }).addTo(map)
 
     const pinSvg  = '<svg viewBox="0 0 24 24" width="40" height="40" fill="#006E49" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>'

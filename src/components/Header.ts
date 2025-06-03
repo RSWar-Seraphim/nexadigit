@@ -165,7 +165,7 @@ function renderMobileMenu(lang: string): string {
       </ul>
     </nav>
     <div class="my-8 flex justify-center">
-      <img src="/src/assets/marker-icon-2.png" alt="${t('alt_decorative_separator', 'Separador')}" class="w-[100px] h-auto opacity-80" />
+      <img src="/src/assets/marker-icon-2.webp" alt="${t('alt_decorative_separator', 'Separador')}" class="w-[100px] h-auto opacity-80" />
     </div>
     <div class="pb-8 px-6 flex justify-around items-center select-none">
       ${socialsHtml}

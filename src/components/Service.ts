@@ -99,7 +99,7 @@ export function Service() {
       ${t('services_section_title')}
    </h2>
    <div class="flex justify-center mt-3">
-      <img src="/src/assets/marker-icon.png" class="w-[65px] h-[18px]" alt="" />
+      <img src="/src/assets/marker-icon.webp" class="w-[65px] h-[18px]" alt="" />
    </div>
    <!-- Bloque 1 -->
    <h3 class="mt-8 font-montserrat font-bold text-[12px] text-center uppercase">
@@ -110,9 +110,9 @@ export function Service() {
       <div id="carouselTrackMobile"
          class="flex gap-4 transition-transform duration-700 ease-out">
          ${[
-         'service-photo-one.png','service-photo-two.png','service-photo-three.png',
-         'service-photo-four.png','service-photo-five.png','service-photo-six.png',
-         'service-photo-seven.png',
+         'service-photo-one.webp','service-photo-two.webp','service-photo-three.webp',
+            'service-photo-four.webp','service-photo-five.webp','service-photo-six.webp',
+            'service-photo-seven.webp',
          ].map(src=>`
          <img src="/src/assets/${src}"
             class="w-[165px] h-[233px] object-cover rounded-[15px] flex-none"
@@ -143,7 +143,7 @@ export function Service() {
             <h3 class="text-center font-montserrat font-bold text-[12px] leading-[15px] uppercase">
                ${t('services_block2_title')}
             </h3>
-            <img src="/src/assets/marker-icon.png"
+            <img src="/src/assets/marker-icon.webp"
                class="my-1 mx-auto w-[39px] h-[10px]"
                alt="" />
             <p class="text-center font-medium text-[8px] leading-relaxed">
@@ -164,7 +164,7 @@ export function Service() {
             <h3 class="font-montserrat font-bold text-[12px] leading-[15px] uppercase">
                ${t('services_block3_title')}
             </h3>
-            <img src="/src/assets/marker-icon.png"
+            <img src="/src/assets/marker-icon.webp"
                class="my-1 mx-auto w-[39px] h-[10px]"
                alt="" />
             <p class="font-montserrat font-medium text-[8px] leading-relaxed">
@@ -182,7 +182,7 @@ export function Service() {
          ${t('services_section_title')}
       </h2>
       <div class="my-2 flex justify-center">
-         <img src="/src/assets/marker-icon.png" class="w-[80px] h-[22px]" alt="" />
+         <img src="/src/assets/marker-icon.webp" class="w-[80px] h-[22px]" alt="" />
       </div>
    </div>
    <!-- 2) BLOQUE 1 – carrusel (usa mini‑fotos) -->
@@ -194,9 +194,9 @@ export function Service() {
          <div id="carouselTrackMd"
             class="flex gap-4 transition-transform duration-700 ease-out">
             ${[
-            'service-photo-one.png','service-photo-two.png','service-photo-three.png',
-            'service-photo-four.png','service-photo-five.png','service-photo-six.png',
-            'service-photo-seven.png',
+            'service-photo-one.webp','service-photo-two.webp','service-photo-three.webp',
+            'service-photo-four.webp','service-photo-five.webp','service-photo-six.webp',
+            'service-photo-seven.webp',
             ].map(src=>`
             <img src="/src/assets/${src}"
                class="w-[220px] h-[310px] object-cover rounded-[20px] flex-none"
@@ -232,7 +232,7 @@ export function Service() {
       ${t('services_block2_title')}
     </h3>
     <div class="my-2 flex justify-center">
-      <img src="/src/assets/marker-icon.png" class="w-[70px] h-[18px]" alt="" />
+      <img src="/src/assets/marker-icon.webp" class="w-[70px] h-[18px]" alt="" />
     </div>
     <p class="font-montserrat font-medium text-[15px] leading-relaxed">
       ${t('services_block2_desc')}
@@ -246,7 +246,7 @@ export function Service() {
       ${t('services_block3_title')}
     </h3>
     <div class="my-2 flex justify-center">
-      <img src="/src/assets/marker-icon.png" class="w-[70px] h-[18px]" alt="" />
+      <img src="/src/assets/marker-icon.webp" class="w-[70px] h-[18px]" alt="" />
     </div>
     <p class="font-montserrat font-medium text-[15px] leading-relaxed">
       ${t('services_block3_desc')}
@@ -267,7 +267,7 @@ export function Service() {
          ${t('services_section_title')}
       </h2>
       <div class="my-3 flex justify-center">
-         <img src="/src/assets/marker-icon.png" class="w-[91px] h-[25px]" alt="" />
+         <img src="/src/assets/marker-icon.webp" class="w-[91px] h-[25px]" alt="" />
       </div>
    </div>
    <!-- 2) BLOQUE 1 con carrusel grande -->
@@ -290,9 +290,9 @@ export function Service() {
          <div id="carouselTrack"
      class="flex gap-7 transition-transform duration-1000 ease-[cubic-bezier(.4,0,.2,1)]">
   ${[
-    'service-photo-one.png','service-photo-two.png','service-photo-three.png',
-    'service-photo-four.png','service-photo-five.png','service-photo-six.png',
-    'service-photo-seven.png',
+     'service-photo-one.webp','service-photo-two.webp','service-photo-three.webp',
+            'service-photo-four.webp','service-photo-five.webp','service-photo-six.webp',
+            'service-photo-seven.webp',
   ].map(src => `
     <img src="/src/assets/${src}"
          class="carousel-img object-cover rounded-[45px] opacity-50 flex-none
@@ -328,18 +328,25 @@ export function Service() {
 <div class="mx-auto mt-20 grid grid-rows-2 grid-cols-[415px_minmax(0,1fr)] gap-y-16 gap-x-10 max-w-[900px]">
 
   <!-- BLOQUE A -->
-  <div class="row-start-1 col-start-1 flex justify-center">
-    <div class="w-[415px] h-[415px] rounded-[35px] overflow-hidden flex items-center justify-center">
+<div class="row-start-1 col-start-1 flex justify-center">
+  <div class="w-[415px] h-[415px] rounded-[35px] overflow-hidden flex items-center justify-center relative">
+    
+    <!-- Vídeo -->
     <video
-    src="/src/assets/service-video-main-two.mp4"
-    class="w-full h-full object-cover"
-    autoplay
-    loop
-    muted
-    playsinline></video>
+      src="/src/assets/block_a_service.webm"
+      class="w-full h-full object-cover"
+      autoplay
+      loop
+      muted
+      playsinline>
+    </video>
+    
+    <!-- Overlay oscuro (50 % de opacidad) -->
+    <div class="absolute inset-0 bg-black/50 pointer-events-none rounded-[35px]"></div>
+    
+  </div>
 </div>
 
-  </div>
 
   <div class="row-start-1 col-start-2 flex items-center">
     <div class="w-[415px] min-h-[415px] text-left flex flex-col justify-center">
@@ -347,7 +354,7 @@ export function Service() {
         ${t('services_block2_title')}
       </h3>
       <div class="my-3 flex justify-center">
-        <img src="/src/assets/marker-icon.png" class="w-[91px] h-[25px]" alt="" />
+        <img src="/src/assets/marker-icon.webp" class="w-[91px] h-[25px]" alt="" />
       </div>
       <p class="font-montserrat font-medium text-[15px] leading-relaxed">
         ${t('services_block2_desc')}
@@ -362,7 +369,7 @@ export function Service() {
         ${t('services_block3_title')}
       </h3>
       <div class="my-3 flex justify-center">
-        <img src="/src/assets/marker-icon.png" class="w-[91px] h-[25px]" alt="" />
+        <img src="/src/assets/marker-icon.webp" class="w-[91px] h-[25px]" alt="" />
       </div>
       <p class="font-montserrat font-medium text-[15px] leading-relaxed">
         ${t('services_block3_desc')}
@@ -371,17 +378,25 @@ export function Service() {
   </div>
 
   <div class="row-start-2 col-start-2 flex justify-center">
-      <div class="row-start-1 col-start-1 flex justify-center">
-    <div class="w-[415px] h-[415px] rounded-[35px] overflow-hidden flex items-center justify-center">
-    <video
-    src="/src/assets/man-walking.mp4"
-    class="w-full h-full object-cover"
-    autoplay
-    loop
-    muted
-    playsinline></video>
-</div>
+  <div class="row-start-1 col-start-1 flex justify-center">
+    <div class="w-[415px] h-[415px] rounded-[35px] overflow-hidden flex items-center justify-center relative">
+
+      <!-- Vídeo -->
+      <video
+        src="/src/assets/block_b_service.webm"
+        class="w-full h-full object-cover"
+        autoplay
+        loop
+        muted
+        playsinline>
+      </video>
+
+      <!-- Overlay oscuro (50 % de opacidad) -->
+      <div class="absolute inset-0 bg-black/50 pointer-events-none rounded-[35px]"></div>
+    </div>
   </div>
+</div>
+
 
 </div>
 </div>

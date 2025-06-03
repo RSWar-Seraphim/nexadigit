@@ -43,9 +43,9 @@ export function Unisync() {
     el.innerHTML = /* html */`
 <!-- ░░░░░  MOBILE  ░░░░░ -->
 <div class="block sm:hidden mt-16 text-center">
-  <img src="/src/assets/marker-icon.png" class="mx-auto w-[239px] h-[65px]" alt="" />
+  <img src="/src/assets/marker-icon.webp" class="mx-auto w-[239px] h-[65px]" alt="" />
   <h1 class="font-petrov-sans font-bold text-[60px] leading-none mt-6">UniSync</h1>
-  <img src="/src/assets/laptop_screen_unisync.png"
+  <img src="/src/assets/laptop_screen_unisync.webp"
        class="mx-auto mt-10 w-[90%]"
        alt="${t('unisync_laptop_alt')}" />
   <div class="mt-12 px-4">
@@ -53,7 +53,7 @@ export function Unisync() {
       ${t('unisync_tagline1')}
     </h2>
     <h3 class="font-montserrat font-bold text-[19px] leading-tight mt-1">${tagline2}</h3>
-    <img src="/src/assets/marker-icon.png" class="mx-auto mt-4 w-[44px] h-[12px]" alt=""/>
+    <img src="/src/assets/marker-icon.webp" class="mx-auto mt-4 w-[44px] h-[12px]" alt=""/>
   </div>
 </div>
 
@@ -75,7 +75,7 @@ export function Unisync() {
   <!-- ░░░░░  MOBILE – estadísticas (sin edificio) ░░░░░ -->
   <div class="sm:hidden  relative w-full flex flex-col items-center mt-7 overflow-hidden">
     <img
-      src="/src/assets/building-ai-unisync.png"
+      src="/src/assets/building-ai-unisync.webp"
       alt="AI building" aria-hidden="true"
       class="absolute bottom-0 left-1/2 -translate-x-1/2
              h-full w-auto max-w-none         
@@ -91,7 +91,7 @@ export function Unisync() {
         <h3 class="text-[20px] font-montserrat font-bold">
           ${statSubtitle}
         </h3>
-        <img src="/src/assets/marker-icon.png" class="w-[45px] h-[8px] mb-1" alt=""/>
+        <img src="/src/assets/marker-icon.webp" class="w-[45px] h-[8px] mb-1" alt=""/>
       </div>
       <div class="flex flex-col items-center gap-14  w-[70%]">
         ${stat('/src/assets/unisync-graph-icon.svg', 'unisync_stat1')}
@@ -107,9 +107,9 @@ export function Unisync() {
 <div class="hidden sm:block">
   <!-- cabecera + portátil -->
   <div class="text-center">
-    <img id="unisync-marker" src="/src/assets/marker-icon.png" class="mx-auto" alt="" aria-hidden="true" />
+    <img id="unisync-marker" src="/src/assets/marker-icon.webp" class="mx-auto" alt="" aria-hidden="true" />
     <h1 class="font-petrov-sans font-bold text-[190px] sm:text-[150px] leading-none mt-4">UniSync</h1>
-    <img src="/src/assets/laptop_screen_unisync.png"
+    <img src="/src/assets/laptop_screen_unisync.webp"
          class="mx-auto mt-14 w-[85%]"
          alt="${t('unisync_laptop_alt')}" />
     <!-- tagline -->
@@ -121,7 +121,7 @@ export function Unisync() {
         ${t('unisync_tagline2')}
       </h3>
       <div class="flex justify-center mt-4">
-        <img src="/src/assets/marker-icon.png" class="w-[91px] h-[25px]" alt="" aria-hidden="true" />
+        <img src="/src/assets/marker-icon.webp" class="w-[91px] h-[25px]" alt="" aria-hidden="true" />
       </div>
     </div>
   </div>
@@ -157,13 +157,13 @@ export function Unisync() {
       ${statSubtitle}
     </h3>
     <div class="flex justify-center mt-4">
-      <img src="/src/assets/marker-icon.png" class="w-[91px] h-[25px]" alt="" aria-hidden="true" />
+      <img src="/src/assets/marker-icon.webp" class="w-[91px] h-[25px]" alt="" aria-hidden="true" />
     </div>
   </div>
   <!-- estadísticas + edificio  -->
   <div class="grid grid-cols-12 items-center gap-8 mt-16">
     <div class="col-span-6 flex justify-center">
-      <img src="/src/assets/building-ai-unisync.png"
+      <img src="/src/assets/building-ai-unisync.webp"
            class="lg:w-[478px] lg:h-[939px] object-contain"
            alt="${t('unisync_building_alt')}" />
     </div>

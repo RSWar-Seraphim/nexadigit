@@ -42,7 +42,7 @@ export function Hero() {
           <h2 class="font-montserrat font-extrabold leading-tight ${lang === 'en' ? 'ms:text-[23px] mm:text-[26.5px] ml:text-[29px] sm:!text-[40px] md:!text-[50px]' : ' sm:!text-[36px] md:!text-[45px] ml:text-[26px] mm:text-[24px] ms:text-[21px]'}">${t('hero_title_part1')}</h2>
           <h2 class="font-montserrat font-extrabold leading-tight ${lang === 'en' ? 'ms:text-[30px] mm:text-[35px] ml:text-[38px] sm:!text-[53px] md:!text-[66px] text-[34px]' : 'sm:!text-[44px] md:!text-[55px] ml:text-[32px] mm:text-[29px] ms:text-[25px] text-[29px]'} mt-2">${t('hero_title_part2')}</h2>
           <h1 class="font-petrov-sans leading-none w-full ms:text-[68px] mm:text-[78px] ml:text-[85px] sm:!text-[116px] md:!text-[146px]  my-3">${t('hero_brand')}</h1>
-          <img src="/src/assets/marker-icon.png" class="w-[180px] h-[40px] mx-auto mb-4" alt="">
+          <img src="/src/assets/marker-icon.webp" class="w-[180px] h-[40px] mx-auto mb-4" alt="">
         </div>
         <!-- Contenido central -->
         <div class="flex flex-col items-center flex-grow overflow-y-auto overflow-x-hidden scrollbar-none w-full">
@@ -54,7 +54,7 @@ export function Hero() {
             ${t('mid_desc')}
           </p>
 
-          <img src="/src/assets/marker-icon.png" class="w-[50px] h-[14px] mx-auto my-4" alt="">
+          <img src="/src/assets/marker-icon.webp" class="w-[50px] h-[14px] mx-auto my-4" alt="">
           <!-- Tagline + CTA centrados entre marker y carousel -->
           <div class="flex flex-col items-center my-auto">
             <p class="text-center
@@ -70,12 +70,12 @@ export function Hero() {
           </div>
           <div class="mb-auto ms:hidden sm:mb-16 md:mb-24 flex justify-center overflow-hidden w-full max-w-[265px] px-4 mx-auto">
             <div id="partnerTrackMobile" class="flex items-center gap-5 transition-transform duration-700 ease-out">
-              <img src="/src/assets/novosit-logo.png" class="-mt-1 w-[60px] h-[16px]" alt="${t('hero_partner_novosit')}">
+              <img src="/src/assets/novosit-logo.webp" class="-mt-1 w-[60px] h-[16px]" alt="${t('hero_partner_novosit')}">
               <img src="/src/assets/chatgpt-logo-white.webp" class="w-[75px] h-[22px]" alt="${t('hero_partner_openai')}">
-              <img src="/src/assets/gemini_logo.png" class="-mt-2 w-[55px] h-[20px]" alt="Gemini logo">
-              <img src="/src/assets/claude-logo.png" class="w-[65px] h-[16px]" alt="Claude logo">
-              <img src="/src/assets/NVIDIA_logo.png" class="w-[65px] h-[12px]" alt="NVIDIA logo">
-              <img src="/src/assets/deepseek-logo.png" class="w-[65px] h-[13px]" alt="DeepSeek logo">
+              <img src="/src/assets/gemini_logo.webp" class="-mt-2 w-[55px] h-[20px]" alt="Gemini logo">
+              <img src="/src/assets/claude-logo.webp" class="w-[65px] h-[16px]" alt="Claude logo">
+              <img src="/src/assets/NVIDIA_logo.webp" class="w-[65px] h-[12px]" alt="NVIDIA logo">
+              <img src="/src/assets/deepseek-logo.webp" class="w-[65px] h-[13px]" alt="DeepSeek logo">
             </div>
           </div>
         </div>
@@ -98,7 +98,7 @@ export function Hero() {
 <div class="hidden lg:flex lg:flex-col lg:items-center lg:justify-center lg:h-[calc(100svh-var(--header-h))] lg:space-y-5">
   <div class="hidden lg:grid grid-cols-12 gap-0 lg:gap-4">
     <div class="col-span-12 justify-center h-md:mt-[10px]">
-      <img src="/src/assets/marker-icon.png" class="mb-8 w-[238px] h-[65px] self-center flex-none mx-auto lg:hidden" alt="">
+      <img src="/src/assets/marker-icon.webp" class="mb-8 w-[238px] h-[65px] self-center flex-none mx-auto lg:hidden" alt="">
       <h2 class="font-montserrat font-extrabold leading-tight fluid-h2 short:shrink-12 ${h2a}">${t('hero_title_part1')}</h2>
       <h2 class="font-montserrat font-extrabold leading-tight fluid-h2-2 short:shrink-12 ${h2b}">${t('hero_title_part2')}</h2>
 
@@ -170,14 +170,14 @@ export function Hero() {
        class="flex items-center justify-center gap-8 lg:gap-12
               transition-transform duration-700 ease-out">
           <!-- 7 logos = los 4 originales + 3 nuevos -->
-          <img src="/src/assets/ms-gold-partner.png"  class="w-[100px] h-[26px]"  alt="${t('hero_partner_ms')}">
-          <img src="/src/assets/novosit-logo.png"      class="w-[95px]  h-[25px] mb-1" alt="${t('hero_partner_novosit')}">
+          <img src="/src/assets/ms-gold-partner.webp"  class="w-[100px] h-[26px]"  alt="${t('hero_partner_ms')}">
+          <img src="/src/assets/novosit-logo.webp"      class="w-[95px]  h-[25px] mb-1" alt="${t('hero_partner_novosit')}">
           <img src="/src/assets/chatgpt-logo-white.webp" class="w-[120px] h-[35px]" alt="${t('hero_partner_openai')}">
-          <img src="/src/assets/gemini_logo.png"        class="w-[80px]  h-[30px] mb-3" alt="Gemini logo">
+          <img src="/src/assets/gemini_logo.webp"        class="w-[80px]  h-[30px] mb-3" alt="Gemini logo">
           <!-- NUEVOS -->
-          <img src="/src/assets/claude-logo.png"        class="w-[95px]  h-[22px]" alt="Claude logo">
-          <img src="/src/assets/NVIDIA_logo.png"        class="w-[98px]  h-[18px]" alt="NVIDIA logo">
-          <img src="/src/assets/deepseek-logo.png"      class="w-[95px]  h-[17px]" alt="DeepSeek logo">
+          <img src="/src/assets/claude-logo.webp"        class="w-[95px]  h-[22px]" alt="Claude logo">
+          <img src="/src/assets/NVIDIA_logo.webp"        class="w-[98px]  h-[18px]" alt="NVIDIA logo">
+          <img src="/src/assets/deepseek-logo.webp"      class="w-[95px]  h-[17px]" alt="DeepSeek logo">
         </div>
       </div>
     </div>
