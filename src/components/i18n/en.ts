@@ -144,4 +144,5 @@ export const en = {
   unisync_features_grid_label: "Grid of UniSync key features",
   unisync_stats_group_label: "Key UniSync statistics",
   footer_back_home: 'Back to home',
+  phone_number_link: 'Call NexaDigit',
 }

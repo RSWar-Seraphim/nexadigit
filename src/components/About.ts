@@ -94,7 +94,7 @@ function itemRowDesktop(
 
       <!-- Separador flecha (decorativo) ----------------------------------- -->
       <div class="col-span-1 flex items-center justify-center">
-        <img src="/src/assets/arrow-right-about.svg"
+        <img src="/assets/arrow-right-about.svg"
              alt=""
              aria-hidden="true"
              loading="lazy"
@@ -141,7 +141,7 @@ function itemRowMobile(
           </h3>
 
           <!-- Separador decorativo ---------------------------------------- -->
-          <img src="/src/assets/marker-icon.webp"
+          <img src="/assets/marker-icon.webp"
                class="my-1 w-[39px] h-[10px]"
                loading="lazy"
                decoding="async"
@@ -173,25 +173,25 @@ export function About() {
       <div class="text-center">
         <h2 class="text-title">${t('about_title')}</h2>
         <div class="flex justify-center mt-2 md:mt-2">
-          <img src="/src/assets/marker-icon.webp" alt="Marker icon" loading="lazy" decoding="async" class="w-[70px] h-[18px] sm:w-[91px] sm:h-[25px]" />
+          <img src="/assets/marker-icon.webp" alt="Marker icon" loading="lazy" decoding="async" class="w-[70px] h-[18px] sm:w-[91px] sm:h-[25px]" />
         </div>
       </div>
 
       <!-- MOBILE version -->
       <div class="block sm:hidden mt-8 flex flex-col">
-        ${itemRowMobile('/src/assets/about-processor-icon.svg','about_item1_title','about_item1_desc', true)}
-        ${itemRowMobile('/src/assets/about-migrate-icon.svg','about_item2_title','about_item2_desc', false)}
-        ${itemRowMobile('/src/assets/about-plan-icon.svg','about_item3_title','about_item3_desc', true)}
-        ${itemRowMobile('/src/assets/about-human-icon.svg','about_item4_title','about_item4_desc', false)}
+        ${itemRowMobile('/assets/about-processor-icon.svg','about_item1_title','about_item1_desc', true)}
+        ${itemRowMobile('/assets/about-migrate-icon.svg','about_item2_title','about_item2_desc', false)}
+        ${itemRowMobile('/assets/about-plan-icon.svg','about_item3_title','about_item3_desc', true)}
+        ${itemRowMobile('/assets/about-human-icon.svg','about_item4_title','about_item4_desc', false)}
       </div>
 
       <!-- DESKTOP version (desde md) -->
       <div class="hidden sm:block mt-10">
         <div class="grid grid-rows-4 gap-10">
-          ${itemRowDesktop('/src/assets/about-processor-icon.svg','about_item1_title','about_item1_desc', true)}
-          ${itemRowDesktop('/src/assets/about-migrate-icon.svg','about_item2_title','about_item2_desc')}
-          ${itemRowDesktop('/src/assets/about-plan-icon.svg','about_item3_title','about_item3_desc', true)}
-          ${itemRowDesktop('/src/assets/about-human-icon.svg','about_item4_title','about_item4_desc')}
+          ${itemRowDesktop('/assets/about-processor-icon.svg','about_item1_title','about_item1_desc', true)}
+          ${itemRowDesktop('/assets/about-migrate-icon.svg','about_item2_title','about_item2_desc')}
+          ${itemRowDesktop('/assets/about-plan-icon.svg','about_item3_title','about_item3_desc', true)}
+          ${itemRowDesktop('/assets/about-human-icon.svg','about_item4_title','about_item4_desc')}
         </div>
       </div>`
 

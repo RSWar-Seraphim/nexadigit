@@ -57,7 +57,7 @@ const mobileTemplate = (lang: string) => /* html */ `
         ${t('hero_brand')}
       </h1>
 
-      <img src="/src/assets/marker-icon.webp"
+      <img src="/assets/marker-icon.webp"
            class="w-[180px] h-[40px] mx-auto mb-4"
            alt="${t('alt_decorative_marker')}"
            aria-hidden="true" />
@@ -74,7 +74,7 @@ const mobileTemplate = (lang: string) => /* html */ `
         ${t('mid_desc')}
       </p>
 
-      <img src="/src/assets/marker-icon.webp"
+      <img src="/assets/marker-icon.webp"
            class="w-[50px] h-[14px] mx-auto my-4"
            alt=""
            aria-hidden="true" />
@@ -108,12 +108,12 @@ const mobileTemplate = (lang: string) => /* html */ `
            role="list">
         <div id="partnerTrackMobile"
              class="flex items-center gap-5 transition-transform duration-700 ease-out">
-          <img src="/src/assets/novosit-logo.webp"       class="-mt-1 w-[60px] h-[16px]"  loading="lazy" alt="${t('hero_partner_novosit')}">
-          <img src="/src/assets/chatgpt-logo-white.webp" class="w-[75px] h-[22px]"        loading="lazy" alt="${t('hero_partner_openai')}">
-          <img src="/src/assets/gemini_logo.webp"        class="-mt-2 w-[55px] h-[20px]"  loading="lazy" alt="Gemini logo">
-          <img src="/src/assets/claude-logo.webp"        class="w-[65px] h-[16px]"        loading="lazy" alt="Claude logo">
-          <img src="/src/assets/NVIDIA_logo.webp"        class="w-[65px] h-[12px]"        loading="lazy" alt="NVIDIA logo">
-          <img src="/src/assets/deepseek-logo.webp"      class="w-[65px] h-[13px]"        loading="lazy" alt="DeepSeek logo">
+          <img src="/assets/novosit-logo.webp"       class="-mt-1 w-[60px] h-[16px]"  loading="lazy" alt="${t('hero_partner_novosit')}">
+          <img src="/assets/chatgpt-logo-white.webp" class="w-[75px] h-[22px]"        loading="lazy" alt="${t('hero_partner_openai')}">
+          <img src="/assets/gemini_logo.webp"        class="-mt-2 w-[55px] h-[20px]"  loading="lazy" alt="Gemini logo">
+          <img src="/assets/claude-logo.webp"        class="w-[65px] h-[16px]"        loading="lazy" alt="Claude logo">
+          <img src="/assets/NVIDIA_logo.webp"        class="w-[65px] h-[12px]"        loading="lazy" alt="NVIDIA logo">
+          <img src="/assets/deepseek-logo.webp"      class="w-[65px] h-[13px]"        loading="lazy" alt="DeepSeek logo">
         </div>
       </div>
     </div>
@@ -127,7 +127,7 @@ const mobileTemplate = (lang: string) => /* html */ `
                 transition-colors duration-200 flex items-center justify-center
                 animate-bounce-mini focus:outline-offset-2 focus-visible:ring-2"
          aria-label="${t('alt_scroll_down')}">
-        <img src="/src/assets/header-arrow-down.svg"
+        <img src="/assets/header-arrow-down.svg"
              class="w-[12px] h-[12px] pointer-events-none"
              alt="" aria-hidden="true" />
       </a>
@@ -147,7 +147,7 @@ const desktopTemplate = (lang: string) => {
   <div class="hidden lg:grid grid-cols-12 gap-0 lg:gap-4">
     <div class="col-span-12 justify-center h-md:mt-[10px]">
 
-      <img src="/src/assets/marker-icon.webp"
+      <img src="/assets/marker-icon.webp"
            class="mb-8 w-[238px] h-[65px] self-center flex-none mx-auto lg:hidden"
            loading="lazy"
            alt="${t('alt_decorative_marker')}"
@@ -165,7 +165,7 @@ const desktopTemplate = (lang: string) => {
           ${t('hero_brand')}
         </h1>
 
-        <img src="/src/assets/arrow_hero_section_down.svg"
+        <img src="/assets/arrow_hero_section_down.svg"
              class="absolute z-0
                     xl-h-lg:w-[500px] xl-h-lg:h-[600px]
                     lg:w-[800px] lg:h-[500px]
@@ -212,7 +212,7 @@ const desktopTemplate = (lang: string) => {
                          4k:h-[55px] h-xl:h-[55px] 4k:-mt-9 xl-h-lg:-mt-9 lg:mt-5
                          transition-colors duration-200 focus:outline-offset-2 focus-visible:ring-2"
                   aria-label="${t('hero_email_submit')}">
-            <img src="/src/assets/icon-send.svg"
+            <img src="/assets/icon-send.svg"
                  class="w-4 h-4 brightness-0 invert"
                  alt=""
                  aria-hidden="true" />
@@ -233,13 +233,13 @@ const desktopTemplate = (lang: string) => {
            role="list">
         <div id="partnerTrack"
              class="flex items-center justify-center gap-8 lg:gap-12 transition-transform duration-700 ease-out">
-          <img src="/src/assets/ms-gold-partner.webp"   loading="lazy" class="w-[100px] h-[26px]"  alt="${t('hero_partner_ms')}"        role="listitem">
-          <img src="/src/assets/novosit-logo.webp"       loading="lazy" class="w-[95px]  h-[25px] mb-1" alt="${t('hero_partner_novosit')}" role="listitem">
-          <img src="/src/assets/chatgpt-logo-white.webp" loading="lazy" class="w-[120px] h-[35px]" alt="${t('hero_partner_openai')}"    role="listitem">
-          <img src="/src/assets/gemini_logo.webp"        loading="lazy" class="w-[80px]  h-[30px] mb-3" alt="Gemini logo"               role="listitem">
-          <img src="/src/assets/claude-logo.webp"        loading="lazy" class="w-[95px]  h-[22px]" alt="Claude logo"                   role="listitem">
-          <img src="/src/assets/NVIDIA_logo.webp"        loading="lazy" class="w-[98px]  h-[18px]" alt="NVIDIA logo"                   role="listitem">
-          <img src="/src/assets/deepseek-logo.webp"      loading="lazy" class="w-[95px]  h-[17px]" alt="DeepSeek logo"                 role="listitem">
+          <img src="/assets/ms-gold-partner.webp"   loading="lazy" class="w-[100px] h-[26px]"  alt="${t('hero_partner_ms')}"        role="listitem">
+          <img src="/assets/novosit-logo.webp"       loading="lazy" class="w-[95px]  h-[25px] mb-1" alt="${t('hero_partner_novosit')}" role="listitem">
+          <img src="/assets/chatgpt-logo-white.webp" loading="lazy" class="w-[120px] h-[35px]" alt="${t('hero_partner_openai')}"    role="listitem">
+          <img src="/assets/gemini_logo.webp"        loading="lazy" class="w-[80px]  h-[30px] mb-3" alt="Gemini logo"               role="listitem">
+          <img src="/assets/claude-logo.webp"        loading="lazy" class="w-[95px]  h-[22px]" alt="Claude logo"                   role="listitem">
+          <img src="/assets/NVIDIA_logo.webp"        loading="lazy" class="w-[98px]  h-[18px]" alt="NVIDIA logo"                   role="listitem">
+          <img src="/assets/deepseek-logo.webp"      loading="lazy" class="w-[95px]  h-[17px]" alt="DeepSeek logo"                 role="listitem">
         </div>
       </div>
     </div>
@@ -254,7 +254,7 @@ const desktopTemplate = (lang: string) => {
          class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#006E49] hover:bg-[#00a16b]
                 transition-colors duration-200 flex items-center justify-center
                 animate-bounce-mini focus:outline-offset-2 focus-visible:ring-2">
-        <img src="/src/assets/header-arrow-down.svg"
+        <img src="/assets/header-arrow-down.svg"
              class="w-[14px] h-[14px] md:w-[16px] md:h-[16px] pointer-events-none"
              alt="" aria-hidden="true" />
       </a>

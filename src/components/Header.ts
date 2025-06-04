@@ -16,9 +16,9 @@ const SOCIALS = [
 /* ──────────────────────────────  SEO helpers  ────────────────────────────── */
 /* ① Preload imágenes críticas (mejora LCP) */
 const PRELOAD_IMAGES = [
-  '/src/assets/fav-icon-logo.svg',
-  '/src/assets/top-bar-icon-dominican-flag.svg',
-  '/src/assets/top-bar-icon-usa-flag.svg'
+  '/assets/fav-icon-logo.svg',
+  '/assets/top-bar-icon-dominican-flag.svg',
+  '/assets/top-bar-icon-usa-flag.svg'
 ];
 function ensurePreload(src: string, asType: 'image' | 'font' | 'script' = 'image') {
   if (!document.querySelector(`link[rel="preload"][href="${src}"]`)) {
@@ -110,28 +110,28 @@ function updateMetaDescription(desc: string) {
 // ————————————————————————————————————————
 function renderMobileTopBar(lang: string): string {
   const flag = lang === 'es'
-    ? '/src/assets/top-bar-icon-dominican-flag.svg'
-    : '/src/assets/top-bar-icon-usa-flag.svg';
+    ? '/assets/top-bar-icon-dominican-flag.svg'
+    : '/assets/top-bar-icon-usa-flag.svg';
   return `
     <div id="mobile-top-bar" class="relative flex items-center h-14 bg-[#006E49]/80 lg:hidden z-[55] select-none transition-opacity duration-300">
       <button id="burger-btn" class="p-3">
-        <img src="/src/assets/icon-hamburger-menu.svg" class="w-3.5 h-3.5 brightness-0 invert" alt="${t('alt_burger_menu')}" />
+        <img src="/assets/icon-hamburger-menu.svg" class="w-3.5 h-3.5 brightness-0 invert" alt="${t('alt_burger_menu')}" />
       </button>
-      <img id="mobile-main-logo" src="/src/assets/fav-icon-logo.svg"
+      <img id="mobile-main-logo" src="/assets/fav-icon-logo.svg"
            class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[25px] h-[31.02px] brightness-0 invert"
            alt="${t('alt_logo_mobile')}" />
       <button id="lang-toggle-mobile-main" class="ml-auto flex items-center gap-1 pr-3">
         <span class="lowercase text-xs">${lang}</span>
         <img src="${flag}" class="w-[18px] h-[18px]" alt="${t('alt_lang_flag_mobile_main')}" />
-        <img src="/src/assets/top-bar-icon-double-arrow-left.svg" class="w-3 h-3 sm:w-5 sm:h-5 brightness-0 invert" alt="${t('alt_arrow_icon')}" />
+        <img src="/assets/top-bar-icon-double-arrow-left.svg" class="w-3 h-3 sm:w-5 sm:h-5 brightness-0 invert" alt="${t('alt_arrow_icon')}" />
       </button>
     </div>`;
 }
 
 function renderDesktopTopBar(lang: string): string {
   const flag = lang === 'es'
-    ? '/src/assets/top-bar-icon-dominican-flag.svg'
-    : '/src/assets/top-bar-icon-usa-flag.svg';
+    ? '/assets/top-bar-icon-dominican-flag.svg'
+    : '/assets/top-bar-icon-usa-flag.svg';
   const navGap = lang === 'en' ? 'gap-[90px] xl:gap-[140px]' : 'gap-[80px] xl:gap-[125px]';
 
     const socialsHtml = SOCIALS.map(s => `
@@ -141,9 +141,9 @@ function renderDesktopTopBar(lang: string): string {
          aria-label="${(t as any)(`alt_social_${s.key}`)}">
     
         <img loading="lazy"
-             data-src="/src/assets/top-bar-icon-${s.key}.svg"
-             data-hover="/src/assets/top-bar-icon-${s.key}-hover.svg"
-             src="/src/assets/top-bar-icon-${s.key}.svg"
+             data-src="/assets/top-bar-icon-${s.key}.svg"
+             data-hover="/assets/top-bar-icon-${s.key}-hover.svg"
+             src="/assets/top-bar-icon-${s.key}.svg"
              class="social-icon w-[21px] h-[21px] cursor-pointer"
              alt=""/>
       </a>
@@ -154,7 +154,7 @@ function renderDesktopTopBar(lang: string): string {
     <div class="hidden lg:block select-none">
       <div class="mt-4 w-full lg:max-w-[960px] xl:max-w-[1238px] mx-auto px-4 lg:px-8 xl:px-[64px] grid grid-cols-1 items-center lg:grid-cols-12">
         <div class="col-span-6 flex items-center gap-2">
-          <img src="/src/assets/top-bar-icon-location.svg" class="w-[21px] h-[21px]" alt="${t('alt_location_icon')}"/>
+          <img src="/assets/top-bar-icon-location.svg" class="w-[21px] h-[21px]" alt="${t('alt_location_icon')}"/>
           <span>${t('location_label')}</span>
         </div>
         <div class="col-span-6 flex justify-end items-center gap-1.5">
@@ -162,7 +162,7 @@ function renderDesktopTopBar(lang: string): string {
           <div id="lang-toggle-desktop" class="flex items-center gap-1 ml-3 cursor-pointer">
             <span class="lowercase">${lang}</span>
             <img src="${flag}" class="w-[21px] h-[21px]" alt="${t('alt_lang_flag_desktop')}"/>
-            <img src="/src/assets/top-bar-icon-double-arrow-left.svg" class="w-5 h-5 brightness-0 invert" alt="${t('alt_arrow_icon')}"/>
+            <img src="/assets/top-bar-icon-double-arrow-left.svg" class="w-5 h-5 brightness-0 invert" alt="${t('alt_arrow_icon')}"/>
           </div>
         </div>
       </div>
@@ -185,7 +185,7 @@ function renderDesktopTopBar(lang: string): string {
           </ul>
           <div class="col-span-1 flex justify-end">
             <a href="tel:${t('phone_number_link')}" data-book-meeting aria-label="${t('alt_call_button')}">
-              <img src="/src/assets/nav-bar-icon-call-button.svg" class="w-9 h-9 cursor-pointer hover:animate-call-shake" alt="">
+              <img src="/assets/nav-bar-icon-call-button.svg" class="w-9 h-9 cursor-pointer hover:animate-call-shake" alt="">
             </a>
           </div>
         </nav>
@@ -195,8 +195,8 @@ function renderDesktopTopBar(lang: string): string {
 
 function renderMobileMenu(lang: string): string {
   const flag = lang === 'es'
-    ? '/src/assets/top-bar-icon-dominican-flag.svg'
-    : '/src/assets/top-bar-icon-usa-flag.svg';
+    ? '/assets/top-bar-icon-dominican-flag.svg'
+    : '/assets/top-bar-icon-usa-flag.svg';
 
       /* íconos sociales con carga diferida */
     const socialsHtml = SOCIALS.map(s => `
@@ -206,8 +206,8 @@ function renderMobileMenu(lang: string): string {
          aria-label="${(t as any)(`alt_social_${s.key}_mobile`)}">
     
         <img loading="lazy"
-             data-src="/src/assets/top-bar-icon-${s.key}.svg"
-             src="/src/assets/top-bar-icon-${s.key}.svg"
+             data-src="/assets/top-bar-icon-${s.key}.svg"
+             src="/assets/top-bar-icon-${s.key}.svg"
              class="social-icon-mobile w-6 h-6 cursor-pointer brightness-0 invert hover:opacity-75"
              alt=""/>
       </a>
@@ -217,11 +217,11 @@ function renderMobileMenu(lang: string): string {
   return `
     <div class="flex items-center h-14 bg-[#006E49]/50 w-full px-3 relative select-none">
       <button id="close-menu-btn" class="p-1" aria-label="${t('alt_close_menu')}">
-        <img src="/src/assets/menu-cancel-icon.svg" class="w-4 h-4 brightness-0 invert" alt=""/>
+        <img src="/assets/menu-cancel-icon.svg" class="w-4 h-4 brightness-0 invert" alt=""/>
       </button>
 
       <!-- logo -->
-      <img src="/src/assets/fav-icon-logo.svg"
+      <img src="/assets/fav-icon-logo.svg"
            class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
                   w-[25px] h-[31.02px] brightness-0 invert"
            alt="${t('alt_logo_menu')}"/>
@@ -246,7 +246,7 @@ function renderMobileMenu(lang: string): string {
     </nav>
 
     <div class="my-8 flex justify-center">
-      <img src="/src/assets/marker-icon-2.webp"
+      <img src="/assets/marker-icon-2.webp"
            alt="${t('alt_decorative_separator')}"
            class="w-[100px] h-auto opacity-80" />
     </div>
@@ -523,7 +523,7 @@ export function Header() {
       "@type": "Organization",
       "name": "NexaDigit",
       "url":  location.origin,
-      "logo": location.origin + "/src/assets/fav-icon-logo.svg",
+      "logo": location.origin + "/assets/fav-icon-logo.svg",
       "telephone": t('phone_number_link'),
       "sameAs": SOCIALS.map(s => s.url)
     });

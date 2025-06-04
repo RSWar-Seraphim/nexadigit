@@ -1,15 +1,70 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
+    <style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #0F221D;
+    min-height: 100vh;
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    color: #fff;
+  }
+  #loader {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0F221D;
+    z-index: 9999;
+    transition: opacity .5s;
+  }
+  #loader img {
+    width: 64px;
+    height: 64px;
+    filter: brightness(0) invert(1);
+    /* Si quieres animación heartbeat, puedes poner aquí keyframes mínimos */
+    animation: loader-heartbeat 1.4s infinite;
+  }
+  @keyframes loader-heartbeat {
+    0%, 100% { transform: scale(1);}
+    10%, 30% { transform: scale(1.15);}
+    20%, 40% { transform: scale(1);}
+  }
+  .font-montserrat { font-family: 'Montserrat', Arial, Helvetica, sans-serif; }
+  .font-petrov-sans { font-family: 'PetrovSans', Arial, Helvetica, sans-serif; }
+  h1, h2, h3 {
+    font-weight: 700;
+    margin: 0;
+  }
+  .hero-section-with-bg {
+    width: 100%;
+    min-height: 100vh;
+    /* Si tienes un bg principal agrégalo aquí (opcional) */
+    /* background: url('/assets/background-header.webp') center/cover no-repeat; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 64px;
+  }
+  /* Evitar FOIT/FOUT de fuentes */
+  [class*="font-"] { font-family: inherit; }
+</style>
+    <link rel="preload" href="src/styles/style.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="src/styles/style.css"></noscript>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Fallback title/description for SEO; can be replaced by app -->
     <meta name="description" content="Intelligent Automation and AI Consultancy." />
 
     <!-- Favicons & Manifest -->
+    <link rel="preload" href="/assets/fonts/PetrovSans-Bold.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="icon" href="/assets/favicon/favicon.ico" sizes="any">
     <link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg">
-    <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.webp">
+    <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png">
     <link rel="manifest" href="/assets/favicon/site.webmanifest">
     <link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css" />
     <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
@@ -17,15 +72,15 @@
     <meta name="theme-color" content="#006E49">
 
     <!-- Extra sizes for Android -->
-    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.webp">
-    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/web-app-manifest-192x192.webp">
-    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon/web-app-manifest-512x512.webp">
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/web-app-manifest-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon/web-app-manifest-512x512.png">
   </head>
   <body>
     <!-- Page Loader -->
     <div id="loader"
       style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#0F221D;z-index:9999;transition:opacity .5s;">
-      <img src="/src/assets/fav-icon-logo.svg" alt="NexaDigit logo" width="64" height="64"
+      <img src="/assets/fav-icon-logo.svg" alt="NexaDigit logo" width="64" height="64"
         style="filter:brightness(0) invert(1);" class="animate-heartbeat" />
     </div>
     <div id="app"></div>

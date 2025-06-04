@@ -100,7 +100,7 @@ export function Service() {
     ${t('services_section_title')}
   </h2>
   <div class="flex justify-center mt-3">
-    <img src="/src/assets/marker-icon.webp"
+    <img src="/assets/marker-icon.webp"
          class="w-[65px] h-[18px]"
          loading="lazy"
          alt=""
@@ -123,7 +123,7 @@ export function Service() {
         'service-photo-four.webp','service-photo-five.webp','service-photo-six.webp',
         'service-photo-seven.webp',
       ].map(src => `
-        <img src="/src/assets/${src}"
+        <img src="/assets/${src}"
              class="w-[165px] h-[233px] object-cover rounded-[15px] flex-none"
              loading="lazy"
              decoding="async"
@@ -158,7 +158,7 @@ export function Service() {
         <h3 class="text-center font-montserrat font-bold text-[12px] leading-[15px] uppercase">
           ${t('services_block2_title')}
         </h3>
-        <img src="/src/assets/marker-icon.webp"
+        <img src="/assets/marker-icon.webp"
              class="my-1 mx-auto w-[39px] h-[10px]"
              loading="lazy"
              alt=""
@@ -181,7 +181,7 @@ export function Service() {
         <h3 class="font-montserrat font-bold text-[12px] leading-[15px] uppercase">
           ${t('services_block3_title')}
         </h3>
-        <img src="/src/assets/marker-icon.webp"
+        <img src="/assets/marker-icon.webp"
              class="my-1 mx-auto w-[39px] h-[10px]"
              loading="lazy"
              alt=""
@@ -203,7 +203,7 @@ export function Service() {
       ${t('services_section_title')}
     </h2>
     <div class="my-2 flex justify-center">
-      <img src="/src/assets/marker-icon.webp"
+      <img src="/assets/marker-icon.webp"
            class="w-[80px] h-[22px]"
            loading="lazy"
            alt=""
@@ -228,7 +228,7 @@ export function Service() {
           'service-photo-four.webp','service-photo-five.webp','service-photo-six.webp',
           'service-photo-seven.webp',
         ].map(src => `
-          <img src="/src/assets/${src}"
+          <img src="/assets/${src}"
                class="w-[220px] h-[310px] object-cover rounded-[20px] flex-none"
                loading="lazy"
                decoding="async"
@@ -237,7 +237,7 @@ export function Service() {
       </div>
     </div>
 
-    <img src="/src/assets/arrow-right-about.svg"
+    <img src="/assets/arrow-right-about.svg"
          class="mt-4 w-[15px] h-[15px] rotate-90"
          loading="lazy"
          alt=""
@@ -277,7 +277,7 @@ export function Service() {
         ${t('services_block2_title')}
       </h3>
       <div class="my-2 flex justify-center">
-        <img src="/src/assets/marker-icon.webp"
+        <img src="/assets/marker-icon.webp"
              class="w-[70px] h-[18px]"
              loading="lazy"
              alt=""
@@ -295,7 +295,7 @@ export function Service() {
         ${t('services_block3_title')}
       </h3>
       <div class="my-2 flex justify-center">
-        <img src="/src/assets/marker-icon.webp"
+        <img src="/assets/marker-icon.webp"
              class="w-[70px] h-[18px]"
              loading="lazy"
              alt=""
@@ -323,7 +323,7 @@ export function Service() {
     </h2>
     <div class="my-3 flex justify-center">
       <img
-        src="/src/assets/marker-icon.webp"
+        src="/assets/marker-icon.webp"
         class="w-[91px] h-[25px]"
         loading="lazy"
         alt=""
@@ -351,7 +351,7 @@ export function Service() {
           'service-photo-four.webp','service-photo-five.webp','service-photo-six.webp',
           'service-photo-seven.webp',
         ].map(src => `
-          <img src="/src/assets/${src}"
+          <img src="/assets/${src}"
                class="carousel-img object-cover rounded-[45px] opacity-50 flex-none
                       w-[280px] h-[420px] 4k:w-[360px] 4k:h-[540px]"
                loading="lazy"
@@ -361,7 +361,7 @@ export function Service() {
       </div>
     </div>
 
-    <img src="/src/assets/arrow-right-about.svg"
+    <img src="/assets/arrow-right-about.svg"
          class="mt-4 w-[25px] h-[25px] rotate-90"
          loading="lazy"
          alt=""
@@ -392,7 +392,7 @@ export function Service() {
     <div class="row-start-1 col-start-1 flex justify-center">
       <div class="w-[415px] h-[415px] rounded-[35px] overflow-hidden
                   flex items-center justify-center relative">
-        <video src="/src/assets/block_a_service.webm"
+        <video src="/assets/block_a_service.webm"
                class="w-full h-full object-cover"
                autoplay loop muted playsinline
                aria-label="${t('services_block_a_video_label')}">
@@ -408,7 +408,7 @@ export function Service() {
           ${t('services_block2_title')}
         </h3>
         <div class="my-3 flex justify-center">
-          <img src="/src/assets/marker-icon.webp"
+          <img src="/assets/marker-icon.webp"
                class="w-[91px] h-[25px]"
                loading="lazy"
                alt=""
@@ -427,7 +427,7 @@ export function Service() {
           ${t('services_block3_title')}
         </h3>
         <div class="my-3 flex justify-center">
-          <img src="/src/assets/marker-icon.webp"
+          <img src="/assets/marker-icon.webp"
                class="w-[91px] h-[25px]"
                loading="lazy"
                alt=""
@@ -442,7 +442,7 @@ export function Service() {
     <div class="row-start-2 col-start-2 flex justify-center">
       <div class="w-[415px] h-[415px] rounded-[35px] overflow-hidden
                   flex items-center justify-center relative">
-        <video src="/src/assets/block_b_service.webm"
+        <video src="/assets/block_b_service.webm"
                class="w-full h-full object-cover"
                autoplay loop muted playsinline
                aria-label="${t('services_block_b_video_label')}">

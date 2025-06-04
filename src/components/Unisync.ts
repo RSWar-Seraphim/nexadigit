@@ -76,7 +76,7 @@ export function Unisync() {
 <!-- ░░░░░  MOBILE  ░░░░░ -->
 <div class="block sm:hidden mt-16 text-center">
   <!-- logotipo-marker decorativo -->
-  <img src="/src/assets/marker-icon.webp"
+  <img src="/assets/marker-icon.webp"
        class="mx-auto w-[239px] h-[65px]"
        alt=""
        aria-hidden="true" />
@@ -86,7 +86,7 @@ export function Unisync() {
   </h1>
 
   <!-- mock-up del producto -->
-  <img src="/src/assets/laptop_screen_unisync.webp"
+  <img src="/assets/laptop_screen_unisync.webp"
        loading="lazy" decoding="async"
        class="unisync-animate is-hidden mx-auto mt-10 w-[90%]"
        alt="${t('unisync_laptop_alt')}" />
@@ -101,7 +101,7 @@ export function Unisync() {
     </h3>
 
     <!-- separación decorativa -->
-    <img src="/src/assets/marker-icon.webp"
+    <img src="/assets/marker-icon.webp"
          class="mx-auto mt-4 w-[44px] h-[12px]"
          alt=""
          aria-hidden="true" />
@@ -110,7 +110,7 @@ export function Unisync() {
 <!-- ░░░░░  MOBILE  ░░░░░ -->
 <div class="block sm:hidden mt-16 text-center">
   <!-- logotipo-marker decorativo -->
-  <img src="/src/assets/marker-icon.webp"
+  <img src="/assets/marker-icon.webp"
        class="mx-auto w-[239px] h-[65px]"
        alt=""
        aria-hidden="true" />
@@ -120,7 +120,7 @@ export function Unisync() {
   </h1>
 
   <!-- mock-up del producto -->
-  <img src="/src/assets/laptop_screen_unisync.webp"
+  <img src="/assets/laptop_screen_unisync.webp"
        loading="lazy" decoding="async"
        class="unisync-animate is-hidden mx-auto mt-10 w-[90%]"
        alt="${t('unisync_laptop_alt')}" />
@@ -135,7 +135,7 @@ export function Unisync() {
     </h3>
 
     <!-- separación decorativa -->
-    <img src="/src/assets/marker-icon.webp"
+    <img src="/assets/marker-icon.webp"
          class="mx-auto mt-4 w-[44px] h-[12px]"
          alt=""
          aria-hidden="true" />
@@ -164,7 +164,7 @@ export function Unisync() {
   <div class="sm:hidden relative w-full flex flex-col items-center mt-7 overflow-hidden">
 
     <!-- imagen de fondo meramente decorativa -->
-    <img src="/src/assets/building-ai-unisync.webp"
+    <img src="/assets/building-ai-unisync.webp"
          loading="lazy" decoding="async"
          alt=""
          aria-hidden="true"
@@ -181,7 +181,7 @@ export function Unisync() {
         <h3 class="text-[20px] font-montserrat font-bold">
           ${statSubtitle}
         </h3>
-        <img src="/src/assets/marker-icon.webp"
+        <img src="/assets/marker-icon.webp"
              class="w-[45px] h-[8px] mb-1"
              alt=""
              aria-hidden="true" />
@@ -189,10 +189,10 @@ export function Unisync() {
 
       <!-- lista de estadísticas -->
       <div class="flex flex-col items-center gap-14 w-[70%]">
-        ${stat('/src/assets/unisync-graph-icon.svg', 'unisync_stat1')}
-        ${stat('/src/assets/unisync-world.svg',      'unisync_stat2')}
-        ${stat('/src/assets/unisync-corporate.svg',  'unisync_stat3')}
-        ${stat('/src/assets/unisync-up.svg',         'unisync_stat4')}
+        ${stat('/assets/unisync-graph-icon.svg', 'unisync_stat1')}
+        ${stat('/assets/unisync-world.svg',      'unisync_stat2')}
+        ${stat('/assets/unisync-corporate.svg',  'unisync_stat3')}
+        ${stat('/assets/unisync-up.svg',         'unisync_stat4')}
       </div>
     </div>
   </div>
@@ -205,7 +205,7 @@ export function Unisync() {
   <!-- cabecera + mock-up portátil -->
   <div class="text-center">
     <img id="unisync-marker"
-         src="/src/assets/marker-icon.webp"
+         src="/assets/marker-icon.webp"
          class="mx-auto"
          alt=""
          aria-hidden="true"
@@ -215,7 +215,7 @@ export function Unisync() {
       UniSync
     </h1>
 
-    <img src="/src/assets/laptop_screen_unisync.webp"
+    <img src="/assets/laptop_screen_unisync.webp"
          loading="lazy" decoding="async"
          class="unisync-animate is-hidden mx-auto mt-14 w-[85%]"
          alt="${t('unisync_laptop_alt')}" />
@@ -231,7 +231,7 @@ export function Unisync() {
 
       <!-- separador decorativo -->
       <div class="flex justify-center mt-4">
-        <img src="/src/assets/marker-icon.webp"
+        <img src="/assets/marker-icon.webp"
              class="w-[91px] h-[25px]"
              alt=""
              aria-hidden="true"
@@ -273,7 +273,7 @@ export function Unisync() {
       ${statSubtitle}
     </h3>
     <div class="flex justify-center mt-4">
-      <img src="/src/assets/marker-icon.webp"
+      <img src="/assets/marker-icon.webp"
            class="w-[91px] h-[25px]"
            alt=""
            aria-hidden="true"
@@ -284,7 +284,7 @@ export function Unisync() {
   <!-- estadísticas + edificio -->
   <div class="grid grid-cols-12 items-center gap-8 mt-16">
     <div class="col-span-6 flex justify-center">
-      <img src="/src/assets/building-ai-unisync.webp"
+      <img src="/assets/building-ai-unisync.webp"
            loading="lazy" decoding="async"
            class="unisync-animate is-hidden lg:w-[478px] lg:h-[939px] object-contain"
            alt="${t('unisync_building_alt')}" />
@@ -292,10 +292,10 @@ export function Unisync() {
 
     <div class="col-span-6 flex flex-col items-center gap-11 text-center"
          aria-label="${t('unisync_stats_group_label')}">
-      ${stat('/src/assets/unisync-graph-icon.svg', 'unisync_stat1')}
-      ${stat('/src/assets/unisync-world.svg',      'unisync_stat2')}
-      ${stat('/src/assets/unisync-corporate.svg',  'unisync_stat3')}
-      ${stat('/src/assets/unisync-up.svg',         'unisync_stat4')}
+      ${stat('/assets/unisync-graph-icon.svg', 'unisync_stat1')}
+      ${stat('/assets/unisync-world.svg',      'unisync_stat2')}
+      ${stat('/assets/unisync-corporate.svg',  'unisync_stat3')}
+      ${stat('/assets/unisync-up.svg',         'unisync_stat4')}
     </div>
   </div>
 </div>

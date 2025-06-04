@@ -50,7 +50,7 @@ export function Contact() {
   <p class="contact-animate is-hidden font-montserrat font-medium text-[10px] text-center mt-1">
     ${t('contact_subtitle')}
   </p>
-  <img src="/src/assets/marker-icon.webp"
+  <img src="/assets/marker-icon.webp"
        class="contact-animate is-hidden w-[55px] h-[15px] mx-auto mt-3"
        alt="" aria-hidden="true" />
 
@@ -94,7 +94,7 @@ export function Contact() {
     </button>
   </form>
 
-  <img src="/src/assets/contact-hands.webp"
+  <img src="/assets/contact-hands.webp"
        alt="${t('contact_hands_img_alt')}"
        class="contact-animate is-hidden w-[550px] h-auto object-contain mt-16" />
 
@@ -114,7 +114,7 @@ export function Contact() {
   <p class="contact-animate is-hidden font-montserrat font-bold text-[15px] text-center mt-1">
     ${t('contact_subtitle')}
   </p>
-  <img src="/src/assets/marker-icon.webp"
+  <img src="/assets/marker-icon.webp"
        class="contact-animate is-hidden w-[91px] h-[25px] mx-auto mt-4"
        alt="" aria-hidden="true" />
 
@@ -169,7 +169,7 @@ export function Contact() {
 
   <!-- Imagen decorativa -->
   <div class="contact-animate is-hidden w-full flex justify-center mt-20">
-    <img src="/src/assets/contact-hands.webp"
+    <img src="/assets/contact-hands.webp"
          alt="${t('contact_hands_img_alt')}"
          class="w-[795px] h-[611px] object-contain" />
   </div>

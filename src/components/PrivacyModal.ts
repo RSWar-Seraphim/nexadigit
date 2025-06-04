@@ -385,7 +385,7 @@ function buildOverlay(html: string, type: DocType): HTMLElement {
       <header class="flex flex-col items-center mb-10">
         <div class="flex items-center w-full">
           <hr class="flex-grow border-gray-600">
-          <img src="/src/assets/fav-icon-logo.svg" alt="NexaDigit"
+          <img src="/assets/fav-icon-logo.svg" alt="NexaDigit"
                class="w-8 h-8 mx-4"/>
           <hr class="flex-grow border-gray-600">
         </div>

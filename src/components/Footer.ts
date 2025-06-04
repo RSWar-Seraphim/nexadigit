@@ -20,7 +20,7 @@ export function FooterMobile() {
     <a data-link="home" href="#home"
        aria-label="${t('footer_back_home')}"
        class="absolute left-1/2 -translate-x-1/2 inline-block">
-      <img src="/src/assets/fav-icon-logo.svg"
+      <img src="/assets/fav-icon-logo.svg"
            class="w-[15px] h-[15px] filter brightness-0 invert"
            alt="NexaDigit logo" />
     </a>
@@ -50,7 +50,7 @@ export function FooterDesktop() {
     <a data-link="home" href="#home"
        aria-label="${t('footer_back_home')}"
        class="justify-self-center inline-block">
-      <img src="/src/assets/fav-icon-logo.svg"
+      <img src="/assets/fav-icon-logo.svg"
            class="w-[26px] h-[26px] filter brightness-0 invert"
            alt="NexaDigit logo" />
     </a>
