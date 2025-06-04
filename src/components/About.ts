@@ -61,21 +61,48 @@ function attachScrollReveal(root: HTMLElement) {
 // -------------------------------------------------------------------------------------------------
 // Helpers de plantilla
 // -------------------------------------------------------------------------------------------------
-function itemRowDesktop(icon: string, titleKey: I18nKey, descKey: I18nKey, highlight = false) {
+function itemRowDesktop(
+  icon: string,
+  titleKey: I18nKey,
+  descKey: I18nKey,
+  highlight = false
+) {
   const rowExtra = highlight
     ? 'relative bg-[#006E49]/40 rounded-tl-[55px] border-b border-white'
     : ''
+
+  /* Decorative flecha → alt vacío + aria-hidden */
   return `
-    <div class="is-hidden sm:min-h-[145px] grid grid-cols-12 items-center gap-4 lg:min-h-[170px] md:min-h-[145px] pl-4 md:pl-2 md:gap-5 ${rowExtra}">
+    <div class="is-hidden sm:min-h-[145px] grid grid-cols-12 items-center gap-4
+                lg:min-h-[170px] md:min-h-[145px] pl-4 md:pl-2 md:gap-5 ${rowExtra}"
+         role="listitem">
+      
+      <!-- Icono + título -------------------------------------------------- -->
       <div class="col-span-5 flex items-center gap-3">
-        <div class="w-[35px] h-[35px] md:w-[30px] md:h-[30px] bg-[#006E49] rounded-full flex items-center justify-center lg:flex">
-          <img src="${icon}" alt="${t(titleKey)} icon" loading="lazy" decoding="async" class="w-4 h-4 md:w-3.5 md:h-3.5" />
+        <div class="w-[35px] h-[35px] md:w-[30px] md:h-[30px]
+                    bg-[#006E49] rounded-full flex items-center justify-center">
+          <img src="${icon}"
+               alt="${t(titleKey)}"
+               loading="lazy"
+               decoding="async"
+               class="w-4 h-4 md:w-3.5 md:h-3.5" />
         </div>
-        <h3 class="aside-text-about">${t(titleKey)}</h3>
+        <h3 class="aside-text-about">
+          ${t(titleKey)}
+        </h3>
       </div>
-      <div class="col-span-1 lg:flex items-center justify-center">
-        <img src="/src/assets/arrow-right-about.svg" alt="Arrow separator" loading="lazy" decoding="async" class="md:w-[20px] md:h-[20px] w-[25px] h-[25px] sm:w-[15px] sm:h-[15px]" />
+
+      <!-- Separador flecha (decorativo) ----------------------------------- -->
+      <div class="col-span-1 flex items-center justify-center">
+        <img src="/src/assets/arrow-right-about.svg"
+             alt=""
+             aria-hidden="true"
+             loading="lazy"
+             decoding="async"
+             class="md:w-[20px] md:h-[20px] w-[25px] h-[25px] sm:w-[15px] sm:h-[15px]" />
       </div>
+
+      <!-- Descripción ----------------------------------------------------- -->
       <div class="col-span-6 flex flex-col justify-center">
         <p class="font-montserrat font-medium text-body leading-relaxed text-left tracking-tight">
           ${t(descKey)}
@@ -84,28 +111,52 @@ function itemRowDesktop(icon: string, titleKey: I18nKey, descKey: I18nKey, highl
     </div>`
 }
 
-function itemRowMobile(icon: string, titleKey: I18nKey, descKey: I18nKey, highlight = false) {
-  const wrapperBase = 'relative w-[236px] h-[200px] flex items-center justify-center'
-  const highlightClasses = highlight ? 'bg-[#006E49]/10 rounded-tl-[20px] rounded-tr-[20px]' : ''
-  const highlightStyle = highlight ? 'style="border-bottom:0.5px solid #D9D9D9;"' : ''
+function itemRowMobile(
+  icon: string,
+  titleKey: I18nKey,
+  descKey: I18nKey,
+  highlight = false
+) {
+  const wrapperBase       = 'relative w-[236px] h-[200px] flex items-center justify-center';
+  const highlightClasses  = highlight ? 'bg-[#006E49]/10 rounded-tl-[20px] rounded-tr-[20px]' : '';
+  const highlightStyle    = highlight ? 'style="border-bottom:0.5px solid #D9D9D9;"' : '';
+
   return `
     <div class="mt-6 flex justify-center">
-      <div class="is-hidden ${wrapperBase} ${highlightClasses}" ${highlightStyle}>
+      <div class="is-hidden ${wrapperBase} ${highlightClasses}" ${highlightStyle} role="listitem">
         <div class="max-w-[185px] mx-auto flex flex-col items-center text-center">
+
+          <!-- Icono redondo ------------------------------------------------ -->
           <div class="w-[20px] h-[20px] bg-[#006E49] rounded-full flex items-center justify-center mb-2">
-            <img src="${icon}" alt="${t(titleKey)} icon" loading="lazy" decoding="async" class="w-3 h-3" />
+            <img src="${icon}"
+                 alt="${t(titleKey)}"
+                 loading="lazy"
+                 decoding="async"
+                 class="w-3 h-3" />
           </div>
+
+          <!-- Título ------------------------------------------------------- -->
           <h3 class="font-montserrat font-bold text-[12px] leading-[15px] uppercase">
             ${t(titleKey)}
           </h3>
-          <img src="/src/assets/marker-icon.webp" class="my-1 w-[39px] h-[10px]" alt="" loading="lazy" decoding="async" />
+
+          <!-- Separador decorativo ---------------------------------------- -->
+          <img src="/src/assets/marker-icon.webp"
+               class="my-1 w-[39px] h-[10px]"
+               loading="lazy"
+               decoding="async"
+               alt=""
+               aria-hidden="true" />
+
+          <!-- Descripción -------------------------------------------------- -->
           <p class="font-montserrat font-medium text-[8px] leading-relaxed">
             ${t(descKey)}
           </p>
         </div>
       </div>
-    </div>`
+    </div>`;
 }
+
 
 // -------------------------------------------------------------------------------------------------
 // Componente principal

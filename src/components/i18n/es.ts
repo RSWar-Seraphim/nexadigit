@@ -136,6 +136,17 @@ export const es = {
 
   alt_decorative_marker: 'Separador decorativo',
   alt_scroll_down: 'Desplazar a la siguiente sección',
-  hero_partner_track: 'Carrusel de marcas tecnológicas asociadas'
-
+  hero_partner_track: 'Carrusel de marcas tecnológicas asociadas',
+  /* ───── nuevas claves Hero ───── */
+  hero_email_label:      'Introduce tu correo',
+  hero_email_submit:     'Enviar correo',
+   services_block1_carousel_label: 'Carrusel de fotos de servicios con IA',
+  services_photo_alt: 'Foto ilustrativa de un servicio de IA',
+  services_block_a_video_label:   'Vídeo AI del servicio A',
+  services_block_b_video_label:   'Vídeo AI del servicio B',
+  unisync_cta_alt: 'Reserva una reunión UniSync',
+  unisync_building_bg_alt: '',
+  unisync_features_grid_label: "Cuadrícula de funciones clave de UniSync",
+  unisync_stats_group_label: "Estadísticas clave de UniSync",
+  footer_back_home: 'Volver a la página principal',
 }

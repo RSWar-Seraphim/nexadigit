@@ -6,17 +6,17 @@ import { t, onLangChange, getLang } from './i18n'
 // Helper común: aplica el stagger y muestra/oculta
 // ✅ Versión mínima y correcta
 function attachScrollReveal(root: HTMLElement) {
-  // 1. Selecciona los elementos animables
+
   const items = Array.from(
     root.querySelectorAll<HTMLElement>('.unisync-animate')
   )
 
-  // 2. Asigna el stagger (0 s, 0.10 s, 0.20 s…)
+
   items.forEach((el, idx) =>
     el.style.setProperty('--delay', `${idx * 0.10}s`)
   )
 
-  // 3. Crea el IO
+
   const io = new IntersectionObserver(
     entries => {
       entries.forEach(e => {
@@ -29,7 +29,7 @@ function attachScrollReveal(root: HTMLElement) {
     { rootMargin: '0px 0px 15% 0px', threshold: 0 }
   )
 
-  // 4. ¡No olvides observar!
+
   items.forEach(el => io.observe(el))
 }
 
@@ -75,18 +75,70 @@ export function Unisync() {
     el.innerHTML = /* html */`
 <!-- ░░░░░  MOBILE  ░░░░░ -->
 <div class="block sm:hidden mt-16 text-center">
-  <img src="/src/assets/marker-icon.webp" class="mx-auto w-[239px] h-[65px]" alt="" />
-  <h1 class="font-petrov-sans font-bold text-[60px] leading-none mt-6">UniSync</h1>
+  <!-- logotipo-marker decorativo -->
+  <img src="/src/assets/marker-icon.webp"
+       class="mx-auto w-[239px] h-[65px]"
+       alt=""
+       aria-hidden="true" />
+
+  <h1 class="font-petrov-sans font-bold text-[60px] leading-none mt-6">
+    UniSync
+  </h1>
+
+  <!-- mock-up del producto -->
   <img src="/src/assets/laptop_screen_unisync.webp"
        loading="lazy" decoding="async"
        class="unisync-animate is-hidden mx-auto mt-10 w-[90%]"
        alt="${t('unisync_laptop_alt')}" />
+
+  <!-- tagline principal -->
   <div class="mt-12 px-4">
     <h2 class="font-montserrat font-bold text-[20px] leading-tight">
       ${t('unisync_tagline1')}
     </h2>
-    <h3 class="font-montserrat font-bold text-[19px] leading-tight mt-1">${tagline2}</h3>
-    <img src="/src/assets/marker-icon.webp" class="mx-auto mt-4 w-[44px] h-[12px]" alt=""/>
+    <h3 class="font-montserrat font-bold text-[19px] leading-tight mt-1">
+      ${tagline2}
+    </h3>
+
+    <!-- separación decorativa -->
+    <img src="/src/assets/marker-icon.webp"
+         class="mx-auto mt-4 w-[44px] h-[12px]"
+         alt=""
+         aria-hidden="true" />
+  </div>
+</div>
+<!-- ░░░░░  MOBILE  ░░░░░ -->
+<div class="block sm:hidden mt-16 text-center">
+  <!-- logotipo-marker decorativo -->
+  <img src="/src/assets/marker-icon.webp"
+       class="mx-auto w-[239px] h-[65px]"
+       alt=""
+       aria-hidden="true" />
+
+  <h1 class="font-petrov-sans font-bold text-[60px] leading-none mt-6">
+    UniSync
+  </h1>
+
+  <!-- mock-up del producto -->
+  <img src="/src/assets/laptop_screen_unisync.webp"
+       loading="lazy" decoding="async"
+       class="unisync-animate is-hidden mx-auto mt-10 w-[90%]"
+       alt="${t('unisync_laptop_alt')}" />
+
+  <!-- tagline principal -->
+  <div class="mt-12 px-4">
+    <h2 class="font-montserrat font-bold text-[20px] leading-tight">
+      ${t('unisync_tagline1')}
+    </h2>
+    <h3 class="font-montserrat font-bold text-[19px] leading-tight mt-1">
+      ${tagline2}
+    </h3>
+
+    <!-- separación decorativa -->
+    <img src="/src/assets/marker-icon.webp"
+         class="mx-auto mt-4 w-[44px] h-[12px]"
+         alt=""
+         aria-hidden="true" />
   </div>
 </div>
 
@@ -100,24 +152,28 @@ export function Unisync() {
   <!-- ░░░░░  MOBILE – CTA ░░░░░ -->
   <div class="sm:hidden flex justify-center -mt-2">
     <button
-      class="unisync-animate is-hidden text-[8px] w-[145px] h-[45px] bg-[#006E49]/40 font-montserrat font-bold uppercase tracking-wide flex items-center justify-center">
+      aria-label="${t('unisync_cta_alt')}"
+      class="unisync-animate is-hidden text-[8px] w-[145px] h-[45px]
+             bg-[#006E49]/40 font-montserrat font-bold uppercase tracking-wide
+             flex items-center justify-center focus:outline-offset-2 focus-visible:ring-2">
       ${t('unisync_cta')}
     </button>
   </div>
-  
+
   <!-- ░░░░░  MOBILE – estadísticas (sin edificio) ░░░░░ -->
-  <div class="sm:hidden  relative w-full flex flex-col items-center mt-7 overflow-hidden">
-    <img
-      src="/src/assets/building-ai-unisync.webp"
-      loading="lazy" decoding="async"
-      alt="AI building" aria-hidden="true"
-      class="absolute bottom-0 left-1/2 -translate-x-1/2
-             h-full w-auto max-w-none         
-             object-cover object-bottom        
-             opacity-[0.15]
-             pointer-events-none select-none"
-    />
+  <div class="sm:hidden relative w-full flex flex-col items-center mt-7 overflow-hidden">
+
+    <!-- imagen de fondo meramente decorativa -->
+    <img src="/src/assets/building-ai-unisync.webp"
+         loading="lazy" decoding="async"
+         alt=""
+         aria-hidden="true"
+         class="absolute bottom-0 left-1/2 -translate-x-1/2
+                h-full w-auto max-w-none object-cover object-bottom
+                opacity-[0.15] pointer-events-none select-none" />
+
     <div class="relative z-10 w-[70%] flex flex-col items-center text-center gap-6 pb-12">
+      <!-- título estadístico -->
       <div class="flex flex-col items-center gap-1">
         <h2 class="font-montserrat font-bold text-[17px] leading-tight max-w-[280px]">
           ${t('unisync_stat_title')}
@@ -125,28 +181,45 @@ export function Unisync() {
         <h3 class="text-[20px] font-montserrat font-bold">
           ${statSubtitle}
         </h3>
-        <img src="/src/assets/marker-icon.webp" class="w-[45px] h-[8px] mb-1" alt=""/>
+        <img src="/src/assets/marker-icon.webp"
+             class="w-[45px] h-[8px] mb-1"
+             alt=""
+             aria-hidden="true" />
       </div>
-      <div class="flex flex-col items-center gap-14  w-[70%]">
+
+      <!-- lista de estadísticas -->
+      <div class="flex flex-col items-center gap-14 w-[70%]">
         ${stat('/src/assets/unisync-graph-icon.svg', 'unisync_stat1')}
-        ${stat('/src/assets/unisync-world.svg', 'unisync_stat2')}
-        ${stat('/src/assets/unisync-corporate.svg', 'unisync_stat3')}
-        ${stat('/src/assets/unisync-up.svg', 'unisync_stat4')}
+        ${stat('/src/assets/unisync-world.svg',      'unisync_stat2')}
+        ${stat('/src/assets/unisync-corporate.svg',  'unisync_stat3')}
+        ${stat('/src/assets/unisync-up.svg',         'unisync_stat4')}
       </div>
     </div>
   </div>
 </div>
 
+
+
 <!-- ░░░░░  DESKTOP  ░░░░░ -->
 <div class="hidden sm:block">
-  <!-- cabecera + portátil -->
+  <!-- cabecera + mock-up portátil -->
   <div class="text-center">
-    <img id="unisync-marker" src="/src/assets/marker-icon.webp" class="mx-auto" alt="" aria-hidden="true" />
-    <h1 class="font-petrov-sans font-bold text-[190px] sm:text-[150px] leading-none mt-4">UniSync</h1>
+    <img id="unisync-marker"
+         src="/src/assets/marker-icon.webp"
+         class="mx-auto"
+         alt=""
+         aria-hidden="true"
+         loading="lazy" />
+
+    <h1 class="font-petrov-sans font-bold text-[190px] sm:text-[150px] leading-none mt-4">
+      UniSync
+    </h1>
+
     <img src="/src/assets/laptop_screen_unisync.webp"
          loading="lazy" decoding="async"
          class="unisync-animate is-hidden mx-auto mt-14 w-[85%]"
          alt="${t('unisync_laptop_alt')}" />
+
     <!-- tagline -->
     <div class="mt-8">
       <h2 class="font-montserrat font-bold ${title1Class}">
@@ -155,31 +228,44 @@ export function Unisync() {
       <h3 class="font-montserrat font-bold ${title2Class} lg:-mt-4">
         ${t('unisync_tagline2')}
       </h3>
+
+      <!-- separador decorativo -->
       <div class="flex justify-center mt-4">
-        <img src="/src/assets/marker-icon.webp" class="w-[91px] h-[25px]" alt="" aria-hidden="true" />
+        <img src="/src/assets/marker-icon.webp"
+             class="w-[91px] h-[25px]"
+             alt=""
+             aria-hidden="true"
+             loading="lazy" />
       </div>
     </div>
   </div>
-  <!-- características 2×2 -->
-  <div class="mx-auto mt-16 grid grid-cols-2 grid-rows-2 gap-0 max-w-[1116px]">
+
+  <!-- características 2 × 2 -->
+  <div class="mx-auto mt-16 grid grid-cols-2 grid-rows-2 gap-0 max-w-[1116px]"
+       aria-label="${t('unisync_features_grid_label')}">
     ${desktopFeatureCard1()}
     ${desktopFeatureCard2()}
     ${desktopFeatureCard3()}
     ${desktopFeatureCard4()}
   </div>
-  <!-- CTA -->
+
+  <!-- CTA principal -->
   <div class="flex flex-col items-center mt-24">
     <button data-book-meeting
-      class="unisync-animate is-hidden
-        w-[225px] h-[67px]           
-        bg-[#006E49] hover:bg-[#00a16b]      
-        text-white font-montserrat font-bold uppercase tracking-wide
-        rounded-[8px] flex items-center justify-center
-        transition-colors duration-200">
+            aria-label="${t('unisync_cta_alt')}"
+            class="unisync-animate is-hidden
+                   w-[225px] h-[67px]
+                   bg-[#006E49] hover:bg-[#00a16b]
+                   text-white font-montserrat font-bold uppercase tracking-wide
+                   rounded-[8px] flex items-center justify-center
+                   transition-colors duration-200
+                   focus:outline-offset-2 focus-visible:ring-2">
       ${t('unisync_cta')}
     </button>
   </div>
-  <div class="mt-12">
+
+  <!-- subtítulo estadístico -->
+  <div class="mt-12 text-center">
     <h2 class="font-montserrat font-bold ${unisyncStats1Size}">
       ${t('unisync_stat_title')}
     </h2>
@@ -187,10 +273,15 @@ export function Unisync() {
       ${statSubtitle}
     </h3>
     <div class="flex justify-center mt-4">
-      <img src="/src/assets/marker-icon.webp" class="w-[91px] h-[25px]" alt="" aria-hidden="true" />
+      <img src="/src/assets/marker-icon.webp"
+           class="w-[91px] h-[25px]"
+           alt=""
+           aria-hidden="true"
+           loading="lazy" />
     </div>
   </div>
-  <!-- estadísticas + edificio  -->
+
+  <!-- estadísticas + edificio -->
   <div class="grid grid-cols-12 items-center gap-8 mt-16">
     <div class="col-span-6 flex justify-center">
       <img src="/src/assets/building-ai-unisync.webp"
@@ -198,115 +289,150 @@ export function Unisync() {
            class="unisync-animate is-hidden lg:w-[478px] lg:h-[939px] object-contain"
            alt="${t('unisync_building_alt')}" />
     </div>
-    <div class="col-span-6 flex flex-col items-center gap-11 text-center">
-      ${stat('/src/assets/unisync-graph-icon.svg','unisync_stat1')}
-      ${stat('/src/assets/unisync-world.svg','unisync_stat2')}
-      ${stat('/src/assets/unisync-corporate.svg','unisync_stat3')}
-      ${stat('/src/assets/unisync-up.svg','unisync_stat4')}
+
+    <div class="col-span-6 flex flex-col items-center gap-11 text-center"
+         aria-label="${t('unisync_stats_group_label')}">
+      ${stat('/src/assets/unisync-graph-icon.svg', 'unisync_stat1')}
+      ${stat('/src/assets/unisync-world.svg',      'unisync_stat2')}
+      ${stat('/src/assets/unisync-corporate.svg',  'unisync_stat3')}
+      ${stat('/src/assets/unisync-up.svg',         'unisync_stat4')}
     </div>
   </div>
 </div>
+
 `
     // aplica el efecto tras cada render
     requestAnimationFrame(() => attachScrollReveal(el))
   }
 
-  // Helpers de las tarjetas (móviles y desktop) con clase unisync-animate
-  function mobileFeatureCard1() {
-    return `
-    <div class="unisync-animate is-hidden relative w-[80%]">
-      <div class="absolute inset-0 bg-[#006E49]/40 rounded-tl-[45px] rounded-br-[45px]"></div>
-      <div class="relative z-10 px-6 py-8">
-        <h4 class="font-montserrat font-bold text-[12px] leading-[15px] uppercase">
+  /* ────────── Helpers MÓVIL ────────── */
+    function mobileFeatureCard1() {
+      return `
+      <div class="unisync-animate is-hidden relative w-[80%]"
+           role="group" aria-labelledby="ft1-title-m" aria-describedby="ft1-desc-m">
+        <div class="absolute inset-0 bg-[#006E49]/40 rounded-tl-[45px] rounded-br-[45px]"></div>
+        <div class="relative z-10 px-6 py-8">
+          <h4 id="ft1-title-m"
+              class="font-montserrat font-bold text-[12px] leading-[15px] uppercase">
+            ${t('unisync_ft1_title')}
+          </h4>
+          <p id="ft1-desc-m"
+             class="font-montserrat font-medium text-[8px] leading-relaxed mt-2">
+            ${t('unisync_ft1_desc')}
+          </p>
+        </div>
+      </div>`;      /* ← NO olvides el punto y coma */
+    }
+
+    function mobileFeatureCard2() {
+      return `
+      <div class="unisync-animate is-hidden w-[90%] px-6"
+           role="group" aria-labelledby="ft3-title-m" aria-describedby="ft3-desc-m">
+        <h4 id="ft3-title-m"
+            class="font-montserrat font-bold text-[12px] leading-[15px] uppercase">
+          ${t('unisync_ft3_title')}
+        </h4>
+        <p id="ft3-desc-m"
+           class="font-montserrat font-medium text-[8px] leading-relaxed mt-2">
+          ${t('unisync_ft3_desc')}
+        </p>
+      </div>`;
+    }
+
+    function mobileFeatureCard3() {
+      return `
+      <div class="unisync-animate is-hidden relative w-[80%]"
+           role="group" aria-labelledby="ft4-title-m" aria-describedby="ft4-desc-m">
+        <div class="absolute inset-0 bg-[#006E49]/40 rounded-tl-[45px] rounded-br-[45px]"></div>
+        <div class="relative z-10 px-6 py-8">
+          <h4 id="ft4-title-m"
+              class="font-montserrat font-bold text-[12px] leading-[15px] uppercase">
+            ${t('unisync_ft4_title')}
+          </h4>
+          <p id="ft4-desc-m"
+             class="font-montserrat font-medium text-[8px] leading-relaxed mt-2">
+            ${t('unisync_ft4_desc')}
+          </p>
+        </div>
+      </div>`;
+    }
+
+    function mobileFeatureCard4() {
+      return `
+      <div class="unisync-animate is-hidden w-[90%] px-6"
+           role="group" aria-labelledby="ft2-title-m" aria-describedby="ft2-desc-m">
+        <h4 id="ft2-title-m"
+            class="font-montserrat font-bold text-[12px] leading-[15px] uppercase">
+          ${t('unisync_ft2_title')}
+        </h4>
+        <p id="ft2-desc-m"
+           class="font-montserrat font-medium text-[8px] leading-relaxed mt-2">
+          ${t('unisync_ft2_desc')}
+        </p>
+      </div>`;
+    }
+
+    /* ────────── Helpers DESKTOP ────────── */
+    function desktopFeatureCard1() {
+      return `
+      <div class="unisync-animate is-hidden bg-[#006E49]/40 rounded-tl-[45px] p-10 text-left"
+           role="group" aria-labelledby="ft1-title-d" aria-describedby="ft1-desc-d">
+        <h4 id="ft1-title-d"
+            class="font-montserrat font-bold md:text-[20px] text-[28px] leading-tight">
           ${t('unisync_ft1_title')}
         </h4>
-        <p class="font-montserrat font-medium text-[8px] leading-relaxed mt-2">
+        <p id="ft1-desc-d"
+           class="font-montserrat font-medium text-[15px] leading-relaxed mt-4">
           ${t('unisync_ft1_desc')}
         </p>
-      </div>
-    </div>`
-  }
-  function mobileFeatureCard2() {
-    return `
-    <div class="unisync-animate is-hidden w-[90%] px-6">
-      <h4 class="font-montserrat font-bold text-[12px] leading-[15px] uppercase">
-        ${t('unisync_ft3_title')}
-      </h4>
-      <p class="font-montserrat font-medium text-[8px] leading-relaxed mt-2">
-        ${t('unisync_ft3_desc')}
-      </p>
-    </div>`
-  }
-  function mobileFeatureCard3() {
-    return `
-    <div class="unisync-animate is-hidden relative w-[80%]">
-      <div class="absolute inset-0 bg-[#006E49]/40 rounded-tl-[45px] rounded-br-[45px]"></div>
-      <div class="relative z-10 px-6 py-8">
-        <h4 class="font-montserrat font-bold text-[12px] leading-[15px] uppercase">
+      </div>`;
+    }
+
+    function desktopFeatureCard2() {
+      return `
+      <div class="unisync-animate is-hidden p-10 text-left"
+           role="group" aria-labelledby="ft3-title-d" aria-describedby="ft3-desc-d">
+        <h4 id="ft3-title-d"
+            class="font-montserrat font-bold md:text-[20px] text-[28px] leading-tight">
+          ${t('unisync_ft3_title')}
+        </h4>
+        <p id="ft3-desc-d"
+           class="font-montserrat font-medium text-[15px] leading-relaxed mt-4">
+          ${t('unisync_ft3_desc')}
+        </p>
+      </div>`;
+    }
+
+    function desktopFeatureCard3() {
+      return `
+      <div class="unisync-animate is-hidden p-10 text-left"
+           role="group" aria-labelledby="ft4-title-d" aria-describedby="ft4-desc-d">
+        <h4 id="ft4-title-d"
+            class="font-montserrat font-bold md:text-[20px] text-[28px] leading-tight">
           ${t('unisync_ft4_title')}
         </h4>
-        <p class="font-montserrat font-medium text-[8px] leading-relaxed mt-2">
+        <p id="ft4-desc-d"
+           class="font-montserrat font-medium text-[15px] leading-relaxed mt-4">
           ${t('unisync_ft4_desc')}
         </p>
-      </div>
-    </div>`
-  }
-  function mobileFeatureCard4() {
-    return `
-    <div class="unisync-animate is-hidden w-[90%] px-6">
-      <h4 class="font-montserrat font-bold text-[12px] leading-[15px] uppercase">
-        ${t('unisync_ft2_title')}
-      </h4>
-      <p class="font-montserrat font-medium text-[8px] leading-relaxed mt-2">
-        ${t('unisync_ft2_desc')}
-      </p>
-    </div>`
-  }
+      </div>`;
+    }
 
-  function desktopFeatureCard1() {
-    return `
-    <div class="unisync-animate is-hidden bg-[#006E49]/40 rounded-tl-[45px] p-10 text-left">
-      <h4 class="font-montserrat font-bold md:text-[20px] text-[28px] leading-tight">
-        ${t('unisync_ft1_title')}
-      </h4>
-      <p class="font-montserrat font-medium  text-[15px] leading-relaxed mt-4">
-        ${t('unisync_ft1_desc')}
-      </p>
-    </div>`
-  }
-  function desktopFeatureCard2() {
-    return `
-    <div class="unisync-animate is-hidden p-10 text-left">
-      <h4 class="font-montserrat font-bold md:text-[20px] text-[28px] leading-tight">
-        ${t('unisync_ft3_title')}
-      </h4>
-      <p class="font-montserrat font-medium text-[15px] leading-relaxed mt-4">
-        ${t('unisync_ft3_desc')}
-      </p>
-    </div>`
-  }
-  function desktopFeatureCard3() {
-    return `
-    <div class="unisync-animate is-hidden p-10 text-left">
-      <h4 class="font-montserrat font-bold md:text-[20px] text-[28px] leading-tight">
-        ${t('unisync_ft4_title')}
-      </h4>
-      <p class="font-montserrat font-medium  text-[15px] leading-relaxed mt-4">
-        ${t('unisync_ft4_desc')}
-      </p>
-    </div>`
-  }
-  function desktopFeatureCard4() {
-    return `
-    <div class="unisync-animate is-hidden bg-[#006E49]/40 rounded-br-[45px] p-10 text-left">
-      <h4 class="font-montserrat md:text-[20px] font-bold text-[28px] leading-tight">
-        ${t('unisync_ft2_title')}
-      </h4>
-      <p class="font-montserrat font-medium text-[15px] leading-relaxed mt-4">
-        ${t('unisync_ft2_desc')}
-      </p>
-    </div>`
-  }
+    function desktopFeatureCard4() {
+      return `
+      <div class="unisync-animate is-hidden bg-[#006E49]/40 rounded-br-[45px] p-10 text-left"
+           role="group" aria-labelledby="ft2-title-d" aria-describedby="ft2-desc-d">
+        <h4 id="ft2-title-d"
+            class="font-montserrat md:text-[20px] font-bold text-[28px] leading-tight">
+          ${t('unisync_ft2_title')}
+        </h4>
+        <p id="ft2-desc-d"
+           class="font-montserrat font-medium text-[15px] leading-relaxed mt-4">
+          ${t('unisync_ft2_desc')}
+        </p>
+      </div>`;
+    }
+
 
   render()
   onLangChange(() => {

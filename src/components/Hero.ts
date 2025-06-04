@@ -136,7 +136,7 @@ const mobileTemplate = (lang: string) => /* html */ `
 
 
   /* ──────────────── template DESKTOP ──────────────── */
-  const desktopTemplate = (lang: string) => {
+const desktopTemplate = (lang: string) => {
   const h2a  = lang === 'en' ? 'fluid-h2-en'   : 'fluid-h2-es';
   const h2b  = lang === 'en' ? 'fluid-h2-2-en' : 'fluid-h2-2-es';
   const logosMargin = 'mt-6 md:mt-12 lg:mt-16 lg:mt-20';
@@ -263,8 +263,6 @@ const mobileTemplate = (lang: string) => /* html */ `
 </div>`;
 };
 
-
-
   // render, autoplay y carousel partners girando igual al desktop
   let desktopPartnerTimer: number | undefined
   let mobilePartnerTimer: number | undefined
@@ -310,29 +308,6 @@ const mobileTemplate = (lang: string) => /* html */ `
 }
 
 
-  function startMobilePartners(): number | undefined {
-    const track = hero.querySelector<HTMLDivElement>("#partnerTrackMobile")
-    if (!track) return undefined
-    const GAP = 20, SPEED = 700, DELAY = 3000
-    const slide = () => {
-      const first = track.children[0] as HTMLElement
-      if (!first) return
-      const STEP = first.offsetWidth + GAP
-      track.style.transition = `transform ${SPEED}ms ease-out`
-      track.style.transform  = `translateX(-${STEP}px)`
-      track.addEventListener(
-        'transitionend',
-        () => {
-          track.style.transition = 'none'
-          track.style.transform  = 'translateX(0)'
-          track.appendChild(first)
-        },
-        { once: true }
-      )
-    }
-    return setInterval(slide, DELAY)
-  }
-
   function attachHeroEmailForm() {
   const form = hero.querySelector<HTMLFormElement>('#hero-email-form');
   if (!form) return;
@@ -365,7 +340,6 @@ const mobileTemplate = (lang: string) => /* html */ `
     hero.innerHTML = mobileTemplate(lang) + desktopTemplate(lang)
     attachHeroEmailForm()
     desktopPartnerTimer = startPartnersAutoplay()
-    mobilePartnerTimer = startMobilePartners()
   }
 
   render()

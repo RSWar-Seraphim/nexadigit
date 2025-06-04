@@ -42,83 +42,141 @@ export function Contact() {
   /* ───────── helpers de marcado ───────── */
   const renderMobile = () => `
 <div class="sm:hidden w-full flex flex-col items-center">
+
+  <!-- Encabezado -->
   <h2 class="contact-animate is-hidden font-montserrat font-bold text-[24px] text-center mt-12 md:mt-4 lg:mt-14">
     ${t('contact_title')}
   </h2>
-  <p  class="contact-animate is-hidden font-montserrat font-medium text-[10px] text-center mt-1">
+  <p class="contact-animate is-hidden font-montserrat font-medium text-[10px] text-center mt-1">
     ${t('contact_subtitle')}
   </p>
-  <img src="/src/assets/marker-icon.webp" class="contact-animate is-hidden w-[55px] h-[15px] mx-auto mt-3"/>
+  <img src="/src/assets/marker-icon.webp"
+       class="contact-animate is-hidden w-[55px] h-[15px] mx-auto mt-3"
+       alt="" aria-hidden="true" />
 
   <!-- FORM MOBILE -->
   <form id="contact-form-mobile"
+        aria-labelledby="contact-title-mobile"
         class="contact-animate is-hidden w-full max-w-[450px] bg-white rounded shadow-lg mt-8 p-5 flex flex-col gap-3">
-    <label class="font-montserrat text-[10px] text-black/70 text-left">${t('form_label_name')}</label>
-    <input name="first_name"  type="text" placeholder="John" class="text-black border p-2 rounded outline-none bg-white text-[11px]"/>
 
-    <label class="font-montserrat text-[10px] text-black/70 text-left">${t('form_label_lastname')}</label>
-    <input name="last_name"   type="text" placeholder="Doe"  class="text-black border p-2 rounded outline-none bg-white text-[11px]"/>
+    <label for="cfm-first-name" class="font-montserrat text-[10px] text-black/70 text-left">
+      ${t('form_label_name')}
+    </label>
+    <input id="cfm-first-name" name="first_name" type="text" autocomplete="given-name"
+           placeholder="John"
+           class="text-black border p-2 rounded outline-none bg-white text-[11px]" />
 
-    <label class="font-montserrat text-[10px] text-black/70 text-left">${t('form_label_email')}</label>
-    <input name="email"       type="email" placeholder="john@gmail.com" class="text-black border p-2 rounded outline-none bg-white text-[11px]"/>
+    <label for="cfm-last-name" class="font-montserrat text-[10px] text-black/70 text-left">
+      ${t('form_label_lastname')}
+    </label>
+    <input id="cfm-last-name" name="last_name" type="text" autocomplete="family-name"
+           placeholder="Doe"
+           class="text-black border p-2 rounded outline-none bg-white text-[11px]" />
 
-    <label class="font-montserrat text-[10px] text-black/70 text-left">${t('form_label_message')}</label>
-    <textarea name="message"  rows="4" placeholder="${t('form_label_message')}"
+    <label for="cfm-email" class="font-montserrat text-[10px] text-black/70 text-left">
+      ${t('form_label_email')}
+    </label>
+    <input id="cfm-email" name="email" type="email" autocomplete="email"
+           placeholder="john@gmail.com"
+           class="text-black border p-2 rounded outline-none bg-white text-[11px]" />
+
+    <label for="cfm-message" class="font-montserrat text-[10px] text-black/70 text-left">
+      ${t('form_label_message')}
+    </label>
+    <textarea id="cfm-message" name="message" rows="4"
+              placeholder="${t('form_label_message')}"
               class="border p-2 rounded outline-none resize-none bg-white text-[11px] text-black"></textarea>
 
-     <button type="submit"
-        class="h-[35px] bg-[#006E49] hover:bg-[#00a16b] text-[11px] text-white font-montserrat font-bold tracking-wide rounded-[8px] flex items-center justify-center transition-colors duration-200 mt-2">
-         ${t('form_submit')}
-     </button>
+    <button type="submit"
+            aria-label="${t('form_submit')}"
+            class="h-[35px] bg-[#006E49] hover:bg-[#00a16b] text-[11px] text-white font-montserrat font-bold tracking-wide rounded-[8px] flex items-center justify-center transition-colors duration-200 mt-2">
+      ${t('form_submit')}
+    </button>
   </form>
 
-  <img src="/src/assets/contact-hands.webp" alt="${t('contact_hands_img_alt')}"
-       class="contact-animate is-hidden w-[550px] h-auto object-contain mt-16"/>
+  <img src="/src/assets/contact-hands.webp"
+       alt="${t('contact_hands_img_alt')}"
+       class="contact-animate is-hidden w-[550px] h-auto object-contain mt-16" />
 
   ${FooterMobile()}
-</div>`
+</div>`;
+
 
 
   const renderDesktop = () => `
 <div class="hidden sm:block w-full flex-col items-center">
-  <h2 class="contact-animate is-hidden font-montserrat font-bold text-[45px] text-center mt-14">${t('contact_title')}</h2>
-  <p  class="contact-animate is-hidden font-montserrat font-bold text-[15px] text-center mt-1">${t('contact_subtitle')}</p>
-  <img src="/src/assets/marker-icon.webp" class="contact-animate is-hidden w-[91px] h-[25px] mx-auto mt-4"/>
 
+  <!-- Encabezado -->
+  <h2 id="contact-title-desktop"
+      class="contact-animate is-hidden font-montserrat font-bold text-[45px] text-center mt-14">
+    ${t('contact_title')}
+  </h2>
+  <p class="contact-animate is-hidden font-montserrat font-bold text-[15px] text-center mt-1">
+    ${t('contact_subtitle')}
+  </p>
+  <img src="/src/assets/marker-icon.webp"
+       class="contact-animate is-hidden w-[91px] h-[25px] mx-auto mt-4"
+       alt="" aria-hidden="true" />
+
+  <!-- FORM + MAPA -->
   <div class="contact-animate is-hidden mt-10 w-full max-w-[960px] mx-auto overflow-hidden rounded-[20px] shadow-lg
               grid grid-cols-1 lg:grid-cols-2 bg-white">
+
     <!-- FORM DESKTOP -->
-    <form id="contact-form-desktop" class="p-6 flex flex-col gap-4">
-      <label class="font-montserrat text-[12px] text-black/90 text-left ">${t('form_label_name')}</label>
-      <input name="first_name" type="text" placeholder="John" class="border p-2 rounded outline-none bg-white text-black"/>
+    <form id="contact-form-desktop" aria-labelledby="contact-title-desktop"
+          class="p-6 flex flex-col gap-4">
 
-      <label class="font-montserrat text-[12px] text-black/90 text-left">${t('form_label_lastname')}</label>
-      <input name="last_name"  type="text" placeholder="Doe" class="border p-2 rounded outline-none bg-white text-black"/>
+      <label for="cfd-first-name" class="font-montserrat text-[12px] text-black/90 text-left">
+        ${t('form_label_name')}
+      </label>
+      <input id="cfd-first-name" name="first_name" type="text" autocomplete="given-name"
+             placeholder="John"
+             class="border p-2 rounded outline-none bg-white text-black" />
 
-      <label class="font-montserrat text-[12px] text-black/90 text-left">${t('form_label_email')}</label>
-      <input name="email"      type="email" placeholder="john@gmail.com" class="border p-2 rounded outline-none bg-white text-black"/>
+      <label for="cfd-last-name" class="font-montserrat text-[12px] text-black/90 text-left">
+        ${t('form_label_lastname')}
+      </label>
+      <input id="cfd-last-name" name="last_name" type="text" autocomplete="family-name"
+             placeholder="Doe"
+             class="border p-2 rounded outline-none bg-white text-black" />
 
-      <label class="font-montserrat text-[12px] text-black/90 text-left">${t('form_label_message')}</label>
-      <textarea name="message" rows="4" placeholder="${t('form_label_message')}"
+      <label for="cfd-email" class="font-montserrat text-[12px] text-black/90 text-left">
+        ${t('form_label_email')}
+      </label>
+      <input id="cfd-email" name="email" type="email" autocomplete="email"
+             placeholder="john@gmail.com"
+             class="border p-2 rounded outline-none bg-white text-black" />
+
+      <label for="cfd-message" class="font-montserrat text-[12px] text-black/90 text-left">
+        ${t('form_label_message')}
+      </label>
+      <textarea id="cfd-message" name="message" rows="4"
+                placeholder="${t('form_label_message')}"
                 class="border p-2 rounded outline-none resize-none bg-white text-black"></textarea>
 
       <button type="submit"
-        class="h-[45px] bg-[#006E49] hover:bg-[#00a16b] text-white font-montserrat font-bold tracking-wide rounded-[8px] flex items-center justify-center transition-colors duration-200 mt-2">
-         ${t('form_submit')}
+              aria-label="${t('form_submit')}"
+              class="h-[45px] bg-[#006E49] hover:bg-[#00a16b] text-white font-montserrat font-bold tracking-wide rounded-[8px] flex items-center justify-center transition-colors duration-200 mt-2">
+        ${t('form_submit')}
       </button>
     </form>
 
+    <!-- MAPA (solo ≥ lg) -->
     <div class="hidden lg:block h-[540px]">
       <div id="leaflet-map" class="w-full h-full pointer-events-none rounded-r-[20px]"></div>
     </div>
   </div>
 
+  <!-- Imagen decorativa -->
   <div class="contact-animate is-hidden w-full flex justify-center mt-20">
-    <img src="/src/assets/contact-hands.webp" alt="${t('contact_hands_img_alt')}"
-         class="w-[795px] h-[611px] object-contain"/>
+    <img src="/src/assets/contact-hands.webp"
+         alt="${t('contact_hands_img_alt')}"
+         class="w-[795px] h-[611px] object-contain" />
   </div>
-        ${FooterDesktop()}
-</div>`
+
+  ${FooterDesktop()}
+</div>`;
+
 
   /* ───────── Leaflet helpers ───────── */
   function loadLeaflet() {
