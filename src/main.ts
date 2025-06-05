@@ -39,20 +39,40 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 window.addEventListener('load', hideLoader);
 
-/* Calendly & legal */
-declare const Calendly: any;
+let calendlyScriptLoading = false;
+
 document.addEventListener('click', e => {
-  const book = (e.target as HTMLElement).closest('[data-book-meeting]');
+  const target = e.target as HTMLElement;
+
+  const book = target.closest('[data-book-meeting]');
   if (book) {
     e.preventDefault();
-    Calendly.initPopupWidget({
-      url: 'https://calendly.com/kreyes-nexadigit/30min?hide_event_type_details=1&primary_color=006E49'
-    });
+
+    if ((window as any).Calendly) {
+      (window as any).Calendly.initPopupWidget({
+        url: 'https://calendly.com/kreyes-nexadigit/30min?hide_event_type_details=1&primary_color=006E49'
+      });
+    } else if (!calendlyScriptLoading) {
+      calendlyScriptLoading = true;
+      const script = document.createElement('script');
+      script.src = "https://assets.calendly.com/assets/external/widget.js";
+      script.onload = () => {
+        (window as any).Calendly.initPopupWidget({
+          url: 'https://calendly.com/kreyes-nexadigit/30min?hide_event_type_details=1&primary_color=006E49'
+        });
+        calendlyScriptLoading = false;
+      };
+      document.head.appendChild(script);
+    }
     return false;
   }
-  const legal = (e.target as HTMLElement).closest('[data-legal]');
+
+  const legal = target.closest('[data-legal]');
   if (legal) {
     e.preventDefault();
     showLegalModal(legal.getAttribute('data-legal') as 'privacy');
+    return false;
   }
 });
+
+

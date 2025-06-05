@@ -74,41 +74,41 @@ function itemRowDesktop(
   /* Decorative flecha → alt vacío + aria-hidden */
   return `
     <div class="is-hidden sm:min-h-[145px] grid grid-cols-12 items-center gap-4
-                lg:min-h-[170px] md:min-h-[145px] pl-4 md:pl-2 md:gap-5 ${rowExtra}"
-         role="listitem">
-      
-      <!-- Icono + título -------------------------------------------------- -->
-      <div class="col-span-5 flex items-center gap-3">
-        <div class="w-[35px] h-[35px] md:w-[30px] md:h-[30px]
-                    bg-[#006E49] rounded-full flex items-center justify-center">
-          <img src="${icon}"
-               alt="${t(titleKey)}"
-               loading="lazy"
-               decoding="async"
-               class="w-4 h-4 md:w-3.5 md:h-3.5" />
-        </div>
-        <h3 class="aside-text-about">
-          ${t(titleKey)}
-        </h3>
-      </div>
-
-      <!-- Separador flecha (decorativo) ----------------------------------- -->
-      <div class="col-span-1 flex items-center justify-center">
-        <img src="/assets/arrow-right-about.svg"
-             alt=""
-             aria-hidden="true"
+              lg:min-h-[170px] md:min-h-[145px] pl-4 md:pl-2 md:gap-5 ${rowExtra}"
+       role="listitem">
+    
+    <!-- Icono + título -------------------------------------------------- -->
+    <div class="col-span-5 flex items-center gap-3">
+      <div class="w-[35px] h-[35px] md:w-[30px] md:h-[30px]
+                  bg-[#006E49] rounded-full flex items-center justify-center">
+        <img src="${icon}"
+             alt="${t(titleKey)}"
              loading="lazy"
              decoding="async"
-             class="md:w-[20px] md:h-[20px] w-[25px] h-[25px] sm:w-[15px] sm:h-[15px]" />
+             class="w-4 h-4 md:w-3.5 md:h-3.5" />
       </div>
+      <h3 class="aside-text-about">
+        ${t(titleKey)}
+      </h3>
+    </div>
 
-      <!-- Descripción ----------------------------------------------------- -->
-      <div class="col-span-6 flex flex-col justify-center">
-        <p class="font-montserrat font-medium text-body leading-relaxed text-left tracking-tight">
-          ${t(descKey)}
-        </p>
-      </div>
-    </div>`
+    <!-- Separador flecha (decorativo) ----------------------------------- -->
+    <div class="col-span-1 flex items-center justify-center">
+      <img src="/assets/arrow-right-about.svg"
+           alt=""
+           aria-hidden="true"
+           loading="lazy"
+           decoding="async"
+           class="md:w-[20px] md:h-[20px] w-[25px] h-[25px] sm:w-[15px] sm:h-[15px]" />
+    </div>
+
+    <!-- Descripción ----------------------------------------------------- -->
+    <div class="col-span-6 flex flex-col justify-center">
+      <p class="font-montserrat font-medium text-body leading-relaxed text-left tracking-tight">
+        ${t(descKey)}
+      </p>
+    </div>
+  </div>`
 }
 
 function itemRowMobile(
@@ -187,7 +187,7 @@ export function About() {
 
       <!-- DESKTOP version (desde md) -->
       <div class="hidden sm:block mt-10">
-        <div class="grid grid-rows-4 gap-10">
+        <div role="list" class="grid grid-rows-4 gap-10">
           ${itemRowDesktop('/assets/about-processor-icon.svg','about_item1_title','about_item1_desc', true)}
           ${itemRowDesktop('/assets/about-migrate-icon.svg','about_item2_title','about_item2_desc')}
           ${itemRowDesktop('/assets/about-plan-icon.svg','about_item3_title','about_item3_desc', true)}

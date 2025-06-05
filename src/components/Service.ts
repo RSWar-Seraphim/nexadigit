@@ -492,12 +492,7 @@ setTimeout(() => {
   closeBtn.addEventListener('click', close)
   modal.addEventListener('click', e => { if (e.target === overlay) close() })
 
-  // 🚀 Ajusta la velocidad del video aquí:
-  const vid = el.querySelector<HTMLVideoElement>('#mi-video-service')
-  if (vid) vid.playbackRate = 0.5 // Cambia a 0.7, 0.8 si quieres menos lento
-
 }, 0)
-
 
   return el
 }
