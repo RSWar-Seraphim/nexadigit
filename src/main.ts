@@ -1,3 +1,7 @@
+/******************************************************************************
+ *  main.ts (versión final)
+ ******************************************************************************/
+
 import './styles/style.css';
 import { Header }   from './components/Header';
 import { Hero }     from './components/Hero';
@@ -9,57 +13,77 @@ import { showLegalModal } from './components/PrivacyModal';
 import { autoDetectLang } from './components/i18n/autoDetectLang';
 import { setLang } from './components/i18n';
 
-/* Render principal */
+/* -------------------------------------------------------------------------- */
+/* 1. Render principal                                                         */
+/* -------------------------------------------------------------------------- */
 function renderApp() {
   const app = document.querySelector<HTMLDivElement>('#app');
   if (!app) return;
 
+  // Encuentra el contenedor LCP que ya existe en el HTML
+  const heroSection = app.querySelector<HTMLElement>('#home');
+  if (!heroSection) return;
+
   const main = document.createElement('main');
   main.className = 'text-white';
-  main.append(Header(), Hero(), About(), Service(), Unisync(), Contact());
+  main.append(
+    Header(),
+    Hero(),
+    About(),
+    Service(),
+    Unisync(),
+    Contact()
+  );
+  app.innerHTML = '';
   app.appendChild(main);
 }
 
-/* Loader */
-function hideLoader() {
-  const loader = document.getElementById('loader');
-  if (!loader) return;
-  requestAnimationFrame(() => {
-    loader.classList.add('opacity-0');
-    setTimeout(() => loader.remove(), 500);
-  });
-}
-
+/* -------------------------------------------------------------------------- */
+/* 2. Boot: idioma, render, scroll, señal de montado                           */
+/* -------------------------------------------------------------------------- */
 /* Boot */
 document.addEventListener('DOMContentLoaded', async () => {
   setLang(await autoDetectLang());
   renderApp();
-  await import('./scroll');
+  /* 👇 Deja este JS para después de la pintura inicial */
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(() => import('./scroll'));
+  } else {
+    setTimeout(() => import('./scroll'), 0);
+  }
 });
 
-window.addEventListener('load', hideLoader);
 
+
+/* -------------------------------------------------------------------------- */
+/* 3. Calendly diferido + modal legal                                          */
+/* -------------------------------------------------------------------------- */
 let calendlyScriptLoading = false;
 
 document.addEventListener('click', e => {
   const target = e.target as HTMLElement;
 
+  /* ---------- Calendly (botón reserva) ---------- */
   const book = target.closest('[data-book-meeting]');
   if (book) {
     e.preventDefault();
 
-    if ((window as any).Calendly) {
+    const openCalendly = () => {
       (window as any).Calendly.initPopupWidget({
-        url: 'https://calendly.com/kreyes-nexadigit/30min?hide_event_type_details=1&primary_color=006E49'
+        url:
+          'https://calendly.com/kreyes-nexadigit/30min' +
+          '?hide_event_type_details=1&primary_color=006E49',
       });
+    };
+
+    if ((window as any).Calendly) {
+      openCalendly();
     } else if (!calendlyScriptLoading) {
       calendlyScriptLoading = true;
       const script = document.createElement('script');
-      script.src = "https://assets.calendly.com/assets/external/widget.js";
+      script.src = 'https://assets.calendly.com/assets/external/widget.js';
       script.onload = () => {
-        (window as any).Calendly.initPopupWidget({
-          url: 'https://calendly.com/kreyes-nexadigit/30min?hide_event_type_details=1&primary_color=006E49'
-        });
+        openCalendly();
         calendlyScriptLoading = false;
       };
       document.head.appendChild(script);
@@ -67,6 +91,7 @@ document.addEventListener('click', e => {
     return false;
   }
 
+  /* ---------- Modal Legal ---------- */
   const legal = target.closest('[data-legal]');
   if (legal) {
     e.preventDefault();
@@ -74,5 +99,3 @@ document.addEventListener('click', e => {
     return false;
   }
 });
-
-

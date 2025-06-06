@@ -100,15 +100,14 @@ export function Service() {
     ${t('services_section_title')}
   </h2>
   <div class="flex justify-center mt-3">
-    <img src="/assets/marker-icon.webp"
-         class="w-[65px] h-[18px]"
+    <img src="/assets/marker-icon-small.webp"
          loading="lazy"
          alt=""
          aria-hidden="true" />
   </div>
 
   <!-- ── Bloque 1 : carrusel mini-fotos ─────────────────────────── -->
-  <h3 class="mt-8 font-montserrat font-bold text-[12px] text-center uppercase">
+  <h3 class="mt-8 font-montserrat font-bold text-[14px] text-center uppercase">
     ${t('services_block1_title')}
   </h3>
 
@@ -133,15 +132,15 @@ export function Service() {
   </div>
 
   <!-- Descripción + CTA -->
-  <p class="font-montserrat font-medium text-[10px] leading-relaxed text-center mt-4
-            max-w-[90%] mx-auto">
+  <p class="font-montserrat font-medium text-[12px] leading-relaxed text-center mt-4
+            max-w-[80%] mx-auto">
     ${t('services_block1_desc')}
   </p>
 
   <a data-book-meeting
      href="#bookMeeting"
-     class="mt-6 mx-auto w-[107px] h-[29px] bg-[#006E49] hover:bg-[#00a16b]
-            text-white font-medium text-[7px] uppercase rounded-[6px]
+     class="mt-6 mx-auto w-[140px] h-[35px] bg-[#006E49] hover:bg-[#00a16b]
+            text-white font-bold text-[12px] uppercase rounded-[6px]
             flex items-center justify-center
             focus:outline-offset-2 focus-visible:ring-2">
     ${t('services_block1_cta')}
@@ -149,21 +148,21 @@ export function Service() {
 
   <!-- ── Bloque 2 : cuadro izq. ─────────────────────────────────── -->
   <div class="mt-9 flex justify-center">
-    <div class="relative w-[236px] h-[200px]">
-      <div class="absolute -left-1 top-0 w-[250px] h-[150px] rounded-[20px] z-[1]"
+    <div class="relative w-[240px] h-[200px]">
+      <div class="absolute -left-1 top-0 w-[250px] h-[190px] rounded-[20px] z-[1]"
            style="background:linear-gradient(145deg,rgba(0,110,73,.05),rgba(0,212,141,.05));"
            aria-hidden="true"></div>
 
-      <div class="relative z-10 max-w-[185px] mx-auto flex flex-col items-start justify-center mt-7">
-        <h3 class="text-center font-montserrat font-bold text-[12px] leading-[15px] uppercase">
+      <div class="relative z-10 max-w-[240px] mx-auto flex flex-col items-start justify-center mt-7">
+        <h3 class="text-center font-montserrat font-bold text-[14px] leading-[15px] uppercase">
           ${t('services_block2_title')}
         </h3>
-        <img src="/assets/marker-icon.webp"
-             class="my-1 mx-auto w-[39px] h-[10px]"
+        <img src="/assets/marker-icon-small.webp"
+             class="my-1 mx-auto"
              loading="lazy"
              alt=""
              aria-hidden="true" />
-        <p class="text-center font-medium text-[8px] leading-relaxed">
+        <p class="text-center font-medium text-[12px] leading-relaxed">
           ${t('services_block2_desc')}
         </p>
       </div>
@@ -172,21 +171,21 @@ export function Service() {
 
   <!-- ── Bloque 3 : cuadro der. ─────────────────────────────────── -->
   <div class="flex justify-center">
-    <div class="relative w-[236px] h-[200px]">
-      <div class="absolute -right-1 top-0 w-[250px] h-[150px] rounded-[20px] z-[1]"
+    <div class="relative w-[240px] h-[200px]">
+      <div class="absolute -right-1 top-0 w-[250px] h-[190px] rounded-[20px] z-[1]"
            style="background:linear-gradient(145deg,rgba(0,110,73,.05),rgba(0,212,141,.05));"
            aria-hidden="true"></div>
 
-      <div class="relative z-10 max-w-[185px] mx-auto flex flex-col items-end justify-center mt-7">
-        <h3 class="font-montserrat font-bold text-[12px] leading-[15px] uppercase">
+      <div class="relative z-10 max-w-[240px] mx-auto flex flex-col items-start justify-center mt-7">
+        <h3 class="font-montserrat font-bold text-[14px] leading-[15px] uppercase">
           ${t('services_block3_title')}
         </h3>
-        <img src="/assets/marker-icon.webp"
-             class="my-1 mx-auto w-[39px] h-[10px]"
+        <img src="/assets/marker-icon-small.webp"
+             class="my-1 mx-auto"
              loading="lazy"
              alt=""
              aria-hidden="true" />
-        <p class="font-montserrat font-medium text-[8px] leading-relaxed">
+        <p class="font-montserrat font-medium text-[12px] leading-relaxed">
           ${t('services_block3_desc')}
         </p>
       </div>
@@ -203,8 +202,8 @@ export function Service() {
       ${t('services_section_title')}
     </h2>
     <div class="my-2 flex justify-center">
-      <img src="/assets/marker-icon.webp"
-           class="w-[80px] h-[22px]"
+      <img src="/assets/marker-icon-small.webp"
+     
            loading="lazy"
            alt=""
            aria-hidden="true" />
@@ -277,8 +276,8 @@ export function Service() {
         ${t('services_block2_title')}
       </h3>
       <div class="my-2 flex justify-center">
-        <img src="/assets/marker-icon.webp"
-             class="w-[70px] h-[18px]"
+        <img src="/assets/marker-icon-small.webp"
+       
              loading="lazy"
              alt=""
              aria-hidden="true" />
@@ -295,8 +294,8 @@ export function Service() {
         ${t('services_block3_title')}
       </h3>
       <div class="my-2 flex justify-center">
-        <img src="/assets/marker-icon.webp"
-             class="w-[70px] h-[18px]"
+        <img src="/assets/marker-icon-small.webp"
+         
              loading="lazy"
              alt=""
              aria-hidden="true" />
@@ -323,8 +322,8 @@ export function Service() {
     </h2>
     <div class="my-3 flex justify-center">
       <img
-        src="/assets/marker-icon.webp"
-        class="w-[91px] h-[25px]"
+        src="/assets/marker-icon-small.webp"
+   
         loading="lazy"
         alt=""
         aria-hidden="true" />
@@ -408,8 +407,8 @@ export function Service() {
           ${t('services_block2_title')}
         </h3>
         <div class="my-3 flex justify-center">
-          <img src="/assets/marker-icon.webp"
-               class="w-[91px] h-[25px]"
+          <img src="/assets/marker-icon-small.webp"
+     
                loading="lazy"
                alt=""
                aria-hidden="true" />
@@ -427,8 +426,8 @@ export function Service() {
           ${t('services_block3_title')}
         </h3>
         <div class="my-3 flex justify-center">
-          <img src="/assets/marker-icon.webp"
-               class="w-[91px] h-[25px]"
+          <img src="/assets/marker-icon-small.webp"
+      
                loading="lazy"
                alt=""
                aria-hidden="true" />
@@ -464,35 +463,6 @@ export function Service() {
   render()
 
   onLangChange(render)
-
-setTimeout(() => {
-  const modal    = document.getElementById('bookMeetingModal')!
-  const overlay  = document.getElementById('bmOverlay')!
-  const panel    = document.getElementById('bmPanel')!
-  const closeBtn = document.getElementById('closeBookMeetingModal')!
-  const triggers = el.querySelectorAll<HTMLButtonElement>('[data-book-meeting]')
-
-  // ✨ abrir con animación
-  const open = () => {
-    modal.classList.remove('hidden')
-    requestAnimationFrame(() => {
-      overlay.classList.remove('opacity-0')
-      panel.classList.remove('opacity-0', 'scale-95', 'pointer-events-none')
-    })
-  }
-
-  // ✨ cerrar con animación inversa
-  const close = () => {
-    overlay.classList.add('opacity-0')
-    panel.classList.add('opacity-0', 'scale-95', 'pointer-events-none')
-    setTimeout(() => modal.classList.add('hidden'), 300)
-  }
-
-  triggers.forEach(btn => btn.addEventListener('click', open))
-  closeBtn.addEventListener('click', close)
-  modal.addEventListener('click', e => { if (e.target === overlay) close() })
-
-}, 0)
 
   return el
 }

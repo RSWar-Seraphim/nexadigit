@@ -1,87 +1,144 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
+  <!-- ========================================================= -->
+  <!-- 1. METADATOS BÁSICOS                                     -->
+  <!-- ========================================================= -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Intelligent Automation and AI Consultancy." />
+  <meta name="theme-color" content="#006E49" />
+
+  <!-- ========================================================= -->
+  <!-- 2. PRECONNECTS (evitan RTT extra)                         -->
+  <!-- ========================================================= -->
+  <!-- Calendly -->
+  <link rel="preconnect" href="https://assets.calendly.com" crossorigin>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- ========================================================= -->
+  <!-- 3. CRITICAL FONTS (PetrovSans) *ya* estaban precargadas   -->
+  <!-- ========================================================= -->
+  <link rel="preload" href="/assets/fonts/PetrovSans-Bold.woff2"
+        as="font" type="font/woff2" crossorigin fetchpriority="high">
+
+  <!-- ========================================================= -->
+  <!-- 4. CSS PRINCIPAL (local, solo 9 KB)                       -->
+  <!--    *Mantén la ruta que uses en build (hash o no)*         -->
+  <!-- ========================================================= -->
+  <link rel="preload" href="/src/styles/style.css" as="style">
+  <link rel="stylesheet" href="/src/styles/style.css"
+        media="print" onload="this.onload=null;this.media='all'">
+  <noscript><link rel="stylesheet" href="/src/styles/style.css"></noscript>
+
+  <!-- ========================================================= -->
+  <!-- 5. GOOGLE FONTS (Montserrat)                              -->
+  <!-- ========================================================= -->
+  <link rel="preload"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"
+        as="style">
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"
+        media="print" onload="this.onload=null;this.media='all'">
+  <noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap">
+  </noscript>
+  <!-- ========================================================= -->
+  <!-- 6. CALENDLY WIDGET CSS                                    -->
+  <!-- ========================================================= -->
+  <link rel="preload"
+        href="https://assets.calendly.com/assets/external/widget.css"
+        as="style">
+  <link rel="stylesheet"
+        href="https://assets.calendly.com/assets/external/widget.css"
+        media="print" onload="this.onload=null;this.media='all'">
+  <noscript>
+    <link rel="stylesheet"
+          href="https://assets.calendly.com/assets/external/widget.css">
+  </noscript>
+
+  <!-- ========================================================= -->
+  <!-- 7. ICONOS Y MANIFEST                                      -->
+  <!-- ========================================================= -->
+  <link rel="icon" href="/assets/favicon/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg">
+  <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png">
+  <link rel="manifest" href="/assets/favicon/site.webmanifest">
+  <!-- Extra sizes para Android -->
+  <link rel="icon" type="image/png" sizes="96x96"  href="/assets/favicon/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/web-app-manifest-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon/web-app-manifest-512x512.png">
+      <!-- Leaflet CSS – no bloquea el render -->
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <link rel="preload"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          as="style" crossorigin>
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"></noscript>
+      <link rel="preload" href="/assets/fonts/PetrovSans-Bold.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high">
+      <link rel="stylesheet" href="/src/styles/style.css">
     <style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    background: #0F221D;
-    min-height: 100vh;
-    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
-    color: #fff;
-  }
-  #loader {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #0F221D;
-    z-index: 9999;
-    transition: opacity .5s;
-  }
-  #loader img {
-    width: 64px;
-    height: 64px;
-    filter: brightness(0) invert(1);
-    /* Si quieres animación heartbeat, puedes poner aquí keyframes mínimos */
-    animation: loader-heartbeat 1.4s infinite;
-  }
-  @keyframes loader-heartbeat {
-    0%, 100% { transform: scale(1);}
-    10%, 30% { transform: scale(1.15);}
-    20%, 40% { transform: scale(1);}
-  }
-  .font-montserrat { font-family: 'Montserrat', Arial, Helvetica, sans-serif; }
-  .font-petrov-sans { font-family: 'PetrovSans', Arial, Helvetica, sans-serif; }
-  h1, h2, h3 {
-    font-weight: 700;
-    margin: 0;
-  }
-  .hero-section-with-bg {
-    width: 100%;
-    min-height: 100vh;
-    /* Si tienes un bg principal agrégalo aquí (opcional) */
-    /* background: url('/assets/background-header.webp') center/cover no-repeat; */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-top: 64px;
-  }
-  /* Evitar FOIT/FOUT de fuentes */
-  [class*="font-"] { font-family: inherit; }
+    /* ========================================================= */
+    /* ESTILOS CRÍTICOS PARA LCP (H1)                            */
+    /* ========================================================= */
+
+    /* Estilos base para evitar saltos de layout */
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #0F221D;
+      color: #fff;
+    }
+
+    /* Define la fuente para que el navegador la conecte con el preload */
+    @font-face {
+      font-family: 'PetrovSans';
+      src: url('/assets/fonts/PetrovSans-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    #brand-lcp {
+      color: #fff;
+      font-weight: 700;
+      line-height: 1;
+      margin-top: 0.75rem;
+      margin-bottom: 0.75rem;
+      width: 100%;
+      font-family: 'PetrovSans', sans-serif;
+      font-size: 80px;
+    }
+
+    /* Breakpoints para un renderizado temprano más preciso */
+    @media(min-width: 640px) { /* sm */
+      #brand-lcp { font-size: 90px !important; }
+    }
+    @media(min-width: 768px) { /* md */
+      #brand-lcp { font-size: 146px !important; }
+    }
 </style>
-    <link rel="preload" href="src/styles/style.css" as="style" onload="this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="src/styles/style.css"></noscript>
-
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Fallback title/description for SEO; can be replaced by app -->
-    <meta name="description" content="Intelligent Automation and AI Consultancy." />
-
-    <!-- Favicons & Manifest -->
-    <link rel="preload" href="/assets/fonts/PetrovSans-Bold.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="icon" href="/assets/favicon/favicon.ico" sizes="any">
-    <link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg">
-    <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png">
-    <link rel="manifest" href="/assets/favicon/site.webmanifest">
-    <link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css" />
-    <meta name="theme-color" content="#006E49">
-
-    <!-- Extra sizes for Android -->
-    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/web-app-manifest-192x192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon/web-app-manifest-512x512.png">
   </head>
   <body>
-    <!-- Page Loader -->
-    <div id="loader"
-      style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#0F221D;z-index:9999;transition:opacity .5s;">
-      <img src="/assets/fav-icon-logo.svg" alt="NexaDigit logo" width="64" height="64"
-        style="filter:brightness(0) invert(1);" class="animate-heartbeat" />
+  <div id="app">
+    <section id="home" class="hero-section-with-bg">
+      <div class="lg:hidden relative flex-1 flex flex-col pt-12 hero-mobile-fill pt-header-mob full-vh items-center">
+        <div class="mt-8 px-4 text-center">
+          <h1 id="brand-lcp" class="font-petrov-sans leading-none w-full
+                     ms:text-[68px] mm:text-[78px] ml:text-[85px]
+                     sm:!text-[116px] md:!text-[146px] my-3">
+            NexaDigit
+          </h1>
+        </div>
+      </div>
+    </section>
     </div>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
+  <script type="module" src="src/main.ts"></script>
   </body>
 </html>

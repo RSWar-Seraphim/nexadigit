@@ -39,10 +39,10 @@ function attachScrollReveal(root: HTMLElement) {
 function stat(icon: string, key: Parameters<typeof t>[0]) {
   return `
     <div class="unisync-animate is-hidden flex flex-col items-center gap-4 max-w-[380px]">
-      <div class="sm:w-[35px] sm:h-[35px] w-[20px] h-[20px] bg-[#006E49] rounded-full flex items-center justify-center">
-        <img src="${icon}" class="w-3 h-3 sm:w-4 sm:h-4" alt="">
+      <div class="sm:w-[40px] sm:h-[40px] w-[40px] h-[40px] bg-[#006E49] rounded-full flex items-center justify-center">
+        <img src="${icon}" class="w-4 h-4 sm:w-4 sm:h-4" alt="">
       </div>
-      <p class="font-montserrat font-medium text-[8px] leading-relaxed
+      <p class="font-montserrat font-medium leading-relaxed
                  md:text-[15px] 
                  sm:text-[12px]">        
         ${t(key)}
@@ -70,18 +70,23 @@ export function Unisync() {
     const statSubtitle = t('unisync_stat_subtitle')
       .replace('IA', '<span class="text-[#00cc88]">IA</span>')
 
+     const title1ClassMob = lang === 'en' ? 'unisync-title-1-en-mob' : 'unisync-title-1-es-mob'
+    const title2ClassMob = lang === 'en' ? 'unisync-title-2-en-mob' : 'unisync-title-2-es-mob'
+
     el.className = 'w-full max-w-[956px] mx-auto -mt-12 sm:mt-24 px-4 text-white'
 
     el.innerHTML = /* html */`
 <!-- ░░░░░  MOBILE  ░░░░░ -->
+
+
 <div class="block sm:hidden mt-16 text-center">
   <!-- logotipo-marker decorativo -->
-  <img src="/assets/marker-icon.webp"
-       class="mx-auto w-[239px] h-[65px]"
+  <img src="/assets/marker-icon-unisync.webp"
+       class="mx-auto"
        alt=""
        aria-hidden="true" />
 
-  <h1 class="font-petrov-sans font-bold text-[60px] leading-none mt-6">
+  <h1 class="font-petrov-sans font-bold text-[65px] leading-none mt-6">
     UniSync
   </h1>
 
@@ -101,41 +106,7 @@ export function Unisync() {
     </h3>
 
     <!-- separación decorativa -->
-    <img src="/assets/marker-icon.webp"
-         class="mx-auto mt-4 w-[44px] h-[12px]"
-         alt=""
-         aria-hidden="true" />
-  </div>
-</div>
-<!-- ░░░░░  MOBILE  ░░░░░ -->
-<div class="block sm:hidden mt-16 text-center">
-  <!-- logotipo-marker decorativo -->
-  <img src="/assets/marker-icon.webp"
-       class="mx-auto w-[239px] h-[65px]"
-       alt=""
-       aria-hidden="true" />
-
-  <h1 class="font-petrov-sans font-bold text-[60px] leading-none mt-6">
-    UniSync
-  </h1>
-
-  <!-- mock-up del producto -->
-  <img src="/assets/laptop_screen_unisync.webp"
-       loading="lazy" decoding="async"
-       class="unisync-animate is-hidden mx-auto mt-10 w-[90%]"
-       alt="${t('unisync_laptop_alt')}" />
-
-  <!-- tagline principal -->
-  <div class="mt-12 px-4">
-    <h2 class="font-montserrat font-bold text-[20px] leading-tight">
-      ${t('unisync_tagline1')}
-    </h2>
-    <h3 class="font-montserrat font-bold text-[19px] leading-tight mt-1">
-      ${tagline2}
-    </h3>
-
-    <!-- separación decorativa -->
-    <img src="/assets/marker-icon.webp"
+    <img src="/assets/marker-icon-small.webp"
          class="mx-auto mt-4 w-[44px] h-[12px]"
          alt=""
          aria-hidden="true" />
@@ -153,7 +124,7 @@ export function Unisync() {
   <div class="sm:hidden flex justify-center -mt-2">
     <button
       aria-label="${t('unisync_cta_alt')}"
-      class="unisync-animate is-hidden text-[8px] w-[145px] h-[45px]
+      class="unisync-animate is-hidden text-[12px] w-[170px] h-[45px]
              bg-[#006E49]/40 font-montserrat font-bold uppercase tracking-wide
              flex items-center justify-center focus:outline-offset-2 focus-visible:ring-2">
       ${t('unisync_cta')}
@@ -172,23 +143,23 @@ export function Unisync() {
                 h-full w-auto max-w-none object-cover object-bottom
                 opacity-[0.15] pointer-events-none select-none" />
 
-    <div class="relative z-10 w-[70%] flex flex-col items-center text-center gap-6 pb-12">
+    <div class="relative z-10 w-[100%] flex flex-col items-center text-center gap-6 pb-12">
       <!-- título estadístico -->
-      <div class="flex flex-col items-center gap-1">
-        <h2 class="font-montserrat font-bold text-[17px] leading-tight max-w-[280px]">
-          ${t('unisync_stat_title')}
+      <div class="flex flex-col items-center gap-1 w-[90%]">
+        <h2 class="font-montserrat font-bold leading-tight ${title1ClassMob}">
+         ${t('unisync_tagline1')}
         </h2>
-        <h3 class="text-[20px] font-montserrat font-bold">
-          ${statSubtitle}
+        <h3 class="font-montserrat font-bold ${title2ClassMob}">
+          ${t('unisync_tagline2')}
         </h3>
-        <img src="/assets/marker-icon.webp"
-             class="w-[45px] h-[8px] mb-1"
+        <img src="/assets/marker-icon-small.webp"
+             class="mb-1"
              alt=""
              aria-hidden="true" />
       </div>
 
       <!-- lista de estadísticas -->
-      <div class="flex flex-col items-center gap-14 w-[70%]">
+      <div class="flex flex-col items-center gap-14 w-[95%]">
         ${stat('/assets/unisync-graph-icon.svg', 'unisync_stat1')}
         ${stat('/assets/unisync-world.svg',      'unisync_stat2')}
         ${stat('/assets/unisync-corporate.svg',  'unisync_stat3')}
@@ -205,7 +176,7 @@ export function Unisync() {
   <!-- cabecera + mock-up portátil -->
   <div class="text-center">
     <img id="unisync-marker"
-         src="/assets/marker-icon.webp"
+         src="/assets/marker-icon-unisync.webp"
          class="mx-auto"
          alt=""
          aria-hidden="true"
@@ -231,8 +202,8 @@ export function Unisync() {
 
       <!-- separador decorativo -->
       <div class="flex justify-center mt-4">
-        <img src="/assets/marker-icon.webp"
-             class="w-[91px] h-[25px]"
+        <img src="/assets/marker-icon-small.webp"
+    "
              alt=""
              aria-hidden="true"
              loading="lazy" />
@@ -273,8 +244,8 @@ export function Unisync() {
       ${statSubtitle}
     </h3>
     <div class="flex justify-center mt-4">
-      <img src="/assets/marker-icon.webp"
-           class="w-[91px] h-[25px]"
+      <img src="/assets/marker-icon-small.webp"
+         
            alt=""
            aria-hidden="true"
            loading="lazy" />
@@ -308,20 +279,20 @@ export function Unisync() {
   /* ────────── Helpers MÓVIL ────────── */
     function mobileFeatureCard1() {
       return `
-      <div class="unisync-animate is-hidden relative w-[80%]"
+      <div class="unisync-animate is-hidden relative w-[90%]"
            role="group" aria-labelledby="ft1-title-m" aria-describedby="ft1-desc-m">
         <div class="absolute inset-0 bg-[#006E49]/40 rounded-tl-[45px] rounded-br-[45px]"></div>
         <div class="relative z-10 px-6 py-8">
           <h4 id="ft1-title-m"
-              class="font-montserrat font-bold text-[12px] leading-[15px] uppercase">
+              class="font-montserrat font-bold text-[14px] leading-[15px] uppercase">
             ${t('unisync_ft1_title')}
           </h4>
           <p id="ft1-desc-m"
-             class="font-montserrat font-medium text-[8px] leading-relaxed mt-2">
+             class="font-montserrat font-medium text-[12px] leading-relaxed mt-2">
             ${t('unisync_ft1_desc')}
           </p>
         </div>
-      </div>`;      /* ← NO olvides el punto y coma */
+      </div>`;
     }
 
     function mobileFeatureCard2() {
@@ -329,11 +300,11 @@ export function Unisync() {
       <div class="unisync-animate is-hidden w-[90%] px-6"
            role="group" aria-labelledby="ft3-title-m" aria-describedby="ft3-desc-m">
         <h4 id="ft3-title-m"
-            class="font-montserrat font-bold text-[12px] leading-[15px] uppercase">
+            class="font-montserrat font-bold text-[14px] leading-[15px] uppercase">
           ${t('unisync_ft3_title')}
         </h4>
         <p id="ft3-desc-m"
-           class="font-montserrat font-medium text-[8px] leading-relaxed mt-2">
+           class="font-montserrat font-medium text-[12px] leading-relaxed mt-2">
           ${t('unisync_ft3_desc')}
         </p>
       </div>`;
@@ -341,16 +312,16 @@ export function Unisync() {
 
     function mobileFeatureCard3() {
       return `
-      <div class="unisync-animate is-hidden relative w-[80%]"
+      <div class="unisync-animate is-hidden relative w-[90%]"
            role="group" aria-labelledby="ft4-title-m" aria-describedby="ft4-desc-m">
         <div class="absolute inset-0 bg-[#006E49]/40 rounded-tl-[45px] rounded-br-[45px]"></div>
         <div class="relative z-10 px-6 py-8">
           <h4 id="ft4-title-m"
-              class="font-montserrat font-bold text-[12px] leading-[15px] uppercase">
+              class="font-montserrat font-bold text-[14px] leading-[15px] uppercase">
             ${t('unisync_ft4_title')}
           </h4>
           <p id="ft4-desc-m"
-             class="font-montserrat font-medium text-[8px] leading-relaxed mt-2">
+             class="font-montserrat font-medium text-[12px] leading-relaxed mt-2">
             ${t('unisync_ft4_desc')}
           </p>
         </div>
@@ -362,11 +333,11 @@ export function Unisync() {
       <div class="unisync-animate is-hidden w-[90%] px-6"
            role="group" aria-labelledby="ft2-title-m" aria-describedby="ft2-desc-m">
         <h4 id="ft2-title-m"
-            class="font-montserrat font-bold text-[12px] leading-[15px] uppercase">
+            class="font-montserrat font-bold text-[14px] leading-[15px] uppercase">
           ${t('unisync_ft2_title')}
         </h4>
         <p id="ft2-desc-m"
-           class="font-montserrat font-medium text-[8px] leading-relaxed mt-2">
+           class="font-montserrat font-medium text-[12px] leading-relaxed mt-2">
           ${t('unisync_ft2_desc')}
         </p>
       </div>`;

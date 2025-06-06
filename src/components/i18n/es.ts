@@ -21,7 +21,9 @@ export const es = {
   
   // Hero
   hero_title_part1: 'Soluciones IA para mejorar',
+  hero_title_part1_mob: 'Soluciones IA para mejorar',
   hero_title_part2: 'Operaciones Digitales',
+  hero_title_part2_mob: 'Operaciones Digitales',
   hero_brand: 'NexaDigit',
   hero_bg_arrow_decor: '',                     // decoración → alt vacío
   hero_email_placeholder: 'correo@dominio.com',
@@ -32,7 +34,7 @@ export const es = {
   hero_partner_novosit: 'Logo Novosit',
   hero_partner_openai: 'Logo OpenAI',
   hero_arrow_down_box: 'Flecha hacia abajo debajo de logos',
-  mid_desc: 'Asesoramos empresas en integración de IA y estrategias para optimizar procesos clave y modelos operativos, potenciando eficiencia, innovación, crecimiento sostenible y ventaja competitiva.',
+  mid_desc: 'Asesoramos empresas en IA para optimizar procesos, potenciando eficiencia, innovación, crecimiento y competitividad.',
   mid_tagline: 'Prepara hoy tu negocio para triunfar con la IA generativa.',
 
   // About

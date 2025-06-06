@@ -10,6 +10,7 @@
 import { t, getLang, onLangChange } from './i18n'
 import { notify } from './notify'
 
+
 export function Hero() {
   const hero = document.createElement('section')
   hero.id = 'home'
@@ -29,71 +30,70 @@ export function Hero() {
   'lg:bg-center',
   'lg:bg-[length:1454px_654px]',
 ].join(' ')
-   /* ──────────────── template MÓVIL ──────────────── */
   /* ──────────────── template MÓVIL ──────────────── */
 const mobileTemplate = (lang: string) => /* html */ `
-  <!-- Visible hasta < lg (teléfonos y tablets) -->
   <div class="lg:hidden  relative flex-1 flex flex-col pt-12 hero-mobile-fill pt-header-mob full-vh items-center">
     
-    <!-- Títulos -->
     <div class="mt-8 px-4 text-center">
       <h2 class="font-montserrat font-extrabold leading-tight
                  ${lang === 'en'
-                    ? 'ms:text-[23px] mm:text-[26.5px] ml:text-[29px] sm:!text-[40px] md:!text-[50px]'
-                    : 'sm:!text-[36px] md:!text-[45px] ml:text-[26px] mm:text-[24px] ms:text-[21px]'}">
+                    ? 'ms:text-[24px]  ml:text-[27px] sm:text-[50px]'
+                    : 'ms:text-[21px]  ml:text-[24px]  sm:text-[45px]'}">
         ${t('hero_title_part1')}
       </h2>
 
       <h2 class="font-montserrat font-extrabold leading-tight
                  ${lang === 'en'
-                    ? 'ms:text-[30px] mm:text-[35px] ml:text-[38px] sm:!text-[53px] md:!text-[66px] text-[34px]'
-                    : 'sm:!text-[44px] md:!text-[55px] ml:text-[32px] mm:text-[29px] ms:text-[25px] text-[29px]'} mt-2">
+                    ? 'ms:text-[31px] ml:text-[35px] sm:text-[66px]'
+                    : 'ms:text-[25px] ml:text-[30px] md:text-[55px]'} mt-2">
         ${t('hero_title_part2')}
       </h2>
 
-      <h1 class="font-petrov-sans leading-none w-full
-                 ms:text-[68px] mm:text-[78px] ml:text-[85px]
-                 sm:!text-[116px] md:!text-[146px] my-3">
+      <h1 id="brand-lcp" class="font-petrov-sans leading-none w-full
+                 ms:text-[70px] mm:text-[78px] ml:text-[80px]
+                 sm:text-[126px] md:text-[146px] my-3">
         ${t('hero_brand')}
       </h1>
 
-      <img src="/assets/marker-icon.webp"
-           class="w-[180px] h-[40px] mx-auto mb-4"
+      <img src="/assets/marker-icon2x.webp"
+           class="mx-auto mb-4"
+           width="180"
+           height="49" 
            alt="${t('alt_decorative_marker')}"
-           aria-hidden="true" />
-    </div>
+           aria-hidden="true"
+           loading="lazy" fetchpriority="low" /> </div>
 
-    <!-- Contenido central -->
     <div class="flex flex-col items-center flex-grow overflow-y-auto overflow-x-hidden scrollbar-none w-full">
 
-      <!-- mid_desc + marker pequeño -->
       <p class="mx-auto mt-5 text-center font-montserrat font-medium leading-[160%]
                 ${lang === 'en'
-                   ? 'w-[280px] text-[9.5px] sm:w-[350px] sm:text-[14px]'
-                   : 'w-[215px] text-[9.5px] sm:text-[14px] sm:w-[340px]'}">
+                   ? 'w-[245px] text-[12px] sm:w-[350px] sm:text-[14px]'
+                   : 'w-[230px] text-[13px] sm:text-[14px] sm:w-[340px]'}">
         ${t('mid_desc')}
       </p>
 
-      <img src="/assets/marker-icon.webp"
-           class="w-[50px] h-[14px] mx-auto my-4"
+      <img src="/assets/marker-small-2x.webp"
+           class="mx-auto my-4"
+           width="50"
+           height="14" 
            alt=""
            aria-hidden="true" />
 
-      <!-- Tagline + CTA -->
       <div class="flex flex-col items-center my-auto">
         <p class="text-center
                   ${lang === 'en'
-                     ? 'w-[127px] text-[9px] sm:text-[12px] sm:w-[180px]'
-                     : 'w-[127px] text-[9.5px] sm:text-[12px] sm:w-[180px]'}">
+                     ? 'w-[157px] text-[12px] sm:text-[12px] sm:w-[180px]'
+                     : 'w-[170px] text-[12px] sm:text-[12px] sm:w-[180px]'}">
           ${t('mid_tagline')}
         </p>
 
         <div class="mt-6 flex justify-center">
           <a data-book-meeting
-             href="#services"
-             class="w-[140px] h-[40px] bg-[#006E49] hover:bg-[#00a16b]
+             href="#bookMeeting"
+             class="w-[170px] h-[50px] bg-[#006E49] hover:bg-[#00a16b]
                     text-white font-montserrat font-bold uppercase
-                    text-[8px] sm:text-[10px] rounded-[6px]
+                    ms:text-[12px]
+                    sm:text-[12px] rounded-[6px]
                     flex items-center justify-center
                     focus:outline-offset-2 focus-visible:ring-2">
             ${t('services_block1_cta')}
@@ -101,24 +101,13 @@ const mobileTemplate = (lang: string) => /* html */ `
         </div>
       </div>
 
-      <!-- carrusel partners -->
       <div class="mb-auto ms:hidden sm:mb-16 md:mb-24 flex justify-center overflow-hidden
                   w-full max-w-[265px] px-4 mx-auto"
            aria-label="${t('hero_partner_track')}"
            role="list">
-        <div id="partnerTrackMobile"
-             class="flex items-center gap-5 transition-transform duration-700 ease-out">
-          <img src="/assets/novosit-logo.webp"       class="-mt-1 w-[60px] h-[16px]"  loading="lazy" alt="${t('hero_partner_novosit')}">
-          <img src="/assets/chatgpt-logo-white.webp" class="w-[75px] h-[22px]"        loading="lazy" alt="${t('hero_partner_openai')}">
-          <img src="/assets/gemini_logo.webp"        class="-mt-2 w-[55px] h-[20px]"  loading="lazy" alt="Gemini logo">
-          <img src="/assets/claude-logo.webp"        class="w-[65px] h-[16px]"        loading="lazy" alt="Claude logo">
-          <img src="/assets/NVIDIA_logo.webp"        class="w-[65px] h-[12px]"        loading="lazy" alt="NVIDIA logo">
-          <img src="/assets/deepseek-logo.webp"      class="w-[65px] h-[13px]"        loading="lazy" alt="DeepSeek logo">
-        </div>
       </div>
     </div>
 
-    <!-- Flecha navegar -->
     <div class="mb-8 flex justify-center w-full
                 sm:absolute sm:bottom-6 sm:left-1/2 sm:-translate-x-1/2 sm:z-20">
       <a data-link="about"
@@ -134,7 +123,6 @@ const mobileTemplate = (lang: string) => /* html */ `
     </div>
   </div>`
 
-
   /* ──────────────── template DESKTOP ──────────────── */
 const desktopTemplate = (lang: string) => {
   const h2a  = lang === 'en' ? 'fluid-h2-en'   : 'fluid-h2-es';
@@ -147,7 +135,7 @@ const desktopTemplate = (lang: string) => {
   <div class="hidden lg:grid grid-cols-12 gap-0 lg:gap-4">
     <div class="col-span-12 justify-center h-md:mt-[10px]">
 
-      <img src="/assets/marker-icon.webp"
+      <img src="/assets/marker-icon-small.webp"
            class="mb-8 w-[238px] h-[65px] self-center flex-none mx-auto lg:hidden"
            loading="lazy"
            alt="${t('alt_decorative_marker')}"

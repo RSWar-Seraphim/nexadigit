@@ -21,7 +21,9 @@ export const en = {
 
   // Hero
   hero_title_part1: 'AI Solutions to Enhance',
+  hero_title_part1_mob: 'AI Solutions to Enhance',
   hero_title_part2: 'Digital Operations',
+  hero_title_part2_mob: 'Digital Operations',
   hero_brand: 'NexaDigit',
   hero_bg_arrow_decor: '',                     // decoración → alt vacío
   hero_email_placeholder: 'email@domain.com',
@@ -32,7 +34,7 @@ export const en = {
   hero_partner_novosit: 'Novosit logo',
   hero_partner_openai: 'OpenAI logo',
   hero_arrow_down_box: 'Downward arrow below partner logos',
-  mid_desc: 'We advise companies on AI integration and strategies to optimize core business processes and operational models, empowering them to improve efficiency, drive innovation, sustainable growth, and maximize competitive advantage.',
+  mid_desc: 'We advise companies on AI integration to optimize core processes, empowering efficiency, innovation, sustainable growth, and competitive advantage.',
   mid_tagline: 'Prepare your business to thrive in the new era of AI.',
   // About
   about_title: 'ABOUT US',

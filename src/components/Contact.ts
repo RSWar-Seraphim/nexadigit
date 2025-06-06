@@ -50,8 +50,8 @@ export function Contact() {
   <p class="contact-animate is-hidden font-montserrat font-medium text-[10px] text-center mt-1">
     ${t('contact_subtitle')}
   </p>
-  <img src="/assets/marker-icon.webp"
-       class="contact-animate is-hidden w-[55px] h-[15px] mx-auto mt-3"
+  <img src="/assets/marker-icon-small.webp"
+       class="contact-animate is-hidden mx-auto mt-3"
        alt="" aria-hidden="true" />
 
   <!-- FORM MOBILE -->
@@ -114,8 +114,8 @@ export function Contact() {
   <p class="contact-animate is-hidden font-montserrat font-bold text-[15px] text-center mt-1">
     ${t('contact_subtitle')}
   </p>
-  <img src="/assets/marker-icon.webp"
-       class="contact-animate is-hidden w-[91px] h-[25px] mx-auto mt-4"
+  <img src="/assets/marker-icon-small.webp"
+       class="contact-animate is-hidden mx-auto mt-4"
        alt="" aria-hidden="true" />
 
   <!-- FORM + MAPA -->
@@ -178,43 +178,52 @@ export function Contact() {
 </div>`;
 
 
-  /* ───────── Leaflet helpers ───────── */
-  function loadLeaflet() {
-    const head = document.head
-    if (!document.querySelector("link[href*='leaflet.css']")) {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = 'https://unpkg.com/leaflet/dist/leaflet.css'
-      head.appendChild(link)
-    }
-    if (!(window as any).L) {
-      const script = document.createElement('script')
-      script.src = 'https://unpkg.com/leaflet/dist/leaflet.js'
-      script.onload = initMap
-      head.appendChild(script)
-    } else {
-      initMap()
-    }
+function initMap() {
+  const mapContainer = contactEl.querySelector<HTMLElement>('#leaflet-map');
+  if (!mapContainer || mapContainer.dataset.initialized) return;
+  mapContainer.dataset.initialized = '1';
+
+  const L   = (window as any).L;
+  const lat = 18.45305350020532;
+  const lng = -69.93497852241077;
+
+  const map = L.map(mapContainer, { zoomControl: false, attributionControl: false })
+               .setView([lat, lng], 18);
+
+  L.tileLayer(
+    'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.webp',
+    { maxZoom: 19 }
+  ).addTo(map);
+
+  const pinSvg  =
+    '<svg viewBox="0 0 24 24" width="40" height="40" fill="#006E49" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>';
+
+  const pinIcon = L.divIcon({
+    className: '',
+    html: pinSvg,
+    iconSize: [40, 40],
+    iconAnchor: [20, 40]
+  });
+
+  L.marker([lat, lng], { icon: pinIcon, interactive: false })
+    .addTo(map)
+    .on('add', function (this: typeof L.Marker.prototype) {
+      const el = this.getElement();
+      if (el) {
+        el.removeAttribute('tabindex');
+        el.removeAttribute('role');
+      }
+    });
+}
+
+/** Garantiza que Leaflet esté cargado y entonces llama a initMap() */
+function ensureLeaflet() {
+  if ((window as any).L) {
+    initMap();                               // ya está en memoria
+  } else {
+    window.addEventListener('leaflet:loaded', initMap, { once: true });
   }
-
-  function initMap() {
-    const mapContainer = contactEl.querySelector('#leaflet-map') as HTMLElement | null
-    if (!mapContainer || mapContainer.dataset.initialized) return
-    mapContainer.dataset.initialized = '1'
-
-    const L   = (window as any).L
-    const lat = 18.45305350020532
-    const lng = -69.93497852241077
-    const map = L.map(mapContainer, { zoomControl: false, attributionControl: false })
-                .setView([lat, lng], 18)
-
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.webp',
-      { maxZoom: 19 }).addTo(map)
-
-    const pinSvg  = '<svg viewBox="0 0 24 24" width="40" height="40" fill="#006E49" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>'
-    const pinIcon = L.divIcon({ className: '', html: pinSvg, iconSize: [40, 40], iconAnchor: [20, 40] })
-    L.marker([lat, lng], { icon: pinIcon, interactive: false }).addTo(map)
-  }
+}
 
   /* ───────── Envío del formulario ───────── */
   function attachFormHandlers() {
@@ -263,7 +272,7 @@ export function Contact() {
 
     contactEl.innerHTML = renderMobile() + renderDesktop()
     attachFormHandlers()
-    loadLeaflet()
+    ensureLeaflet();
 
     /* activa el scroll-reveal */
     requestAnimationFrame(() => attachScrollReveal(contactEl))

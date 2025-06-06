@@ -128,6 +128,7 @@ h1 {
 .unisync-title-1-es { font-size: clamp(28px, 5vw, 66px); }
 .unisync-title-2-es { font-size: clamp(25px, 4.7vw, 55px); }
 
+
 /* Utility for mobile title width */
 @layer utilities {
   .w-title-mobile { max-width: 300px; }
@@ -333,7 +334,7 @@ html { scroll-behavior: smooth; }
     inset: 0;
     width: 100%;
     height: 100%;
-    background-image: url('/public/assets/background-header.png');
+    background-image: url('../../public/assets/background-header.png');
     background-repeat: no-repeat;
     background-position: center 250px;
     background-size: 1454px 654px;

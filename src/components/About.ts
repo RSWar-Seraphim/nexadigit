@@ -117,14 +117,14 @@ function itemRowMobile(
   descKey: I18nKey,
   highlight = false
 ) {
-  const wrapperBase       = 'relative w-[236px] h-[200px] flex items-center justify-center';
+  const wrapperBase = 'relative w-[256px] h-[200px] flex items-center justify-center';
   const highlightClasses  = highlight ? 'bg-[#006E49]/10 rounded-tl-[20px] rounded-tr-[20px]' : '';
   const highlightStyle    = highlight ? 'style="border-bottom:0.5px solid #D9D9D9;"' : '';
 
   return `
     <div class="mt-6 flex justify-center">
       <div class="is-hidden ${wrapperBase} ${highlightClasses}" ${highlightStyle} role="listitem">
-        <div class="max-w-[185px] mx-auto flex flex-col items-center text-center">
+        <div class="max-w-[240px] mx-auto flex flex-col items-center text-center">
 
           <!-- Icono redondo ------------------------------------------------ -->
           <div class="w-[20px] h-[20px] bg-[#006E49] rounded-full flex items-center justify-center mb-2">
@@ -141,7 +141,7 @@ function itemRowMobile(
           </h3>
 
           <!-- Separador decorativo ---------------------------------------- -->
-          <img src="/assets/marker-icon.webp"
+          <img src="/assets/marker-icon-small.webp"
                class="my-1 w-[39px] h-[10px]"
                loading="lazy"
                decoding="async"
@@ -149,7 +149,7 @@ function itemRowMobile(
                aria-hidden="true" />
 
           <!-- Descripción -------------------------------------------------- -->
-          <p class="font-montserrat font-medium text-[8px] leading-relaxed">
+          <p class="font-montserrat font-medium text-[12px] leading-relaxed">
             ${t(descKey)}
           </p>
         </div>
@@ -173,7 +173,7 @@ export function About() {
       <div class="text-center">
         <h2 class="text-title">${t('about_title')}</h2>
         <div class="flex justify-center mt-2 md:mt-2">
-          <img src="/assets/marker-icon.webp" alt="Marker icon" loading="lazy" decoding="async" class="w-[70px] h-[18px] sm:w-[91px] sm:h-[25px]" />
+          <img src="/assets/marker-icon-small.webp" alt="Marker icon" loading="lazy" decoding="async" sm:w-[91px] sm:h-[25px]" />
         </div>
       </div>
 
