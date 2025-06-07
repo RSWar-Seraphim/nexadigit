@@ -61,7 +61,7 @@ export const es = {
   services_block2_img_alt:   'Emprendedores discutiendo documentos',
   services_block2_desc:      'Brindamos formación con cursos, talleres y charlas sobre transformación digital en nuestro centro totalmente equipado para una experiencia óptima.',
 
-  services_block3_title:     'Optimización Empresarial con IA',
+  services_block3_title:     'Optimización Empresarial Inteligente con IA',
   services_block3_desc:      'A través de Unisync Agents, automatizamos tareas repetitivas y procesos digitales, permitiendo a tu equipo enfocarse en actividades de mayor valor y crecimiento estratégico.',
 
   // Unisync
@@ -101,7 +101,7 @@ export const es = {
   form_label_email:    'Correo electrónico',
   form_label_message:  'Escribe tu mensaje',
   form_submit:         'Enviar mensaje',
-  footer_copy : '© 2025 NexaDigit. Todos los derechos reservados.',
+  footer_copy : '© 2025 NexaDigit. Derechos reservados.',
   footer_privacy : 'Privacidad',
   footer_terms   : 'Términos',
   footer_cookie  : 'Cookies',

@@ -24,14 +24,6 @@
   <link rel="preload" href="/assets/fonts/PetrovSans-Bold.woff2"
         as="font" type="font/woff2" crossorigin fetchpriority="high">
 
-  <!-- ========================================================= -->
-  <!-- 4. CSS PRINCIPAL (local, solo 9 KB)                       -->
-  <!--    *Mantén la ruta que uses en build (hash o no)*         -->
-  <!-- ========================================================= -->
-  <link rel="preload" href="/src/styles/style.css" as="style">
-  <link rel="stylesheet" href="/src/styles/style.css"
-        media="print" onload="this.onload=null;this.media='all'">
-  <noscript><link rel="stylesheet" href="/src/styles/style.css"></noscript>
 
   <!-- ========================================================= -->
   <!-- 5. GOOGLE FONTS (Montserrat)                              -->
@@ -113,16 +105,8 @@
       margin-bottom: 0.75rem;
       width: 100%;
       font-family: 'PetrovSans', sans-serif;
-      font-size: 80px;
     }
 
-    /* Breakpoints para un renderizado temprano más preciso */
-    @media(min-width: 640px) { /* sm */
-      #brand-lcp { font-size: 90px !important; }
-    }
-    @media(min-width: 768px) { /* md */
-      #brand-lcp { font-size: 146px !important; }
-    }
 </style>
   </head>
   <body>
@@ -139,6 +123,12 @@
       </div>
     </section>
     </div>
+
+      <!-- ↓ Leaflet JS (needed!) ↓ -->
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      crossorigin>
+    </script>
   <script type="module" src="src/main.ts"></script>
   </body>
 </html>

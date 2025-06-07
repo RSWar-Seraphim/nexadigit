@@ -70,8 +70,8 @@ export function Unisync() {
     const statSubtitle = t('unisync_stat_subtitle')
       .replace('IA', '<span class="text-[#00cc88]">IA</span>')
 
-     const title1ClassMob = lang === 'en' ? 'unisync-title-1-en-mob' : 'unisync-title-1-es-mob'
-    const title2ClassMob = lang === 'en' ? 'unisync-title-2-en-mob' : 'unisync-title-2-es-mob'
+     const title1ClassMob = lang === 'en' ? 'text-[25px] ml:text-[25px]' : 'text-[25px] ml:text-[27px]'
+    const title2ClassMob = lang === 'en' ? 'text-[24px] ml:text-[24px]' : 'text-[22px] ml:text-[22px]'
 
     el.className = 'w-full max-w-[956px] mx-auto -mt-12 sm:mt-24 px-4 text-white'
 
@@ -122,13 +122,25 @@ export function Unisync() {
 
   <!-- ░░░░░  MOBILE – CTA ░░░░░ -->
   <div class="sm:hidden flex justify-center -mt-2">
-    <button
-      aria-label="${t('unisync_cta_alt')}"
-      class="unisync-animate is-hidden text-[12px] w-[170px] h-[45px]
-             bg-[#006E49]/40 font-montserrat font-bold uppercase tracking-wide
-             flex items-center justify-center focus:outline-offset-2 focus-visible:ring-2">
-      ${t('unisync_cta')}
-    </button>
+        <a
+  data-book-meeting
+  href="#bookMeeting"
+  class="mt-6 mx-auto w-[140px] h-[35px]
+         bg-[#006E49] hover:bg-[#00a16b]
+         text-white font-bold text-[10px] uppercase
+         rounded-[6px] flex items-center justify-center
+
+         /* remove any outlines/rings */
+         border-0 outline-none focus:outline-none active:outline-none
+         ring-0 focus:ring-0 focus-visible:ring-0 active:ring-0
+
+         /* force white text even on press/focus */
+         active:text-white focus:text-white
+">
+  ${t('unisync_cta')}
+</a>
+
+
   </div>
 
   <!-- ░░░░░  MOBILE – estadísticas (sin edificio) ░░░░░ -->
@@ -145,7 +157,7 @@ export function Unisync() {
 
     <div class="relative z-10 w-[100%] flex flex-col items-center text-center gap-6 pb-12">
       <!-- título estadístico -->
-      <div class="flex flex-col items-center gap-1 w-[90%]">
+      <div class="flex flex-col items-center gap-1 w-[100%]">
         <h2 class="font-montserrat font-bold leading-tight ${title1ClassMob}">
          ${t('unisync_tagline1')}
         </h2>
@@ -222,17 +234,26 @@ export function Unisync() {
 
   <!-- CTA principal -->
   <div class="flex flex-col items-center mt-24">
-    <button data-book-meeting
-            aria-label="${t('unisync_cta_alt')}"
-            class="unisync-animate is-hidden
-                   w-[225px] h-[67px]
-                   bg-[#006E49] hover:bg-[#00a16b]
-                   text-white font-montserrat font-bold uppercase tracking-wide
-                   rounded-[8px] flex items-center justify-center
-                   transition-colors duration-200
-                   focus:outline-offset-2 focus-visible:ring-2">
-      ${t('unisync_cta')}
-    </button>
+    <button
+  data-book-meeting
+  aria-label="${t('unisync_cta_alt')}"
+  class="unisync-animate is-hidden
+         w-[225px] h-[67px]
+         bg-[#006E49] hover:bg-[#00a16b] active:bg-[#00543a]
+         text-white font-montserrat font-bold uppercase tracking-wide
+         rounded-[8px] flex items-center justify-center
+         transition-colors duration-200
+
+         /* 🔑 disable focus/active highlight */
+         outline-none                /* base */
+         focus:outline-none          /* click & keyboard */
+         active:outline-none
+         focus:ring-0 focus-visible:ring-0
+         ring-offset-0">
+  ${t('unisync_cta')}
+</button>
+
+
   </div>
 
   <!-- subtítulo estadístico -->

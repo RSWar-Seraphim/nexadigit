@@ -4,9 +4,7 @@
 import { t, onLangChange } from './i18n'
 import { notify } from './notify'
 import { FooterMobile, FooterDesktop } from './Footer'
-/* ╭─────────────────────────────────────────╮
-   │ 1. UTILIDAD: efecto scroll-reveal sutil │
-   ╰─────────────────────────────────────────╯ */
+
 function attachScrollReveal(root: HTMLElement) {
   const items = Array.from(
     root.querySelectorAll<HTMLElement>('.contact-animate')
@@ -32,9 +30,6 @@ function attachScrollReveal(root: HTMLElement) {
   items.forEach(el => io.observe(el))
 }
 
-/* ╭─────────────────────────────────────────╮
-   │ 2.  COMPONENTE CONTACT                  │
-   ╰─────────────────────────────────────────╯ */
 export function Contact() {
   const contactEl = document.createElement('section')
   contactEl.id = 'contact'
@@ -59,37 +54,52 @@ export function Contact() {
         aria-labelledby="contact-title-mobile"
         class="contact-animate is-hidden w-full max-w-[450px] bg-white rounded shadow-lg mt-8 p-5 flex flex-col gap-3">
 
-    <label for="cfm-first-name" class="font-montserrat text-[10px] text-black/70 text-left">
+    <label for="cfm-first-name" class="font-montserrat text-[12px] text-black/70 text-left">
       ${t('form_label_name')}
     </label>
     <input id="cfm-first-name" name="first_name" type="text" autocomplete="given-name"
            placeholder="John"
-           class="text-black border p-2 rounded outline-none bg-white text-[11px]" />
+           class="text-black border p-2 rounded outline-none bg-white text-[12px]" />
 
-    <label for="cfm-last-name" class="font-montserrat text-[10px] text-black/70 text-left">
+    <label for="cfm-last-name" class="font-montserrat text-[12px] text-black/70 text-left">
       ${t('form_label_lastname')}
     </label>
     <input id="cfm-last-name" name="last_name" type="text" autocomplete="family-name"
            placeholder="Doe"
            class="text-black border p-2 rounded outline-none bg-white text-[11px]" />
 
-    <label for="cfm-email" class="font-montserrat text-[10px] text-black/70 text-left">
+    <label for="cfm-email" class="font-montserrat text-[12px] text-black/70 text-left">
       ${t('form_label_email')}
     </label>
     <input id="cfm-email" name="email" type="email" autocomplete="email"
            placeholder="john@gmail.com"
-           class="text-black border p-2 rounded outline-none bg-white text-[11px]" />
+           class="text-black border p-2 rounded outline-none bg-white text-[12px]" />
 
-    <label for="cfm-message" class="font-montserrat text-[10px] text-black/70 text-left">
+    <label for="cfm-message" class="font-montserrat text-[12px] text-black/70 text-left">
       ${t('form_label_message')}
     </label>
     <textarea id="cfm-message" name="message" rows="4"
               placeholder="${t('form_label_message')}"
-              class="border p-2 rounded outline-none resize-none bg-white text-[11px] text-black"></textarea>
+              class="border p-2 rounded outline-none resize-none bg-white text-[12px] text-black"></textarea>
 
-    <button type="submit"
-            aria-label="${t('form_submit')}"
-            class="h-[35px] bg-[#006E49] hover:bg-[#00a16b] text-[11px] text-white font-montserrat font-bold tracking-wide rounded-[8px] flex items-center justify-center transition-colors duration-200 mt-2">
+    <button
+      type="submit"
+      aria-label="${t('form_submit')}"
+      class="h-[45px]
+             bg-[#006E49] hover:bg-[#00a16b]
+             text-[12px]   
+             /* always keep text white */
+             text-white hover:text-white focus:text-white active:text-white
+    
+             font-montserrat font-bold tracking-wide
+             rounded-[8px]
+             flex items-center justify-center
+             transition-colors duration-200 mt-2
+    
+             /* strip out any default outline/ring */
+             outline-none focus:outline-none active:outline-none
+             ring-0 focus:ring-0 focus-visible:ring-0 active:ring-0
+    ">
       ${t('form_submit')}
     </button>
   </form>
@@ -154,15 +164,31 @@ export function Contact() {
                 placeholder="${t('form_label_message')}"
                 class="border p-2 rounded outline-none resize-none bg-white text-black"></textarea>
 
-      <button type="submit"
-              aria-label="${t('form_submit')}"
-              class="h-[45px] bg-[#006E49] hover:bg-[#00a16b] text-white font-montserrat font-bold tracking-wide rounded-[8px] flex items-center justify-center transition-colors duration-200 mt-2">
-        ${t('form_submit')}
-      </button>
+      <button
+  type="submit"
+  aria-label="${t('form_submit')}"
+  class="h-[45px]
+         bg-[#006E49] hover:bg-[#00a16b]
+
+         /* always keep text white */
+         text-white hover:text-white focus:text-white active:text-white
+
+         font-montserrat font-bold tracking-wide
+         rounded-[8px]
+         flex items-center justify-center
+         transition-colors duration-200 mt-2
+
+         /* strip out any default outline/ring */
+         outline-none focus:outline-none active:outline-none
+         ring-0 focus:ring-0 focus-visible:ring-0 active:ring-0
+">
+  ${t('form_submit')}
+</button>
+
     </form>
 
     <!-- MAPA (solo ≥ lg) -->
-    <div class="hidden lg:block h-[540px]">
+    <div class="hidden md:block h-[540px]">
       <div id="leaflet-map" class="w-full h-full pointer-events-none rounded-r-[20px]"></div>
     </div>
   </div>
@@ -183,28 +209,36 @@ function initMap() {
   if (!mapContainer || mapContainer.dataset.initialized) return;
   mapContainer.dataset.initialized = '1';
 
-  const L   = (window as any).L;
+  const L = (window as any).L;
   const lat = 18.45305350020532;
   const lng = -69.93497852241077;
 
-  const map = L.map(mapContainer, { zoomControl: false, attributionControl: false })
-               .setView([lat, lng], 18);
+  // 1️⃣ Inicializa el mapa y centra la vista
+  const map = L.map(mapContainer, {
+    zoomControl: false,
+    attributionControl: false
+  }).setView([lat, lng], 18);
 
+  // 2️⃣ Capa de teselas
   L.tileLayer(
     'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.webp',
     { maxZoom: 19 }
   ).addTo(map);
 
-  const pinSvg  =
-    '<svg viewBox="0 0 24 24" width="40" height="40" fill="#006E49" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>';
-
+  // 3️⃣ Marcador con SVG personalizado
+  const pinSvg = `
+    <svg viewBox="0 0 24 24" width="40" height="40" fill="#006E49"
+         xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13
+               a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5
+               2.5 2.5 0 0 1 0 5z"/>
+    </svg>`;
   const pinIcon = L.divIcon({
     className: '',
     html: pinSvg,
     iconSize: [40, 40],
     iconAnchor: [20, 40]
   });
-
   L.marker([lat, lng], { icon: pinIcon, interactive: false })
     .addTo(map)
     .on('add', function (this: typeof L.Marker.prototype) {
@@ -214,7 +248,17 @@ function initMap() {
         el.removeAttribute('role');
       }
     });
+
+  // 4️⃣ Forzar recálculo tras primer render
+  map.whenReady(() => {
+    // Espera al siguiente tick para que el layout de columnas ya esté aplicado
+    setTimeout(() => {
+      map.invalidateSize();
+    }, 0);
+  });
 }
+
+
 
 /** Garantiza que Leaflet esté cargado y entonces llama a initMap() */
 function ensureLeaflet() {

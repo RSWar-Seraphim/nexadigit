@@ -37,20 +37,20 @@ const mobileTemplate = (lang: string) => /* html */ `
     <div class="mt-8 px-4 text-center">
       <h2 class="font-montserrat font-extrabold leading-tight
                  ${lang === 'en'
-                    ? 'ms:text-[24px]  ml:text-[27px] sm:text-[50px]'
-                    : 'ms:text-[21px]  ml:text-[24px]  sm:text-[45px]'}">
+                    ? 'ms:text-[24px] mm:text-[26.5px] ml:text-[27px] sm:text-[43.5px] md:text-[50px]'
+                    : 'ms:text-[21px] mm:text-[24px] ml:text-[24.5px]  sm:text-[38px] md:text-[45px]'}">
         ${t('hero_title_part1')}
       </h2>
 
       <h2 class="font-montserrat font-extrabold leading-tight
                  ${lang === 'en'
-                    ? 'ms:text-[31px] ml:text-[35px] sm:text-[66px]'
-                    : 'ms:text-[25px] ml:text-[30px] md:text-[55px]'} mt-2">
+                    ? 'ms:text-[31px] mm:text-[35px] ml:text-[36px] sm:text-[57px] md:text-[66px] '
+                    : 'ms:text-[25px] mm:text-[29px] ml:text-[30px] sm:text-[47px] md:text-[55px]'} mt-2">
         ${t('hero_title_part2')}
       </h2>
 
       <h1 id="brand-lcp" class="font-petrov-sans leading-none w-full
-                 ms:text-[70px] mm:text-[78px] ml:text-[80px]
+                 ms:text-[65px] mm:text-[78px] ml:text-[80px]
                  sm:text-[126px] md:text-[146px] my-3">
         ${t('hero_brand')}
       </h1>
@@ -90,10 +90,17 @@ const mobileTemplate = (lang: string) => /* html */ `
         <div class="mt-6 flex justify-center">
           <a data-book-meeting
              href="#bookMeeting"
-             class="w-[170px] h-[50px] bg-[#006E49] hover:bg-[#00a16b]
+             class="w-[160px] h-[40px] bg-[#006E49] hover:bg-[#00a16b]
                     text-white font-montserrat font-bold uppercase
-                    ms:text-[12px]
-                    sm:text-[12px] rounded-[6px]
+                    ml:text-[10px]
+                    md:text-[10px]
+                    ms:text-[10px]
+                    mm:text-[10px]
+                    sm:text-[10px] 
+                    hover:text-white  
+                    focus:text-white
+                    active:text-white              
+                    rounded-[6px]
                     flex items-center justify-center
                     focus:outline-offset-2 focus-visible:ring-2">
             ${t('services_block1_cta')}
@@ -192,19 +199,24 @@ const desktopTemplate = (lang: string) => {
                         4k:h-[55px] h-xl:h-[55px]
                         4k:-mt-9 xl-h-lg:-mt-9 lg:mt-5" />
 
-          <button type="submit"
-                  class="bg-[#006E49] hover:bg-[#00a16b]
-                         flex items-center justify-center
-                         h-[28px] p-2 rounded-[8px]
-                         md:h-[45px] md:px-4 lg:h-[45px] lg:px-4
-                         4k:h-[55px] h-xl:h-[55px] 4k:-mt-9 xl-h-lg:-mt-9 lg:mt-5
-                         transition-colors duration-200 focus:outline-offset-2 focus-visible:ring-2"
-                  aria-label="${t('hero_email_submit')}">
-            <img src="/assets/icon-send.svg"
-                 class="w-4 h-4 brightness-0 invert"
-                 alt=""
-                 aria-hidden="true" />
-          </button>
+          <button
+          type="submit"
+          class="bg-[#006E49] hover:bg-[#00a16b]
+                 flex items-center justify-center
+                 h-[28px] p-2 rounded-[8px]
+                 md:h-[45px] md:px-4 lg:h-[45px] lg:px-4
+                 4k:h-[55px] h-xl:h-[55px] 4k:-mt-9 xl-h-lg:-mt-9 lg:mt-5
+                 transition-colors duration-200
+                 outline-none focus:outline-none
+                 focus:ring-0 focus-visible:ring-0"
+          aria-label="${t('hero_email_submit')}"
+        >
+          <img src="/assets/icon-send.svg"
+               class="w-4 h-4 brightness-0 invert"
+               alt=""
+               aria-hidden="true" />
+        </button>
+
         </form>
       </div>
     </div>

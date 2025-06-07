@@ -140,7 +140,8 @@ export function Service() {
   <a data-book-meeting
      href="#bookMeeting"
      class="mt-6 mx-auto w-[140px] h-[35px] bg-[#006E49] hover:bg-[#00a16b]
-            text-white font-bold text-[12px] uppercase rounded-[6px]
+            text-white font-bold text-[10px] uppercase rounded-[6px] hover:text-white   focus:text-white   
+           active:text-white  
             flex items-center justify-center
             focus:outline-offset-2 focus-visible:ring-2">
     ${t('services_block1_cta')}
@@ -251,7 +252,8 @@ export function Service() {
        href="#bookMeeting"
        class="mt-6 w-[180px] h-[40px] bg-[#006E49] hover:bg-[#00a16b]
               text-white font-bold uppercase rounded-[8px] flex items-center
-              justify-center text-[10px] focus:outline-offset-2 focus-visible:ring-2"
+              justify-center text-[10px] focus:outline-offset-2 text-white hover:text-white focus:text-white   
+              active:text-white focus-visible:ring-2"
        aria-label="${t('services_block1_cta')}">
       ${t('services_block1_cta')}
     </a>
@@ -264,53 +266,61 @@ export function Service() {
               sm:max-w-[640px] max-w-[720px]">
 
     <!-- ░░ Fila 1 ░░ -->
-    <!-- Cuadro A decorativo -->
-    <div class="ml-12 sm:ml-0 sm:self-center">
-      <div class="w-[280px] h-[220px] bg-[#006E49]/20 rounded-[25px]"
-           aria-hidden="true"></div>
-    </div>
+<!-- Video A -->
+<div class="ml-12 sm:ml-0 sm:self-center">
+  <video src="/assets/block_a_service.webm"
+         class="w-[280px] h-[220px] object-cover rounded-[25px]"
+         autoplay
+         loop
+         muted
+         playsinline>
+  </video>
+</div>
 
-    <!-- Texto A -->
-    <div class="self-center max-w-[300px] text-left">
-      <h3 class="sm:text-[20px] font-montserrat font-bold text-[18px] leading-tight">
-        ${t('services_block2_title')}
-      </h3>
-      <div class="my-2 flex justify-center">
-        <img src="/assets/marker-icon-small.webp"
-       
-             loading="lazy"
-             alt=""
-             aria-hidden="true" />
-      </div>
-      <p class="font-montserrat font-medium text-[15px] leading-relaxed">
-        ${t('services_block2_desc')}
-      </p>
-    </div>
-
-    <!-- ░░ Fila 2 ░░ -->
-    <!-- Texto B -->
-    <div class="self-center max-w-[300px] text-left justify-self-end">
-      <h3 class="sm:text-[20px] font-montserrat font-bold text-[18px] leading-tight">
-        ${t('services_block3_title')}
-      </h3>
-      <div class="my-2 flex justify-center">
-        <img src="/assets/marker-icon-small.webp"
-         
-             loading="lazy"
-             alt=""
-             aria-hidden="true" />
-      </div>
-      <p class="font-montserrat font-medium text-[15px] leading-relaxed">
-        ${t('services_block3_desc')}
-      </p>
-    </div>
-
-    <!-- Cuadro B decorativo -->
-    <div>
-      <div class="w-[280px] h-[220px] bg-[#006E49]/20 rounded-[25px]"
-           aria-hidden="true"></div>
-    </div>
+<!-- Texto A -->
+<div class="self-center max-w-[300px] text-left">
+  <h3 class="sm:text-[20px] font-montserrat font-bold text-[18px] leading-tight">
+    ${t('services_block2_title')}
+  </h3>
+  <div class="my-2 flex justify-center">
+    <img src="/assets/marker-icon-small.webp"
+         loading="lazy"
+         alt=""
+         aria-hidden="true" />
   </div>
+  <p class="font-montserrat font-medium text-[15px] leading-relaxed">
+    ${t('services_block2_desc')}
+  </p>
+</div>
+
+<!-- ░░ Fila 2 ░░ -->
+<!-- Texto B -->
+<div class="self-center max-w-[300px] text-left justify-self-end">
+  <h3 class="sm:text-[20px] font-montserrat font-bold text-[18px] leading-tight">
+    ${t('services_block3_title')}
+  </h3>
+  <div class="my-2 flex justify-center">
+    <img src="/assets/marker-icon-small.webp"
+         loading="lazy"
+         alt=""
+         aria-hidden="true" />
+  </div>
+  <p class="font-montserrat font-medium text-[15px] leading-relaxed">
+    ${t('services_block3_desc')}
+  </p>
+</div>
+
+<!-- Video B -->
+<div>
+  <video src="/assets/block_b_service.webm"
+         class="w-[280px] h-[220px] object-cover rounded-[25px]"
+         autoplay
+         loop
+         muted
+         playsinline>
+  </video>
+</div>
+</div>
 </div>
 <!-- ========== DESKTOP (≥1024 px) ========== -->
 <div class="hidden lg:block mt-12">
@@ -371,15 +381,28 @@ export function Service() {
     </p>
 
     <!-- BOTÓN -->
-    <a data-book-meeting
-       href="#bookMeeting"
-       class="mt-8 w-[225px] h-[67px] bg-[#006E49] hover:bg-[#00a16b]
-              text-white font-bold uppercase rounded-[8px] flex items-center
-              justify-center transition-colors duration-200
-              focus:outline-offset-2 focus-visible:ring-2"
-       aria-label="${t('services_block1_cta')}">
-      ${btnLabel}
-    </a>
+<a
+  data-book-meeting
+  href="#bookMeeting"
+  class="mt-8 w-[225px] h-[67px]
+         bg-[#006E49] hover:bg-[#00a16b] 
+
+         text-white
+         hover:text-white   /* force white on hover */
+         focus:text-white   /* keep white on focus */
+         active:text-white  /* keep white while pressed */
+
+         font-bold uppercase rounded-[8px]
+         flex items-center justify-center
+         transition-colors duration-200
+
+         focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00cc88] focus-visible:ring-offset-0
+  "
+  aria-label="${t('services_block1_cta')}"
+>
+  ${btnLabel}
+</a>
+
   </div>
 
   <!-- 3) BLOQUES 2 – 3 ---------------------------------------------------- -->
