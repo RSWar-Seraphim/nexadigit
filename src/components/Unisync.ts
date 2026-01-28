@@ -11,90 +11,132 @@ export function Unisync() {
   function render() {
     const lang = getLang()
 
-    el.className = 'py-20 relative overflow-hidden'
+    el.className = 'relative'
     el.innerHTML = `
-      <div class="max-w-7xl mx-auto px-6">
+      <div class="max-w-7xl mx-auto px-6 pt-24 pb-12">
 
-        <!-- Header Row -->
-        <div class="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-8 mb-16 reveal">
+        <!-- Top Section: Label + Title + Description -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 mb-16 reveal">
+          <!-- Left: Label + Big Title -->
           <div>
-            <p class="text-sm text-[#2dd4bf] uppercase tracking-widest mb-4">${lang === 'en' ? 'Our Product' : 'Nuestro Producto'}</p>
-            <h2 class="text-4xl md:text-5xl font-display text-white leading-tight">
-              UniSync<span class="text-[#2dd4bf]">.ai</span>
+            <p class="text-sm text-[#2dd4bf] uppercase tracking-widest mb-6">${lang === 'en' ? 'Our Product' : 'Nuestro Producto'}</p>
+            <h2 class="text-5xl md:text-6xl lg:text-7xl font-display text-white leading-[1.1]">
+              ${lang === 'en' ? 'Content on<br>Autopilot' : 'Contenido en<br>Autopilot'}
             </h2>
           </div>
-          <div class="lg:max-w-md lg:text-right">
-            <p class="text-gray-400 leading-relaxed mb-4">
+          <!-- Right: Description -->
+          <div class="flex items-end">
+            <p class="text-lg text-gray-400 leading-relaxed max-w-md">
               ${lang === 'en'
-                ? 'AI agents that research, write, and publish content 24/7. Built by us, for us.'
-                : 'Agentes IA que investigan, escriben y publican contenido 24/7. Creado por nosotros, para nosotros.'}
+                ? 'We built UniSync.ai to automate our own content empire. AI agents that research, write, and publish 24/7 across all platforms.'
+                : 'Creamos UniSync.ai para automatizar nuestro propio imperio de contenido. Agentes IA que investigan, escriben y publican 24/7 en todas las plataformas.'}
             </p>
-            <a href="https://unisync.ai" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-[#2dd4bf] hover:underline text-sm font-medium">
-              ${lang === 'en' ? 'Visit UniSync.ai' : 'Visitar UniSync.ai'}
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-              </svg>
-            </a>
           </div>
         </div>
 
-        <!-- 3 Feature Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal reveal-delay-1">
+        <!-- Big Visual: Dashboard Screenshot -->
+        <div class="reveal reveal-delay-1 mb-20">
+          <div class="relative rounded-2xl overflow-hidden bg-gradient-to-br from-[#0d1512] to-[#0a0f0d] border border-white/10">
+            <!-- Subtle glow -->
+            <div class="absolute inset-0 bg-gradient-to-br from-[#14b8a6]/10 via-transparent to-purple-500/5"></div>
 
-          <!-- Card 1: Autonomous Agents -->
-          <div class="bg-white/[0.02] border border-white/5 rounded-2xl p-6 hover:bg-white/[0.04] transition-colors group">
-            <div class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center mb-6 group-hover:border-white/20 transition-colors">
-              <svg class="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-              </svg>
-            </div>
-            <h4 class="text-white font-medium mb-3">${lang === 'en' ? 'Autonomous AI Agents' : 'Agentes IA Autónomos'}</h4>
-            <p class="text-sm text-gray-500 leading-relaxed mb-6">
-              ${lang === 'en'
-                ? 'Configurable agents that research, write, and publish content without human intervention. Multiple AI providers: OpenAI, Claude, Gemini.'
-                : 'Agentes configurables que investigan, escriben y publican contenido sin intervención humana. Múltiples proveedores IA: OpenAI, Claude, Gemini.'}
-            </p>
-            <div class="pt-4 border-t border-white/5">
-              <span class="text-xs text-gray-600">↗</span>
+            <div class="relative p-8 md:p-12">
+              <!-- Dashboard Header -->
+              <div class="flex items-center justify-between mb-8">
+                <div class="flex items-center gap-4">
+                  <div class="text-2xl font-display text-white">UniSync<span class="text-[#2dd4bf]">.ai</span></div>
+                  <div class="px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20">
+                    <span class="text-xs text-green-400 font-medium">${lang === 'en' ? 'LIVE' : 'EN VIVO'}</span>
+                  </div>
+                </div>
+                <div class="text-sm text-gray-500 font-mono">${lang === 'en' ? 'Dashboard' : 'Panel'}</div>
+              </div>
+
+              <!-- Stats Grid -->
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-8">
+                <div class="bg-white/[0.03] rounded-xl p-5 border border-white/5">
+                  <div class="text-sm text-gray-500 mb-2">${lang === 'en' ? 'Active Agents' : 'Agentes Activos'}</div>
+                  <div class="text-4xl text-white font-display">24</div>
+                </div>
+                <div class="bg-white/[0.03] rounded-xl p-5 border border-white/5">
+                  <div class="text-sm text-gray-500 mb-2">${lang === 'en' ? 'Articles Published' : 'Artículos Publicados'}</div>
+                  <div class="text-4xl text-white font-display">12.4K</div>
+                </div>
+                <div class="bg-white/[0.03] rounded-xl p-5 border border-white/5">
+                  <div class="text-sm text-gray-500 mb-2">${lang === 'en' ? 'Videos Created' : 'Videos Creados'}</div>
+                  <div class="text-4xl text-white font-display">847</div>
+                </div>
+                <div class="bg-[#14b8a6]/5 rounded-xl p-5 border border-[#14b8a6]/10">
+                  <div class="text-sm text-gray-500 mb-2">${lang === 'en' ? 'Monthly Cost' : 'Costo Mensual'}</div>
+                  <div class="text-4xl text-[#2dd4bf] font-display">$127</div>
+                </div>
+              </div>
+
+              <!-- Platforms Bar -->
+              <div class="flex flex-wrap items-center gap-3">
+                <span class="text-sm text-gray-500">${lang === 'en' ? 'Publishing to:' : 'Publicando en:'}</span>
+                <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5">
+                  <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2z"/></svg>
+                  <span class="text-sm text-gray-400">WordPress</span>
+                </div>
+                <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5">
+                  <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/></svg>
+                  <span class="text-sm text-gray-400">YouTube</span>
+                </div>
+                <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5">
+                  <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231z"/></svg>
+                  <span class="text-sm text-gray-400">X</span>
+                </div>
+                <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5">
+                  <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+                  <span class="text-sm text-gray-400">TikTok</span>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
 
-          <!-- Card 2: Multi-Platform -->
-          <div class="bg-white/[0.02] border border-white/5 rounded-2xl p-6 hover:bg-white/[0.04] transition-colors group">
-            <div class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center mb-6 group-hover:border-white/20 transition-colors">
-              <svg class="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
-              </svg>
-            </div>
-            <h4 class="text-white font-medium mb-3">${lang === 'en' ? 'Multi-Platform Publishing' : 'Publicación Multi-Plataforma'}</h4>
-            <p class="text-sm text-gray-500 leading-relaxed mb-6">
+        <!-- Bottom: 4 Feature Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 reveal reveal-delay-2">
+          <div>
+            <h4 class="text-white font-medium mb-3">${lang === 'en' ? 'Autonomous Agents' : 'Agentes Autónomos'}</h4>
+            <p class="text-sm text-gray-500 leading-relaxed mb-4">
               ${lang === 'en'
-                ? 'WordPress, YouTube, X, TikTok—one dashboard to manage all your channels. Schedule, publish, and track performance everywhere.'
-                : 'WordPress, YouTube, X, TikTok—un dashboard para todos tus canales. Programa, publica y monitorea rendimiento en todas partes.'}
+                ? 'AI agents that work around the clock. OpenAI, Claude, Gemini—use the best model for each task.'
+                : 'Agentes IA que trabajan las 24 horas. OpenAI, Claude, Gemini—usa el mejor modelo para cada tarea.'}
             </p>
-            <div class="pt-4 border-t border-white/5">
-              <span class="text-xs text-gray-600">↗</span>
-            </div>
+            <a href="https://unisync.ai" target="_blank" class="text-sm text-gray-400 hover:text-[#2dd4bf] transition-colors">${lang === 'en' ? 'Learn More' : 'Saber Más'} →</a>
           </div>
 
-          <!-- Card 3: Results (Highlighted) -->
-          <div class="bg-[#14b8a6]/5 border border-[#14b8a6]/10 rounded-2xl p-6 group">
-            <div class="w-12 h-12 rounded-full bg-[#14b8a6]/10 border border-[#14b8a6]/20 flex items-center justify-center mb-6">
-              <svg class="w-5 h-5 text-[#2dd4bf]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-              </svg>
-            </div>
-            <h4 class="text-white font-medium mb-3">${lang === 'en' ? 'Full Control & Analytics' : 'Control Total y Analytics'}</h4>
-            <p class="text-sm text-gray-500 leading-relaxed mb-6">
+          <div>
+            <h4 class="text-white font-medium mb-3">${lang === 'en' ? 'Multi-Platform' : 'Multi-Plataforma'}</h4>
+            <p class="text-sm text-gray-500 leading-relaxed mb-4">
               ${lang === 'en'
-                ? 'Real-time token tracking, cost budgets, SEO metrics, and detailed logs. Production software generating real value for us daily.'
-                : 'Seguimiento de tokens en tiempo real, presupuestos, métricas SEO y logs detallados. Software en producción generando valor real para nosotros diariamente.'}
+                ? 'One dashboard for WordPress, YouTube, X, and TikTok. Schedule, publish, and track everything.'
+                : 'Un dashboard para WordPress, YouTube, X y TikTok. Programa, publica y monitorea todo.'}
             </p>
-            <div class="pt-4 border-t border-[#14b8a6]/10">
-              <span class="text-xs text-[#2dd4bf]">↗</span>
-            </div>
+            <a href="https://unisync.ai" target="_blank" class="text-sm text-gray-400 hover:text-[#2dd4bf] transition-colors">${lang === 'en' ? 'Learn More' : 'Saber Más'} →</a>
           </div>
 
+          <div>
+            <h4 class="text-white font-medium mb-3">${lang === 'en' ? 'Cost Control' : 'Control de Costos'}</h4>
+            <p class="text-sm text-gray-500 leading-relaxed mb-4">
+              ${lang === 'en'
+                ? 'Real-time token tracking, monthly budgets, and detailed cost breakdowns per agent and platform.'
+                : 'Seguimiento de tokens en tiempo real, presupuestos mensuales y desglose de costos por agente y plataforma.'}
+            </p>
+            <a href="https://unisync.ai" target="_blank" class="text-sm text-gray-400 hover:text-[#2dd4bf] transition-colors">${lang === 'en' ? 'Learn More' : 'Saber Más'} →</a>
+          </div>
+
+          <div>
+            <h4 class="text-white font-medium mb-3">${lang === 'en' ? 'Production Ready' : 'En Producción'}</h4>
+            <p class="text-sm text-gray-500 leading-relaxed mb-4">
+              ${lang === 'en'
+                ? "Not a concept. This is real software generating real value for us every single day."
+                : 'No es un concepto. Es software real generando valor real para nosotros cada día.'}
+            </p>
+            <a href="https://unisync.ai" target="_blank" class="text-sm text-gray-400 hover:text-[#2dd4bf] transition-colors">${lang === 'en' ? 'Learn More' : 'Saber Más'} →</a>
+          </div>
         </div>
 
       </div>
