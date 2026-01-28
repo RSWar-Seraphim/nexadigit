@@ -1,491 +1,338 @@
-// ──────────────────────────────────────────
-// src/components/Service.ts   (refactorizado, mobile + desktop intacto)
-// ──────────────────────────────────────────
-import { t, onLangChange } from './i18n'
+// ══════════════════════════════════════════════════════════════════════════════
+// SERVICE COMPONENT - Premium Bento Grid with Subtle Interactions
+// Modern dark design with glass cards, typewriter, tilt & glow effects
+// ══════════════════════════════════════════════════════════════════════════════
+import { onLangChange, getLang } from './i18n'
 
 export function Service() {
   const el = document.createElement('section')
-  el.id = 'services'
+  el.id = 'servicios'
 
-  // ————————————————————————————————————————
-  // Un solo helper para cualquier carrusel (id, gap, delay)
-  // ————————————————————————————————————————
-  let timers: { [key: string]: number | undefined } = {}
-
-  function initCarousel(params: {
-    trackId: string,
-    gap: number,
-    delay: number,
-    visible: number
-  }) {
-    const { trackId, gap, delay, visible } = params
-    if (timers[trackId]) clearInterval(timers[trackId])
-    const track = el.querySelector<HTMLDivElement>('#' + trackId)
-    if (!track) return
-
-    const SPEED   = 700
-    const leftCnt = Math.floor(visible / 2)
-    const firstImg = track.querySelector<HTMLImageElement>('img')
-    if (!firstImg) return
-
-    const ready = firstImg.complete
-      ? Promise.resolve()
-      : new Promise<void>(res =>
-        firstImg.addEventListener('load', () => res(), { once: true }),
-      )
-
-    ready.then(() => {
-      const W = firstImg.clientWidth
-
-      // 1️⃣ Gira DOM para que el slide central sea el primero
-      for (let i = 0; i < leftCnt; i++) track.appendChild(track.children[0])
-
-      // 2️⃣ Duplica slides: nunca faltará relleno a la derecha
-      const need = visible + leftCnt + 2 // margen de seguridad
-      const orig = Array.from(track.children)
-      let idx = 0
-      while (track.children.length < need) {
-        track.appendChild(orig[idx++ % orig.length].cloneNode(true))
-      }
-
-      // 3️⃣ Offset que centra el primer hijo
-      const OFFSET = `calc(50% - ${(W / 2) + (W + gap) * leftCnt}px)`
-
-      track.style.transition = 'none'
-      track.style.transform  = `translateX(${OFFSET})`
-      track.classList.remove('opacity-0', 'pointer-events-none', 'preload')
-
-      // 4️⃣ Autoplay sin rebote visual
-      const slide = () => {
-        const first = track.children[0] as HTMLElement
-        const STEP  = first.clientWidth + gap
-
-        track.style.transition = `transform ${SPEED}ms cubic-bezier(.4,0,.2,1)`
-        track.style.transform  = `translateX(calc(${OFFSET} - ${STEP}px))`
-
-        track.addEventListener(
-          'transitionend',
-          () => {
-            track.style.transition = 'none'
-            track.appendChild(first)              // 1.º → final
-            track.style.transform = `translateX(${OFFSET})`
-          },
-          { once: true }
-        )
-      }
-
-      timers[trackId] = window.setInterval(slide, delay)
-
-      // 5️⃣ Sigue centrado al redimensionar
-      window.addEventListener('resize', () => {
-        track.style.transition = 'none'
-        track.style.transform  = `translateX(${OFFSET})`
-      })
-    })
-  }
-
-  // ————————————————————————————————————————
-  // Render (markup intacto)
-  // ————————————————————————————————————————
-  const btnLabel = t('services_block1_cta');
   const render = () => {
-    el.className = 'w-full max-w-[956px] mx-auto px-4 text-white scroll-mt-[160px]'
-    el.innerHTML = /* html */`
+    const lang = getLang()
 
-<!-- ========== MOBILE (≤ 639 px) ========== -->
-<div class="block mt-12 sm:hidden">
-
-  <!-- ── Encabezado ─────────────────────────────────────────────── -->
-  <h2 class="text-center font-montserrat font-bold text-title leading-none">
-    ${t('services_section_title')}
-  </h2>
-  <div class="flex justify-center mt-3">
-    <img src="/assets/marker-icon-small.webp"
-         loading="lazy"
-         alt=""
-         aria-hidden="true" />
-  </div>
-
-  <!-- ── Bloque 1 : carrusel mini-fotos ─────────────────────────── -->
-  <h3 class="mt-8 font-montserrat font-bold text-[14px] text-center uppercase">
-    ${t('services_block1_title')}
-  </h3>
-
-  <!-- Carrusel -->
-  <div class="mt-4 relative overflow-hidden w-full" style="height:233px"
-       aria-label="${t('services_block1_carousel_label')}"
-       role="list">
-    <div id="carouselTrackMobile"
-         class="flex gap-4 transition-transform duration-700 ease-out">
-      ${[
-        'service-photo-one.webp','service-photo-two.webp','service-photo-three.webp',
-        'service-photo-four.webp','service-photo-five.webp','service-photo-six.webp',
-        'service-photo-seven.webp',
-      ].map(src => `
-        <img src="/assets/${src}"
-             class="w-[165px] h-[233px] object-cover rounded-[15px] flex-none"
-             loading="lazy"
-             decoding="async"
-             alt="${t('services_photo_alt')}"
-             role="listitem">`).join('')}
-    </div>
-  </div>
-
-  <!-- Descripción + CTA -->
-  <p class="font-montserrat font-medium text-[12px] leading-relaxed text-center mt-4
-            max-w-[80%] mx-auto">
-    ${t('services_block1_desc')}
-  </p>
-
-  <a data-book-meeting
-     href="#bookMeeting"
-     class="mt-6 mx-auto w-[140px] h-[35px] bg-[#006E49] hover:bg-[#00a16b]
-            text-white font-bold text-[10px] uppercase rounded-[6px] hover:text-white   focus:text-white   
-           active:text-white  
-            flex items-center justify-center
-            focus:outline-offset-2 focus-visible:ring-2">
-    ${t('services_block1_cta')}
-  </a>
-
-  <!-- ── Bloque 2 : cuadro izq. ─────────────────────────────────── -->
-  <div class="mt-9 flex justify-center">
-    <div class="relative w-[240px] h-[200px]">
-      <div class="absolute -left-1 top-0 w-[250px] h-[190px] rounded-[20px] z-[1]"
-           style="background:linear-gradient(145deg,rgba(0,110,73,.05),rgba(0,212,141,.05));"
-           aria-hidden="true"></div>
-
-      <div class="relative z-10 max-w-[240px] mx-auto flex flex-col items-start justify-center mt-7">
-        <h3 class="text-center font-montserrat font-bold text-[14px] leading-[15px] uppercase">
-          ${t('services_block2_title')}
-        </h3>
-        <img src="/assets/marker-icon-small.webp"
-             class="my-1 mx-auto"
-             loading="lazy"
-             alt=""
-             aria-hidden="true" />
-        <p class="text-center font-medium text-[12px] leading-relaxed">
-          ${t('services_block2_desc')}
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── Bloque 3 : cuadro der. ─────────────────────────────────── -->
-  <div class="flex justify-center">
-    <div class="relative w-[240px] h-[200px]">
-      <div class="absolute -right-1 top-0 w-[250px] h-[190px] rounded-[20px] z-[1]"
-           style="background:linear-gradient(145deg,rgba(0,110,73,.05),rgba(0,212,141,.05));"
-           aria-hidden="true"></div>
-
-      <div class="relative z-10 max-w-[240px] mx-auto flex flex-col items-start justify-center mt-7">
-        <h3 class="font-montserrat font-bold text-[14px] leading-[15px] uppercase">
-          ${t('services_block3_title')}
-        </h3>
-        <img src="/assets/marker-icon-small.webp"
-             class="my-1 mx-auto"
-             loading="lazy"
-             alt=""
-             aria-hidden="true" />
-        <p class="font-montserrat font-medium text-[12px] leading-relaxed">
-          ${t('services_block3_desc')}
-        </p>
-      </div>
-    </div>
-  </div>
-
-</div>
-<!-- ========== TABLET / MD (640–1023 px) ========== -->
-<div class="hidden sm:block lg:hidden mt-12">
-
-  <!-- 1) ENCABEZADO ------------------------------------------------------- -->
-  <div class="text-center">
-    <h2 class="font-montserrat font-bold text-[32px] leading-none">
-      ${t('services_section_title')}
-    </h2>
-    <div class="my-2 flex justify-center">
-      <img src="/assets/marker-icon-small.webp"
-     
-           loading="lazy"
-           alt=""
-           aria-hidden="true" />
-    </div>
-  </div>
-
-  <!-- 2) BLOQUE 1 · carrusel mini-fotos ---------------------------------- -->
-  <div class="flex flex-col items-center mt-8 w-full">
-    <h3 class="font-montserrat font-bold text-[18px] text-center">
-      ${t('services_block1_title')}
-    </h3>
-
-    <!-- Carrusel -->
-    <div class="relative w-full overflow-hidden mt-4" style="height:310px"
-         aria-label="${t('services_block1_carousel_label')}"
-         role="list">
-      <div id="carouselTrackMd"
-           class="flex gap-4 transition-transform duration-700 ease-out">
-        ${[
-          'service-photo-one.webp','service-photo-two.webp','service-photo-three.webp',
-          'service-photo-four.webp','service-photo-five.webp','service-photo-six.webp',
-          'service-photo-seven.webp',
-        ].map(src => `
-          <img src="/assets/${src}"
-               class="w-[220px] h-[310px] object-cover rounded-[20px] flex-none"
-               loading="lazy"
-               decoding="async"
-               alt="${t('services_photo_alt')}"
-               role="listitem">`).join('')}
-      </div>
-    </div>
-
-    <img src="/assets/arrow-right-about.svg"
-         class="mt-4 w-[15px] h-[15px] rotate-90"
-         loading="lazy"
-         alt=""
-         aria-hidden="true" />
-
-    <p class="font-montserrat font-medium text-[12px] leading-relaxed text-center mt-4
-              max-w-[90%] md:max-w-[48%] sm:max-w-[60%]">
-      ${t('services_block1_desc')}
-    </p>
-
-    <a data-book-meeting
-       href="#bookMeeting"
-       class="mt-6 w-[180px] h-[40px] bg-[#006E49] hover:bg-[#00a16b]
-              text-white font-bold uppercase rounded-[8px] flex items-center
-              justify-center text-[10px] focus:outline-offset-2 text-white hover:text-white focus:text-white   
-              active:text-white focus-visible:ring-2"
-       aria-label="${t('services_block1_cta')}">
-      ${t('services_block1_cta')}
-    </a>
-  </div>
-
-  <!-- 3) BLOQUES 2 – 3 (50 % tamaño) ------------------------------------- -->
-  <div class="mx-auto mt-16 grid
-              grid-cols-2 grid-rows-2
-              gap-x-6 gap-y-14
-              sm:max-w-[640px] max-w-[720px]">
-
-    <!-- ░░ Fila 1 ░░ -->
-<!-- Video A -->
-<div class="ml-12 sm:ml-0 sm:self-center">
-  <video src="/assets/block_a_service.webm"
-         class="w-[280px] h-[220px] object-cover rounded-[25px]"
-         autoplay
-         loop
-         muted
-         playsinline>
-  </video>
-</div>
-
-<!-- Texto A -->
-<div class="self-center max-w-[300px] text-left">
-  <h3 class="sm:text-[20px] font-montserrat font-bold text-[18px] leading-tight">
-    ${t('services_block2_title')}
-  </h3>
-  <div class="my-2 flex justify-center">
-    <img src="/assets/marker-icon-small.webp"
-         loading="lazy"
-         alt=""
-         aria-hidden="true" />
-  </div>
-  <p class="font-montserrat font-medium text-[15px] leading-relaxed">
-    ${t('services_block2_desc')}
-  </p>
-</div>
-
-<!-- ░░ Fila 2 ░░ -->
-<!-- Texto B -->
-<div class="self-center max-w-[300px] text-left justify-self-end">
-  <h3 class="sm:text-[20px] font-montserrat font-bold text-[18px] leading-tight">
-    ${t('services_block3_title')}
-  </h3>
-  <div class="my-2 flex justify-center">
-    <img src="/assets/marker-icon-small.webp"
-         loading="lazy"
-         alt=""
-         aria-hidden="true" />
-  </div>
-  <p class="font-montserrat font-medium text-[15px] leading-relaxed">
-    ${t('services_block3_desc')}
-  </p>
-</div>
-
-<!-- Video B -->
-<div>
-  <video src="/assets/block_b_service.webm"
-         class="w-[280px] h-[220px] object-cover rounded-[25px]"
-         autoplay
-         loop
-         muted
-         playsinline>
-  </video>
-</div>
-</div>
-</div>
-<!-- ========== DESKTOP (≥1024 px) ========== -->
-<div class="hidden lg:block mt-12">
-
-  <!-- 1) ENCABEZADO ------------------------------------------------------- -->
-  <div class="text-center">
-    <h2 class="font-montserrat font-bold text-title leading-none">
-      ${t('services_section_title')}
-    </h2>
-    <div class="my-3 flex justify-center">
-      <img
-        src="/assets/marker-icon-small.webp"
-   
-        loading="lazy"
-        alt=""
-        aria-hidden="true" />
-    </div>
-  </div>
-
-  <!-- 2) BLOQUE 1 · carrusel grande -------------------------------------- -->
-  <div class="flex flex-col items-center mt-10 w-full">
-    <h3 class="font-montserrat font-bold text-[25px] text-center">
-      ${t('services_block1_title')}
-    </h3>
-
-    <!-- Carrusel -->
-    <div id="carouselWrapper"
-         class="h-[420px] relative w-full lg:w-full xl:w-[120%] mx-0
-                xl:-mx-[20%] 2xl:-mx-[30%] 4k:h-[540px] 4k:w-[125%]
-                overflow-hidden mt-6"
-         aria-label="${t('services_block1_carousel_label')}"
-         role="list">
-      <div id="carouselTrack"
-           class="flex gap-7 transition-transform duration-1000 ease-[cubic-bezier(.4,0,.2,1)]">
-        ${[
-          'service-photo-one.webp','service-photo-two.webp','service-photo-three.webp',
-          'service-photo-four.webp','service-photo-five.webp','service-photo-six.webp',
-          'service-photo-seven.webp',
-        ].map(src => `
-          <img src="/assets/${src}"
-               class="carousel-img object-cover rounded-[45px] opacity-50 flex-none
-                      w-[280px] h-[420px] 4k:w-[360px] 4k:h-[540px]"
-               loading="lazy"
-               decoding="async"
-               alt="${t('services_photo_alt')}"
-               role="listitem">`).join('')}
-      </div>
-    </div>
-
-    <img src="/assets/arrow-right-about.svg"
-         class="mt-4 w-[25px] h-[25px] rotate-90"
-         loading="lazy"
-         alt=""
-         aria-hidden="true" />
-
-    <p class="font-montserrat font-medium text-body leading-relaxed text-center mt-4 max-w-[618px]">
-      ${t('services_block1_desc')}
-    </p>
-
-    <!-- BOTÓN -->
-<a
-  data-book-meeting
-  href="#bookMeeting"
-  class="mt-8 w-[225px] h-[67px]
-         bg-[#006E49] hover:bg-[#00a16b] 
-
-         text-white
-         hover:text-white   /* force white on hover */
-         focus:text-white   /* keep white on focus */
-         active:text-white  /* keep white while pressed */
-
-         font-bold uppercase rounded-[8px]
-         flex items-center justify-center
-         transition-colors duration-200
-
-         focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00cc88] focus-visible:ring-offset-0
-  "
-  aria-label="${t('services_block1_cta')}"
->
-  ${btnLabel}
-</a>
-
-  </div>
-
-  <!-- 3) BLOQUES 2 – 3 ---------------------------------------------------- -->
-  <div class="mx-auto mt-20 grid grid-rows-2
-              grid-cols-[415px_minmax(0,1fr)]
-              gap-y-16 gap-x-10 max-w-[900px]">
-
-    <!-- BLOQUE A ---------------------------------------------------------- -->
-    <div class="row-start-1 col-start-1 flex justify-center">
-      <div class="w-[415px] h-[415px] rounded-[35px] overflow-hidden
-                  flex items-center justify-center relative">
-        <video src="/assets/block_a_service.webm"
-               class="w-full h-full object-cover"
-               autoplay loop muted playsinline
-               aria-label="${t('services_block_a_video_label')}">
-        </video>
-        <div class="absolute inset-0 bg-black/50 pointer-events-none
-                    rounded-[35px]" aria-hidden="true"></div>
-      </div>
-    </div>
-
-    <div class="row-start-1 col-start-2 flex items-center">
-      <div class="w-[415px] min-h-[415px] text-left flex flex-col justify-center">
-        <h3 class="font-montserrat font-bold text-[25px] leading-tight">
-          ${t('services_block2_title')}
-        </h3>
-        <div class="my-3 flex justify-center">
-          <img src="/assets/marker-icon-small.webp"
-     
-               loading="lazy"
-               alt=""
-               aria-hidden="true" />
+    el.className = 'py-24 max-w-7xl mx-auto px-6'
+    el.innerHTML = `
+      <!-- Section Header -->
+      <div class="text-center mb-16 reveal">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6">
+          <span class="w-2 h-2 bg-[#14b8a6] rounded-full"></span>
+          <span class="text-xs text-gray-400 uppercase tracking-wider">${lang === 'en' ? 'Solutions' : 'Soluciones'}</span>
         </div>
-        <p class="font-montserrat font-medium text-[15px] leading-relaxed">
-          ${t('services_block2_desc')}
-        </p>
+        <h2 class="text-title">
+          ${lang === 'en' ? 'Everything you need to' : 'Todo lo que necesitas para'} <span class="text-gradient-primary">${lang === 'en' ? 'scale' : 'escalar'}</span>
+        </h2>
       </div>
-    </div>
 
-    <!-- BLOQUE B ---------------------------------------------------------- -->
-    <div class="row-start-2 col-start-1 flex items-center">
-      <div class="w-[415px] min-h-[415px] text-left flex flex-col justify-center">
-        <h3 class="font-montserrat font-bold text-[25px] leading-tight">
-          ${t('services_block3_title')}
-        </h3>
-        <div class="my-3 flex justify-center">
-          <img src="/assets/marker-icon-small.webp"
-      
-               loading="lazy"
-               alt=""
-               aria-hidden="true" />
+      <!-- Bento Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- Main Card (Large) -->
+        <div class="md:col-span-2 reveal reveal-delay-1">
+          <div class="glass-card group h-full p-8 relative overflow-hidden service-card-tilt" data-tilt>
+            <!-- Mouse glow -->
+            <div class="card-glow"></div>
+            <!-- Hover gradient -->
+            <div class="absolute inset-0 bg-gradient-to-br from-[#14b8a6]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+
+            <div class="relative z-10">
+              <h3 class="text-headline mb-4">${lang === 'en' ? 'Custom Software Development' : 'Desarrollo de Software a Medida'}</h3>
+              <p class="text-body mb-8 max-w-lg">
+                ${lang === 'en'
+                  ? 'We design and develop scalable applications tailored to your exact needs. From MVPs to enterprise-grade solutions.'
+                  : 'Diseñamos y desarrollamos aplicaciones escalables adaptadas a tus necesidades exactas. Desde MVPs hasta soluciones empresariales.'}
+              </p>
+
+              <!-- Code Preview with Typewriter -->
+              <div class="terminal">
+                <div class="terminal-header">
+                  <div class="terminal-dots">
+                    <div class="terminal-dot red"></div>
+                    <div class="terminal-dot yellow"></div>
+                    <div class="terminal-dot green"></div>
+                  </div>
+                  <span class="text-xs text-gray-500 font-mono">nexadigit.config.ts</span>
+                </div>
+                <div class="terminal-body text-sm min-h-[140px]" id="typewriter-terminal">
+                  <div class="typewriter-line" data-delay="0"><span class="text-gray-500">// ${lang === 'en' ? 'Your perfect setup' : 'Tu configuración perfecta'}</span></div>
+                  <div class="typewriter-line" data-delay="400"><span class="text-purple-400">export</span><span class="text-blue-400 ml-1">const</span><span class="text-white ml-1">config</span><span class="text-gray-500 ml-1">=</span><span class="text-yellow-400 ml-1">{</span></div>
+                  <div class="typewriter-line" data-delay="800"><span class="pl-4 text-gray-300"><span class="text-[#2dd4bf]">stack</span>: <span class="text-green-400">'modern'</span>,</span></div>
+                  <div class="typewriter-line" data-delay="1200"><span class="pl-4 text-gray-300"><span class="text-[#2dd4bf]">scale</span>: <span class="text-purple-400">Infinity</span>,</span></div>
+                  <div class="typewriter-line" data-delay="1600"><span class="pl-4 text-gray-300"><span class="text-[#2dd4bf]">ai</span>: <span class="text-orange-400">true</span></span></div>
+                  <div class="typewriter-line" data-delay="2000"><span class="text-yellow-400">}</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <p class="font-montserrat font-medium text-[15px] leading-relaxed">
-          ${t('services_block3_desc')}
-        </p>
+
+        <!-- AI Card (Tall) -->
+        <div class="md:row-span-2 reveal reveal-delay-2">
+          <div class="glass-card group h-full p-8 relative overflow-hidden service-card-tilt" data-tilt>
+            <!-- Mouse glow -->
+            <div class="card-glow purple"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+
+            <div class="relative z-10 h-full flex flex-col">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center mb-6 border border-purple-500/20">
+                <svg class="w-6 h-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+              </div>
+
+              <h3 class="text-headline mb-4">${lang === 'en' ? 'AI Integration' : 'Integración IA'}</h3>
+              <p class="text-body mb-8">
+                ${lang === 'en'
+                  ? 'Custom AI agents that automate repetitive tasks and enhance decision-making in your business.'
+                  : 'Agentes de IA personalizados que automatizan tareas repetitivas y mejoran la toma de decisiones en tu negocio.'}
+              </p>
+
+              <!-- Animated Chart with grow effect -->
+              <div class="mt-auto chart-container" data-chart>
+                <div class="flex items-end justify-between gap-2 h-32">
+                  <div class="chart-bar flex-1 bg-gradient-to-t from-purple-500/30 to-transparent rounded-t" data-height="40"></div>
+                  <div class="chart-bar flex-1 bg-gradient-to-t from-purple-500/30 to-transparent rounded-t" data-height="60"></div>
+                  <div class="chart-bar flex-1 bg-gradient-to-t from-purple-500/30 to-transparent rounded-t" data-height="45"></div>
+                  <div class="chart-bar flex-1 bg-gradient-to-t from-purple-500/30 to-transparent rounded-t" data-height="80"></div>
+                  <div class="chart-bar flex-1 bg-gradient-to-t from-purple-500/50 to-transparent rounded-t border-t-2 border-purple-400" data-height="95"></div>
+                </div>
+                <div class="flex justify-between text-[10px] text-gray-500 mt-2">
+                  <span>Jan</span>
+                  <span>Feb</span>
+                  <span>Mar</span>
+                  <span>Apr</span>
+                  <span class="text-purple-400">Now</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Small Card 1 - Cloud -->
+        <div class="reveal reveal-delay-3">
+          <div class="glass-card group p-6 relative overflow-hidden h-full service-card-tilt" data-tilt>
+            <!-- Mouse glow -->
+            <div class="card-glow blue"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+
+            <div class="relative z-10 flex justify-between items-start">
+              <div>
+                <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center mb-4 border border-blue-500/20">
+                  <svg class="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/>
+                  </svg>
+                </div>
+                <h3 class="text-white font-medium mb-2">${lang === 'en' ? 'Cloud Infrastructure' : 'Infraestructura Cloud'}</h3>
+                <p class="text-sm text-gray-400">${lang === 'en' ? 'AWS, Azure, GCP deployment' : 'Despliegue AWS, Azure, GCP'}</p>
+              </div>
+              <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Small Card 2 - Security -->
+        <div class="reveal reveal-delay-4">
+          <div class="glass-card group p-6 relative overflow-hidden h-full service-card-tilt" data-tilt>
+            <!-- Mouse glow -->
+            <div class="card-glow green"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+
+            <div class="relative z-10 flex justify-between items-start">
+              <div>
+                <div class="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center mb-4 border border-green-500/20">
+                  <svg class="w-5 h-5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                  </svg>
+                </div>
+                <h3 class="text-white font-medium mb-2">${lang === 'en' ? 'Security First' : 'Seguridad Primero'}</h3>
+                <p class="text-sm text-gray-400">${lang === 'en' ? 'Enterprise-grade protection' : 'Protección nivel empresarial'}</p>
+              </div>
+              <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
-    </div>
+    `
 
-    <div class="row-start-2 col-start-2 flex justify-center">
-      <div class="w-[415px] h-[415px] rounded-[35px] overflow-hidden
-                  flex items-center justify-center relative">
-        <video src="/assets/block_b_service.webm"
-               class="w-full h-full object-cover"
-               autoplay loop muted playsinline
-               aria-label="${t('services_block_b_video_label')}">
-        </video>
-        <div class="absolute inset-0 bg-black/50 pointer-events-none
-                    rounded-[35px]" aria-hidden="true"></div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-`
-    // Carruseles según el breakpoint
-    initCarousel({ trackId: "carouselTrack", gap: 28, delay: 5000, visible: 5 })      // desktop
-    initCarousel({ trackId: "carouselTrackMobile", gap: 16, delay: 5000, visible: 5 }) // mobile
-    initCarousel({ trackId: "carouselTrackMd", gap: 16, delay: 5000, visible: 5 })     // tablet/md
+    initReveal(el)
+    initTiltEffect(el)
+    initMouseGlow(el)
+    initTypewriter(el)
+    initChartAnimation(el)
   }
+
   render()
-
   onLangChange(render)
-
   return el
+}
+
+function initReveal(container: HTMLElement) {
+  const reveals = container.querySelectorAll('.reveal')
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active')
+          observer.unobserve(entry.target)
+        }
+      })
+    },
+    { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+  )
+
+  reveals.forEach((el) => observer.observe(el))
+}
+
+// Subtle 3D tilt effect on hover
+function initTiltEffect(container: HTMLElement) {
+  const cards = container.querySelectorAll('[data-tilt]')
+
+  cards.forEach((card) => {
+    const el = card as HTMLElement
+
+    el.addEventListener('mousemove', (e: MouseEvent) => {
+      const rect = el.getBoundingClientRect()
+      const x = e.clientX - rect.left
+      const y = e.clientY - rect.top
+      const centerX = rect.width / 2
+      const centerY = rect.height / 2
+
+      // Subtle rotation (max 3 degrees)
+      const rotateX = ((y - centerY) / centerY) * -3
+      const rotateY = ((x - centerX) / centerX) * 3
+
+      el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`
+    })
+
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)'
+    })
+  })
+}
+
+// Mouse-following glow effect
+function initMouseGlow(container: HTMLElement) {
+  const cards = container.querySelectorAll('[data-tilt]')
+
+  cards.forEach((card) => {
+    const el = card as HTMLElement
+    const glow = el.querySelector('.card-glow') as HTMLElement
+
+    if (!glow) return
+
+    el.addEventListener('mousemove', (e: MouseEvent) => {
+      const rect = el.getBoundingClientRect()
+      const x = e.clientX - rect.left
+      const y = e.clientY - rect.top
+
+      glow.style.opacity = '1'
+      glow.style.left = `${x}px`
+      glow.style.top = `${y}px`
+    })
+
+    el.addEventListener('mouseleave', () => {
+      glow.style.opacity = '0'
+    })
+  })
+}
+
+// Typewriter effect for terminal - types once when scrolled into view
+function initTypewriter(container: HTMLElement) {
+  const terminal = container.querySelector('#typewriter-terminal') as HTMLElement
+  if (!terminal) return
+
+  const lines = terminal.querySelectorAll('.typewriter-line')
+  const originalContents: string[] = []
+
+  // Store original HTML content and clear
+  lines.forEach((line) => {
+    originalContents.push(line.innerHTML)
+    ;(line as HTMLElement).innerHTML = ''
+    ;(line as HTMLElement).style.minHeight = '1.5em' // Prevent collapse
+  })
+
+  let hasStarted = false
+
+  async function typeText(element: HTMLElement, html: string) {
+    const tempDiv = document.createElement('div')
+    tempDiv.innerHTML = html
+
+    element.innerHTML = ''
+
+    async function typeNode(node: Node, target: HTMLElement) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const text = node.textContent || ''
+        for (const char of text) {
+          target.insertAdjacentText('beforeend', char)
+          await new Promise(r => setTimeout(r, 25))
+        }
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        const el = node as HTMLElement
+        const clone = document.createElement(el.tagName)
+        for (const attr of Array.from(el.attributes)) {
+          clone.setAttribute(attr.name, attr.value)
+        }
+        target.appendChild(clone)
+
+        for (const child of Array.from(el.childNodes)) {
+          await typeNode(child, clone)
+        }
+      }
+    }
+
+    for (const child of Array.from(tempDiv.childNodes)) {
+      await typeNode(child, element)
+    }
+  }
+
+  async function runTypewriter() {
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i] as HTMLElement
+      await typeText(line, originalContents[i])
+      await new Promise(r => setTimeout(r, 80))
+    }
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !hasStarted) {
+          hasStarted = true
+          runTypewriter()
+          observer.unobserve(entry.target)
+        }
+      })
+    },
+    { threshold: 0.5 }
+  )
+
+  observer.observe(terminal)
+}
+
+// Chart bars - just pulse animation, no grow
+function initChartAnimation(container: HTMLElement) {
+  const chartContainer = container.querySelector('[data-chart]')
+  if (!chartContainer) return
+
+  const bars = chartContainer.querySelectorAll('.chart-bar')
+
+  // Set heights directly and add pulse
+  const durations = [2, 2.5, 3, 2.2, 1.8]
+
+  bars.forEach((bar, index) => {
+    const el = bar as HTMLElement
+    const targetHeight = el.dataset.height || '50'
+    el.style.height = `${targetHeight}%`
+    el.style.animation = `pulse ${durations[index]}s ease-in-out infinite`
+  })
 }

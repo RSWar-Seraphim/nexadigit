@@ -56,6 +56,17 @@ module.exports = {
       },
 
       // ────────────────────────────────────────────────
+      // Neumorphism Shadows
+      // ────────────────────────────────────────────────
+      boxShadow: {
+        'neu-raised': '8px 8px 16px rgba(0,0,0,0.5), -8px -8px 16px rgba(0,110,73,0.15)',
+        'neu-raised-hover': '12px 12px 24px rgba(0,0,0,0.5), -12px -12px 24px rgba(0,110,73,0.15)',
+        'neu-inset': 'inset 4px 4px 8px rgba(0,0,0,0.5), inset -4px -4px 8px rgba(0,110,73,0.15)',
+        'neu-btn': '6px 6px 12px rgba(0,0,0,0.4), -6px -6px 12px rgba(0,212,141,0.1)',
+        'neu-btn-hover': '8px 8px 16px rgba(0,0,0,0.5), -8px -8px 16px rgba(0,212,141,0.15)',
+      },
+
+      // ────────────────────────────────────────────────
       // Animations
       // ────────────────────────────────────────────────
       keyframes: {
@@ -64,9 +75,34 @@ module.exports = {
           '25%': { transform: 'scale(1.25)', opacity: '1' },
           '40%': { transform: 'scale(1)', opacity: '.8' },
         },
+        revealUp: {
+          '0%': { opacity: '0', transform: 'translateY(60px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        revealLeft: {
+          '0%': { opacity: '0', transform: 'translateX(-60px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        revealRight: {
+          '0%': { opacity: '0', transform: 'translateX(60px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        revealScale: {
+          '0%': { opacity: '0', transform: 'scale(0.9)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+        parallaxFloat: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
       },
       animation: {
         heartbeat: 'heartbeat 1s ease-in-out infinite',
+        'reveal-up': 'revealUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        'reveal-left': 'revealLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        'reveal-right': 'revealRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        'reveal-scale': 'revealScale 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        'parallax-float': 'parallaxFloat 6s ease-in-out infinite',
       },
     },
   },

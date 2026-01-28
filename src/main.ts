@@ -12,6 +12,7 @@ import { Contact }  from './components/Contact';
 import { showLegalModal } from './components/PrivacyModal';
 import { autoDetectLang } from './components/i18n/autoDetectLang';
 import { setLang } from './components/i18n';
+import { initParallax, initScrollReveal } from './utils/parallax';
 
 /* -------------------------------------------------------------------------- */
 /* 1. Render principal                                                         */
@@ -45,6 +46,13 @@ function renderApp() {
 document.addEventListener('DOMContentLoaded', async () => {
   setLang(await autoDetectLang());
   renderApp();
+
+  /* Initialize parallax and scroll reveal after first paint */
+  requestAnimationFrame(() => {
+    initParallax();
+    initScrollReveal();
+  });
+
   /* 👇 Deja este JS para después de la pintura inicial */
   if ('requestIdleCallback' in window) {
     requestIdleCallback(() => import('./scroll'));
