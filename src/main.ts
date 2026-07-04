@@ -12,7 +12,6 @@ import { Contact }  from './components/Contact';
 import { showLegalModal } from './components/PrivacyModal';
 import { autoDetectLang } from './components/i18n/autoDetectLang';
 import { setLang } from './components/i18n';
-import { initParallax, initScrollReveal } from './utils/parallax';
 
 /* -------------------------------------------------------------------------- */
 /* 1. Render principal                                                         */
@@ -20,10 +19,6 @@ import { initParallax, initScrollReveal } from './utils/parallax';
 function renderApp() {
   const app = document.querySelector<HTMLDivElement>('#app');
   if (!app) return;
-
-  // Encuentra el contenedor LCP que ya existe en el HTML
-  const heroSection = app.querySelector<HTMLElement>('#home');
-  if (!heroSection) return;
 
   const main = document.createElement('main');
   main.className = 'text-white';
@@ -46,12 +41,6 @@ function renderApp() {
 document.addEventListener('DOMContentLoaded', async () => {
   setLang(await autoDetectLang());
   renderApp();
-
-  /* Initialize parallax and scroll reveal after first paint */
-  requestAnimationFrame(() => {
-    initParallax();
-    initScrollReveal();
-  });
 
   /* 👇 Deja este JS para después de la pintura inicial */
   if ('requestIdleCallback' in window) {
