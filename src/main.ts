@@ -79,6 +79,16 @@ document.addEventListener('click', e => {
       openCalendly();
     } else if (!calendlyScriptLoading) {
       calendlyScriptLoading = true;
+
+      /* CSS del widget: también diferido hasta el primer click */
+      if (!document.getElementById('calendly-css')) {
+        const css = document.createElement('link');
+        css.id = 'calendly-css';
+        css.rel = 'stylesheet';
+        css.href = 'https://assets.calendly.com/assets/external/widget.css';
+        document.head.appendChild(css);
+      }
+
       const script = document.createElement('script');
       script.src = 'https://assets.calendly.com/assets/external/widget.js';
       script.onload = () => {

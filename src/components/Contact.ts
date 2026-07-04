@@ -64,15 +64,17 @@ export function Contact() {
           <h2 class="display display-title mt-4 reveal reveal-d1">${t('contact_title')}</h2>
           <p class="lede mt-6 reveal reveal-d2">${t('contact_sub')}</p>
 
-          <div class="mt-9 flex flex-wrap items-center gap-4 reveal reveal-d3">
+          <div class="mt-9 flex flex-wrap items-center gap-x-5 gap-y-3 reveal reveal-d3">
             <a href="#contact" data-book-meeting class="btn-primary">
               ${t('cta_book')}
               <svg class="btn-arrow w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
               </svg>
             </a>
-            <span class="text-slate text-sm">${t('contact_email_label')}</span>
-            <a href="mailto:${CONTACT_EMAIL}" class="link-underline font-mono text-sm">${CONTACT_EMAIL}</a>
+            <p class="flex items-center gap-2 text-sm text-slate">
+              ${t('contact_email_label')}
+              <a href="mailto:${CONTACT_EMAIL}" class="link-underline font-mono text-sm">${CONTACT_EMAIL}</a>
+            </p>
           </div>
         </div>
 
