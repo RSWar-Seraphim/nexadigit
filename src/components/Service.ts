@@ -55,8 +55,8 @@ export function Service() {
                 </div>
                 <div class="terminal-body text-sm min-h-[140px]" id="typewriter-terminal">
                   <div class="typewriter-line" data-delay="0"><span class="text-gray-500">// ${lang === 'en' ? 'Your perfect setup' : 'Tu configuración perfecta'}</span></div>
-                  <div class="typewriter-line" data-delay="400"><span class="text-purple-400">export</span><span class="text-blue-400 ml-1">const</span><span class="text-white ml-1">config</span><span class="text-gray-500 ml-1">=</span><span class="text-yellow-400 ml-1">{</span></div>
-                  <div class="typewriter-line" data-delay="800"><span class="pl-4 text-gray-300"><span class="text-[#2dd4bf]">stack</span>: <span class="text-green-400">'modern'</span>,</span></div>
+                  <div class="typewriter-line" data-delay="400"><span class="text-purple-400">export</span><span class="text-purple-300 ml-1">const</span><span class="text-white ml-1">config</span><span class="text-gray-500 ml-1">=</span><span class="text-yellow-400 ml-1">{</span></div>
+                  <div class="typewriter-line" data-delay="800"><span class="pl-4 text-gray-300"><span class="text-[#2dd4bf]">stack</span>: <span class="text-[#2dd4bf]">'modern'</span>,</span></div>
                   <div class="typewriter-line" data-delay="1200"><span class="pl-4 text-gray-300"><span class="text-[#2dd4bf]">scale</span>: <span class="text-purple-400">Infinity</span>,</span></div>
                   <div class="typewriter-line" data-delay="1600"><span class="pl-4 text-gray-300"><span class="text-[#2dd4bf]">ai</span>: <span class="text-orange-400">true</span></span></div>
                   <div class="typewriter-line" data-delay="2000"><span class="text-yellow-400">}</span></div>
@@ -112,13 +112,13 @@ export function Service() {
         <div class="reveal reveal-delay-3">
           <div class="glass-card group p-6 relative overflow-hidden h-full service-card-tilt" data-tilt>
             <!-- Mouse glow -->
-            <div class="card-glow blue"></div>
-            <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+            <div class="card-glow purple"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
 
             <div class="relative z-10 flex justify-between items-start">
               <div>
-                <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center mb-4 border border-blue-500/20">
-                  <svg class="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center mb-4 border border-purple-500/20">
+                  <svg class="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/>
                   </svg>
                 </div>
@@ -138,13 +138,13 @@ export function Service() {
         <div class="reveal reveal-delay-4">
           <div class="glass-card group p-6 relative overflow-hidden h-full service-card-tilt" data-tilt>
             <!-- Mouse glow -->
-            <div class="card-glow green"></div>
-            <div class="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+            <div class="card-glow"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-[#14b8a6]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
 
             <div class="relative z-10 flex justify-between items-start">
               <div>
-                <div class="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center mb-4 border border-green-500/20">
-                  <svg class="w-5 h-5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="w-10 h-10 rounded-lg bg-[#14b8a6]/10 flex items-center justify-center mb-4 border border-[#14b8a6]/20">
+                  <svg class="w-5 h-5 text-[#2dd4bf]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                   </svg>
                 </div>

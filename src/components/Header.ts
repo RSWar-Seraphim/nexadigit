@@ -107,23 +107,18 @@ export function Header() {
     headerEl.innerHTML = `
       <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         <!-- Logo -->
-        <a href="#home" class="flex items-center gap-3 cursor-pointer group">
-          <div class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white group-hover:border-[#14b8a6]/50 group-hover:bg-[#14b8a6]/10 transition-all shadow-lg shadow-black/20">
-            <svg class="w-5 h-5 group-hover:text-[#2dd4bf] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-            </svg>
-          </div>
-          <div class="flex flex-col">
-            <span class="font-display font-medium text-white tracking-tight leading-none">NexaDigit</span>
-            <span class="text-[10px] text-gray-500 tracking-wide font-medium group-hover:text-gray-400 transition-colors">EST. 2024</span>
-          </div>
+        <a href="#home" class="flex items-center cursor-pointer group">
+          <svg class="h-7 w-auto text-white group-hover:text-[#2dd4bf] transition-colors" viewBox="0 0 204 256" fill="currentColor">
+            <path fill-rule="evenodd" d="M183.24,41.29c-11.4,0-21.81-9.24-21.81-20.65S171.84,0,183.24,0s20.64,9.24,20.64,20.64-9.24,20.65-20.64,20.65ZM163.8,136.27l-.63-89.79h40.46l.26,208.94h-40.08L55.86,95.35l-18.99-33.37,1.76,56.7.11,87.81,48.86-29.88,16.82,27.51-79.5,48.62c-7.75,4.74-17.88,2.3-22.62-5.45-1.86-3.04-2.55-6.45-2.23-9.75,0-.06,0-.12,0-1.34V.01l38.56.24,108.65,160.06,18.28,33.02-1.76-57.06Z"/>
+          </svg>
         </a>
 
         <!-- Desktop Nav Pills -->
         <div class="hidden md:flex items-center gap-1 bg-white/5 p-1.5 rounded-full border border-white/5 backdrop-blur-md">
+          <a href="#metodologia" data-link="metodologia" class="nav-link px-5 py-2 text-xs font-medium text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/5">${lang === 'en' ? 'About' : 'Nosotros'}</a>
           <a href="#servicios" data-link="servicios" class="nav-link px-5 py-2 text-xs font-medium text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/5">${lang === 'en' ? 'Solutions' : 'Soluciones'}</a>
-          <a href="#metodologia" data-link="metodologia" class="nav-link px-5 py-2 text-xs font-medium text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/5">${lang === 'en' ? 'Process' : 'Proceso'}</a>
-          <a href="#unisync" data-link="unisync" class="nav-link px-5 py-2 text-xs font-medium text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/5">UniSync AI</a>
+          <a href="#unisync" data-link="unisync" class="nav-link px-5 py-2 text-xs font-medium text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/5">UniSync</a>
+          <a href="#contact" data-link="contact" class="nav-link px-5 py-2 text-xs font-medium text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/5">${lang === 'en' ? 'Contact' : 'Contacto'}</a>
         </div>
 
         <!-- Desktop Actions -->
@@ -153,16 +148,10 @@ export function Header() {
 
     mobileMenuEl.innerHTML = `
       <div class="flex items-center justify-between h-20 px-6 border-b border-white/5">
-        <a href="#home" class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white">
-            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-            </svg>
-          </div>
-          <div class="flex flex-col">
-            <span class="font-display font-medium text-white leading-none">NexaDigit</span>
-            <span class="text-[10px] text-gray-500">EST. 2024</span>
-          </div>
+        <a href="#home" class="flex items-center">
+          <svg class="h-7 w-auto text-white" viewBox="0 0 204 256" fill="currentColor">
+            <path fill-rule="evenodd" d="M183.24,41.29c-11.4,0-21.81-9.24-21.81-20.65S171.84,0,183.24,0s20.64,9.24,20.64,20.64-9.24,20.65-20.64,20.65ZM163.8,136.27l-.63-89.79h40.46l.26,208.94h-40.08L55.86,95.35l-18.99-33.37,1.76,56.7.11,87.81,48.86-29.88,16.82,27.51-79.5,48.62c-7.75,4.74-17.88,2.3-22.62-5.45-1.86-3.04-2.55-6.45-2.23-9.75,0-.06,0-.12,0-1.34V.01l38.56.24,108.65,160.06,18.28,33.02-1.76-57.06Z"/>
+          </svg>
         </a>
         <button id="close-menu-btn" class="p-2 -mr-2 hover:bg-white/5 rounded-lg transition-colors" aria-label="${t('alt_close_menu')}">
           <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -176,14 +165,14 @@ export function Header() {
           <li data-link="home" class="mobile-nav-item">
             <span class="block py-4 text-2xl font-display font-medium hover:text-[#2dd4bf] transition-colors cursor-pointer">${t('nav_home')}</span>
           </li>
+          <li data-link="metodologia" class="mobile-nav-item">
+            <span class="block py-4 text-2xl font-display font-medium hover:text-[#2dd4bf] transition-colors cursor-pointer">${lang === 'en' ? 'About' : 'Nosotros'}</span>
+          </li>
           <li data-link="servicios" class="mobile-nav-item">
             <span class="block py-4 text-2xl font-display font-medium hover:text-[#2dd4bf] transition-colors cursor-pointer">${lang === 'en' ? 'Solutions' : 'Soluciones'}</span>
           </li>
-          <li data-link="metodologia" class="mobile-nav-item">
-            <span class="block py-4 text-2xl font-display font-medium hover:text-[#2dd4bf] transition-colors cursor-pointer">${lang === 'en' ? 'Process' : 'Proceso'}</span>
-          </li>
           <li data-link="unisync" class="mobile-nav-item">
-            <span class="block py-4 text-2xl font-display font-medium hover:text-[#2dd4bf] transition-colors cursor-pointer">UniSync AI</span>
+            <span class="block py-4 text-2xl font-display font-medium hover:text-[#2dd4bf] transition-colors cursor-pointer">UniSync</span>
           </li>
           <li data-link="contact" class="mobile-nav-item">
             <span class="block py-4 text-2xl font-display font-medium hover:text-[#2dd4bf] transition-colors cursor-pointer">${t('nav_contact')}</span>

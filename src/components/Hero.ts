@@ -46,9 +46,9 @@ export function Hero() {
       <div class="relative z-10 max-w-5xl w-full mx-auto px-6 text-center">
         <!-- Announcement Badge - Enhanced -->
         <div class="hero-badge badge mb-8 cursor-pointer group">
-          <span class="badge-label animate-pulse">${lang === 'en' ? 'New' : 'Nuevo'}</span>
+          <span class="badge-label animate-pulse">Pre-Alpha</span>
           <span class="badge-text flex items-center gap-1">
-            UniSync v2.0 ${lang === 'en' ? 'available' : 'disponible'}
+            UniSync 0.5 · ${lang === 'en' ? 'By invitation only' : 'Solo por invitación'}
             <svg class="w-3 h-3 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
@@ -76,15 +76,15 @@ export function Hero() {
         <!-- Subtitle with Fade-in Words -->
         <p class="hero-subtitle text-lg md:text-xl text-gray-400 font-light max-w-2xl mx-auto mb-12 leading-relaxed">
           ${lang === 'en'
-            ? 'We design <span class="text-white/80">scalable software ecosystems</span> powered by <span class="text-[#2dd4bf]">artificial intelligence</span>. We transform complex code into simple experiences.'
-            : 'Diseñamos <span class="text-white/80">ecosistemas de software escalables</span> impulsados por <span class="text-[#2dd4bf]">inteligencia artificial</span>. Transformamos código complejo en experiencias simples.'}
+            ? 'Software, consulting, and <span class="text-[#2dd4bf]">AI implementation</span> for any business. <span class="text-white/80">From strategy to execution.</span>'
+            : 'Software, consultoría e <span class="text-[#2dd4bf]">implementación de IA</span> para cualquier empresa. <span class="text-white/80">De la estrategia a la ejecución.</span>'}
         </p>
 
         <!-- Action Buttons - Enhanced -->
         <div class="hero-buttons flex flex-col sm:flex-row items-center justify-center gap-5 mb-20 relative z-20">
           <a href="#contact" data-book-meeting class="btn-primary btn-spotlight group relative overflow-hidden">
             <span class="relative z-10 flex items-center gap-2">
-              ${lang === 'en' ? 'Schedule Consultation' : 'Agendar Consultoría'}
+              ${lang === 'en' ? 'Book a Call' : 'Agendar Llamada'}
               <svg class="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
               </svg>
@@ -92,13 +92,13 @@ export function Hero() {
             <!-- Button Shine Effect -->
             <div class="btn-shine"></div>
           </a>
-          <button onclick="document.getElementById('unisync').scrollIntoView({behavior: 'smooth'})" class="btn-secondary group">
+          <button onclick="document.getElementById('servicios').scrollIntoView({behavior: 'smooth'})" class="btn-secondary group">
             <div class="w-7 h-7 rounded-full bg-[#14b8a6]/20 flex items-center justify-center text-[#2dd4bf] group-hover:bg-[#14b8a6] group-hover:text-white group-hover:scale-110 transition-all duration-300">
-              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z"/>
+              <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
               </svg>
             </div>
-            <span>${lang === 'en' ? 'Watch Showreel' : 'Ver Showreel'}</span>
+            <span>${lang === 'en' ? 'Explore' : 'Explorar'}</span>
           </button>
         </div>
 
@@ -125,14 +125,14 @@ export function Hero() {
                 <div class="terminal-dot green"></div>
               </div>
               <div class="terminal-url">
-                <svg class="w-3 h-3 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg class="w-3 h-3 text-[#2dd4bf]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                 </svg>
                 <span>api.nexadigit.io/v2/dashboard</span>
               </div>
               <!-- Live Indicator -->
-              <div class="flex items-center gap-1.5 text-[10px] text-green-400">
-                <span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
+              <div class="flex items-center gap-1.5 text-[10px] text-[#2dd4bf]">
+                <span class="w-1.5 h-1.5 bg-[#2dd4bf] rounded-full animate-pulse"></span>
                 LIVE
               </div>
             </div>
@@ -179,7 +179,7 @@ export function Hero() {
                     <div class="text-xs text-gray-500 mb-1">Total Revenue</div>
                     <div class="text-3xl md:text-4xl font-display text-white flex items-baseline gap-2">
                       <span class="revenue-counter">$124,500</span>
-                      <span class="text-xs text-green-400 flex items-center gap-0.5">
+                      <span class="text-xs text-[#2dd4bf] flex items-center gap-0.5">
                         <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
                         </svg>
@@ -237,18 +237,18 @@ export function Hero() {
             </div>
 
             <!-- Bottom Fade -->
-            <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-[#050505] to-transparent z-20"></div>
+            <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-[#030303] to-transparent z-20"></div>
           </div>
         </div>
       </div>
 
       <!-- Scroll Indicator - Enhanced -->
-      <div class="scroll-indicator-wrapper absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
-        <span class="text-[10px] text-gray-500 uppercase tracking-widest">${lang === 'en' ? 'Scroll' : 'Desliza'}</span>
+      <button onclick="document.getElementById('metodologia').scrollIntoView({behavior: 'smooth'})" class="scroll-indicator-wrapper absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer group transition-all duration-300">
+        <span class="text-[10px] text-gray-500 uppercase tracking-widest group-hover:text-[#2dd4bf] transition-colors">${lang === 'en' ? 'Scroll' : 'Desliza'}</span>
         <div class="scroll-indicator">
           <div class="scroll-dot"></div>
         </div>
-      </div>
+      </button>
     `
 
     // Initialize entrance animations with stagger

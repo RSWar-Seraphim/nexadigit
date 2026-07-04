@@ -1,7 +1,25 @@
 // /api/mailerlite.ts
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
+const ALLOWED_ORIGINS = [
+  'https://nexadigit.io',
+  'https://www.nexadigit.io',
+  'http://localhost:5173',
+];
+
+function setCors(req: VercelRequest, res: VercelResponse) {
+  const origin = req.headers.origin || '';
+  if (ALLOWED_ORIGINS.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  setCors(req, res);
+
+  if (req.method === 'OPTIONS') return res.status(204).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const { firstName, lastName, email, message } = req.body as {

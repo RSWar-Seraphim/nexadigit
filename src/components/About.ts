@@ -20,29 +20,29 @@ export function About() {
           <span class="text-xs text-gray-400 uppercase tracking-wider">${lang === 'en' ? 'Our Approach' : 'Nuestro Enfoque'}</span>
         </div>
         <h2 class="text-4xl md:text-5xl font-display font-medium text-white mb-6">
-          ${lang === 'en' ? "We're not just another" : 'No somos solo otra'}<br>
-          <span class="text-gradient-primary">${lang === 'en' ? 'code agency' : 'agencia de código'}</span>
+          ${lang === 'en' ? "We don't just build software" : 'No solo construimos software'}<br>
+          <span class="text-gradient-primary">${lang === 'en' ? 'we transform businesses' : 'transformamos empresas'}</span>
         </h2>
         <p class="text-lg text-gray-400 font-light max-w-2xl mx-auto leading-relaxed">
           ${lang === 'en'
-            ? 'Our approach combines enterprise systems architecture with startup agility. We eliminate bureaucracy to deliver value from Sprint 1.'
-            : 'Nuestro enfoque combina arquitectura de sistemas empresarial con la agilidad de una startup. Eliminamos la burocracia para entregar valor desde el Sprint 1.'}
+            ? 'We understand your business first. Then we build.'
+            : 'Primero entendemos tu negocio. Después construimos.'}
         </p>
       </div>
 
       <!-- Stats Row -->
       <div class="flex flex-wrap justify-center gap-8 md:gap-16 mb-16 reveal reveal-delay-1">
         <div class="text-center">
-          <div class="text-4xl md:text-5xl font-display font-medium text-[#2dd4bf] mb-2">200+</div>
-          <div class="text-xs text-gray-500 uppercase tracking-wider">${lang === 'en' ? 'Projects Shipped' : 'Proyectos Enviados'}</div>
+          <div class="text-4xl md:text-5xl font-display font-medium text-[#2dd4bf] mb-2">&lt;24h</div>
+          <div class="text-xs text-gray-500 uppercase tracking-wider">${lang === 'en' ? 'Response Time' : 'Tiempo de Respuesta'}</div>
         </div>
         <div class="text-center">
-          <div class="text-4xl md:text-5xl font-display font-medium text-[#2dd4bf] mb-2">98%</div>
-          <div class="text-xs text-gray-500 uppercase tracking-wider">${lang === 'en' ? 'Client Retention' : 'Retención Clientes'}</div>
+          <div class="text-4xl md:text-5xl font-display font-medium text-[#2dd4bf] mb-2">100%</div>
+          <div class="text-xs text-gray-500 uppercase tracking-wider">${lang === 'en' ? 'Responsible AI' : 'IA Responsable'}</div>
         </div>
         <div class="text-center">
-          <div class="text-4xl md:text-5xl font-display font-medium text-[#2dd4bf] mb-2">24h</div>
-          <div class="text-xs text-gray-500 uppercase tracking-wider">${lang === 'en' ? 'Response Time' : 'Tiempo Respuesta'}</div>
+          <div class="text-4xl md:text-5xl font-display font-medium text-[#2dd4bf] mb-2">${lang === 'en' ? 'Free' : 'Gratis'}</div>
+          <div class="text-xs text-gray-500 uppercase tracking-wider">${lang === 'en' ? 'First Consultation' : 'Primera Consulta'}</div>
         </div>
       </div>
 
@@ -141,7 +141,7 @@ export function About() {
 
               <!-- Content -->
               <div class="relative z-10">
-                <h3 class="text-xl md:text-2xl font-display font-medium text-white mb-2">
+                <h3 class="text-xl md:text-2xl font-display font-medium text-[#2dd4bf] mb-2">
                   ${lang === 'en' ? 'High-Level Consulting' : 'Consultoría de Alto Nivel'}
                 </h3>
                 <p class="text-sm text-gray-400 leading-relaxed max-w-lg">
@@ -174,7 +174,7 @@ export function About() {
 
               <!-- Content -->
               <div>
-                <h3 class="text-lg font-display font-medium text-white mb-2">Nexa Academy</h3>
+                <h3 class="text-lg font-display font-medium text-[#2dd4bf] mb-2">Nexa Academy</h3>
                 <p class="text-sm text-gray-400 leading-relaxed">
                   ${lang === 'en'
                     ? 'Executive and technical training. We prepare your team to live and create with AI.'

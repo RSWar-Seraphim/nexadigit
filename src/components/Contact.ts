@@ -72,7 +72,8 @@ export function Contact() {
       }
 
       try {
-        const res = await fetch('/api/mailerlite', {
+        const apiBase = import.meta.env.VITE_API_URL || ''
+        const res = await fetch(`${apiBase}/api/mailerlite`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
@@ -115,7 +116,7 @@ export function Contact() {
 
             <div class="flex flex-col sm:flex-row gap-4 items-center justify-center">
               <a href="#bookMeeting" data-book-meeting class="btn-primary btn-spotlight">
-                <span>${lang === 'en' ? 'Schedule Call' : 'Agendar Llamada'}</span>
+                <span>${lang === 'en' ? 'Book a Call' : 'Agendar Llamada'}</span>
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                 </svg>
@@ -241,20 +242,15 @@ export function Contact() {
           <!-- Brand -->
           <div class="md:col-span-1">
             <div class="flex items-center gap-3 mb-4">
-              <div class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-                </svg>
-              </div>
-              <div>
-                <span class="font-display font-medium text-white">NexaDigit</span>
-                <span class="block text-[10px] text-gray-500">EST. 2024</span>
-              </div>
+              <svg class="h-7 w-auto text-white" viewBox="0 0 204 256" fill="currentColor">
+                <path fill-rule="evenodd" d="M183.24,41.29c-11.4,0-21.81-9.24-21.81-20.65S171.84,0,183.24,0s20.64,9.24,20.64,20.64-9.24,20.65-20.64,20.65ZM163.8,136.27l-.63-89.79h40.46l.26,208.94h-40.08L55.86,95.35l-18.99-33.37,1.76,56.7.11,87.81,48.86-29.88,16.82,27.51-79.5,48.62c-7.75,4.74-17.88,2.3-22.62-5.45-1.86-3.04-2.55-6.45-2.23-9.75,0-.06,0-.12,0-1.34V.01l38.56.24,108.65,160.06,18.28,33.02-1.76-57.06Z"/>
+              </svg>
+              <span class="font-logo font-bold text-white text-lg tracking-wide">NexaDigit</span>
             </div>
             <p class="text-sm text-gray-400 mb-4">
               ${lang === 'en'
-                ? 'Building the future of digital business with AI-powered solutions.'
-                : 'Construyendo el futuro de los negocios digitales con soluciones impulsadas por IA.'}
+                ? 'Today\'s advantage is tomorrow\'s standard. Invest in AI.'
+                : 'La ventaja de hoy es el estándar de mañana. Invierte en IA.'}
             </p>
             <!-- Social Links -->
             <div class="flex gap-3">
