@@ -11,10 +11,12 @@ export function notify(msg: string, type: 'success' | 'error' = 'success', timeo
 
   const el = document.createElement('div');
   el.className = [
-    'pointer-events-auto shadow-xl rounded-lg px-5 py-3 min-w-[210px] max-w-xs flex items-center gap-2',
-    'text-sm font-montserrat font-semibold',
+    'pointer-events-auto shadow-card-hover rounded-[10px] px-5 py-3 min-w-[210px] max-w-xs flex items-center gap-2',
+    'text-sm font-sans font-medium',
+    // Éxito en cobalto (accent): el verde --signal queda reservado para
+    // indicadores de operación en vivo.
     type === 'success'
-      ? 'bg-[#006E49] text-white'
+      ? 'bg-accent text-white'
       : 'bg-red-600 text-white'
   ].join(' ');
     el.innerHTML = `

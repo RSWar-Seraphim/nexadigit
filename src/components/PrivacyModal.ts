@@ -214,7 +214,7 @@ let preventScroll: ((e: Event) => void) | null = null
 function buildOverlay(html: string, type: DocType): HTMLElement {
   const o = document.createElement('div')
   o.className = `fixed inset-0 z-[999] flex items-center justify-center
-                 bg-black/70 backdrop-blur-md transition-opacity`
+                 bg-[rgba(12,18,32,0.4)] backdrop-blur-sm transition-opacity`
   o.dataset.doc = type
 
   const titles: Record<DocType, { es: string; en: string }> = {
@@ -227,30 +227,29 @@ function buildOverlay(html: string, type: DocType): HTMLElement {
 
   o.innerHTML = `
     <div data-dialog
-         class="relative rounded-2xl shadow-2xl
+         class="relative rounded-2xl shadow-card-hover
                 max-w-3xl w-11/12 overflow-hidden
                 max-h-[85vh] flex flex-col
-                border border-white/10
-                bg-[#0A0A0A]">
+                border border-line
+                bg-surface">
 
       <!-- Header fijo -->
-      <div class="shrink-0 px-6 md:px-10 pt-6 pb-5 border-b border-white/8 bg-[#0A0A0A]">
+      <div class="shrink-0 px-6 md:px-10 pt-6 pb-5 border-b border-line bg-surface">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-xl bg-[#14b8a6]/10 border border-[#14b8a6]/20 flex items-center justify-center">
-              <img src="/assets/fav-icon-logo.svg" alt="NexaDigit" class="w-4 h-4 filter brightness-0 invert"/>
+            <div class="w-9 h-9 rounded-xl bg-[var(--accent-soft)] border border-line flex items-center justify-center">
+              <img src="/assets/fav-icon-logo.svg" alt="NexaDigit" class="w-4 h-4"/>
             </div>
             <div>
-              <h2 class="text-base font-display font-medium text-white">${title}</h2>
-              <p class="text-[10px] text-gray-500 uppercase tracking-widest">NexaDigit &middot; Legal</p>
+              <h2 class="text-base font-display font-semibold text-ink">${title}</h2>
+              <p class="text-[10px] text-slate uppercase tracking-widest font-mono">NexaDigit &middot; Legal</p>
             </div>
           </div>
           <button data-close aria-label="close"
-                  class="w-8 h-8 rounded-lg bg-white/5 border border-white/10
-                         flex items-center justify-center text-gray-400
-                         hover:bg-white/10 hover:text-white
-                         transition-all duration-150 cursor-pointer
-                         focus:outline-none">
+                  class="w-8 h-8 rounded-lg border border-line
+                         flex items-center justify-center text-slate
+                         hover:text-ink hover:border-accent
+                         transition-all duration-150 cursor-pointer">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>
@@ -260,24 +259,16 @@ function buildOverlay(html: string, type: DocType): HTMLElement {
 
       <!-- Contenido legal con scroll -->
       <div class="overflow-y-auto overscroll-y-contain px-6 md:px-10 py-8 flex-1">
-        <article class="prose prose-invert prose-sm md:prose-base max-w-none
-                        prose-headings:font-display prose-headings:text-white prose-headings:font-medium
-                        prose-h2:text-xl prose-h2:mb-4 prose-h2:hidden
-                        prose-h3:text-sm prose-h3:uppercase prose-h3:tracking-wider prose-h3:text-[#2dd4bf] prose-h3:mt-8 prose-h3:mb-3
-                        prose-p:text-gray-400 prose-p:text-sm prose-p:leading-relaxed
-                        prose-li:text-gray-400 prose-li:text-sm
-                        prose-strong:text-white prose-strong:font-medium
-                        prose-a:text-[#2dd4bf] prose-a:no-underline hover:prose-a:underline
-                        prose-ul:space-y-2 prose-ul:my-4">
+        <article class="legal-article prose max-w-none">
           ${html}
         </article>
       </div>
 
       <!-- Footer fijo -->
-      <div class="shrink-0 px-6 md:px-10 py-4 border-t border-white/8 bg-[#0A0A0A]">
+      <div class="shrink-0 px-6 md:px-10 py-4 border-t border-line bg-surface">
         <div class="flex items-center justify-between">
-          <p class="text-[10px] text-gray-500">&copy; ${new Date().getFullYear()} NexaDigit</p>
-          <button data-close class="text-xs text-gray-400 hover:text-white transition-colors cursor-pointer">
+          <p class="text-[10px] text-slate">&copy; ${new Date().getFullYear()} NexaDigit</p>
+          <button data-close class="text-xs text-slate hover:text-ink transition-colors cursor-pointer">
             ${lang === 'en' ? 'Close' : 'Cerrar'}
           </button>
         </div>
