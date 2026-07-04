@@ -1,14 +1,18 @@
 /******************************************************************************
- *  main.ts (versión final)
+ *  main.ts — composition root
+ *  Header → Hero(+ProofStrip) → Services → Unisync → Assets → Process →
+ *  Contact → Footer
  ******************************************************************************/
 
 import './styles/style.css';
 import { Header }   from './components/Header';
 import { Hero }     from './components/Hero';
-import { About }    from './components/About';
-import { Service }  from './components/Service';
+import { Services } from './components/Services';
 import { Unisync }  from './components/Unisync';
+import { Assets }   from './components/Assets';
+import { Process }  from './components/Process';
 import { Contact }  from './components/Contact';
+import { Footer }   from './components/Footer';
 import { showLegalModal } from './components/PrivacyModal';
 import { autoDetectLang } from './components/i18n/autoDetectLang';
 import { setLang } from './components/i18n';
@@ -21,36 +25,34 @@ function renderApp() {
   if (!app) return;
 
   const main = document.createElement('main');
-  main.className = 'text-white';
+  main.id = 'main'; // target del skip-link
   main.append(
-    Header(),
     Hero(),
-    About(),
-    Service(),
+    Services(),
     Unisync(),
+    Assets(),
+    Process(),
     Contact()
   );
+
   app.innerHTML = '';
-  app.appendChild(main);
+  app.append(Header(), main, Footer());
 }
 
 /* -------------------------------------------------------------------------- */
-/* 2. Boot: idioma, render, scroll, señal de montado                           */
+/* 2. Boot: idioma, render, scroll                                             */
 /* -------------------------------------------------------------------------- */
-/* Boot */
 document.addEventListener('DOMContentLoaded', async () => {
   setLang(await autoDetectLang());
   renderApp();
 
-  /* 👇 Deja este JS para después de la pintura inicial */
+  /* Deja este JS para después de la pintura inicial */
   if ('requestIdleCallback' in window) {
     requestIdleCallback(() => import('./scroll'));
   } else {
     setTimeout(() => import('./scroll'), 0);
   }
 });
-
-
 
 /* -------------------------------------------------------------------------- */
 /* 3. Calendly diferido + modal legal                                          */
@@ -69,7 +71,7 @@ document.addEventListener('click', e => {
       (window as any).Calendly.initPopupWidget({
         url:
           'https://calendly.com/kreyes-nexadigit/30min' +
-          '?hide_event_type_details=1&primary_color=006E49',
+          '?hide_event_type_details=1&primary_color=1439C8',
       });
     };
 

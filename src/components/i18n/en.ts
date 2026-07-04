@@ -1,150 +1,124 @@
 // src/components/i18n/en.ts
+// Natural business translation of es.ts — same key set, no orphans.
+// Brand names, product names, and URLs stay untranslated.
 export const en = {
-  // Header
-  location: 'Location icon',
-  location_label: 'Santo Domingo, Dominican Republic',
-  flag: 'USA flag',
-  lang_dropdown: 'Language dropdown arrow',
-  lang_toggle_arrow: 'Arrow indicating language selector',
-  linkedin: 'LinkedIn',
-  discord: 'Discord',
-  instagram: 'Instagram',
-  facebook: 'Facebook',
-  nav_home: 'HOME',
-  nav_about: 'ABOUT',
-  nav_services: 'SERVICES',
-  nav_unisync: 'UNISYNC',
-  nav_contact: 'CONTACT',
-  call_button: 'Video call contact',
-  page_title: 'NexaDigit | AI Solutions & Automation for Business Growth',
-  meta_description: 'Discover NexaDigit: AI‑powered automation and consulting to scale your operations, boost efficiency, and grow your business with cutting‑edge technology.',
+  /* ── Meta / SEO ─────────────────────────────────────────────────────── */
+  meta_title: 'NexaDigit — AI Engineering · Autonomous systems in production',
+  meta_description:
+    'NexaDigit designs, builds, and operates software with autonomous AI agents: custom platforms, UniSync, and digital assets running 24/7 in production.',
 
-  // Hero
-  hero_title_part1: 'AI Solutions to Enhance',
-  hero_title_part1_mob: 'AI Solutions to Enhance',
-  hero_title_part2: 'Digital Operations',
-  hero_title_part2_mob: 'Digital Operations',
-  hero_brand: 'NexaDigit',
-  hero_bg_arrow_decor: '',                     // decoración → alt vacío
-  hero_email_placeholder: 'email@domain.com',
-  hero_cta_send: 'Get Started',
-  hero_cta_send_alt: 'Send email icon',
-  hero_partner_ms: 'Microsoft Gold Partner logo',
-  hero_partner_nvidia: 'NVIDIA logo',
-  hero_partner_novosit: 'Novosit logo',
-  hero_partner_openai: 'OpenAI logo',
-  hero_arrow_down_box: 'Downward arrow below partner logos',
-  mid_desc: 'We advise companies on AI integration to optimize core processes, empowering efficiency, innovation, sustainable growth, and competitive advantage.',
-  mid_tagline: 'Prepare your business to thrive in the new era of AI.',
-  // About
-  about_title: 'ABOUT US',
-  about_item1_title: 'AI INNOVATION',
-  about_item1_desc: 'We help businesses evolve through Artificial Intelligence and better prepare for the bright future.',
-  about_item2_title: 'DIGITAL MIGRATION',
-  about_item2_desc: 'We simplify migration from traditional processes to intelligent, AI‑driven business models.',
-  about_item3_title: 'DISRUPTIVE PLAN',
-  about_item3_desc: 'We provide expert guidance to effectively adopt AI technologies, ensuring a real‑world impact.',
-  about_item4_title: 'HUMAN CAPITAL',
-  about_item4_desc: 'We believe in collaboration between humans and technology for efficient and sustainable business.',
+  /* ── Accessibility / common ─────────────────────────────────────────── */
+  a11y_skip: 'Skip to content',
+  a11y_open_menu: 'Open menu',
+  a11y_close_menu: 'Close menu',
+  a11y_lang_switch: 'Cambiar idioma a español',
+  a11y_external: 'opens in a new tab',
+  a11y_home: 'NexaDigit — back to top',
 
-  /* === Service section === */
-  services_section_title: 'SERVICES',
+  /* ── Global CTA ─────────────────────────────────────────────────────── */
+  cta_book: 'Book a consultation',
 
-  services_block1_title: 'INNOVATION STRATEGY CONSULTING',
-  services_block1_img_alt: 'Happy business people in a meeting',
-  services_block1_desc: 'We advise companies on AI integration and strategies to optimize core business processes and operational models.',
-  services_block1_cta: 'BOOK A MEETING',
+  /* ── Navigation ─────────────────────────────────────────────────────── */
+  nav_home: 'Home',
+  nav_services: 'Services',
+  nav_unisync: 'UniSync',
+  nav_assets: 'Assets',
+  nav_process: 'Process',
+  nav_contact: 'Contact',
 
-  services_block2_title: 'SPECIALIZED CORPORATE SKILLS TRAINING',
-  services_block2_img_alt: 'Entrepreneurs discussing documents',
-  services_block2_desc: 'We deliver engaging courses, workshops, and talks on digital transformation in our fully equipped training center for an optimal experience.',
+  /* ── Hero ───────────────────────────────────────────────────────────── */
+  hero_eyebrow: 'AI Engineering · Santo Domingo, DR',
+  hero_headline_l1: 'We build AI systems',
+  hero_headline_l2: 'that work on their own.',
+  hero_subhead:
+    'NexaDigit designs, builds, and operates software with autonomous agents: from custom platforms to digital assets running 24/7 in production.',
+  hero_cta_secondary: 'See our work',
 
-  services_block3_title: 'ADVANCED AI BUSINESS OPTIMIZATION',
-  services_block3_desc: 'Through UniSync Agents, we automate repetitive tasks and digital workflows, allowing your team to focus on high-value activities and strategic growth.',
+  /* ── Proof of Operation ─────────────────────────────────────────────── */
+  proof_label: 'Live operations',
+  proof_item_1: 'noticiasmma.com — agents active · last article 12 min ago',
+  proof_item_2: 'lahora24.com — content pipeline running',
+  proof_item_3: 'quisqueyanos.net — 3 sites operating 24/7 on UniSync',
 
+  /* ── Services ───────────────────────────────────────────────────────── */
+  services_eyebrow: 'Services',
+  services_title: 'From diagnosis to operation.',
+  services_1_title: 'AI Strategy & Consulting',
+  services_1_desc:
+    'We assess your processes, identify use cases with measurable returns, and design the adoption roadmap. From idea to an executable plan, with phases and budget.',
+  services_2_title: 'Custom Software Development',
+  services_2_desc:
+    'Web applications, APIs, and internal platforms built to scale: from validated MVP to enterprise-grade solution. Python/FastAPI, React/TypeScript, PostgreSQL.',
+  services_3_title: 'AI Agents & Integration',
+  services_3_desc:
+    'Autonomous agents that run complete workflows: research, content generation, operations. With multi-model orchestration and verification layers that control quality and cost per task.',
+  services_4_title: 'Cloud Infrastructure',
+  services_4_desc:
+    'Architecture and deployment on AWS, Azure, GCP, and Cloudflare. CI/CD, edge computing, and cost optimization: infrastructure that grows without surprises on the bill.',
+  services_5_title: 'Enterprise Security',
+  services_5_desc:
+    'Robust authentication, encryption, access control, and OWASP practices built in from the first commit — not patched on later.',
+  services_6_title: 'Corporate AI Training',
+  services_6_desc:
+    'Hands-on workshops so your team adopts AI with sound judgment: agent workflows, effective prompting, and tool evaluation.',
 
-  /* === UniSync section (ya tenías estos) === */
-  unisync_tagline1: 'One SMART Platform',
-  unisync_tagline2: 'Countless AI Benefits.',
+  /* ── UniSync (product) ──────────────────────────────────────────────── */
+  unisync_eyebrow: 'Product',
+  unisync_title: 'UniSync — autonomous agents for digital assets.',
+  unisync_lede:
+    'Our own platform: it manages, automates, and deploys complete web properties with AI agents. The same technology we offer clients, proven first on our own assets.',
   unisync_ft1_title: 'AI Agents',
-  unisync_ft1_desc: 'Digital agents that automate and execute tasks autonomously (humanless), optimizing operational processes and enhancing business efficiency.',
-  unisync_ft1_img_alt: 'AI Automation icon',
+  unisync_ft1_desc: 'They execute tasks end to end without human intervention.',
   unisync_ft2_title: 'Centralized Management',
-  unisync_ft2_desc: 'Manage projects, finances, and operations from one dashboard within an optimized, unified interface.',
-  unisync_ft2_img_alt: 'Centralized Management icon',
-  unisync_ft3_title: 'Customized Modules',
-  unisync_ft3_desc: 'We create tailored solutions to effectively expand UniSync according to your specific needs and goals: detailed analysis, customized proposal, precise budgeting, and timely delivery.',
-  unisync_ft3_img_alt: 'Customized Modules icon',
-  unisync_ft4_img_alt: 'Real-time analytics icon',
-  unisync_ft4_title: 'Real-Time Analytics',
-  unisync_ft4_desc: 'Monitor performance across departments in real time. Make data-driven decisions using intelligent dashboards and AI-enhanced insights.',
-  unisync_cta: 'REQUEST A DEMO',
-  unisync_stat_title: 'Real-World Benefits of',
-  unisync_stat_subtitle: 'Smart AI Solutions',
-  unisync_stat1: 'Businesses that integrated AI have experienced a 40 % increase in productivity.',
-  unisync_stat2: 'The global AI market is projected to reach $407 billion by 2027, growing annually by 36.2 %.',
-  unisync_stat3: '77 % of companies already use or are actively exploring AI for their business processes.',
-  unisync_stat4: '80% of business leaders say AI will boost productivity within 5 years.',
-  unisync_laptop_alt: 'Laptop interface',
-  unisync_face3d_alt: '3D face illustration',
-  unisync_building_alt: 'AI building illustration',
-  /* Contact */
-  contact_title: 'CONTACT US',
-  contact_subtitle: 'We’ll reply immediately',
-  contact_hands_img_alt: 'Decorative hands illustration',
+  unisync_ft2_desc: 'Projects, content, and operations from a single panel.',
+  unisync_ft3_title: 'Real-Time Analytics',
+  unisync_ft3_desc: 'Actionable metrics and insights per site and per agent.',
+  unisync_ft4_title: 'Custom Modules',
+  unisync_ft4_desc: 'Tailor-made extensions on top of the platform, quoted separately.',
+  unisync_cta: 'Discover UniSync',
 
-  /* Form Labels */
-  form_label_name: 'First Name',
-  form_label_lastname: 'Last Name',
-  form_label_email: 'Email Address',
-  form_label_message: 'Your Message',
-  form_submit: 'Send Message',
-  footer_privacy: 'Privacy Policy',
-  footer_terms: 'Terms of Use',
-  footer_cookie: 'Cookie Settings',
-  footer_copy: '© 2025 NexaDigit. All rights reserved.',
+  /* ── Digital Assets ─────────────────────────────────────────────────── */
+  assets_eyebrow: 'In production',
+  assets_title: 'We build what we operate.',
+  assets_lede:
+    "These aren't portfolio projects: they're real media outlets, publishing content every day with UniSync agents.",
+  assets_status: 'Operating 24/7',
+  assets_mma_desc: 'MMA and UFC coverage in Spanish.',
+  assets_lahora_desc: 'Technology and artificial intelligence news.',
+  assets_quisqueyanos_desc: 'Dominican journalism.',
 
-  notify_email_success: "Thanks for subscribing!",
-  notify_email_error: "We couldn’t subscribe you. Please try again.",
-  notify_contact_success: "Message sent successfully!",
-  notify_contact_error: "Error: Could not send.",
-  notify_contact_network_error: "Network error. Please try again.",
+  /* ── How we work ────────────────────────────────────────────────────── */
+  process_eyebrow: 'Process',
+  process_title: 'How we work.',
+  process_1_title: 'Discovery',
+  process_1_desc: 'We understand the problem and its context, at no cost.',
+  process_2_title: 'Proposal',
+  process_2_desc: 'Scope, phases, and a fixed price in writing.',
+  process_3_title: 'Sprints',
+  process_3_desc: 'Demonstrable deliveries every 1–2 weeks, with access to progress.',
+  process_4_title: 'Operation',
+  process_4_desc: 'Deployment, monitoring, and ongoing support.',
 
-  /* ——— ALT & aria labels ——— */
-  alt_arrow_icon: 'Arrow icon',
-  alt_burger_menu: 'Open menu',
-  alt_call_button: 'Call NexaDigit',
-  alt_close_menu: 'Close menu',
-  alt_decorative_separator: 'Decorative separator',
-  alt_lang_flag_desktop: 'Language flag',
-  alt_lang_flag_mobile_main: 'Language flag',
-  alt_logo_menu: 'NexaDigit logo',
-  alt_logo_mobile: 'NexaDigit logo',
-  alt_location_icon: 'Location icon',
-  alt_switch_lang: 'Switch language',
+  /* ── Contact ────────────────────────────────────────────────────────── */
+  contact_title: "Let's talk about your next system.",
+  contact_sub: "Tell us the problem; we'll propose the architecture.",
+  contact_email_label: 'or email us directly',
+  form_label_name: 'First name',
+  form_label_lastname: 'Last name',
+  form_label_email: 'Email address',
+  form_label_message: 'Write your message',
+  form_submit: 'Send message',
+  notify_contact_success: 'Message sent successfully!',
+  notify_contact_error: 'Error: message could not be sent.',
+  notify_contact_network_error: 'Network error. Please try again.',
 
-  /* Social icons (desktop) */
-  alt_social_discord: 'Discord icon',
-  alt_social_linkedin: 'LinkedIn icon',
-  alt_social_instagram: 'Instagram icon',
-
-  /* Social icons (mobile) */
-  alt_social_discord_mobile: 'Discord icon',
-  alt_social_linkedin_mobile: 'LinkedIn icon',
-  alt_social_instagram_mobile: 'Instagram icon',
-  alt_decorative_marker: 'Decorative marker',
-  alt_scroll_down: 'Scroll down to next section',
-  hero_partner_track: 'Technology-partner carousel',
-  hero_email_label: 'Enter your email',
-  hero_email_submit: 'Submit email',
-  services_block1_carousel_label: 'Photo carousel of AI-powered services',
-  services_photo_alt: 'Illustrative photo of an AI service',
-  services_block_a_video_label:   'Demo video of service A',
-  services_block_b_video_label:   'Demo video of service B',
-  unisync_cta_alt: 'Book a UniSync meeting',
-  unisync_building_bg_alt: '',
-  unisync_features_grid_label: "Grid of UniSync key features",
-  unisync_stats_group_label: "Key UniSync statistics",
-  footer_back_home: 'Back to home',
-  phone_number_link: 'Call NexaDigit',
+  /* ── Footer ─────────────────────────────────────────────────────────── */
+  footer_location: 'Santo Domingo, Dominican Republic',
+  footer_nav_label: 'Navigation',
+  footer_assets_label: 'Digital assets',
+  footer_legal_label: 'Legal',
+  footer_privacy: 'Privacy',
+  footer_terms: 'Terms',
+  footer_cookie: 'Cookies',
+  footer_rights: 'All rights reserved.',
 }

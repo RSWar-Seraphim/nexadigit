@@ -20,6 +20,7 @@ export function getLang(): Lang {
 export function setLang(lang: Lang) {
   currentLang = lang
   localStorage.setItem('lang', lang)
+  document.documentElement.lang = lang
   listeners.forEach(callback => callback())
 }
 
