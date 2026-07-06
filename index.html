@@ -117,12 +117,13 @@
     </section>
   </div>
 
-  <!-- Swap the static hero to English BEFORE first paint (no wrong-language flash,
-       fast LCP in both locales). The mounted app keeps this same headline node. -->
+  <!-- Spanish is the default: the static hero above is ES. Only a returning
+       visitor who explicitly chose English (persisted in localStorage) gets the
+       hero swapped to EN BEFORE first paint — no wrong-language flash, fast LCP. -->
   <script>
   (function () {
     try {
-      var l = (localStorage.getItem('lang') || navigator.language || 'es').toLowerCase();
+      var l = (localStorage.getItem('lang') || 'es').toLowerCase();
       if (l.slice(0, 2) === 'en') {
         var e = document.getElementById('lcp-eyebrow');
         if (e) e.textContent = 'AI ENGINEERING · SANTO DOMINGO, DR';

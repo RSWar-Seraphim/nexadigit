@@ -17,7 +17,20 @@ export const NAV_ITEMS = [
   { id: 'unisync', key: 'nav_unisync' },
   { id: 'produccion', key: 'nav_production' },
   { id: 'proceso', key: 'nav_process' },
+  { id: 'contacto', key: 'nav_contact' },
 ] as const
+
+/* Minimalist ES/EN language toggle, shared by the fixed header and the hero's
+   floating top bar. Clicks are wired wherever it's mounted via [data-set-lang]. */
+export function langSwitchMarkup(current: 'es' | 'en', extraClass = ''): string {
+  const opt = (code: 'es' | 'en') =>
+    `<button type="button" data-set-lang="${code}" class="nd-lang-opt${
+      current === code ? ' is-active' : ''
+    }" aria-pressed="${current === code}">${code.toUpperCase()}</button>`
+  return `<div class="nd-lang-switch ${extraClass}" role="group" aria-label="${t('a11y_lang_switch')}">${opt(
+    'es'
+  )}<span class="nd-lang-sep" aria-hidden="true">/</span>${opt('en')}</div>`
+}
 
 const LOGO_SRC = '/assets/img/nexadigit-mark.webp'
 
@@ -168,7 +181,8 @@ export function Header() {
           ).join('')}
         </nav>
 
-        <div class="flex items-center" style="gap:14px;">
+        <div class="flex items-center" style="gap:16px;">
+          ${langSwitchMarkup(lang, 'hidden lg:flex')}
           <a href="#contacto" data-book-meeting class="nd-pill hidden sm:inline-flex">${t('cta_book_short')}</a>
           <button id="burger-btn" class="lg:hidden" style="padding:8px;margin-right:-8px;background:none;border:none;cursor:pointer;color:var(--ink);" aria-label="${t('a11y_open_menu')}">
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -235,6 +249,15 @@ export function Header() {
     mobileMenuEl.querySelector('#lang-toggle-mobile-menu')?.addEventListener('click', (e) => {
       e.stopPropagation()
       setLang(getLang() === 'es' ? 'en' : 'es')
+    })
+    // Minimalist ES/EN switch in the fixed header (desktop).
+    headerEl.querySelectorAll<HTMLElement>('[data-set-lang]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        const next = btn.dataset.setLang as 'es' | 'en'
+        if (next !== getLang()) setLang(next)
+      })
     })
   }
 

@@ -196,7 +196,7 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
    ══════════════════════════════════════════════════════════════════════════ */
 .nd-link {
   font-family: var(--font-mono);
-  font-size: 12.5px;
+  font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
@@ -214,6 +214,24 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
 
 /* Active state driven by scroll.ts */
 .nd-link.active { background-size: 100% 1.5px; color: var(--accent); }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   LANGUAGE SWITCH — minimalist ES/EN toggle (header + hero top bar)
+   ══════════════════════════════════════════════════════════════════════════ */
+.nd-lang-switch { align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.04em; }
+.nd-lang-opt {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  line-height: 1;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color .2s ease;
+}
+.nd-lang-opt:hover { color: var(--ink); }
+.nd-lang-opt.is-active { color: var(--ink); font-weight: 600; cursor: default; }
+.nd-lang-sep { color: var(--line-strong); }
 
 /* ══════════════════════════════════════════════════════════════════════════
    BUTTONS

@@ -4,9 +4,9 @@
 // word-by-word once per load; a production showcase row; and the "Prueba de
 // Operación" telemetry strip. Language re-renders skip the one-time word rise.
 // ══════════════════════════════════════════════════════════════════════════════
-import { t, onLangChange } from './i18n'
+import { t, getLang, setLang, onLangChange } from './i18n'
 import { ProofStrip } from './ProofStrip'
-import { NAV_ITEMS } from './Header'
+import { NAV_ITEMS, langSwitchMarkup } from './Header'
 import { prefersReducedMotion } from '../utils/motion'
 
 let heroPlayed = false
@@ -60,10 +60,13 @@ export function Hero() {
         </a>
         <nav class="hidden md:flex" style="align-items:center;gap:22px;flex-shrink:0;">
           ${NAV_ITEMS.map(
-            (item) => `<a href="#${item.id}" data-link="${item.id}" class="nd-link nd-link--muted" style="font-size:12px;">${t(item.key)}</a>`
+            (item) => `<a href="#${item.id}" data-link="${item.id}" class="nd-link nd-link--muted">${t(item.key)}</a>`
           ).join('')}
         </nav>
-        <a href="#contacto" data-book-meeting class="nd-pill" style="flex-shrink:0;">${t('cta_book_short')}</a>
+        <div style="display:flex;align-items:center;gap:16px;flex-shrink:0;">
+          ${langSwitchMarkup(getLang(), 'hidden lg:flex')}
+          <a href="#contacto" data-book-meeting class="nd-pill" style="flex-shrink:0;">${t('cta_book_short')}</a>
+        </div>
       </div>
 
       <!-- hero editorial -->
@@ -109,6 +112,16 @@ export function Hero() {
     `
 
     el.appendChild(ProofStrip())
+
+    // Minimalist ES/EN switch in the hero's floating top bar.
+    el.querySelectorAll<HTMLElement>('[data-set-lang]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        const next = btn.dataset.setLang as 'es' | 'en'
+        if (next !== getLang()) setLang(next)
+      })
+    })
 
     // One-time word rise (skip replay on language change / reduced motion).
     // On first mount main.ts swaps in the static LCP headline (no word spans),
