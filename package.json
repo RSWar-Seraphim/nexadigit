@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently \"npm:dev:vite\" \"npm:dev:server\"",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && node scripts/inline-css.mjs",
     "dev:vite": "vite",
     "dev:server": "nodemon server/index.js",
     "preview": "vite preview"

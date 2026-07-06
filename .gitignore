@@ -24,3 +24,8 @@ dist-ssr
 *.sw?
 .vercel
 .env
+.dev.vars
+
+# Local tooling / source artifacts (not part of the site)
+.claude/
+favicon_io.zip

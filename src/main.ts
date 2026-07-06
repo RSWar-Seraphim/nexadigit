@@ -1,7 +1,7 @@
 /******************************************************************************
  *  main.ts — composition root
- *  Header → Hero(+ProofStrip) → Services → Unisync → Assets → Process →
- *  Contact → Footer
+ *  Header → Hero(+ProofStrip) → Services → Unisync(Catálogo) → Assets(Producción)
+ *  → Process → Faq → Contact → Footer
  ******************************************************************************/
 
 import './styles/style.css';
@@ -11,11 +11,12 @@ import { Services } from './components/Services';
 import { Unisync }  from './components/Unisync';
 import { Assets }   from './components/Assets';
 import { Process }  from './components/Process';
+import { Faq }      from './components/Faq';
 import { Contact }  from './components/Contact';
 import { Footer }   from './components/Footer';
-import { showLegalModal } from './components/PrivacyModal';
 import { autoDetectLang } from './components/i18n/autoDetectLang';
 import { setLang } from './components/i18n';
+import { initInteractions } from './interactions';
 
 /* -------------------------------------------------------------------------- */
 /* 1. Render principal                                                         */
@@ -26,25 +27,41 @@ function renderApp() {
 
   const main = document.createElement('main');
   main.id = 'main'; // target del skip-link
-  main.append(
-    Hero(),
-    Services(),
-    Unisync(),
-    Assets(),
-    Process(),
-    Contact()
-  );
 
+  // Paint the hero (the LCP) as early as possible: mount only Header + Hero
+  // first, then defer the heavier below-the-fold sections until the main thread
+  // is idle so they don't delay the largest contentful paint.
+  main.append(Hero());
   app.innerHTML = '';
-  app.append(Header(), main, Footer());
+  app.append(Header(), main);
+  initInteractions();
+
+  const mountRest = () => {
+    main.append(Services(), Unisync(), Assets(), Process(), Faq(), Contact());
+    app.append(Footer());
+  };
+  if ('requestIdleCallback' in window) {
+    (window as any).requestIdleCallback(mountRest, { timeout: 500 });
+  } else {
+    requestAnimationFrame(() => requestAnimationFrame(mountRest));
+  }
 }
 
 /* -------------------------------------------------------------------------- */
 /* 2. Boot: idioma, render, scroll                                             */
 /* -------------------------------------------------------------------------- */
-document.addEventListener('DOMContentLoaded', async () => {
-  setLang(await autoDetectLang());
+document.addEventListener('DOMContentLoaded', () => {
+  setLang(autoDetectLang());
   renderApp();
+
+  /* Deep-link: la app se monta tras un await, por lo que el salto nativo al
+     #hash no encuentra el destino. Reintentamos una vez montado el DOM. */
+  if (location.hash.length > 1) {
+    const id = location.hash.slice(1);
+    requestAnimationFrame(() =>
+      document.getElementById(id)?.scrollIntoView({ block: 'start' })
+    );
+  }
 
   /* Deja este JS para después de la pintura inicial */
   if ('requestIdleCallback' in window) {
@@ -71,7 +88,7 @@ document.addEventListener('click', e => {
       (window as any).Calendly.initPopupWidget({
         url:
           'https://calendly.com/kreyes-nexadigit/30min' +
-          '?hide_event_type_details=1&primary_color=1439C8',
+          '?hide_event_type_details=1&primary_color=e04e14',
       });
     };
 
@@ -97,14 +114,6 @@ document.addEventListener('click', e => {
       };
       document.head.appendChild(script);
     }
-    return false;
-  }
-
-  /* ---------- Modal Legal ---------- */
-  const legal = target.closest('[data-legal]');
-  if (legal) {
-    e.preventDefault();
-    showLegalModal(legal.getAttribute('data-legal') as 'privacy');
     return false;
   }
 });

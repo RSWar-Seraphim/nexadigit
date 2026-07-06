@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NexaDigit — Ingeniería de IA · Sistemas autónomos en producción</title>
   <meta name="description" content="NexaDigit diseña, desarrolla y opera software con agentes de IA autónomos: plataformas a medida, UniSync y activos digitales funcionando 24/7 en producción." />
-  <meta name="theme-color" content="#FAFBFC" />
+  <meta name="theme-color" content="#FAF7F2" />
 
   <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website" />
@@ -26,26 +26,17 @@
   <!-- 2. PRECONNECTS                                            -->
   <!-- ========================================================= -->
   <link rel="preconnect" href="https://assets.calendly.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <!-- ========================================================= -->
-  <!-- 3. FUENTES                                                -->
-  <!--    Bricolage Grotesque (display) · Instrument Sans (body) -->
-  <!--    IBM Plex Mono (utility) — una sola petición, swap      -->
+  <!-- 3. FUENTES — self-hosted (Latin), sin terceros            -->
+  <!--    Schibsted Grotesk (display/UI) · Source Serif 4 (prosa)-->
+  <!--    IBM Plex Mono (utilidad) · Petrov Sans (wordmark)      -->
+  <!--    Precargamos la del titular (LCP) para pintarlo rápido. -->
   <!-- ========================================================= -->
-  <link rel="preload" href="/assets/fonts/PetrovSans-Bold.woff2"
-        as="font" type="font/woff2" crossorigin>
-  <link rel="preload"
-        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Instrument+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap"
-        as="style">
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Instrument+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap"
-        media="print" onload="this.onload=null;this.media='all'">
-  <noscript>
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Instrument+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
-  </noscript>
+  <!-- Fonts load on demand with font-display:swap (headline paints instantly in
+       the system fallback, then swaps) — no preload, so nothing competes with
+       the HTML/first paint for bandwidth. -->
+
 
   <!-- Calendly widget.css/js se cargan bajo demanda (primer click en
        "Agendar una consulta") — evita su cookie de terceros en cada visita. -->
@@ -54,62 +45,93 @@
   <!-- 5. ICONOS Y MANIFEST                                      -->
   <!-- ========================================================= -->
   <link rel="icon" href="/assets/favicon/favicon.ico" sizes="any">
-  <link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
   <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png">
   <link rel="manifest" href="/assets/favicon/site.webmanifest">
-  <link rel="icon" type="image/png" sizes="96x96"  href="/assets/favicon/favicon-96x96.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/web-app-manifest-192x192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon/web-app-manifest-512x512.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon/android-chrome-512x512.png">
 
   <link rel="stylesheet" href="/src/styles/style.css">
 
   <style>
     /* ========================================================= */
-    /* ESTILOS CRÍTICOS PARA LCP — light-first, sin flash        */
+    /* ESTILOS CRÍTICOS PARA LCP — cream-first, sin flash        */
     /* ========================================================= */
     html, body {
       margin: 0;
       padding: 0;
-      background: #FAFBFC;
-      color: #0C1220;
+      background: #FAF7F2;
+      color: #15171C;
     }
 
+    /* The static hero mirrors the mounted hero's scale/position so the headline
+       (the LCP) is credited at first paint, not at the JS re-render. */
     #hero-static {
-      max-width: 1200px;
+      box-sizing: border-box;
+      min-height: 100vh;
+      max-width: 1280px;
       margin: 0 auto;
-      padding: calc(72px + 10vh) 24px 0;
+      padding: 0 clamp(28px, 5vw, 76px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
+    @media (min-width: 1024px) { #hero-static { zoom: 0.9091; } }
+    @media (max-width: 600px)  { #hero-static { justify-content: flex-start; padding-top: 22vh; } }
 
     #lcp-eyebrow {
       font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 500;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: #5A6472;
-      margin: 0 0 24px;
+      color: #E04E14;
+      margin: 0 0 clamp(24px, 3vh, 38px);
     }
 
+    /* Matches the mounted hero <h1> exactly so the JS hero can REUSE this node
+       (see Hero.ts) without a resize — the LCP is credited at first paint. */
     #brand-lcp {
-      font-family: 'Bricolage Grotesque', 'Instrument Sans', system-ui, sans-serif;
+      margin: 0 0 clamp(26px, 3vh, 40px) 0;
+      font-family: 'Schibsted Grotesk', system-ui, sans-serif;
       font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.05;
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      margin: 0;
-      max-width: 17ch;
+      letter-spacing: -0.045em;
+      line-height: 0.98;
+      font-size: clamp(48px, 7.6vw, 116px);
+      color: #15171C;
     }
+    @media (max-width: 600px) {
+      #brand-lcp { font-size: 36px; line-height: 1.06; letter-spacing: -0.035em; margin-bottom: 20px; }
+    }
+    #brand-lcp .accent { color: #E04E14; }
   </style>
   </head>
   <body>
   <div id="app">
-    <!-- Bloque LCP estático: se reemplaza al montar la app.      -->
-    <!-- Refleja el hero real para pintar contenido de inmediato. -->
+    <!-- Static LCP hero: the <h1> is the largest paint. main.ts/Hero.ts REUSE
+         this exact node when mounting, so the LCP isn't repainted by the JS. -->
     <section id="hero-static">
-      <p id="lcp-eyebrow">Ingeniería de IA · Santo Domingo, RD</p>
-      <h1 id="brand-lcp">Construimos sistemas de IA que trabajan solos.</h1>
+      <p id="lcp-eyebrow">INGENIERÍA DE IA · SANTO DOMINGO, RD</p>
+      <h1 id="brand-lcp">Construimos sistemas de IA que trabajan solos<span class="accent">.</span></h1>
     </section>
   </div>
+
+  <!-- Swap the static hero to English BEFORE first paint (no wrong-language flash,
+       fast LCP in both locales). The mounted app keeps this same headline node. -->
+  <script>
+  (function () {
+    try {
+      var l = (localStorage.getItem('lang') || navigator.language || 'es').toLowerCase();
+      if (l.slice(0, 2) === 'en') {
+        var e = document.getElementById('lcp-eyebrow');
+        if (e) e.textContent = 'AI ENGINEERING · SANTO DOMINGO, DR';
+        var h = document.getElementById('brand-lcp');
+        if (h) h.innerHTML = 'We build AI systems that work on their own<span class="accent">.</span>';
+      }
+    } catch (err) {}
+  })();
+  </script>
 
   <script type="module" src="src/main.ts"></script>
   </body>

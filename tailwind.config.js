@@ -9,23 +9,30 @@ module.exports = {
       // ────────────────────────────────────────────────
       // Design tokens — single source of truth lives in
       // src/styles/style.css (:root). Tailwind maps to it.
+      // v3 Green: warm cream · carbon · burnt orange.
       // ────────────────────────────────────────────────
       colors: {
         bg: 'var(--bg)',
         surface: 'var(--surface)',
+        panel: 'var(--panel)',
+        carbon: 'var(--carbon)',
         ink: 'var(--ink)',
         slate: 'var(--slate)',
+        muted: 'var(--muted)',
         line: 'var(--line)',
+        'line-strong': 'var(--line-strong)',
         accent: 'var(--accent)',
         'accent-hover': 'var(--accent-hover)',
-        signal: 'var(--signal)',
+        'accent-alt': 'var(--accent-alt)',
+        signal: 'var(--accent)',
       },
 
       fontFamily: {
-        display: ['"Bricolage Grotesque"', '"Instrument Sans"', 'system-ui', 'sans-serif'],
-        sans: ['"Instrument Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['"Schibsted Grotesk"', 'system-ui', 'sans-serif'],
+        sans: ['"Schibsted Grotesk"', 'system-ui', '-apple-system', 'sans-serif'],
+        serif: ['"Source Serif 4"', 'Georgia', 'serif'],
         mono: ['"IBM Plex Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
-        logo: ['PetrovSans', '"Bricolage Grotesque"', 'sans-serif'],
+        logo: ['"Petrov Sans"', '"Schibsted Grotesk"', 'sans-serif'],
       },
 
       boxShadow: {
@@ -34,7 +41,7 @@ module.exports = {
       },
 
       maxWidth: {
-        content: '1200px',
+        content: '1280px',
       },
 
       // 100-dvh helpers for mobile browsers

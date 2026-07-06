@@ -1,35 +1,30 @@
 // ══════════════════════════════════════════════════════════════════════════════
-// HEADER — light glass nav on hairline border
-// Also owns per-language SEO side effects: title, meta description, OG tags,
-// canonical/hreflang and Organization JSON-LD.
+// HEADER — fixed nav, transparent over the hero → frosted cream past it
+// (the .scrolled toggle is driven by interactions.ts). Owns per-language SEO
+// side effects: title, meta description, OG tags, canonical/hreflang and
+// Organization JSON-LD. The "Agendar consulta" pill opens the Calendly popup.
 // ══════════════════════════════════════════════════════════════════════════════
 import { t, getLang, setLang, onLangChange } from './i18n'
 
 const SOCIALS = [
-  { key: 'discord', url: 'https://discord.gg/XTUg2WKtZU' },
+  { key: 'discord', url: 'https://discord.gg/3sbzSSW9vd' },
   { key: 'linkedin', url: 'https://www.linkedin.com/company/107399409' },
   { key: 'instagram', url: 'https://www.instagram.com/nexadigit.io' },
 ]
 
-const NAV_ITEMS = [
-  { id: 'home', key: 'nav_home' },
+export const NAV_ITEMS = [
   { id: 'servicios', key: 'nav_services' },
   { id: 'unisync', key: 'nav_unisync' },
-  { id: 'activos', key: 'nav_assets' },
+  { id: 'produccion', key: 'nav_production' },
   { id: 'proceso', key: 'nav_process' },
-  { id: 'contact', key: 'nav_contact' },
 ] as const
 
-const LOGO_PATH =
-  'M183.24,41.29c-11.4,0-21.81-9.24-21.81-20.65S171.84,0,183.24,0s20.64,9.24,20.64,20.64-9.24,20.65-20.64,20.65ZM163.8,136.27l-.63-89.79h40.46l.26,208.94h-40.08L55.86,95.35l-18.99-33.37,1.76,56.7.11,87.81,48.86-29.88,16.82,27.51-79.5,48.62c-7.75,4.74-17.88,2.3-22.62-5.45-1.86-3.04-2.55-6.45-2.23-9.75,0-.06,0-.12,0-1.34V.01l38.56.24,108.65,160.06,18.28,33.02-1.76-57.06Z'
+const LOGO_SRC = '/assets/img/nexadigit-mark.webp'
 
-function logoMarkup(extra = ''): string {
+function logoMarkup(height = 42, extra = ''): string {
   return `
-    <a href="#home" class="flex items-center gap-2.5 group ${extra}" aria-label="${t('a11y_home')}">
-      <svg class="h-6 w-auto text-ink group-hover:text-accent transition-colors" viewBox="0 0 204 256" fill="currentColor" aria-hidden="true">
-        <path fill-rule="evenodd" d="${LOGO_PATH}"/>
-      </svg>
-      <span class="font-logo font-bold text-lg tracking-tight text-ink">NexaDigit</span>
+    <a href="#top" data-link="top" class="flex items-center gap-2.5 ${extra}" aria-label="${t('a11y_home')}" style="text-decoration:none;">
+      <img src="${LOGO_SRC}" width="249" height="318" alt="NexaDigit" style="height:${height}px;width:auto;display:block;">
     </a>
   `
 }
@@ -122,14 +117,13 @@ const unlockScroll = () => document.documentElement.classList.remove('overflow-h
 export function Header() {
   const headerEl = document.createElement('header')
   headerEl.setAttribute('role', 'banner')
+  headerEl.className = 'nd-header'
 
   const mobileMenuEl = document.createElement('div')
   mobileMenuEl.id = 'mobile-menu'
-  mobileMenuEl.className = `
-    fixed inset-0 bg-bg z-[100]
-    transform -translate-x-full transition-transform duration-300 ease-out
-    flex flex-col lg:hidden
-  `
+  mobileMenuEl.className =
+    'fixed inset-0 z-[100] transform -translate-x-full transition-transform duration-300 ease-out flex flex-col lg:hidden'
+  mobileMenuEl.style.background = 'var(--bg)'
 
   const closeMobileMenu = (cb?: () => void) => {
     mobileMenuEl.classList.add('-translate-x-full')
@@ -155,7 +149,7 @@ export function Header() {
       '@type': 'Organization',
       name: 'NexaDigit',
       url: location.origin,
-      logo: location.origin + '/assets/fav-icon-logo.svg',
+      logo: location.origin + '/assets/img/nexadigit-mark.webp',
       address: {
         '@type': 'PostalAddress',
         addressLocality: 'Santo Domingo',
@@ -164,80 +158,64 @@ export function Header() {
       sameAs: SOCIALS.map((s) => s.url),
     })
 
-    headerEl.className = 'fixed top-0 w-full z-50 nav-glass'
     headerEl.innerHTML = `
-      <div class="max-w-content mx-auto px-6 h-[72px] flex items-center justify-between gap-6">
-        ${logoMarkup()}
+      <div class="nd-wrap" style="padding:0 clamp(20px,5vw,40px);height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px;">
+        ${logoMarkup(38)}
 
-        <!-- Desktop nav -->
-        <nav class="hidden lg:flex items-center gap-7" aria-label="${t('footer_nav_label')}">
+        <nav class="hidden lg:flex items-center" style="gap:32px;" aria-label="${t('footer_nav_label')}">
           ${NAV_ITEMS.map(
-            (item) => `
-            <a href="#${item.id}" data-link="${item.id}" class="nav-link">${t(item.key)}</a>
-          `
+            (item) => `<a href="#${item.id}" data-link="${item.id}" class="nd-link">${t(item.key)}</a>`
           ).join('')}
         </nav>
 
-        <!-- Desktop actions -->
-        <div class="hidden lg:flex items-center gap-4">
-          <button id="lang-toggle-desktop"
-                  class="px-2.5 py-1.5 rounded-lg border border-line text-xs font-mono font-medium text-slate hover:text-ink hover:border-accent transition-colors"
-                  aria-label="${t('a11y_lang_switch')}">
-            ${lang === 'es' ? 'EN' : 'ES'}
+        <div class="flex items-center" style="gap:14px;">
+          <a href="#contacto" data-book-meeting class="nd-pill hidden sm:inline-flex">${t('cta_book_short')}</a>
+          <button id="burger-btn" class="lg:hidden" style="padding:8px;margin-right:-8px;background:none;border:none;cursor:pointer;color:var(--ink);" aria-label="${t('a11y_open_menu')}">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
           </button>
-          <a href="#contact" data-book-meeting class="btn-primary !px-5 !py-2.5 text-sm">
-            ${t('cta_book')}
-          </a>
         </div>
-
-        <!-- Mobile burger -->
-        <button id="burger-btn" class="lg:hidden p-2 -mr-2 rounded-lg hover:bg-line/50 transition-colors" aria-label="${t('a11y_open_menu')}">
-          <svg class="w-6 h-6 text-ink" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-        </button>
       </div>
     `
 
     mobileMenuEl.innerHTML = `
-      <div class="flex items-center justify-between h-[72px] px-6 border-b border-line">
-        ${logoMarkup()}
-        <button id="close-menu-btn" class="p-2 -mr-2 rounded-lg hover:bg-line/50 transition-colors" aria-label="${t('a11y_close_menu')}">
-          <svg class="w-6 h-6 text-ink" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+      <div class="flex items-center justify-between" style="height:72px;padding:0 24px;border-bottom:1px solid var(--line);">
+        ${logoMarkup(34)}
+        <button id="close-menu-btn" style="padding:8px;margin-right:-8px;background:none;border:none;cursor:pointer;color:var(--ink);" aria-label="${t('a11y_close_menu')}">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
           </svg>
         </button>
       </div>
 
-      <nav class="flex-1 flex flex-col justify-center px-6" aria-label="${t('footer_nav_label')}">
-        <ul class="flex flex-col gap-1">
+      <nav class="flex-1 flex flex-col justify-center" style="padding:0 24px;" aria-label="${t('footer_nav_label')}">
+        <ul class="flex flex-col" style="gap:4px;">
           ${NAV_ITEMS.map(
             (item) => `
             <li data-link="${item.id}" class="mobile-nav-item">
-              <span class="block py-3.5 text-2xl font-display font-semibold text-ink hover:text-accent transition-colors cursor-pointer">${t(item.key)}</span>
-            </li>
-          `
+              <span style="display:block;padding:14px 0;font-family:var(--font-display);font-weight:600;font-size:26px;letter-spacing:-0.02em;color:var(--ink);cursor:pointer;">${t(item.key)}</span>
+            </li>`
           ).join('')}
         </ul>
-        <a href="#contact" data-book-meeting class="btn-primary mt-8 w-full">${t('cta_book')}</a>
+        <a href="#contacto" data-book-meeting class="nd-pill" style="margin-top:28px;width:100%;justify-content:center;padding:14px 20px;">${t('cta_book')}</a>
       </nav>
 
-      <div class="p-6 border-t border-line">
+      <div style="padding:24px;border-top:1px solid var(--line);">
         <div class="flex items-center justify-between">
           <button id="lang-toggle-mobile-menu"
-                  class="px-3 py-2 rounded-lg border border-line text-sm font-mono font-medium text-slate hover:text-ink hover:border-accent transition-colors"
+                  style="padding:8px 14px;border:1px solid var(--line-strong);font-family:var(--font-mono);font-size:12px;color:var(--slate);background:none;cursor:pointer;"
                   aria-label="${t('a11y_lang_switch')}">
             ${lang === 'es' ? 'English' : 'Español'}
           </button>
-          <div class="flex gap-2">
+          <div class="flex" style="gap:8px;">
             ${SOCIALS.map(
               (s) => `
               <a href="${s.url}" target="_blank" rel="noopener noreferrer"
-                 class="w-10 h-10 flex items-center justify-center rounded-lg border border-line text-slate hover:text-accent hover:border-accent transition-colors text-xs font-mono uppercase"
+                 style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;border:1px solid var(--line-strong);color:var(--slate);font-family:var(--font-mono);font-size:12px;text-transform:uppercase;text-decoration:none;"
                  aria-label="${s.key} (${t('a11y_external')})">
                 ${s.key.slice(0, 2)}
-              </a>
-            `
+              </a>`
             ).join('')}
           </div>
         </div>
@@ -254,9 +232,6 @@ export function Header() {
   }
 
   function setupLanguageToggles() {
-    headerEl.querySelector('#lang-toggle-desktop')?.addEventListener('click', () => {
-      setLang(getLang() === 'es' ? 'en' : 'es')
-    })
     mobileMenuEl.querySelector('#lang-toggle-mobile-menu')?.addEventListener('click', (e) => {
       e.stopPropagation()
       setLang(getLang() === 'es' ? 'en' : 'es')
@@ -291,7 +266,6 @@ export function Header() {
         e.preventDefault()
         const id = item.dataset.link
         if (!id) return
-
         closeMobileMenu(() => {
           document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
           setTimeout(unlockScroll, 300)

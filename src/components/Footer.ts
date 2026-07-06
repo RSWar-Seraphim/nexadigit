@@ -1,109 +1,72 @@
 // ══════════════════════════════════════════════════════════════════════════════
-// FOOTER — brand + location, navigation, digital assets, legal links,
-// language switch, dynamic © year.
+// FOOTER — brand + tagline + location, navigation, digital assets, language
+// switch, legal links (open the legal modal), dynamic © year + operating dot.
 // ══════════════════════════════════════════════════════════════════════════════
 import { t, getLang, setLang, onLangChange } from './i18n'
+import { NAV_ITEMS } from './Header'
 import { DIGITAL_ASSETS } from './Assets'
-
-const NAV_ITEMS = [
-  { id: 'home', key: 'nav_home' },
-  { id: 'servicios', key: 'nav_services' },
-  { id: 'unisync', key: 'nav_unisync' },
-  { id: 'activos', key: 'nav_assets' },
-  { id: 'proceso', key: 'nav_process' },
-  { id: 'contact', key: 'nav_contact' },
-] as const
-
-const LEGAL_ITEMS = [
-  { doc: 'privacy', key: 'footer_privacy' },
-  { doc: 'terms', key: 'footer_terms' },
-  { doc: 'cookie', key: 'footer_cookie' },
-] as const
 
 export function Footer() {
   const el = document.createElement('footer')
   el.setAttribute('role', 'contentinfo')
+  el.style.borderTop = '1px solid var(--line)'
 
   const render = () => {
     const lang = getLang()
     const year = new Date().getFullYear()
 
-    el.className = 'border-t border-line bg-surface'
     el.innerHTML = `
-      <div class="max-w-content mx-auto px-6 py-16">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-10">
-
-          <!-- Brand -->
-          <div class="col-span-2 md:col-span-1">
-            <a href="#home" class="flex items-center gap-2.5 group" aria-label="${t('a11y_home')}">
-              <svg class="h-5 w-auto text-ink group-hover:text-accent transition-colors" viewBox="0 0 204 256" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M183.24,41.29c-11.4,0-21.81-9.24-21.81-20.65S171.84,0,183.24,0s20.64,9.24,20.64,20.64-9.24,20.65-20.64,20.65ZM163.8,136.27l-.63-89.79h40.46l.26,208.94h-40.08L55.86,95.35l-18.99-33.37,1.76,56.7.11,87.81,48.86-29.88,16.82,27.51-79.5,48.62c-7.75,4.74-17.88,2.3-22.62-5.45-1.86-3.04-2.55-6.45-2.23-9.75,0-.06,0-.12,0-1.34V.01l38.56.24,108.65,160.06,18.28,33.02-1.76-57.06Z"/>
-              </svg>
-              <span class="font-logo font-bold text-base text-ink">NexaDigit</span>
-            </a>
-            <p class="mono-detail mt-4">${t('footer_location')}</p>
+      <div class="nd-wrap" style="padding:72px clamp(20px,5vw,40px) 0;border-left:1px solid var(--line);border-right:1px solid var(--line);">
+        <div class="nd-footer" style="display:grid;grid-template-columns:1.6fr 1fr 1fr 0.8fr;gap:48px;padding-bottom:64px;">
+          <div>
+            <div class="nd-footer-logo" style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+              <span style="font-family:var(--font-logo);font-weight:700;font-size:24px;letter-spacing:-0.01em;">NexaDigit</span>
+            </div>
+            <p style="margin:0 0 14px;font-family:var(--font-serif);font-size:15px;line-height:1.6;color:var(--slate);max-width:280px;">${t('footer_tagline')}</p>
+            <div style="font-family:var(--font-mono);font-size:12px;color:var(--muted);line-height:1.8;">${t('footer_location')}</div>
           </div>
 
-          <!-- Navigation -->
-          <nav aria-label="${t('footer_nav_label')}">
-            <h3 class="eyebrow mb-4">${t('footer_nav_label')}</h3>
-            <ul class="flex flex-col gap-2.5">
-              ${NAV_ITEMS.map(
-                (item) => `
-                <li><a href="#${item.id}" class="text-sm text-slate hover:text-ink transition-colors">${t(item.key)}</a></li>
-              `
-              ).join('')}
-            </ul>
-          </nav>
-
-          <!-- Digital assets -->
           <div>
-            <h3 class="eyebrow mb-4">${t('footer_assets_label')}</h3>
-            <ul class="flex flex-col gap-2.5">
+            <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.16em;color:var(--muted);margin-bottom:20px;">${t('footer_nav_label').toUpperCase()}</div>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              ${NAV_ITEMS.map((item) => `<a href="#${item.id}" data-link="${item.id}" class="nd-flink">${t(item.key)}</a>`).join('')}
+            </div>
+          </div>
+
+          <div>
+            <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.16em;color:var(--muted);margin-bottom:20px;">${t('footer_assets_label').toUpperCase()}</div>
+            <div style="display:flex;flex-direction:column;gap:12px;">
               ${DIGITAL_ASSETS.map(
-                (asset) => `
-                <li>
-                  <a href="${asset.url}" target="_blank" rel="noopener noreferrer"
-                     class="inline-flex items-center gap-2 text-sm font-mono text-slate hover:text-accent transition-colors">
-                    <span class="signal-dot signal-dot--live !w-1.5 !h-1.5" aria-hidden="true"></span>
-                    ${asset.name}
-                    <span class="sr-only">(${t('a11y_external')})</span>
-                  </a>
-                </li>
-              `
+                (a) => `<a href="${a.url}" target="_blank" rel="noopener" class="nd-alink"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;"></span>${a.name}<span class="sr-only"> (${t('a11y_external')})</span></a>`
               ).join('')}
-            </ul>
+            </div>
           </div>
 
-          <!-- Legal + language -->
           <div>
-            <h3 class="eyebrow mb-4">${t('footer_legal_label')}</h3>
-            <ul class="flex flex-col gap-2.5">
-              ${LEGAL_ITEMS.map(
-                (item) => `
-                <li>
-                  <a href="#" data-legal="${item.doc}" class="text-sm text-slate hover:text-ink transition-colors">${t(item.key)}</a>
-                </li>
-              `
-              ).join('')}
-            </ul>
-            <button id="footer-lang-toggle"
-                    class="mt-6 px-3 py-1.5 rounded-lg border border-line text-xs font-mono font-medium text-slate hover:text-ink hover:border-accent transition-colors"
-                    aria-label="${t('a11y_lang_switch')}">
-              ${lang === 'es' ? 'English' : 'Español'}
-            </button>
+            <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.16em;color:var(--muted);margin-bottom:20px;">${t('footer_lang_label').toUpperCase()}</div>
+            <div style="display:inline-flex;border:1px solid var(--line-strong);">
+              <span data-set-lang="es" style="font-family:var(--font-mono);font-size:12px;padding:8px 14px;cursor:pointer;${lang === 'es' ? 'background:var(--carbon);color:var(--bg);' : 'color:var(--muted);'}">ES</span>
+              <span data-set-lang="en" style="font-family:var(--font-mono);font-size:12px;padding:8px 14px;cursor:pointer;${lang === 'en' ? 'background:var(--carbon);color:var(--bg);' : 'color:var(--muted);'}">EN</span>
+            </div>
           </div>
         </div>
 
-        <div class="mt-14 pt-8 border-t border-line flex flex-wrap items-center justify-between gap-4">
-          <p class="text-xs text-slate">© ${year} NexaDigit. ${t('footer_rights')}</p>
-          <p class="mono-detail text-xs" aria-hidden="true">18.4861° N, 69.9312° W</p>
+        <div class="nd-footer-bottom" style="border-top:1px solid var(--line);padding:22px 0;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-family:var(--font-mono);font-size:12px;color:var(--muted);">
+          <span>© ${year} NexaDigit</span>
+          <span style="display:flex;align-items:center;gap:22px;flex-wrap:wrap;">
+            <a href="/privacidad.html" class="nd-legal-link">${t('footer_privacy')}</a>
+            <a href="/terminos.html" class="nd-legal-link">${t('footer_terms')}</a>
+            <span style="display:flex;align-items:center;gap:9px;"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);animation:ndPulse 2.6s infinite;"></span>${t('footer_operating')}</span>
+          </span>
         </div>
       </div>
     `
 
-    el.querySelector('#footer-lang-toggle')?.addEventListener('click', () => {
-      setLang(getLang() === 'es' ? 'en' : 'es')
+    el.querySelectorAll<HTMLElement>('[data-set-lang]').forEach((span) => {
+      span.addEventListener('click', () => {
+        const next = span.dataset.setLang as 'es' | 'en'
+        if (next !== getLang()) setLang(next)
+      })
     })
   }
 
