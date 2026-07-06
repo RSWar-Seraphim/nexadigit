@@ -79,7 +79,7 @@
   --line-strong: #DCD5C6;  /* stronger dividers                             */
   --accent:      #E04E14;  /* burnt orange — CTAs, links, live indicators   */
   --accent-hover:#C6440F;  /* pressed orange                                */
-  --accent-alt:  #06614A;  /* deep green — pill hover                        */
+  --accent-alt:  #C4430F;  /* darker burnt orange — pill hover              */
   --accent-soft: rgba(224, 78, 20, 0.08);
   --cream:       #FFFDF9;  /* text on orange / carbon                       */
 
