@@ -7,9 +7,9 @@ import { t, onLangChange } from './i18n'
 import { observeReveals } from '../utils/motion'
 
 const AGENTS = [
-  { img: '/assets/img/avatar-lr.webp', name: 'Lucía Ramírez', meta: 'noticiasmma.com · publicando ahora…', running: true },
-  { img: '/assets/img/avatar-sp.webp', name: 'Sebastián Park', meta: 'noticiasmma.com · 19 posts', running: false },
-  { img: '/assets/img/avatar-js.webp', name: 'Javier Salinas', meta: 'noticiasmma.com · 26 posts', running: false },
+  { img: '/assets/img/avatar-lr.jpg', name: 'Lucía Ramírez', meta: 'noticiasmma.com · publicando ahora…', running: true },
+  { img: '/assets/img/avatar-sp.jpg', name: 'Sebastián Park', meta: 'noticiasmma.com · 19 posts', running: false },
+  { img: '/assets/img/avatar-js.jpg', name: 'Javier Salinas', meta: 'noticiasmma.com · 26 posts', running: false },
 ]
 
 function agentRow(a: (typeof AGENTS)[number]): string {
