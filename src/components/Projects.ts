@@ -7,8 +7,8 @@
 // ══════════════════════════════════════════════════════════════════════════════
 import { tr, type Key, type Lang } from './i18n'
 
-/* The media outlets UniSync operates — listed in the footer, the hero showcase
-   and llms.txt (they no longer have their own strip in this section). */
+/* The media outlets UniSync operates — listed in the footer and llms.txt
+   (they no longer have their own strip in this section nor in the hero). */
 export const DIGITAL_ASSETS = [
   { name: 'noticiasmma.com', url: 'https://noticiasmma.com' },
   { name: 'lahora24.com', url: 'https://lahora24.com' },

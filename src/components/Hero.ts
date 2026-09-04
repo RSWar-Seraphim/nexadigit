@@ -8,11 +8,12 @@
 import { tr, type Lang } from './i18n'
 import { proofStripMarkup } from './ProofStrip'
 import { NAV_ITEMS, langSwitchMarkup, navAttrs } from './Header'
-import { DIGITAL_ASSETS, VIGIA_URL } from './Projects'
+import { VIGIA_URL } from './Projects'
 
-/* The showcase row under the hero: what NexaDigit operates today (the media
-   UniSync publishes on, VIGIA) and the SaaS still under construction. A domain
-   is a link only once it is live — CASUM and Oris stay plain text until then. */
+/* The showcase row under the hero: the SaaS projects — what is live (VIGIA)
+   and what is still under construction. The media outlets UniSync operates are
+   listed in the footer and llms.txt, not here. A domain is a link only once it
+   is live — CASUM and Oris stay plain text until then. */
 interface Showcase {
   label: string
   tld: string
@@ -20,10 +21,6 @@ interface Showcase {
   url?: string
 }
 const SHOWCASE: Showcase[] = [
-  ...DIGITAL_ASSETS.map((a): Showcase => {
-    const dot = a.name.indexOf('.')
-    return { label: a.name.slice(0, dot), tld: a.name.slice(dot), status: 'live', url: a.url }
-  }),
   { label: 'vigia', tld: '.com.pa', status: 'live', url: VIGIA_URL },
   { label: 'casum', tld: '.ai', status: 'building' },
   { label: 'oris', tld: '.do', status: 'building' },
