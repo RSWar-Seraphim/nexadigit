@@ -9,7 +9,8 @@ import { observeReveals } from '../utils/motion'
 
 type Key = Parameters<typeof t>[0]
 
-/* Console data mirrors the real product: one tab per outlet, agent counts. */
+/* Console mock. These are illustrative constants shaped like the real product
+   (one tab per outlet, agent cards) — not live data. */
 const SITES = [
   { host: 'quisqueyanos.net', n: 6, active: false },
   { host: 'lahora24.com', n: 5, active: false },

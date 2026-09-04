@@ -7,9 +7,7 @@
 //   · CTA block parallax lift
 //   · magnetic CTA buttons (+ arrow slide + glow) via pointer delegation
 //   · UniSync dashboard toast breathing in/out
-//   · live "articles published since load" counter
 // ══════════════════════════════════════════════════════════════════════════════
-import { t } from './components/i18n'
 import { prefersReducedMotion } from './utils/motion'
 
 const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v))
@@ -133,14 +131,4 @@ export function initInteractions() {
       toast.style.opacity = toastOn ? '1' : '0'
     }, 3200)
   }
-
-  /* ── Live "articles published since load" counter ─────────────────────── */
-  let pubs = 1
-  setInterval(() => {
-    pubs += 1
-    const c = document.querySelector<HTMLElement>('[data-pub-count]')
-    const w = document.querySelector<HTMLElement>('[data-pub-word]')
-    if (c) c.textContent = String(pubs)
-    if (w) w.textContent = pubs === 1 ? t('contact_pub_word_singular') : t('contact_pub_word_plural')
-  }, 75000)
 }

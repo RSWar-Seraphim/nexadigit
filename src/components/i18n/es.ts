@@ -44,13 +44,6 @@ export const es = {
   models_label: 'CONSTRUIMOS CON',
   models_aria: 'Modelos de IA: Claude, OpenAI, Gemini, DeepSeek, Mistral, Llama, Grok, Perplexity',
 
-  /* ── Telemetría (legado, sin uso) ───────────────────────────────────── */
-  strip_label: 'PRUEBA DE OPERACIÓN',
-  ticker_1_text: 'agentes activos · último artículo hace 12 min',
-  ticker_2_text: '3 agentes en ejecución · 42 artículos publicados hoy',
-  ticker_3_text: 'pipeline estable · uptime 99.97% (30 días)',
-  ticker_4_text: '11 agentes operando · verificación de calidad 100%',
-
   /* ── Servicios ──────────────────────────────────────────────────────── */
   services_eyebrow: 'Servicios',
   services_title: 'Del diagnóstico a la operación.',
@@ -179,13 +172,6 @@ export const es = {
   contact_title: 'Hablemos de su próximo sistema.',
   contact_sub:
     'Cuéntenos el problema; le proponemos la arquitectura y una estimación transparente — sin compromiso.',
-  contact_cta_email: 'Escribir por correo',
-  contact_trust_1: 'Diagnóstico gratuito',
-  contact_trust_2: 'Sin compromiso',
-  contact_trust_3: 'Respuesta instantánea',
-  contact_pub_pre: 'Mientras usted leía esta página, nuestros agentes publicaron',
-  contact_pub_word_singular: 'artículo',
-  contact_pub_word_plural: 'artículos',
   form_note: 'Respuesta instantánea — un asistente de IA en nuestro correo le contesta al momento.',
   form_first: 'Nombre',
   form_last: 'Apellido',
@@ -200,12 +186,6 @@ export const es = {
   form_service_5: 'Otro / no estoy seguro',
   form_message: 'Cuéntenos sobre su proyecto (opcional)',
   form_submit: 'Solicitar propuesta',
-  form_stat_1_val: '3',
-  form_stat_1_label: 'Activos en vivo',
-  form_stat_2_val: 'Instantánea',
-  form_stat_2_label: 'Respuesta',
-  form_stat_3_val: '11',
-  form_stat_3_label: 'Agentes activos',
   notify_contact_success: '¡Mensaje enviado con éxito!',
   notify_contact_error: 'Error: no se pudo enviar.',
   notify_contact_network_error: 'Error de red. Intente de nuevo.',
@@ -219,5 +199,4 @@ export const es = {
   footer_privacy: 'Política de Privacidad',
   footer_terms: 'Términos y Condiciones',
   footer_operating: 'nexadigit.io — operando',
-  footer_rights: 'Derechos reservados.',
 }

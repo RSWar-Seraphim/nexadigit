@@ -1,8 +1,8 @@
 // ══════════════════════════════════════════════════════════════════════════════
 // CONTACTO / CTA FINAL — carbon band with a breathing glow. Left: the pitch,
-// headline (masked word rise + underline draw), CTAs (Agendar → Calendly popup,
-// correo → mailto) and a live "articles published" counter. Right: a glass form
-// posting to /api/mailerlite (phone/company/service folded into the message).
+// headline (masked word rise + underline draw) and CTAs (Agendar → Calendly
+// popup, correo → mailto). Right: a glass form posting to /api/mailerlite
+// (phone/company/service folded into the message).
 // ══════════════════════════════════════════════════════════════════════════════
 import { t, onLangChange } from './i18n'
 import { notify } from './notify'

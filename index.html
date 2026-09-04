@@ -181,8 +181,9 @@
       margin: 0 0 clamp(24px, 3vh, 38px);
     }
 
-    /* Matches the mounted hero <h1> exactly so the JS hero can REUSE this node
-       (see Hero.ts) without a resize — the LCP is credited at first paint. */
+    /* Matches the mounted hero <h1> (Hero.ts) in scale and position so the
+       swap to the JS-rendered hero doesn't move the headline — the LCP is
+       credited at first paint. */
     #brand-lcp {
       margin: 0 0 clamp(26px, 3vh, 40px) 0;
       font-family: 'Schibsted Grotesk', system-ui, sans-serif;

@@ -43,13 +43,6 @@ export const en = {
   models_label: 'WE BUILD WITH',
   models_aria: 'AI models: Claude, OpenAI, Gemini, DeepSeek, Mistral, Llama, Grok, Perplexity',
 
-  /* ── Telemetry (legacy, unused) ─────────────────────────────────────── */
-  strip_label: 'PROOF OF OPERATION',
-  ticker_1_text: 'agents active · last article 12 min ago',
-  ticker_2_text: '3 agents running · 42 articles published today',
-  ticker_3_text: 'pipeline stable · uptime 99.97% (30 days)',
-  ticker_4_text: '11 agents operating · quality verification 100%',
-
   /* ── Services ───────────────────────────────────────────────────────── */
   services_eyebrow: 'Services',
   services_title: 'From diagnosis to operation.',
@@ -178,13 +171,6 @@ export const en = {
   contact_title: "Let's talk about your next system.",
   contact_sub:
     'Tell us the problem; we propose the architecture and a transparent estimate — no commitment.',
-  contact_cta_email: 'Email us',
-  contact_trust_1: 'Free diagnosis',
-  contact_trust_2: 'No commitment',
-  contact_trust_3: 'Instant response',
-  contact_pub_pre: 'While you were reading this page, our agents published',
-  contact_pub_word_singular: 'article',
-  contact_pub_word_plural: 'articles',
   form_note: 'Instant response — an AI assistant on our inbox replies right away.',
   form_first: 'First name',
   form_last: 'Last name',
@@ -199,12 +185,6 @@ export const en = {
   form_service_5: "Other / not sure",
   form_message: 'Tell us about your project (optional)',
   form_submit: 'Request a proposal',
-  form_stat_1_val: '3',
-  form_stat_1_label: 'Live assets',
-  form_stat_2_val: 'Instant',
-  form_stat_2_label: 'Response',
-  form_stat_3_val: '11',
-  form_stat_3_label: 'Active agents',
   notify_contact_success: 'Message sent successfully!',
   notify_contact_error: 'Error: message could not be sent.',
   notify_contact_network_error: 'Network error. Please try again.',
@@ -218,5 +198,4 @@ export const en = {
   footer_privacy: 'Privacy Policy',
   footer_terms: 'Terms & Conditions',
   footer_operating: 'nexadigit.io — operating',
-  footer_rights: 'All rights reserved.',
 }
