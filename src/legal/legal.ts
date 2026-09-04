@@ -11,6 +11,7 @@ type Lang = 'es' | 'en'
 interface Section { num: string; title: string; paras: string[] }
 interface Content {
   metaTitle: string
+  metaDescription: string
   title: string
   updated: string
   intro: string
@@ -30,6 +31,7 @@ const DOCS: Record<Doc, Record<Lang, Content>> = {
   privacy: {
     es: {
       metaTitle: 'Política de Privacidad — NexaDigit',
+      metaDescription: 'Política de Privacidad de NexaDigit: qué datos recopilamos, cómo los usamos y sus derechos.',
       title: 'Política de Privacidad',
       updated: 'Última actualización: 5 de julio de 2026',
       intro: 'En NexaDigit valoramos su privacidad. Esta política explica qué datos recopilamos, cómo los usamos y qué derechos tiene usted sobre ellos cuando visita nuestro sitio o contrata nuestros servicios de ingeniería de IA.',
@@ -62,6 +64,7 @@ const DOCS: Record<Doc, Record<Lang, Content>> = {
     },
     en: {
       metaTitle: 'Privacy Policy — NexaDigit',
+      metaDescription: 'NexaDigit Privacy Policy: what data we collect, how we use it, and your rights.',
       title: 'Privacy Policy',
       updated: 'Last updated: July 5, 2026',
       intro: 'At NexaDigit we value your privacy. This policy explains what data we collect, how we use it, and what rights you have over it when you visit our site or engage our AI engineering services.',
@@ -96,6 +99,7 @@ const DOCS: Record<Doc, Record<Lang, Content>> = {
   terms: {
     es: {
       metaTitle: 'Términos y Condiciones — NexaDigit',
+      metaDescription: 'Términos y Condiciones de NexaDigit: uso del sitio, servicios, propuestas y responsabilidad.',
       title: 'Términos y Condiciones',
       updated: 'Última actualización: 5 de julio de 2026',
       intro: 'Estos Términos y Condiciones regulan el uso del sitio de NexaDigit y la contratación de nuestros servicios de ingeniería de IA. Al acceder al sitio o solicitar una propuesta, usted acepta lo aquí establecido.',
@@ -113,6 +117,7 @@ const DOCS: Record<Doc, Record<Lang, Content>> = {
     },
     en: {
       metaTitle: 'Terms & Conditions — NexaDigit',
+      metaDescription: 'NexaDigit Terms & Conditions: use of the site, services, proposals, and liability.',
       title: 'Terms & Conditions',
       updated: 'Last updated: July 5, 2026',
       intro: 'These Terms & Conditions govern the use of the NexaDigit site and the engagement of our AI engineering services. By accessing the site or requesting a proposal, you accept the terms set out here.',
@@ -191,7 +196,7 @@ function pageHtml(doc: Doc, lang: Lang): string {
 
       <footer style="border-top:1px solid #E8E3D9;">
         <div style="max-width:820px;margin:0 auto;padding:26px 32px;display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8A867C;flex-wrap:wrap;gap:12px;">
-          <span>© 2026 NexaDigit</span>
+          <span>© ${new Date().getFullYear()} NexaDigit</span>
           <span style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
             <a href="${crossHref}" style="color:#8A867C;text-decoration:none;">${crossLabel}</a>
             <a href="mailto:${EMAIL}" style="color:#8A867C;text-decoration:none;">${EMAIL}</a>
@@ -210,6 +215,8 @@ export function mountLegal(doc: Doc): void {
     const lang = getLang()
     document.documentElement.lang = lang
     document.title = DOCS[doc][lang].metaTitle
+    const desc = document.querySelector<HTMLMetaElement>('meta[name="description"]')
+    if (desc) desc.content = DOCS[doc][lang].metaDescription
     root.innerHTML = pageHtml(doc, lang)
     root.querySelectorAll<HTMLElement>('[data-set-lang]').forEach((el) => {
       el.addEventListener('click', () => {

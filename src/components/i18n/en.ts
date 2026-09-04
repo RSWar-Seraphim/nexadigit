@@ -3,9 +3,9 @@
 // Brand names, product names, and URLs stay untranslated.
 export const en = {
   /* ── Meta / SEO ─────────────────────────────────────────────────────── */
-  meta_title: 'NexaDigit — AI Engineering · Autonomous systems in production',
+  meta_title: 'NexaDigit — AI engineering and autonomous agents, DR',
   meta_description:
-    'NexaDigit designs, builds, and operates software with autonomous AI agents: custom platforms, UniSync, and digital assets running 24/7 in production.',
+    'NexaDigit is an AI engineering company in Santo Domingo, DR: it designs, builds, and operates software with autonomous agents, custom SaaS, and AEO content.',
 
   /* ── Accessibility / common ─────────────────────────────────────────── */
   a11y_skip: 'Skip to content',

@@ -4,9 +4,9 @@
 // HTML mínimo (<br>, <span>) porque se insertan vía innerHTML.
 export const es = {
   /* ── Meta / SEO ─────────────────────────────────────────────────────── */
-  meta_title: 'NexaDigit — Ingeniería de IA · Sistemas autónomos en producción',
+  meta_title: 'NexaDigit — Ingeniería de IA y agentes autónomos en RD',
   meta_description:
-    'NexaDigit diseña, desarrolla y opera software con agentes de IA autónomos: plataformas a medida, UniSync y activos digitales funcionando 24/7 en producción.',
+    'NexaDigit es una empresa de ingeniería de IA en Santo Domingo, RD: diseña, construye y opera software con agentes autónomos, SaaS a medida y contenido AEO.',
 
   /* ── Accesibilidad / comunes ────────────────────────────────────────── */
   a11y_skip: 'Saltar al contenido',
