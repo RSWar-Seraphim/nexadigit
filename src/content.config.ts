@@ -16,7 +16,7 @@ const blog = defineCollection({
     description: z.string().min(80).max(200),
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
-    author: z.string().default('Equipo NexaDigit'),
+    author: z.string().default('Kenny Reyes'),
     tags: z.array(z.string().min(2)).min(1).max(5),
     // Rendered at the end of the post AND emitted as FAQPage JSON-LD.
     faq: z

@@ -114,6 +114,8 @@ interface PostLike {
 }
 
 const crumb = (position: number, name: string, item: string) => ({ '@type': 'ListItem', position, name, item })
+const slugifyName = (s: string) =>
+  s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
 
 export function blogIndexGraph(url: string, title: string, description: string, tag?: string) {
   const t = tr('es')
@@ -133,7 +135,10 @@ export function blogIndexGraph(url: string, title: string, description: string, 
 export function postGraph(post: PostLike, url: string, minutes: number, words: number) {
   const t = tr('es')
   const d = post.data
-  const author = d.author === 'Equipo NexaDigit' ? { '@id': ORG_ID } : { '@type': 'Person', name: d.author }
+  const author =
+    d.author === 'Equipo NexaDigit'
+      ? { '@id': ORG_ID }
+      : { '@type': 'Person', '@id': `${SITE}/#${slugifyName(d.author)}`, name: d.author, worksFor: { '@id': ORG_ID } }
   return {
     '@context': 'https://schema.org',
     '@graph': [

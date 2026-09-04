@@ -18,7 +18,7 @@ description: 'Respuesta directa a esa pregunta.'          # 80–200 caracteres;
 slug: mismo-nombre-que-el-archivo                         # kebab-case, sin acentos
 publishedAt: 2026-09-04
 updatedAt: 2026-09-04                                     # cámbialo cuando edites el contenido
-author: Equipo NexaDigit                                  # o el nombre de una persona real
+author: Kenny Reyes                                      # o 'Equipo NexaDigit' para un post sin firma personal
 tags: ['AEO', 'Contenido']                                # 1–5
 faq:                                                      # 3–5; se renderiza y va al JSON-LD FAQPage
   - q: '¿Pregunta corta?'
@@ -90,7 +90,7 @@ description: '…'
 slug: …
 publishedAt: 2026-01-01
 updatedAt: 2026-01-01
-author: Equipo NexaDigit
+author: Kenny Reyes
 tags: ['…']
 faq:
   - q: '¿…?'
