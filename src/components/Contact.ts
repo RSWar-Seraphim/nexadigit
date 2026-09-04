@@ -1,15 +1,17 @@
 // ══════════════════════════════════════════════════════════════════════════════
 // CONTACTO / CTA FINAL — carbon band with a breathing glow. Left: the pitch,
-// headline (masked word rise + underline draw) and CTAs (Agendar → Calendly
-// popup, correo → mailto). Right: a glass form posting to /api/mailerlite
-// (phone/company/service folded into the message). Pure markup; the submit
-// handler and the headline reveal live in src/client/contact.ts.
+// headline (masked word rise + underline draw), the three things that happen
+// after writing, and the direct channels. Right: an editorial form — visible
+// labels, hairline fields, one-tap choice pills — posting to /api/mailerlite.
+// Pure markup; submit handler + headline reveal live in src/client/contact.ts.
 // ══════════════════════════════════════════════════════════════════════════════
-import { tr, type Lang } from './i18n'
+import { tr, type Key, type Lang } from './i18n'
+import { ROUTES } from './i18n/routes'
 
 export const CONTACT_EMAIL = 'kreyes@nexadigit.io'
 
-const SERVICE_OPTS = ['form_service_1', 'form_service_2', 'form_service_3', 'form_service_4', 'form_service_5'] as const
+const SERVICE_OPTS: Key[] = ['form_service_1', 'form_service_2', 'form_service_3', 'form_service_4', 'form_service_5']
+const NEXT_STEPS: Key[] = ['form_note', 'contact_next_2', 'contact_next_3']
 
 export function contactMarkup(lang: Lang): string {
   const t = tr(lang)
@@ -25,14 +27,19 @@ export function contactMarkup(lang: Lang): string {
     })
     .join(' ')
 
+  const field = (id: string, name: string, label: Key, type = 'text', extra = '', cls = '') => `
+    <div class="nd-field ${cls}">
+      <label for="${id}">${t(label)}</label>
+      <input id="${id}" type="${type}" name="${name}" ${extra}>
+    </div>`
+
   return `
-    <section id="contacto" data-screen-label="CTA Final" style="position:relative;background:var(--carbon);color:var(--bg);min-height:90vh;display:flex;align-items:center;overflow:hidden;">
+    <section id="contacto" data-screen-label="CTA Final" style="position:relative;background:var(--carbon);color:var(--bg);overflow:hidden;">
       <div class="seam" style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);box-shadow:0 0 12px rgba(224,78,20,0.35);z-index:3;"></div>
       <div class="seam" style="position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--accent);box-shadow:0 0 12px rgba(224,78,20,0.35);z-index:3;"></div>
-      <div aria-hidden="true" style="position:absolute;left:50%;top:50%;width:1100px;height:700px;transform:translate(-50%,-50%);background:radial-gradient(closest-side, rgba(224,78,20,0.09), rgba(224,78,20,0) 70%);animation:ndBreathe 10s ease-in-out infinite;pointer-events:none;"></div>
-      <svg aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.045;pointer-events:none;"><filter id="ndNoise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"></feTurbulence><feColorMatrix type="saturate" values="0"></feColorMatrix></filter><rect width="100%" height="100%" filter="url(#ndNoise)"></rect></svg>
+      <div aria-hidden="true" style="position:absolute;left:32%;top:50%;width:1100px;height:760px;transform:translate(-50%,-50%);background:radial-gradient(closest-side, rgba(224,78,20,0.10), rgba(224,78,20,0) 70%);animation:ndBreathe 10s ease-in-out infinite;pointer-events:none;"></div>
 
-      <div data-cta-block class="nd-cta-block nd-wrap" style="position:relative;z-index:2;width:100%;padding:104px clamp(20px,5vw,40px);display:grid;grid-template-columns:0.82fr 1fr;gap:64px;align-items:center;">
+      <div data-cta-block class="nd-cta-block nd-wrap" style="position:relative;z-index:2;width:100%;padding:112px clamp(20px,5vw,40px);display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(48px,7vw,104px);align-items:start;">
 
         <div>
           <div class="reveal" style="display:inline-flex;align-items:center;gap:11px;margin-bottom:24px;">
@@ -40,45 +47,56 @@ export function contactMarkup(lang: Lang): string {
             <span style="font-family:var(--font-mono);font-size:12.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);font-weight:500;text-shadow:0 0 14px rgba(224,78,20,0.35);">${t('contact_eyebrow')}</span>
           </div>
           <h2 class="nd-cta-headline" style="margin:0 0 22px;font-family:var(--font-display);font-weight:700;font-size:clamp(38px,4.2vw,58px);letter-spacing:-0.03em;line-height:1.06;">${headline}</h2>
-          <p class="reveal" style="--reveal-delay:140ms;margin:0 0 28px;max-width:420px;font-family:var(--font-serif);font-size:17px;line-height:1.6;color:rgba(250,247,242,0.66);">${t('contact_sub')}</p>
-          <div class="reveal" style="--reveal-delay:200ms;display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
-            <a data-book-meeting href="#contacto" class="nd-contact-link">${t('cta_book')} →</a>
+          <p class="reveal" style="--reveal-delay:140ms;margin:0 0 44px;max-width:440px;font-family:var(--font-serif);font-size:17px;line-height:1.6;color:rgba(250,247,242,0.66);">${t('contact_sub')}</p>
+
+          <div class="reveal nd-next" style="--reveal-delay:200ms;">
+            <div class="nd-next__label">${t('contact_next_label')}</div>
+            ${NEXT_STEPS.map(
+              (k, i) => `
+              <div class="nd-step">
+                <span style="font-family:var(--font-mono);font-size:12px;color:var(--accent);padding-top:3px;">0${i + 1}</span>
+                <div style="font-family:var(--font-serif);font-size:15.5px;line-height:1.55;color:rgba(250,247,242,0.72);">${t(k)}</div>
+              </div>`
+            ).join('')}
+          </div>
+
+          <div class="reveal nd-channels" style="--reveal-delay:260ms;">
             <a href="mailto:${CONTACT_EMAIL}" class="nd-contact-link nd-contact-link--muted">${CONTACT_EMAIL}</a>
+            <a data-book-meeting href="#contacto" class="nd-contact-link">${t('cta_book')} →</a>
           </div>
         </div>
 
-        <form id="contact-form" class="reveal" method="post" action="/api/mailerlite" style="--reveal-delay:120ms;position:relative;background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.1);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:34px;">
-          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg, #E04E14, rgba(224,78,20,0));box-shadow:0 0 12px rgba(224,78,20,0.3);"></div>
-          <div style="display:flex;align-items:center;gap:9px;margin-bottom:22px;font-family:var(--font-mono);font-size:12px;letter-spacing:0.03em;color:var(--cream);">
-            <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);animation:ndPulseDark 2.6s infinite;flex-shrink:0;"></span>${t('form_note')}
+        <form id="contact-form" class="nd-form reveal" method="post" action="/api/mailerlite" style="--reveal-delay:120ms;">
+          <div class="nd-form-grid">
+            ${field('cf-first', 'first_name', 'form_first', 'text', 'required autocomplete="given-name"')}
+            ${field('cf-last', 'last_name', 'form_last', 'text', 'autocomplete="family-name"')}
+            ${field('cf-email', 'email', 'form_email', 'email', 'required autocomplete="email"', 'span2')}
+            ${field('cf-phone', 'phone', 'form_phone', 'tel', 'autocomplete="tel"', 'nd-form-optional')}
+            ${field('cf-company', 'company', 'form_company', 'text', 'autocomplete="organization"', 'nd-form-optional')}
+
+            <fieldset class="nd-choices span2">
+              <legend>${t('form_service_legend')}</legend>
+              <div class="nd-choices__list">
+                ${SERVICE_OPTS.map(
+                  (k, i) => `
+                  <label class="nd-choice">
+                    <input type="radio" name="service" value="${t(k)}"${i === 0 ? ' required' : ''}>
+                    <span>${t(k)}</span>
+                  </label>`
+                ).join('')}
+              </div>
+            </fieldset>
+
+            <div class="nd-field span2">
+              <label for="cf-message">${t('form_message')}</label>
+              <textarea id="cf-message" name="message" rows="3" placeholder="${t('form_message_placeholder')}"></textarea>
+            </div>
           </div>
 
-          <!-- Visually-hidden <label>s (placeholders alone aren't accessible names);
-               .sr-only is position:absolute so the labels don't take grid cells. -->
-          <div class="nd-form2" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
-            <label for="cf-first" class="sr-only">${t('form_first')}</label>
-            <input id="cf-first" class="nd-input" type="text" name="first_name" required autocomplete="given-name" placeholder="${t('form_first')}">
-            <label for="cf-last" class="sr-only">${t('form_last')}</label>
-            <input id="cf-last" class="nd-input" type="text" name="last_name" autocomplete="family-name" placeholder="${t('form_last')}">
+          <div class="nd-form-actions">
+            <button type="submit" class="nd-cta" data-cta-btn data-glow="0 14px 44px rgba(224,78,20,0.45)">${t('form_submit')}<span class="nd-cta__arrow" data-cta-arrow>→</span></button>
+            <p class="nd-form-note">${t('form_privacy_pre')} <a href="${ROUTES.privacy[lang]}">${t('form_privacy_link')}</a>.</p>
           </div>
-          <label for="cf-email" class="sr-only">${t('form_email')}</label>
-          <input id="cf-email" class="nd-input" type="email" name="email" required autocomplete="email" placeholder="${t('form_email')}" style="margin-bottom:12px;">
-          <label for="cf-phone" class="sr-only nd-form-optional">${t('form_phone')}</label>
-          <input id="cf-phone" class="nd-input nd-form-optional" type="tel" name="phone" autocomplete="tel" placeholder="${t('form_phone')}" style="margin-bottom:12px;">
-          <label for="cf-company" class="sr-only nd-form-optional">${t('form_company')}</label>
-          <input id="cf-company" class="nd-input nd-form-optional" type="text" name="company" autocomplete="organization" placeholder="${t('form_company')}" style="margin-bottom:12px;">
-          <div style="position:relative;margin-bottom:12px;">
-            <label for="cf-service" class="sr-only">${t('form_service_placeholder')}</label>
-            <select id="cf-service" class="nd-input" name="service" required>
-              <option value="" disabled selected>${t('form_service_placeholder')}</option>
-              ${SERVICE_OPTS.map((k) => `<option>${t(k)}</option>`).join('')}
-            </select>
-            <span style="position:absolute;right:15px;top:50%;transform:translateY(-50%);pointer-events:none;color:rgba(250,247,242,0.5);font-size:11px;">▾</span>
-          </div>
-          <label for="cf-message" class="sr-only">${t('form_message')}</label>
-          <textarea id="cf-message" class="nd-input" name="message" rows="4" placeholder="${t('form_message')}" style="margin-bottom:16px;"></textarea>
-
-          <button data-cta-btn data-glow="0 14px 44px rgba(224,78,20,0.45)" type="submit" style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;box-sizing:border-box;background:var(--accent);color:var(--cream);border:none;cursor:pointer;font-family:var(--font-mono);font-size:14.5px;letter-spacing:0.04em;font-weight:600;padding:17px;transition:transform 0.18s ease-out, box-shadow 0.35s;">${t('form_submit')}<span class="nd-cta__arrow" data-cta-arrow>→</span></button>
         </form>
       </div>
     </section>

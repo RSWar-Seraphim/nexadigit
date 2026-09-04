@@ -911,27 +911,94 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
 .nd-faq-item.open .nd-faq-body { grid-template-rows: 1fr; }
 
 /* ══════════════════════════════════════════════════════════════════════════
-   CONTACT — carbon glass form
+   CONTACT — editorial form on carbon
+   Visible mono labels, hairline fields (no boxes), serif input text, one-tap
+   choice pills for the service, the site's orange pill as submit.
    ══════════════════════════════════════════════════════════════════════════ */
-.nd-input {
+/* left column: what happens next + channels */
+.nd-next { max-width: 440px; }
+.nd-next__label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(250, 247, 242, 0.5);
+  margin-bottom: 6px;
+}
+.nd-channels { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; margin-top: 36px; }
+
+/* form */
+.nd-form { padding-top: 10px; }
+.nd-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px 36px; }
+.nd-form-grid .span2 { grid-column: 1 / -1; }
+.nd-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.nd-field label,
+.nd-choices legend {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(250, 247, 242, 0.55);
+}
+.nd-field input,
+.nd-field textarea {
   width: 100%;
   box-sizing: border-box;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  color: var(--bg);
-  font-family: var(--font-mono);
-  font-size: 13.5px;
-  padding: 13px 15px;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(250, 247, 242, 0.22);
+  border-radius: 0;
+  color: var(--cream);
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 1.4;
+  padding: 8px 0 12px;
   outline: none;
-  transition: border-color .2s, background .2s;
+  transition: border-color .25s, box-shadow .25s;
 }
-textarea.nd-input { line-height: 1.5; resize: vertical; }
-.nd-input:focus { border-color: var(--accent); background: rgba(224, 78, 20, 0.07); }
-#contacto input::placeholder,
-#contacto textarea::placeholder { color: rgba(250, 247, 242, 0.4); }
-#contacto select.nd-input { appearance: none; -webkit-appearance: none; cursor: pointer; padding-right: 36px; }
-#contacto select.nd-input:invalid { color: rgba(250, 247, 242, 0.4); }
-#contacto select.nd-input option { color: var(--ink); background: var(--bg); }
+.nd-field textarea { resize: none; min-height: 92px; }
+.nd-field input::placeholder,
+.nd-field textarea::placeholder { color: rgba(250, 247, 242, 0.3); }
+.nd-field input:hover,
+.nd-field textarea:hover { border-bottom-color: rgba(250, 247, 242, 0.42); }
+.nd-field input:focus,
+.nd-field textarea:focus { border-bottom-color: var(--accent); box-shadow: 0 1px 0 0 var(--accent); }
+.nd-field input:-webkit-autofill,
+.nd-field input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--cream);
+  -webkit-box-shadow: 0 0 0 1000px var(--carbon) inset;
+  transition: background-color 9999s;
+}
+
+/* choice pills (radio group) */
+.nd-choices { border: 0; margin: 0; padding: 0; min-width: 0; }
+.nd-choices legend { padding: 0; margin-bottom: 12px; }
+.nd-choices__list { display: flex; flex-wrap: wrap; gap: 8px; }
+.nd-choice { position: relative; }
+.nd-choice input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.nd-choice span {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.03em;
+  color: rgba(250, 247, 242, 0.78);
+  border: 1px solid rgba(250, 247, 242, 0.26);
+  border-radius: 999px;
+  padding: 9px 16px;
+  cursor: pointer;
+  user-select: none;
+  transition: color .2s, border-color .2s, background .2s;
+}
+.nd-choice span:hover { border-color: rgba(250, 247, 242, 0.6); color: var(--cream); }
+.nd-choice input:checked + span { background: var(--accent); border-color: var(--accent); color: var(--cream); }
+.nd-choice input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* actions */
+.nd-form-actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-top: 40px; }
+.nd-form button.nd-cta { border: 0; cursor: pointer; }
+.nd-form-note { margin: 0; font-family: var(--font-mono); font-size: 11.5px; line-height: 1.6; color: rgba(250, 247, 242, 0.5); max-width: 320px; }
+.nd-form-note a { color: rgba(250, 247, 242, 0.75); text-decoration: underline; text-underline-offset: 3px; }
+.nd-form-note a:hover { color: var(--cream); }
 
 /* CTA headline masked word rise */
 .nd-cta-word { display: inline-block; }
@@ -1134,7 +1201,7 @@ textarea.nd-input { line-height: 1.5; resize: vertical; }
   .nd-footer .nd-flink, .nd-footer .nd-alink { align-self: center !important; }
   .nd-footer-bottom { flex-direction: column; justify-content: center; text-align: center; }
   .nd-footer-bottom > span { justify-content: center; }
-  .nd-form2 { grid-template-columns: 1fr !important; }
+  .nd-form-grid { grid-template-columns: 1fr !important; gap: 26px !important; }
   .nd-h2 { font-size: 32px !important; }
 
   /* ── Phone polish ─────────────────────────────────────────── */
@@ -1172,9 +1239,8 @@ textarea.nd-input { line-height: 1.5; resize: vertical; }
   .nd-prod-shot img { height: 100% !important; object-fit: cover; object-position: top center; transform: none !important; }
 
   /* Contacto: leaner, more minimal form */
-  #contacto form { padding: 22px !important; }
-  #contacto .nd-form-optional,
-  #contacto .nd-form-stats { display: none !important; }
+  #contacto .nd-form-optional { display: none !important; }
+  #contacto .nd-form-actions { flex-direction: column; align-items: flex-start; gap: 16px; }
 }
 @media (max-width: 440px) {
   .nd-footer { grid-template-columns: 1fr !important; }
