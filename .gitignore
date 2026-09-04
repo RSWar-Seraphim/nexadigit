@@ -32,3 +32,6 @@ favicon_io.zip
 # Pasted screenshots dropped at the repo root
 /img.png
 /img_*.png
+
+# Astro
+.astro/

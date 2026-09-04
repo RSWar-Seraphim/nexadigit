@@ -1,0 +1,77 @@
+---
+/* ── Base layout for the landing (both languages) ────────────────────────────
+   Everything an answer engine needs is in this served HTML: <html lang>,
+   title/description written as answers, self-referencing canonical, hreflang
+   pair + x-default, OG/Twitter with the cover image, and one JSON-LD @graph.
+   The global stylesheet is inlined (build.inlineStylesheets: 'always'). */
+import '../styles/style.css'
+import { tr, OG_LOCALE, otherLang, type Lang } from '../components/i18n'
+import { SITE } from '../components/i18n/routes'
+
+interface Props {
+  lang: Lang
+  title: string
+  description: string
+  path: string
+  alternates: Record<Lang, string>
+  jsonLd: unknown
+}
+
+const { lang, title, description, path, alternates, jsonLd } = Astro.props
+const t = tr(lang)
+const canonical = SITE + path
+const ogImage = `${SITE}/assets/img/og-cover.jpg`
+const ogAlt = 'NexaDigit — Construimos sistemas de IA que trabajan solos. Ingeniería de IA, Santo Domingo, RD.'
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#FAF7F2" />
+
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="es" href={SITE + alternates.es} />
+    <link rel="alternate" hreflang="en" href={SITE + alternates.en} />
+    <link rel="alternate" hreflang="x-default" href={SITE + alternates.es} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="NexaDigit" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content={OG_LOCALE[lang]} />
+    <meta property="og:locale:alternate" content={OG_LOCALE[otherLang(lang)]} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)}></script>
+
+    <!-- Entrance motion (reveals, word rise) is gated on html.js so the HTML is
+         fully visible without JavaScript. Runs before first paint. -->
+    <script is:inline>document.documentElement.classList.add('js')</script>
+
+    <link rel="preconnect" href="https://assets.calendly.com" crossorigin />
+
+    <link rel="icon" href="/assets/favicon/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png" />
+    <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="/assets/favicon/site.webmanifest" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-chrome-192x192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon/android-chrome-512x512.png" />
+  </head>
+  <body>
+    <a id="skip-to-content" href="#main" class="skip-link">{t('a11y_skip')}</a>
+    <slot />
+    <script src="../client/main.ts"></script>
+  </body>
+</html>

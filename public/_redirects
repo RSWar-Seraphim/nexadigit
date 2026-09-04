@@ -1,7 +1,7 @@
 # Cloudflare Pages redirects.
-# /es/ and /en/ were advertised by an old runtime canonical/hreflang but never
-# existed. Collapse them onto the real URL until per-language routes ship.
-/es      /   301
-/es/*    /   301
-/en      /   301
-/en/*    /   301
+# /es/ was advertised by an old runtime canonical but never existed; Spanish
+# lives at the root. Legacy .html legal URLs moved to directory routes.
+/es               /              301
+/es/*             /              301
+/privacidad.html  /privacidad/   301
+/terminos.html    /terminos/     301

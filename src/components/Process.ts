@@ -1,10 +1,9 @@
 // ══════════════════════════════════════════════════════════════════════════════
 // CÓMO TRABAJAMOS — four numbered steps on a scroll-driven progress rail. The
 // fill width, dot colors and step-number colors advance 01 → 04 as the section
-// scrolls through the viewport (driven by interactions.ts).
+// scrolls through the viewport (driven by interactions.ts). Pure markup.
 // ══════════════════════════════════════════════════════════════════════════════
-import { t, onLangChange } from './i18n'
-import { observeReveals } from '../utils/motion'
+import { tr, type Lang } from './i18n'
 
 const STEPS = [
   { n: '01', title: 'process_1_title', desc: 'process_1_desc', del: 'process_1_deliverable', delay: 0, pr: 36 },
@@ -13,11 +12,8 @@ const STEPS = [
   { n: '04', title: 'process_4_title', desc: 'process_4_desc', del: 'process_4_deliverable', delay: 270, pr: 0 },
 ] as const
 
-export function Process() {
-  const el = document.createElement('section')
-  el.id = 'proceso'
-  el.setAttribute('data-screen-label', 'Cómo Trabajamos')
-  el.style.borderBottom = '1px solid var(--line)'
+export function processMarkup(lang: Lang): string {
+  const t = tr(lang)
 
   const step = (s: (typeof STEPS)[number], i: number) => `
     <div class="reveal" style="--reveal-delay:${s.delay}ms;padding:40px ${s.pr}px 0 0;">
@@ -27,8 +23,8 @@ export function Process() {
       <div style="border-top:1px solid var(--line);padding-top:14px;font-family:var(--font-mono);font-size:11px;line-height:1.7;letter-spacing:0.04em;"><span style="color:var(--accent);font-weight:600;letter-spacing:0.12em;">${t('process_deliverable_label')}</span><br><span style="color:var(--slate);">${t(s.del)}</span></div>
     </div>`
 
-  const render = () => {
-    el.innerHTML = `
+  return `
+    <section id="proceso" data-screen-label="Cómo Trabajamos" style="border-bottom:1px solid var(--line);">
       <div class="nd-wrap" style="padding:104px clamp(20px,5vw,40px) 112px;border-left:1px solid var(--line);border-right:1px solid var(--line);">
         <div class="reveal nd-eyebrow" style="margin-bottom:20px;">${t('process_eyebrow')}</div>
         <h2 class="reveal nd-h2" style="--reveal-delay:80ms;margin-bottom:72px;">${t('process_title')}</h2>
@@ -48,11 +44,6 @@ export function Process() {
           </div>
         </div>
       </div>
-    `
-    observeReveals(el)
-  }
-
-  render()
-  onLangChange(render)
-  return el
+    </section>
+  `
 }

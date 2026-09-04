@@ -1,16 +1,13 @@
 // ══════════════════════════════════════════════════════════════════════════════
 // UNISYNC — carbon band framed by drawing orange seams, given entirely to the
 // in-house AEO content engine: pitch + "how it works" pipeline on top, then a
-// full-width living "Run Agents" console (outlet tabs, fleet stats, agent
-// cards) with a toast that breathes in/out, driven by interactions.ts.
+// full-width "Run Agents" console mock (outlet tabs, fleet stats, agent cards)
+// with a toast that breathes in/out (interactions.ts). Pure markup.
 // ══════════════════════════════════════════════════════════════════════════════
-import { t, onLangChange } from './i18n'
-import { observeReveals } from '../utils/motion'
-
-type Key = Parameters<typeof t>[0]
+import { tr, type Key, type Lang } from './i18n'
 
 /* Console mock. These are illustrative constants shaped like the real product
-   (one tab per outlet, agent cards) — not live data. */
+   (one tab per outlet, agent cards) — not live data. The section says so. */
 const SITES = [
   { host: 'quisqueyanos.net', n: 6, active: false },
   { host: 'lahora24.com', n: 5, active: false },
@@ -43,14 +40,14 @@ const sideIcon = (glyph: string, active = false) =>
     active ? 'background:rgba(224,78,20,0.12);color:var(--accent);' : 'color:#6C747D;'
   }">${glyph}</div>`
 
-function agentCard(a: (typeof AGENTS)[number]): string {
+function agentCard(a: (typeof AGENTS)[number], publishing: string): string {
   const status = a.running
     ? `<span style="display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:9px;color:var(--accent);"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;animation:ndPulse 2.6s infinite;"></span>Running</span>`
     : `<span style="display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:9px;color:#7E8790;"><span style="width:5px;height:5px;border-radius:50%;background:#4A525C;flex-shrink:0;"></span>Idle</span>`
   const action = a.running
     ? `<span class="nd-agent__btn nd-agent__btn--stop">⏹ Stop</span>`
     : `<span class="nd-run-btn nd-agent__btn">▶ Run</span>`
-  const last = a.running ? t('unisync_publishing') : a.last
+  const last = a.running ? publishing : a.last
   return `
     <div class="nd-agent${a.running ? ' is-running' : ''}">
       <div style="display:flex;align-items:center;gap:10px;">
@@ -73,14 +70,11 @@ function agentCard(a: (typeof AGENTS)[number]): string {
     </div>`
 }
 
-export function Unisync() {
-  const el = document.createElement('section')
-  el.id = 'unisync'
-  el.setAttribute('data-screen-label', 'UniSync')
-  el.style.cssText = 'background:var(--carbon);color:var(--bg);'
+export function unisyncMarkup(lang: Lang): string {
+  const t = tr(lang)
 
-  const render = () => {
-    el.innerHTML = `
+  return `
+    <section id="unisync" data-screen-label="UniSync" style="background:var(--carbon);color:var(--bg);">
       <div class="seam" style="height:2px;background:var(--accent);box-shadow:0 0 12px rgba(224,78,20,0.35);"></div>
       <div class="nd-wrap" style="padding:112px clamp(20px,5vw,40px);border-left:1px solid rgba(250,247,242,0.08);border-right:1px solid rgba(250,247,242,0.08);">
         <div class="reveal" style="font-family:var(--font-mono);font-size:12.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:20px;text-shadow:0 0 14px rgba(224,78,20,0.35);">${t('catalog_eyebrow')}</div>
@@ -117,7 +111,7 @@ export function Unisync() {
           </div>
         </div>
 
-        <!-- living "Run Agents" console -->
+        <!-- "Run Agents" console (illustrative) -->
         <div class="panel-rise" style="position:relative;">
           <div style="display:flex;overflow:hidden;background:var(--carbon-deep);border:1px solid #1C222B;box-shadow:0 32px 80px rgba(0,0,0,0.6), 0 0 60px rgba(224,78,20,0.05);">
             <!-- sidebar -->
@@ -149,7 +143,7 @@ export function Unisync() {
                   ).join('')}
                 </div>
                 <div class="nd-agents" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
-                  ${AGENTS.map(agentCard).join('')}
+                  ${AGENTS.map((a) => agentCard(a, t('unisync_publishing'))).join('')}
                 </div>
               </div>
             </div>
@@ -162,11 +156,6 @@ export function Unisync() {
         <div class="nd-console-note" style="margin-top:34px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(250,247,242,0.4);text-align:right;">${t('unisync_console_note')}</div>
       </div>
       <div class="seam" style="height:2px;background:var(--accent);box-shadow:0 0 12px rgba(224,78,20,0.35);"></div>
-    `
-    observeReveals(el)
-  }
-
-  render()
-  onLangChange(render)
-  return el
+    </section>
+  `
 }

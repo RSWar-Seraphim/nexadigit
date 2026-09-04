@@ -1,12 +1,14 @@
 // ══════════════════════════════════════════════════════════════════════════════
 // LEGAL PAGES — standalone Privacy Policy / Terms pages that mirror the v3 Green
 // template (cream, 820px column, numbered sections, contact box). Bilingual:
-// reads the site's stored language (localStorage 'lang') and offers an ES/EN
-// toggle. Self-contained styles so these pages never inherit the desktop zoom.
+// one URL per language (/privacidad/, /en/privacy/ …) with an ES/EN link pair.
+// Self-contained styles so these pages never inherit the desktop zoom. Pure
+// markup, rendered at build time by src/components/LegalPage.astro.
 // ══════════════════════════════════════════════════════════════════════════════
+import { ROUTES } from '../components/i18n/routes'
 
-type Doc = 'privacy' | 'terms'
-type Lang = 'es' | 'en'
+export type Doc = 'privacy' | 'terms'
+export type Lang = 'es' | 'en'
 
 interface Section { num: string; title: string; paras: string[] }
 interface Content {
@@ -27,7 +29,7 @@ const UI = {
   en: { eyebrow: 'LEGAL', back: '← Back to home', contact: 'CONTACT', privacy: 'Privacy Policy', terms: 'Terms & Conditions' },
 }
 
-const DOCS: Record<Doc, Record<Lang, Content>> = {
+export const DOCS: Record<Doc, Record<Lang, Content>> = {
   privacy: {
     es: {
       metaTitle: 'Política de Privacidad — NexaDigit',
@@ -136,19 +138,19 @@ const DOCS: Record<Doc, Record<Lang, Content>> = {
   },
 }
 
-function getLang(): Lang {
-  return (localStorage.getItem('lang') as Lang) === 'en' ? 'en' : 'es'
-}
-
-function pageHtml(doc: Doc, lang: Lang): string {
+export function pageHtml(doc: Doc, lang: Lang): string {
   const c = DOCS[doc][lang]
   const ui = UI[lang]
   const other: Doc = doc === 'privacy' ? 'terms' : 'privacy'
-  const crossHref = other === 'privacy' ? '/privacidad.html' : '/terminos.html'
+  const crossHref = ROUTES[other][lang]
   const crossLabel = other === 'privacy' ? ui.privacy : ui.terms
   const emailLink = `<a href="mailto:${EMAIL}" style="color:#E04E14;text-decoration:none;font-weight:500;">${EMAIL}</a>`
-  const langBtn = (l: Lang) =>
-    `<span data-set-lang="${l}" style="font-family:'IBM Plex Mono',monospace;font-size:11px;padding:6px 10px;cursor:pointer;${lang === l ? 'background:#15171C;color:#FAF7F2;' : 'color:#8A867C;'}">${l.toUpperCase()}</span>`
+  const langBtn = (l: Lang) => {
+    const style = `font-family:'IBM Plex Mono',monospace;font-size:11px;padding:6px 10px;text-decoration:none;${lang === l ? 'background:#15171C;color:#FAF7F2;' : 'color:#8A867C;'}`
+    return lang === l
+      ? `<span aria-current="page" lang="${l}" style="${style}">${l.toUpperCase()}</span>`
+      : `<a href="${ROUTES[doc][l]}" hreflang="${l}" lang="${l}" style="${style}">${l.toUpperCase()}</a>`
+  }
 
   const sections = c.sections
     .map(
@@ -169,12 +171,12 @@ function pageHtml(doc: Doc, lang: Lang): string {
     <div style="min-height:100vh;background:#FAF7F2;">
       <header style="position:sticky;top:0;z-index:20;background:rgba(250,247,242,0.85);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid #E8E3D9;">
         <div style="max-width:820px;margin:0 auto;padding:0 32px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px;">
-          <a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+          <a href="${ROUTES.home[lang]}" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
             <img src="${LOGO}" alt="NexaDigit" style="height:30px;width:auto;display:block;">
           </a>
           <div style="display:flex;align-items:center;gap:18px;">
             <span style="display:inline-flex;border:1px solid #DCD5C6;">${langBtn('es')}${langBtn('en')}</span>
-            <a href="/" style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.06em;color:#15171C;text-decoration:none;white-space:nowrap;">${ui.back}</a>
+            <a href="${ROUTES.home[lang]}" style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.06em;color:#15171C;text-decoration:none;white-space:nowrap;">${ui.back}</a>
           </div>
         </div>
       </header>
@@ -207,27 +209,3 @@ function pageHtml(doc: Doc, lang: Lang): string {
   `
 }
 
-export function mountLegal(doc: Doc): void {
-  const root = document.getElementById('legal')
-  if (!root) return
-
-  const render = () => {
-    const lang = getLang()
-    document.documentElement.lang = lang
-    document.title = DOCS[doc][lang].metaTitle
-    const desc = document.querySelector<HTMLMetaElement>('meta[name="description"]')
-    if (desc) desc.content = DOCS[doc][lang].metaDescription
-    root.innerHTML = pageHtml(doc, lang)
-    root.querySelectorAll<HTMLElement>('[data-set-lang]').forEach((el) => {
-      el.addEventListener('click', () => {
-        const next = el.dataset.setLang as Lang
-        if (next !== getLang()) {
-          localStorage.setItem('lang', next)
-          render()
-        }
-      })
-    })
-  }
-
-  render()
-}

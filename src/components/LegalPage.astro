@@ -1,26 +1,52 @@
-<!DOCTYPE html>
-<html lang="es">
+---
+/* Standalone legal page (privacy / terms) for one language. Self-contained
+   head (fonts + reset) as before, now with canonical, hreflang pair, OG/Twitter
+   and a WebPage + BreadcrumbList graph. Body is the prose from legal.ts. */
+import { OG_LOCALE, otherLang, type Lang } from './i18n'
+import { ROUTES, SITE } from './i18n/routes'
+import { DOCS, pageHtml, type Doc } from '../legal/legal'
+import { legalGraph } from '../seo/schema'
+
+interface Props {
+  doc: Doc
+  lang: Lang
+}
+const { doc, lang } = Astro.props
+const c = DOCS[doc][lang]
+const canonical = SITE + ROUTES[doc][lang]
+const ogImage = `${SITE}/assets/img/og-cover.jpg`
+---
+<!doctype html>
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Política de Privacidad — NexaDigit</title>
-    <meta name="description" content="Política de Privacidad de NexaDigit: qué datos recopilamos, cómo los usamos y sus derechos." />
+    <title>{c.metaTitle}</title>
+    <meta name="description" content={c.metaDescription} />
     <meta name="robots" content="index,follow" />
     <meta name="theme-color" content="#FAF7F2" />
-    <link rel="canonical" href="https://nexadigit.io/privacidad.html" />
+
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="es" href={SITE + ROUTES[doc].es} />
+    <link rel="alternate" hreflang="en" href={SITE + ROUTES[doc].en} />
+    <link rel="alternate" hreflang="x-default" href={SITE + ROUTES[doc].es} />
+
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="NexaDigit" />
-    <meta property="og:url" content="https://nexadigit.io/privacidad.html" />
-    <meta property="og:title" content="Política de Privacidad — NexaDigit" />
-    <meta property="og:description" content="Política de Privacidad de NexaDigit: qué datos recopilamos, cómo los usamos y sus derechos." />
-    <meta property="og:locale" content="es_DO" />
-    <meta property="og:image" content="https://nexadigit.io/assets/img/og-cover.jpg" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={c.metaTitle} />
+    <meta property="og:description" content={c.metaDescription} />
+    <meta property="og:locale" content={OG_LOCALE[lang]} />
+    <meta property="og:locale:alternate" content={OG_LOCALE[otherLang(lang)]} />
+    <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Política de Privacidad — NexaDigit" />
-    <meta name="twitter:description" content="Política de Privacidad de NexaDigit: qué datos recopilamos, cómo los usamos y sus derechos." />
-    <meta name="twitter:image" content="https://nexadigit.io/assets/img/og-cover.jpg" />
+    <meta name="twitter:title" content={c.metaTitle} />
+    <meta name="twitter:description" content={c.metaDescription} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(legalGraph(doc, lang))}></script>
 
     <link rel="icon" href="/assets/favicon/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png" />
@@ -31,7 +57,7 @@
     <link rel="preload" href="/assets/fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/schibsted-grotesk.woff2" as="font" type="font/woff2" crossorigin />
 
-    <style>
+    <style is:inline>
       @font-face { font-family: 'Schibsted Grotesk'; src: url('/assets/fonts/schibsted-grotesk.woff2') format('woff2'); font-weight: 400 700; font-display: swap; }
       @font-face { font-family: 'Source Serif 4'; src: url('/assets/fonts/source-serif-4.woff2') format('woff2'); font-weight: 400 500; font-display: swap; }
       @font-face { font-family: 'IBM Plex Mono'; src: url('/assets/fonts/ibm-plex-mono-400.woff2') format('woff2'); font-weight: 400; font-display: swap; }
@@ -51,8 +77,6 @@
     </style>
   </head>
   <body>
-    <div id="legal"></div>
-    <script>window.__LEGAL_DOC = 'privacy';</script>
-    <script type="module" src="/src/legal/entry.ts"></script>
+    <div id="legal" set:html={pageHtml(doc, lang)}></div>
   </body>
 </html>

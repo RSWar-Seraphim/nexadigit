@@ -1,0 +1,39 @@
+---
+/* The landing page for one language. Sections are template-literal HTML built
+   at build time; the client bundle (src/client/main.ts) only attaches behavior. */
+import Base from '../layouts/Base.astro'
+import { tr, type Lang } from './i18n'
+import { ROUTES } from './i18n/routes'
+import { headerMarkup } from './Header'
+import { heroMarkup } from './Hero'
+import { servicesMarkup } from './Services'
+import { unisyncMarkup } from './Unisync'
+import { projectsMarkup } from './Projects'
+import { processMarkup } from './Process'
+import { faqMarkup } from './Faq'
+import { contactMarkup } from './Contact'
+import { footerMarkup } from './Footer'
+import { homeGraph } from '../seo/schema'
+
+interface Props {
+  lang: Lang
+}
+const { lang } = Astro.props
+const t = tr(lang)
+
+const sections = [heroMarkup, servicesMarkup, unisyncMarkup, projectsMarkup, processMarkup, faqMarkup, contactMarkup]
+  .map((markup) => markup(lang))
+  .join('')
+---
+<Base
+  lang={lang}
+  title={t('meta_title')}
+  description={t('meta_description')}
+  path={ROUTES.home[lang]}
+  alternates={ROUTES.home}
+  jsonLd={homeGraph(lang)}
+>
+  <Fragment set:html={headerMarkup(lang)} />
+  <main id="main" set:html={sections}></main>
+  <Fragment set:html={footerMarkup(lang)} />
+</Base>

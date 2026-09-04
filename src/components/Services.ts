@@ -1,9 +1,9 @@
 // ══════════════════════════════════════════════════════════════════════════════
 // SERVICIOS — bento grid on a hairline lattice. Six services + a dark
 // "ESPECIALIDAD" card (Agentes de IA, spanning two columns) + a CTA cell.
+// Pure markup — rendered at build time.
 // ══════════════════════════════════════════════════════════════════════════════
-import { t, onLangChange } from './i18n'
-import { observeReveals } from '../utils/motion'
+import { tr, type Lang } from './i18n'
 
 const CARDS = [
   { n: '01', title: 'services_1_title', desc: 'services_1_desc', delay: 0 },
@@ -13,11 +13,8 @@ const CARDS = [
   { n: '06', title: 'services_6_title', desc: 'services_6_desc', delay: 120 },
 ] as const
 
-export function Services() {
-  const el = document.createElement('section')
-  el.id = 'servicios'
-  el.setAttribute('data-screen-label', 'Servicios')
-  el.style.borderBottom = '1px solid var(--line)'
+export function servicesMarkup(lang: Lang): string {
+  const t = tr(lang)
 
   const card = (c: (typeof CARDS)[number]) => `
     <div class="nd-service reveal" style="--reveal-delay:${c.delay}ms;">
@@ -26,8 +23,8 @@ export function Services() {
       <p>${t(c.desc)}</p>
     </div>`
 
-  const render = () => {
-    el.innerHTML = `
+  return `
+    <section id="servicios" data-screen-label="Servicios" style="border-bottom:1px solid var(--line);">
       <div class="nd-wrap" style="padding:104px clamp(20px,5vw,40px) 96px;border-left:1px solid var(--line);border-right:1px solid var(--line);">
         <div class="reveal nd-eyebrow" style="margin-bottom:20px;">${t('services_eyebrow')}</div>
         <h2 class="reveal nd-h2" style="--reveal-delay:80ms;margin-bottom:64px;">${t('services_title')}</h2>
@@ -55,11 +52,6 @@ export function Services() {
           </a>
         </div>
       </div>
-    `
-    observeReveals(el)
-  }
-
-  render()
-  onLangChange(render)
-  return el
+    </section>
+  `
 }

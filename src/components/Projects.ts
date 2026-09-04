@@ -4,12 +4,9 @@
 // capability chips, pull-quote) beside a browser mock. VIGIA's real dashboard
 // screenshot scrolls on hover; CASUM, still in construction, shows its wordmark
 // floating over a drafting grid. Closes with the strip of media assets that
-// UniSync agents operate 24/7.
+// UniSync agents operate 24/7. Pure markup.
 // ══════════════════════════════════════════════════════════════════════════════
-import { t, onLangChange } from './i18n'
-import { observeReveals } from '../utils/motion'
-
-type Key = Parameters<typeof t>[0]
+import { tr, type Key, type Lang } from './i18n'
 
 interface DigitalAsset {
   name: string
@@ -43,7 +40,7 @@ interface Project {
   delay: number
 }
 
-const PROJECTS: Project[] = [
+export const PROJECTS: Project[] = [
   {
     num: '01', name: 'VIGIA', live: true,
     kicker: 'vigia_kicker', tagline: 'vigia_tagline', desc: 'vigia_desc', quote: 'vigia_quote',
@@ -62,11 +59,8 @@ const PROJECTS: Project[] = [
 
 const VIGIA_SHOT = { src: '/assets/img/vigia-preview.webp', w: 1400, h: 1210, height: 520 }
 
-export function Projects() {
-  const el = document.createElement('section')
-  el.id = 'produccion'
-  el.setAttribute('data-screen-label', 'Proyectos')
-  el.style.borderBottom = '1px solid var(--line)'
+export function projectsMarkup(lang: Lang): string {
+  const t = tr(lang)
 
   const statusBadge = (live: boolean) =>
     live
@@ -89,7 +83,7 @@ export function Projects() {
       <blockquote style="margin:0;padding:2px 0 2px 16px;border-left:2px solid var(--accent);font-family:var(--font-serif);font-style:italic;font-size:14.5px;line-height:1.6;color:var(--slate);">${t(p.quote)}</blockquote>
     </div>`
 
-  /* Browser chrome shared by both mocks — same bones as the old media cards. */
+  /* Browser chrome shared by both mocks. */
   const chrome = (p: Project) => {
     const dot = p.live
       ? '<span style="width:7px;height:7px;border-radius:50%;background:var(--accent);animation:ndPulse 2.6s infinite;"></span>'
@@ -145,8 +139,8 @@ export function Projects() {
       <span class="nd-visit">${t('projects_visit')} →<span class="sr-only"> (${t('a11y_external')})</span></span>
     </a>`
 
-  const render = () => {
-    el.innerHTML = `
+  return `
+    <section id="produccion" data-screen-label="Proyectos" style="border-bottom:1px solid var(--line);">
       <div class="nd-wrap" style="padding:104px clamp(20px,5vw,40px) 0;border-left:1px solid var(--line);border-right:1px solid var(--line);">
         <div class="reveal nd-eyebrow" style="margin-bottom:20px;">${t('projects_eyebrow')}</div>
         <div class="nd-head2" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:72px;">
@@ -167,11 +161,6 @@ export function Projects() {
         </div>
         <div class="nd-proj-bottom" style="height:96px;"></div>
       </div>
-    `
-    observeReveals(el)
-  }
-
-  render()
-  onLangChange(render)
-  return el
+    </section>
+  `
 }

@@ -1,13 +1,13 @@
 // ══════════════════════════════════════════════════════════════════════════════
 // HEADER — fixed nav, transparent over the hero → frosted cream past it
-// (the .scrolled toggle is driven by interactions.ts). Owns the per-language
-// title/description/OG/Twitter text updates. Canonical and JSON-LD are static
-// in index.html (absolute URLs) — never emitted from here. The "Agendar
-// consulta" pill opens the Calendly popup.
+// (the .scrolled toggle is driven by interactions.ts), plus the off-canvas
+// mobile menu. Pure markup: burger/menu behavior lives in src/client/header.ts.
+// The ES/EN switch is a plain link to the other language's URL.
 // ══════════════════════════════════════════════════════════════════════════════
-import { t, getLang, setLang, onLangChange } from './i18n'
+import { tr, otherLang, type Lang } from './i18n'
+import { ROUTES } from './i18n/routes'
 
-const SOCIALS = [
+export const SOCIALS = [
   { key: 'discord', url: 'https://discord.gg/3sbzSSW9vd' },
   { key: 'linkedin', url: 'https://www.linkedin.com/company/107399409' },
   { key: 'instagram', url: 'https://www.instagram.com/nexadigit.io' },
@@ -21,21 +21,23 @@ export const NAV_ITEMS = [
   { id: 'contacto', key: 'nav_contact' },
 ] as const
 
-/* Minimalist ES/EN language toggle, shared by the fixed header and the hero's
-   floating top bar. Clicks are wired wherever it's mounted via [data-set-lang]. */
-export function langSwitchMarkup(current: 'es' | 'en', extraClass = ''): string {
-  const opt = (code: 'es' | 'en') =>
-    `<button type="button" data-set-lang="${code}" class="nd-lang-opt${
-      current === code ? ' is-active' : ''
-    }" aria-pressed="${current === code}">${code.toUpperCase()}</button>`
+const LOGO_SRC = '/assets/img/nexadigit-mark.webp'
+
+/* Minimalist ES/EN switch, shared by the fixed header and the hero's floating
+   top bar. The current language is inert text; the other one is a link. */
+export function langSwitchMarkup(lang: Lang, extraClass = ''): string {
+  const t = tr(lang)
+  const opt = (code: Lang) =>
+    code === lang
+      ? `<span class="nd-lang-opt is-active" aria-current="page" lang="${code}">${code.toUpperCase()}</span>`
+      : `<a href="${ROUTES.home[code]}" hreflang="${code}" lang="${code}" class="nd-lang-opt" style="text-decoration:none;">${code.toUpperCase()}</a>`
   return `<div class="nd-lang-switch ${extraClass}" role="group" aria-label="${t('a11y_lang_switch')}">${opt(
     'es'
   )}<span class="nd-lang-sep" aria-hidden="true">/</span>${opt('en')}</div>`
 }
 
-const LOGO_SRC = '/assets/img/nexadigit-mark.webp'
-
-function logoMarkup(height = 42, extra = ''): string {
+export function logoMarkup(lang: Lang, height = 42, extra = ''): string {
+  const t = tr(lang)
   return `
     <a href="#top" data-link="top" class="flex items-center gap-2.5 ${extra}" aria-label="${t('a11y_home')}" style="text-decoration:none;">
       <img src="${LOGO_SRC}" width="249" height="318" alt="NexaDigit" style="height:${height}px;width:auto;display:block;">
@@ -43,102 +45,14 @@ function logoMarkup(height = 42, extra = ''): string {
   `
 }
 
-/* ── SEO side effects ────────────────────────────────────────────────────── */
+export function headerMarkup(lang: Lang): string {
+  const t = tr(lang)
+  const other = otherLang(lang)
 
-function ensureSkipLink() {
-  let a = document.getElementById('skip-to-content') as HTMLAnchorElement | null
-  if (!a) {
-    a = document.createElement('a')
-    a.id = 'skip-to-content'
-    a.href = '#main'
-    a.className = 'skip-link'
-    document.body.prepend(a)
-  }
-  a.textContent = t('a11y_skip')
-}
-
-function setMeta(selector: string, create: () => HTMLMetaElement, content: string) {
-  let meta = document.querySelector<HTMLMetaElement>(selector)
-  if (!meta) {
-    meta = create()
-    document.head.appendChild(meta)
-  }
-  if (meta.content !== content) meta.content = content
-}
-
-function updateDocumentMeta() {
-  document.title = t('meta_title')
-
-  setMeta('meta[name="description"]', () => {
-    const m = document.createElement('meta')
-    m.name = 'description'
-    return m
-  }, t('meta_description'))
-
-  const og: Array<[string, string]> = [
-    ['og:title', t('meta_title')],
-    ['og:description', t('meta_description')],
-    ['og:locale', getLang() === 'es' ? 'es_DO' : 'en_US'],
-  ]
-  og.forEach(([prop, content]) => {
-    setMeta(`meta[property="${prop}"]`, () => {
-      const m = document.createElement('meta')
-      m.setAttribute('property', prop)
-      return m
-    }, content)
-  })
-
-  const tw: Array<[string, string]> = [
-    ['twitter:title', t('meta_title')],
-    ['twitter:description', t('meta_description')],
-  ]
-  tw.forEach(([name, content]) => {
-    setMeta(`meta[name="${name}"]`, () => {
-      const m = document.createElement('meta')
-      m.name = name
-      return m
-    }, content)
-  })
-}
-
-const lockScroll = () => document.documentElement.classList.add('overflow-hidden')
-const unlockScroll = () => document.documentElement.classList.remove('overflow-hidden')
-
-/* ── Component ───────────────────────────────────────────────────────────── */
-
-export function Header() {
-  const headerEl = document.createElement('header')
-  headerEl.setAttribute('role', 'banner')
-  headerEl.className = 'nd-header'
-
-  const mobileMenuEl = document.createElement('div')
-  mobileMenuEl.id = 'mobile-menu'
-  mobileMenuEl.className =
-    'fixed inset-0 z-[100] transform -translate-x-full transition-transform duration-300 ease-out flex flex-col lg:hidden'
-  mobileMenuEl.style.background = 'var(--bg)'
-
-  const closeMobileMenu = (cb?: () => void) => {
-    mobileMenuEl.classList.add('-translate-x-full')
-    mobileMenuEl.classList.remove('translate-x-0')
-    if (cb) setTimeout(cb, 300)
-    else setTimeout(unlockScroll, 300)
-  }
-
-  const openMobileMenu = () => {
-    mobileMenuEl.classList.remove('-translate-x-full')
-    mobileMenuEl.classList.add('translate-x-0')
-    lockScroll()
-  }
-
-  function render() {
-    const lang = getLang()
-
-    ensureSkipLink()
-    updateDocumentMeta()
-
-    headerEl.innerHTML = `
+  return `
+    <header role="banner" class="nd-header">
       <div class="nd-wrap" style="padding:0 clamp(20px,5vw,40px);height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px;">
-        ${logoMarkup(38)}
+        ${logoMarkup(lang, 38)}
 
         <nav class="hidden lg:flex items-center" style="gap:32px;" aria-label="${t('a11y_nav_main')}">
           ${NAV_ITEMS.map(
@@ -149,18 +63,18 @@ export function Header() {
         <div class="flex items-center" style="gap:16px;">
           ${langSwitchMarkup(lang, 'hidden lg:flex')}
           <a href="#contacto" data-book-meeting class="nd-pill hidden sm:inline-flex">${t('cta_book_short')}</a>
-          <button id="burger-btn" class="lg:hidden" style="padding:8px;margin-right:-8px;background:none;border:none;cursor:pointer;color:var(--ink);" aria-label="${t('a11y_open_menu')}">
+          <button id="burger-btn" class="lg:hidden" style="padding:8px;margin-right:-8px;background:none;border:none;cursor:pointer;color:var(--ink);" aria-label="${t('a11y_open_menu')}" aria-controls="mobile-menu" aria-expanded="false">
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
             </svg>
           </button>
         </div>
       </div>
-    `
+    </header>
 
-    mobileMenuEl.innerHTML = `
+    <div id="mobile-menu" class="fixed inset-0 z-[100] transform -translate-x-full transition-transform duration-300 ease-out flex flex-col lg:hidden" style="background:var(--bg);">
       <div class="flex items-center justify-between" style="height:72px;padding:0 24px;border-bottom:1px solid var(--line);">
-        ${logoMarkup(34)}
+        ${logoMarkup(lang, 34)}
         <button id="close-menu-btn" style="padding:8px;margin-right:-8px;background:none;border:none;cursor:pointer;color:var(--ink);" aria-label="${t('a11y_close_menu')}">
           <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -182,11 +96,11 @@ export function Header() {
 
       <div style="padding:24px;border-top:1px solid var(--line);">
         <div class="flex items-center justify-between">
-          <button id="lang-toggle-mobile-menu"
-                  style="padding:8px 14px;border:1px solid var(--line-strong);font-family:var(--font-mono);font-size:12px;color:var(--slate);background:none;cursor:pointer;"
-                  aria-label="${t('a11y_lang_switch')}">
+          <a href="${ROUTES.home[other]}" hreflang="${other}" lang="${other}"
+             style="display:inline-block;padding:8px 14px;border:1px solid var(--line-strong);font-family:var(--font-mono);font-size:12px;color:var(--slate);text-decoration:none;"
+             aria-label="${t('a11y_lang_switch')}">
             ${lang === 'es' ? 'English' : 'Español'}
-          </button>
+          </a>
           <div class="flex" style="gap:8px;">
             ${SOCIALS.map(
               (s) => `
@@ -199,77 +113,6 @@ export function Header() {
           </div>
         </div>
       </div>
-    `
-
-    if (!document.body.contains(mobileMenuEl)) {
-      document.body.appendChild(mobileMenuEl)
-    }
-
-    setupLanguageToggles()
-    setupBurgerMenu()
-    setupMobileNavigation()
-  }
-
-  function setupLanguageToggles() {
-    mobileMenuEl.querySelector('#lang-toggle-mobile-menu')?.addEventListener('click', (e) => {
-      e.stopPropagation()
-      setLang(getLang() === 'es' ? 'en' : 'es')
-    })
-    // Minimalist ES/EN switch in the fixed header (desktop).
-    headerEl.querySelectorAll<HTMLElement>('[data-set-lang]').forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault()
-        e.stopPropagation()
-        const next = btn.dataset.setLang as 'es' | 'en'
-        if (next !== getLang()) setLang(next)
-      })
-    })
-  }
-
-  function setupBurgerMenu() {
-    headerEl.querySelector('#burger-btn')?.addEventListener('click', (e) => {
-      e.stopPropagation()
-      openMobileMenu()
-    })
-    mobileMenuEl.querySelector('#close-menu-btn')?.addEventListener('click', (e) => {
-      e.stopPropagation()
-      closeMobileMenu()
-    })
-
-    if (window.__headerDocClickListener) {
-      document.removeEventListener('click', window.__headerDocClickListener)
-    }
-    window.__headerDocClickListener = (event: MouseEvent) => {
-      const target = event.target as Node
-      if (mobileMenuEl.classList.contains('translate-x-0') && !mobileMenuEl.contains(target)) {
-        closeMobileMenu()
-      }
-    }
-    document.addEventListener('click', window.__headerDocClickListener)
-  }
-
-  function setupMobileNavigation() {
-    mobileMenuEl.querySelectorAll<HTMLLIElement>('.mobile-nav-item').forEach((item) => {
-      item.addEventListener('click', (e) => {
-        e.preventDefault()
-        const id = item.dataset.link
-        if (!id) return
-        closeMobileMenu(() => {
-          document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
-          setTimeout(unlockScroll, 300)
-        })
-      })
-    })
-  }
-
-  render()
-  onLangChange(render)
-
-  return headerEl
-}
-
-declare global {
-  interface Window {
-    __headerDocClickListener?: (event: MouseEvent) => void
-  }
+    </div>
+  `
 }

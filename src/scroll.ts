@@ -92,3 +92,5 @@ if (document.readyState === 'loading') {
 } else {
   initScrollHandling();
 }
+
+export {};

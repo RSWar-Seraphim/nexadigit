@@ -336,14 +336,16 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
 /* ══════════════════════════════════════════════════════════════════════════
    HERO
    ══════════════════════════════════════════════════════════════════════════ */
-.nd-hero-word {
-  display: inline-block;
+/* Word rise is gated on html.js: without JavaScript the headline is simply
+   visible (crawlers and reader modes get the full text). */
+.nd-hero-word { display: inline-block; }
+.js .nd-hero-word {
   opacity: 0;
   transform: translateY(110%);
   transition: opacity .55s var(--ease), transform .55s var(--ease);
   transition-delay: calc(var(--i, 0) * 65ms + 120ms);
 }
-.hero-in .nd-hero-word { opacity: 1; transform: none; }
+.js .hero-in .nd-hero-word { opacity: 1; transform: none; }
 
 /* showcase links in hero footer */
 .nd-showcase-link {
@@ -676,6 +678,15 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
 .nd-faq-item { border-top: 1px solid var(--line); }
 .nd-faq-item:last-child { border-bottom: 1px solid var(--line); }
 .nd-faq-q {
+  /* a <button> (keyboard + aria-expanded) styled like the old div row */
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  text-align: left;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -684,6 +695,7 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
   cursor: pointer;
   user-select: none;
 }
+.nd-faq-q:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .nd-faq-q span:first-child {
   font-family: var(--font-display);
   font-weight: 600;
@@ -735,10 +747,8 @@ textarea.nd-input { line-height: 1.5; resize: vertical; }
 #contacto select.nd-input option { color: var(--ink); background: var(--bg); }
 
 /* CTA headline masked word rise */
-.nd-cta-word {
-  display: inline-block;
-  transform: translateY(115%);
-}
+.nd-cta-word { display: inline-block; }
+.js .nd-cta-word { transform: translateY(115%); }
 .nd-cta-headline.in .nd-cta-word {
   transform: translateY(0);
   transition: transform .62s var(--ease);
@@ -751,8 +761,8 @@ textarea.nd-input { line-height: 1.5; resize: vertical; }
   background: var(--accent);
   box-shadow: 0 0 8px rgba(224, 78, 20, 0.4);
   transform-origin: left center;
-  transform: scaleX(0);
 }
+.js .nd-cta-underline { transform: scaleX(0); }
 .nd-cta-headline.in .nd-cta-underline {
   transform: scaleX(1);
   transition: transform .45s ease-out;
@@ -807,29 +817,31 @@ textarea.nd-input { line-height: 1.5; resize: vertical; }
 /* ══════════════════════════════════════════════════════════════════════════
    ENTRANCE MOTION — reveal / seam / panel-rise (class toggled by observer)
    ══════════════════════════════════════════════════════════════════════════ */
-.reveal {
+/* All entrance states are gated on html.js (set by an inline script in <head>)
+   so the served HTML is fully visible when JavaScript doesn't run. */
+.js .reveal {
   opacity: 0;
   transform: translateY(18px);
   transition: opacity .7s var(--ease), transform .7s var(--ease);
   transition-delay: var(--reveal-delay, 0ms);
   will-change: opacity, transform;
 }
-.reveal.revealed { opacity: 1; transform: none; }
+.js .reveal.revealed { opacity: 1; transform: none; }
 
-.seam {
+.js .seam {
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform .9s var(--ease);
   transition-delay: var(--reveal-delay, 0ms);
 }
-.seam.revealed { transform: scaleX(1); }
+.js .seam.revealed { transform: scaleX(1); }
 
-.panel-rise {
+.js .panel-rise {
   opacity: 0;
   transform: perspective(1100px) rotateX(9deg) translateY(48px);
   transition: opacity .95s var(--ease) .12s, transform .95s var(--ease) .12s;
 }
-.panel-rise.revealed { opacity: 1; transform: perspective(1100px) rotateX(0deg) translateY(0); }
+.js .panel-rise.revealed { opacity: 1; transform: perspective(1100px) rotateX(0deg) translateY(0); }
 
 /* ══════════════════════════════════════════════════════════════════════════
    LEGAL MODAL — article typography

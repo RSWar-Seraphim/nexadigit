@@ -1,15 +1,13 @@
 // ══════════════════════════════════════════════════════════════════════════════
 // HERO — full-bleed editorial. Aurora bloom + hairline grid; a floating top bar
 // (own nav, shown while the fixed header is transparent); the headline rises
-// word-by-word once per load; a production showcase row; and the "Prueba de
-// Operación" telemetry strip. Language re-renders skip the one-time word rise.
+// word-by-word once per load (tiny inline script so it starts at parse time,
+// no wait for the bundle); a production showcase row; and the model bar.
+// Pure markup — rendered at build time.
 // ══════════════════════════════════════════════════════════════════════════════
-import { t, getLang, setLang, onLangChange } from './i18n'
-import { ProofStrip } from './ProofStrip'
+import { tr, type Lang } from './i18n'
+import { proofStripMarkup } from './ProofStrip'
 import { NAV_ITEMS, langSwitchMarkup } from './Header'
-import { prefersReducedMotion } from '../utils/motion'
-
-let heroPlayed = false
 
 const SHOWCASE = [
   { url: 'https://noticiasmma.com', label: 'noticiasmma', tld: '.com', delay: '' },
@@ -17,34 +15,35 @@ const SHOWCASE = [
   { url: 'https://quisqueyanos.net', label: 'quisqueyanos', tld: '.net', delay: ' 1s' },
 ]
 
-function eyebrowMarkup(): string {
-  const parts = t('hero_eyebrow').split(' · ')
-  const main = parts[0]
-  const loc = parts.slice(1).join(' · ')
-  // The location ("· Santo Domingo, RD") is hidden on phones for a cleaner hero.
-  return loc ? `${main}<span class="nd-eyebrow-loc"> · ${loc}</span>` : main
-}
+/* Word rise: the words are hidden only when JS is on (html.js, see style.css),
+   and shown by adding .hero-in two frames later so the transition plays. */
+const HERO_IN_SCRIPT =
+  '<script>(function(){var h=document.querySelector("[data-hero-headline]");if(!h)return;' +
+  'if(matchMedia("(prefers-reduced-motion: reduce)").matches){h.classList.add("hero-in");return;}' +
+  'requestAnimationFrame(function(){requestAnimationFrame(function(){h.classList.add("hero-in")})})})();</script>'
 
-function headlineMarkup(): string {
-  const words = t('hero_headline').split(' ')
-  return words
-    .map((w, i) => {
+export function heroMarkup(lang: Lang): string {
+  const t = tr(lang)
+
+  const eyebrow = (() => {
+    const parts = t('hero_eyebrow').split(' · ')
+    const main = parts[0]
+    const loc = parts.slice(1).join(' · ')
+    // The location ("· Santo Domingo, RD") is hidden on phones for a cleaner hero.
+    return loc ? `${main}<span class="nd-eyebrow-loc"> · ${loc}</span>` : main
+  })()
+
+  const headline = t('hero_headline')
+    .split(' ')
+    .map((w, i, words) => {
       const last = i === words.length - 1
       const inner = last ? `${w}<span style="color:var(--accent);">.</span>` : w
       return `<span style="display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:0.12em;"><span class="nd-hero-word" style="--i:${i};">${inner}</span></span>`
     })
     .join(' ')
-}
 
-export function Hero() {
-  const el = document.createElement('section')
-  el.id = 'top'
-  el.setAttribute('data-screen-label', 'Hero')
-  el.style.cssText =
-    'position:relative;min-height:100vh;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;overflow:hidden;border-bottom:1px solid var(--line);'
-
-  const render = () => {
-    el.innerHTML = `
+  return `
+    <section id="top" data-screen-label="Hero" style="position:relative;min-height:100vh;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;overflow:hidden;border-bottom:1px solid var(--line);">
       <!-- aurora bloom field -->
       <div aria-hidden="true" style="position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;">
         <div style="position:absolute;left:-8%;bottom:-32%;width:68%;height:98%;background:radial-gradient(closest-side, rgba(224,78,20,0.52), rgba(224,78,20,0.15) 46%, rgba(224,78,20,0) 72%);filter:blur(46px);animation:ndAuroraA 15s ease-in-out infinite;"></div>
@@ -64,7 +63,7 @@ export function Hero() {
           ).join('')}
         </nav>
         <div style="display:flex;align-items:center;gap:16px;flex-shrink:0;">
-          ${langSwitchMarkup(getLang(), 'hidden lg:flex')}
+          ${langSwitchMarkup(lang, 'hidden lg:flex')}
           <a href="#contacto" data-book-meeting class="nd-pill" style="flex-shrink:0;">${t('cta_book_short')}</a>
         </div>
       </div>
@@ -72,12 +71,12 @@ export function Hero() {
       <!-- hero editorial -->
       <div style="box-sizing:border-box;position:relative;z-index:1;flex:1;width:100%;display:grid;grid-template-columns:1fr auto;gap:clamp(28px,4vw,72px);align-items:end;align-content:center;padding:clamp(44px,6vh,92px) clamp(28px,5vw,76px) clamp(40px,5vh,64px);">
         <div>
-          <div data-hero-fade class="nd-eyebrow" style="font-size:13px;margin-bottom:clamp(24px,3vh,38px);text-transform:uppercase;">${eyebrowMarkup()}</div>
+          <div data-hero-fade class="nd-eyebrow" style="font-size:13px;margin-bottom:clamp(24px,3vh,38px);text-transform:uppercase;">${eyebrow}</div>
           <h1 data-hero-headline style="margin:0 0 clamp(26px,3vh,40px) 0;font-family:var(--font-display);font-weight:700;font-size:clamp(48px,7.6vw,116px);line-height:0.98;letter-spacing:-0.045em;color:var(--ink);">
-            ${headlineMarkup()}
+            ${headline}
           </h1>
           <p data-hero-fade class="nd-hero-sub-full" style="margin:0 0 40px 0;max-width:600px;font-family:var(--font-serif);font-size:19px;line-height:1.6;color:var(--slate);">${t('hero_subhead')}</p>
-          <p data-hero-fade class="nd-hero-sub-short" style="margin:0 0 40px 0;max-width:600px;font-family:var(--font-serif);font-size:19px;line-height:1.6;color:var(--slate);">${t('hero_subhead_short')}</p>
+          <p data-hero-fade class="nd-hero-sub-short" aria-hidden="true" style="margin:0 0 40px 0;max-width:600px;font-family:var(--font-serif);font-size:19px;line-height:1.6;color:var(--slate);">${t('hero_subhead_short')}</p>
           <div data-hero-fade style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
             <a data-cta-btn data-glow="0 14px 44px rgba(224,78,20,0.42)" data-book-meeting href="#contacto" class="nd-cta">${t('cta_book')}<span class="nd-cta__arrow" data-cta-arrow>→</span></a>
             <a href="#produccion" data-link="produccion" class="nd-btn-ghost">${t('hero_cta_secondary')}</a>
@@ -109,35 +108,9 @@ export function Hero() {
           ).join('')}
         </div>
       </div>
-    `
 
-    el.appendChild(ProofStrip())
-
-    // Minimalist ES/EN switch in the hero's floating top bar.
-    el.querySelectorAll<HTMLElement>('[data-set-lang]').forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault()
-        e.stopPropagation()
-        const next = btn.dataset.setLang as 'es' | 'en'
-        if (next !== getLang()) setLang(next)
-      })
-    })
-
-    // One-time word rise (skip replay on language change / reduced motion).
-    // On first mount main.ts swaps in the static LCP headline (no word spans),
-    // so this animation harmlessly targets the replaced-out node.
-    const h1 = el.querySelector<HTMLElement>('[data-hero-headline]')
-    if (!h1) return
-    if (heroPlayed || prefersReducedMotion()) {
-      h1.classList.add('hero-in')
-      heroPlayed = true
-      return
-    }
-    heroPlayed = true
-    requestAnimationFrame(() => requestAnimationFrame(() => h1.classList.add('hero-in')))
-  }
-
-  render()
-  onLangChange(render)
-  return el
+      ${proofStripMarkup(lang)}
+      ${HERO_IN_SCRIPT}
+    </section>
+  `
 }
