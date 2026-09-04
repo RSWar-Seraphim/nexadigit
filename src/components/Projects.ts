@@ -3,23 +3,16 @@
 // numbered editorial case rows: a text column (status, kicker, tagline,
 // capability chips, pull-quote) beside a browser mock. VIGIA's real dashboard
 // screenshot scrolls on hover; CASUM and ProDoctivity DGP, still in progress,
-// show their wordmark floating over a drafting grid. Closes with the strip of
-// media assets that UniSync agents operate 24/7. Pure markup.
+// show their wordmark floating over a drafting grid. Pure markup.
 // ══════════════════════════════════════════════════════════════════════════════
 import { tr, type Key, type Lang } from './i18n'
 
-interface DigitalAsset {
-  name: string
-  url: string
-  descKey: Key
-  dotDelay: string
-}
-
-/* Also consumed by the footer's "Activos" column. */
-export const DIGITAL_ASSETS: DigitalAsset[] = [
-  { name: 'noticiasmma.com', url: 'https://noticiasmma.com', descKey: 'assets_mma_desc', dotDelay: '' },
-  { name: 'lahora24.com', url: 'https://lahora24.com', descKey: 'assets_lahora_desc', dotDelay: ' 0.6s' },
-  { name: 'quisqueyanos.net', url: 'https://quisqueyanos.net', descKey: 'assets_quisqueyanos_desc', dotDelay: ' 1.2s' },
+/* The media outlets UniSync operates — listed in the footer, the hero showcase
+   and llms.txt (they no longer have their own strip in this section). */
+export const DIGITAL_ASSETS = [
+  { name: 'noticiasmma.com', url: 'https://noticiasmma.com' },
+  { name: 'lahora24.com', url: 'https://lahora24.com' },
+  { name: 'quisqueyanos.net', url: 'https://quisqueyanos.net' },
 ]
 
 type Status = 'live' | 'building' | 'developing'
@@ -156,13 +149,6 @@ export function projectsMarkup(lang: Lang): string {
       ${p.status === 'live' ? liveMock(p) : draftMock(p)}
     </div>`
 
-  const assetCell = (a: DigitalAsset, i: number) => `
-    <a href="${a.url}" target="_blank" rel="noopener" class="nd-asset-cell" style="${i ? 'border-left:1px solid var(--line);' : ''}">
-      <span style="display:flex;align-items:center;gap:9px;font-family:var(--font-mono);font-size:12.5px;color:var(--ink);"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;animation:ndPulse 2.6s infinite${a.dotDelay};"></span>${a.name}</span>
-      <span style="font-family:var(--font-serif);font-size:14px;line-height:1.5;color:var(--slate);">${t(a.descKey)}</span>
-      <span class="nd-visit">${t('projects_visit')} →<span class="sr-only"> (${t('a11y_external')})</span></span>
-    </a>`
-
   return `
     <section id="produccion" data-screen-label="Proyectos" style="border-bottom:1px solid var(--line);">
       <div class="nd-wrap" style="padding:104px clamp(20px,5vw,40px) 0;border-left:1px solid var(--line);border-right:1px solid var(--line);">
@@ -173,17 +159,7 @@ export function projectsMarkup(lang: Lang): string {
         </div>
 
         ${PROJECTS.map(projectRow).join('')}
-
-        <div class="nd-assets-strip reveal" style="margin-top:96px;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 2fr;">
-          <div style="padding:32px 32px 32px 0;border-right:1px solid var(--line);">
-            <div class="nd-eyebrow" style="font-size:11px;margin-bottom:10px;">${t('assets_strip_label')}</div>
-            <p style="margin:0;font-family:var(--font-serif);font-size:15px;line-height:1.6;color:var(--slate);max-width:340px;">${t('assets_strip_lede')}</p>
-          </div>
-          <div class="nd-assets-strip__list" style="display:grid;grid-template-columns:repeat(3,1fr);">
-            ${DIGITAL_ASSETS.map(assetCell).join('')}
-          </div>
-        </div>
-        <div class="nd-proj-bottom" style="height:96px;"></div>
+        <div class="nd-proj-bottom" style="height:112px;"></div>
       </div>
     </section>
   `

@@ -859,18 +859,6 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
 /* brand wordmarks in their original colors (width set inline per mark) */
 .nd-draft-mark { display: block; height: auto; max-width: 100%; }
 
-/* digital-assets strip at the foot of the section */
-.nd-asset-cell {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 28px;
-  text-decoration: none;
-  transition: background .25s;
-}
-.nd-asset-cell:hover { background: var(--surface); }
-.nd-asset-cell:hover .nd-visit { text-decoration: underline; }
-
 /* ══════════════════════════════════════════════════════════════════════════
    FAQ accordion
    ══════════════════════════════════════════════════════════════════════════ */
@@ -1117,14 +1105,9 @@ textarea.nd-input { line-height: 1.5; resize: vertical; }
   .nd-post-grid { grid-template-columns: 1fr 1fr !important; }
   .nd-post-cta__inner { grid-template-columns: 1fr !important; }
   .nd-post-cta__actions { justify-content: flex-start !important; }
-  /* Proyectos: stack each case row (text first), then the assets strip */
+  /* Proyectos: stack each case row (text first) */
   .nd-proj-row { grid-template-columns: 1fr !important; }
   .nd-proj-row > * { grid-column: auto !important; grid-row: auto !important; }
-  .nd-assets-strip { grid-template-columns: 1fr !important; }
-  .nd-assets-strip > div:first-child { border-right: 0 !important; border-bottom: 1px solid var(--line); padding-right: 0 !important; }
-  .nd-assets-strip__list { grid-template-columns: 1fr !important; }
-  .nd-asset-cell { border-left: 0 !important; border-top: 1px solid var(--line); padding: 20px 0 !important; }
-  .nd-asset-cell:first-child { border-top: 0; }
 }
 @media (max-width: 860px) {
   .nd-head2 { grid-template-columns: 1fr !important; gap: 18px !important; margin-bottom: 40px !important; }

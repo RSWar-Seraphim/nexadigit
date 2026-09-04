@@ -188,11 +188,6 @@ export const en = {
   dgp_tag_4: 'Embeds in any system',
   dgp_mock_caption: 'DOCUMENT PROCESSING GENERATOR',
   dgp_caption: 'Library in development for ProDoctivity: input documents, extracted data and output templates.',
-  assets_strip_label: 'Digital assets',
-  assets_strip_lede: 'Our own media outlets, operated 24/7 by UniSync agents: the content chatbots cite.',
-  assets_mma_desc: 'MMA and UFC coverage in Spanish.',
-  assets_lahora_desc: 'Technology and AI news.',
-  assets_quisqueyanos_desc: 'Dominican journalism.',
 
   /* ── Process ────────────────────────────────────────────────────────── */
   process_eyebrow: 'Process',
