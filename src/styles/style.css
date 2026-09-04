@@ -523,6 +523,63 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
   padding: 6px 15px;
 }
 
+/* ══════════════════════════════════════════════════════════════════════════
+   DATA TABLES — hairline editorial tables (carbon default, --light on cream)
+   ══════════════════════════════════════════════════════════════════════════ */
+.nd-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-serif);
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(250, 247, 242, 0.72);
+}
+.nd-table caption {
+  caption-side: top;
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(250, 247, 242, 0.5);
+  padding-bottom: 12px;
+}
+.nd-table th,
+.nd-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 11px 16px 11px 0;
+  border-top: 1px solid rgba(250, 247, 242, 0.1);
+}
+.nd-table thead th {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border-top: 0;
+  padding-top: 0;
+}
+.nd-table tbody th {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  color: #F3EFE8;
+  width: 26%;
+}
+.nd-table tbody tr:last-child th,
+.nd-table tbody tr:last-child td { border-bottom: 1px solid rgba(250, 247, 242, 0.1); }
+
+.nd-table--light { color: var(--slate); }
+.nd-table--light caption { color: var(--muted); }
+.nd-table--light th,
+.nd-table--light td { border-color: var(--line); }
+.nd-table--light tbody th { color: var(--ink); width: 30%; }
+.nd-table--light tbody tr:last-child th,
+.nd-table--light tbody tr:last-child td { border-bottom-color: var(--line); }
+
 /* dashboard "Run" pill hover */
 .nd-run-btn {
   font-family: var(--font-mono);

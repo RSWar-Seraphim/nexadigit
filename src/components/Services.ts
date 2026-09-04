@@ -27,7 +27,10 @@ export function servicesMarkup(lang: Lang): string {
     <section id="servicios" data-screen-label="Servicios" style="border-bottom:1px solid var(--line);">
       <div class="nd-wrap" style="padding:104px clamp(20px,5vw,40px) 96px;border-left:1px solid var(--line);border-right:1px solid var(--line);">
         <div class="reveal nd-eyebrow" style="margin-bottom:20px;">${t('services_eyebrow')}</div>
-        <h2 class="reveal nd-h2" style="--reveal-delay:80ms;margin-bottom:64px;">${t('services_title')}</h2>
+        <div class="nd-head2" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:64px;">
+          <h2 class="reveal nd-h2" style="--reveal-delay:80ms;">${t('services_title')}</h2>
+          <p class="reveal" style="--reveal-delay:140ms;margin:0;font-family:var(--font-serif);font-size:18px;line-height:1.65;color:var(--slate);">${t('services_lede')}</p>
+        </div>
 
         <div class="nd-services">
           ${card(CARDS[0])}

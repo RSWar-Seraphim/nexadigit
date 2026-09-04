@@ -51,6 +51,8 @@ export const es = {
   /* ── Servicios ──────────────────────────────────────────────────────── */
   services_eyebrow: 'Servicios',
   services_title: 'Del diagnóstico a la operación.',
+  services_lede:
+    'NexaDigit ofrece seis servicios de ingeniería de IA para empresas de República Dominicana, Estados Unidos, Canadá y Latinoamérica: estrategia, desarrollo a medida, agentes autónomos, infraestructura cloud, seguridad y capacitación. Todo empieza con un diagnóstico sin costo y termina con el sistema operando en producción.',
   services_1_title: 'Estrategia y Consultoría de IA',
   services_1_desc:
     'Evaluamos sus procesos, identificamos casos de uso con retorno medible y diseñamos el roadmap de adopción. De la idea a un plan ejecutable, con fases y presupuesto.',
@@ -59,7 +61,7 @@ export const es = {
     'Aplicaciones web, APIs y plataformas internas construidas para escalar: del MVP validado a la solución empresarial. Python/FastAPI, React/TypeScript, PostgreSQL.',
   services_3_title: 'Agentes de IA e Integración',
   services_3_desc:
-    'Agentes autónomos que ejecutan flujos completos: investigación, generación de contenido, operaciones. Con orquestación multi-modelo y capas de verificación que controlan calidad y costo por tarea.',
+    'Un agente autónomo es un sistema de IA que ejecuta un flujo completo —investigación, generación de contenido, operaciones— sin intervención humana en cada paso. Los construimos con orquestación multi-modelo y capas de verificación que controlan calidad y costo por tarea.',
   services_4_title: 'Infraestructura Cloud',
   services_4_desc:
     'Arquitectura y despliegue en AWS, Azure, GCP y Cloudflare. CI/CD, edge computing y optimización de costos.',
@@ -81,8 +83,8 @@ export const es = {
   unisync_kicker: 'AEO Content Generator',
   unisync_badge: 'OPERANDO 24/7',
   unisync_desc:
-    'Un solo panel para operar la flota: agentes por medio, cola de publicación, AutoPilot y métricas en tiempo real. Cada agente cubre un tema, redacta con verificación y publica en nuestros medios propios — noticiasmma, lahora24 y quisqueyanos — sin intervención humana.',
-  unisync_how_label: 'Cómo funciona',
+    'UniSync es un solo panel para operar la flota: agentes por medio, cola de publicación, AutoPilot y métricas en tiempo real. Cada agente cubre un tema, redacta con verificación y publica en nuestros medios propios — noticiasmma, lahora24 y quisqueyanos — sin intervención humana.',
+  unisync_how_label: '¿Cómo funciona UniSync?',
   unisync_step_1_title: 'Investiga',
   unisync_step_1_desc: 'Detecta lo que la gente le pregunta a los chatbots sobre nuestro sector y elige los temas con demanda real.',
   unisync_step_2_title: 'Redacta',
@@ -93,6 +95,21 @@ export const es = {
   unisync_step_4_desc: 'ChatGPT, Claude, Gemini y Perplexity indexan ese contenido y mencionan nuestros productos y servicios en sus respuestas.',
   unisync_mock_sub: '7 agentes · uno a la vez',
   unisync_publishing: 'publicando ahora…',
+  aeo_table_caption: 'SEO frente a AEO',
+  aeo_table_seo: 'SEO',
+  aeo_table_aeo: 'AEO',
+  aeo_row_1_k: 'Objetivo',
+  aeo_row_1_seo: 'Aparecer en la lista de resultados',
+  aeo_row_1_aeo: 'Ser citado dentro de la respuesta del chatbot',
+  aeo_row_2_k: 'Unidad',
+  aeo_row_2_seo: 'Página y palabra clave',
+  aeo_row_2_aeo: 'Respuesta y entidad',
+  aeo_row_3_k: 'Señal principal',
+  aeo_row_3_seo: 'Enlaces y autoridad del dominio',
+  aeo_row_3_aeo: 'Claridad, estructura y datos verificables',
+  aeo_row_4_k: 'Métrica',
+  aeo_row_4_seo: 'Clics',
+  aeo_row_4_aeo: 'Menciones y citas',
   unisync_toast: '<span style="font-weight:600">Artículo publicado</span> <span style="color:#7E8790">— noticiasmma.com</span>',
   unisync_console_note: 'Vista ilustrativa del panel · datos de ejemplo',
   unisync_cta: 'Conocer UniSync',
@@ -110,7 +127,7 @@ export const es = {
   vigia_kicker: 'SaaS · Fianzas de cumplimiento',
   vigia_tagline: 'Vigilancia después de la emisión.',
   vigia_desc:
-    'Una fianza de cumplimiento se estudia antes de emitirla; el riesgo aparece el día después, cuando la obra ocurre lejos de la fiadora y nadie cruza los documentos. VIGIA consolida el expediente, extrae los datos con su procedencia, cruza lo declarado contra lo evidenciado y avisa antes de que llegue el reclamo.',
+    'VIGIA es un SaaS para afianzadoras que vigila las fianzas de cumplimiento después de emitirlas. Una fianza de cumplimiento garantiza que un contratista termine la obra; el riesgo aparece después, cuando la obra ocurre lejos de la fiadora y nadie cruza los documentos. VIGIA consolida el expediente, extrae los datos con su procedencia, cruza lo declarado contra lo evidenciado y avisa antes del reclamo.',
   vigia_quote: 'No suscribe, no emite, no paga. Su producto es el aviso temprano y el expediente ordenado.',
   vigia_tag_1: 'Expediente consolidado',
   vigia_tag_2: 'Datos con procedencia',
@@ -121,7 +138,7 @@ export const es = {
   casum_kicker: 'SaaS · Gestión legal',
   casum_tagline: 'El despacho completo, en un solo lugar.',
   casum_desc:
-    'Plataforma de gestión legal para abogados independientes y firmas pequeñas de República Dominicana: clientes, expedientes, plazos y documentos, desde cualquier dispositivo. Le quita al abogado el trabajo mecánico: alta de clientes con una foto de la cédula, expedientes que se arman y se siguen solos, plazos que no se pierden y los documentos que cada trámite exige.',
+    'CASUM es una plataforma de gestión legal para abogados independientes y firmas pequeñas de República Dominicana: clientes, expedientes, plazos y documentos en un solo lugar, desde cualquier dispositivo. Elimina el trabajo mecánico del despacho: alta de clientes con una foto de la cédula, expedientes que se arman solos, plazos que no se pierden y los documentos que cada trámite exige.',
   casum_quote: 'Arranca por derecho corporativo — sociedades, asambleas, Registro Mercantil — y de ahí se extiende al resto del ejercicio.',
   casum_tag_1: 'Alta desde la cédula',
   casum_tag_2: 'Expedientes y plazos',
@@ -138,7 +155,13 @@ export const es = {
   /* ── Proceso ────────────────────────────────────────────────────────── */
   process_eyebrow: 'Proceso',
   process_title: 'Cómo trabajamos.',
+  process_lede:
+    'Trabajamos en cuatro fases con entregables y plazos fijos: diagnóstico sin costo en 3–5 días, propuesta con precio cerrado en una semana, sprints de 1–2 semanas con demos funcionales y operación continua del sistema en producción. Un MVP típico está listo en 4–8 semanas.',
   process_deliverable_label: 'ENTREGABLE:',
+  process_table_caption: 'Fases, entregables y plazos',
+  process_table_phase: 'Fase',
+  process_table_deliverable: 'Entregable',
+  process_table_time: 'Plazo',
   process_1_title: 'Descubrimiento',
   process_1_desc:
     'Una conversación inicial sin costo. Analizamos su operación, identificamos dónde la IA genera retorno real y definimos el problema exacto a resolver.',

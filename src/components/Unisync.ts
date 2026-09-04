@@ -35,6 +35,13 @@ const STEPS: { title: Key; desc: Key }[] = [
   { title: 'unisync_step_4_title', desc: 'unisync_step_4_desc' },
 ]
 
+const AEO_ROWS: { k: Key; seo: Key; aeo: Key }[] = [
+  { k: 'aeo_row_1_k', seo: 'aeo_row_1_seo', aeo: 'aeo_row_1_aeo' },
+  { k: 'aeo_row_2_k', seo: 'aeo_row_2_seo', aeo: 'aeo_row_2_aeo' },
+  { k: 'aeo_row_3_k', seo: 'aeo_row_3_seo', aeo: 'aeo_row_3_aeo' },
+  { k: 'aeo_row_4_k', seo: 'aeo_row_4_seo', aeo: 'aeo_row_4_aeo' },
+]
+
 const sideIcon = (glyph: string, active = false) =>
   `<div style="width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;${
     active ? 'background:rgba(224,78,20,0.12);color:var(--accent);' : 'color:#6C747D;'
@@ -88,22 +95,37 @@ export function unisyncMarkup(lang: Lang): string {
           <div class="reveal">
             <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:22px;">
               <div>
-                <span style="font-family:var(--font-display);font-weight:700;font-size:34px;letter-spacing:-0.025em;line-height:1;">UniSync</span>
+                <h3 style="margin:0;font-family:var(--font-display);font-weight:700;font-size:34px;letter-spacing:-0.025em;line-height:1;">UniSync</h3>
                 <div style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(250,247,242,0.55);margin-top:8px;">${t('unisync_kicker')}</div>
               </div>
               <span style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.14em;color:var(--accent);border:1px solid rgba(224,78,20,0.4);padding:5px 12px;white-space:nowrap;"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);animation:ndPulseDark 2.6s infinite;"></span>${t('unisync_badge')}</span>
             </div>
             <p style="margin:0 0 30px;font-family:var(--font-serif);font-size:16.5px;line-height:1.65;color:rgba(250,247,242,0.7);max-width:600px;">${t('unisync_desc')}</p>
             <a href="https://unisync.ai" target="_blank" rel="noopener" class="nd-unisync-btn">${t('unisync_cta')} →</a>
+
+            <!-- SEO vs AEO in one glance — the comparison answer engines quote. -->
+            <div style="margin-top:44px;max-width:600px;overflow-x:auto;">
+              <table class="nd-table">
+                <caption>${t('aeo_table_caption')}</caption>
+                <thead>
+                  <tr><th scope="col"><span class="sr-only">${t('aeo_table_caption')}</span></th><th scope="col">${t('aeo_table_seo')}</th><th scope="col">${t('aeo_table_aeo')}</th></tr>
+                </thead>
+                <tbody>
+                  ${AEO_ROWS.map(
+                    (r) => `<tr><th scope="row">${t(r.k)}</th><td>${t(r.seo)}</td><td>${t(r.aeo)}</td></tr>`
+                  ).join('')}
+                </tbody>
+              </table>
+            </div>
           </div>
           <div class="reveal" style="--reveal-delay:100ms;">
-            <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(250,247,242,0.5);margin-bottom:6px;">${t('unisync_how_label')}</div>
+            <h3 style="margin:0 0 6px;font-family:var(--font-mono);font-weight:500;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(250,247,242,0.5);">${t('unisync_how_label')}</h3>
             ${STEPS.map(
               (s, i) => `
               <div class="nd-step">
                 <span style="font-family:var(--font-mono);font-size:12px;color:var(--accent);padding-top:2px;">0${i + 1}</span>
                 <div>
-                  <div style="font-family:var(--font-display);font-weight:600;font-size:15.5px;letter-spacing:-0.01em;color:#F3EFE8;margin-bottom:4px;">${t(s.title)}</div>
+                  <h4 style="margin:0 0 4px;font-family:var(--font-display);font-weight:600;font-size:15.5px;letter-spacing:-0.01em;color:#F3EFE8;">${t(s.title)}</h4>
                   <div style="font-family:var(--font-serif);font-size:14px;line-height:1.55;color:rgba(250,247,242,0.62);">${t(s.desc)}</div>
                 </div>
               </div>`

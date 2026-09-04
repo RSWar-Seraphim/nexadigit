@@ -27,7 +27,10 @@ export function processMarkup(lang: Lang): string {
     <section id="proceso" data-screen-label="Cómo Trabajamos" style="border-bottom:1px solid var(--line);">
       <div class="nd-wrap" style="padding:104px clamp(20px,5vw,40px) 112px;border-left:1px solid var(--line);border-right:1px solid var(--line);">
         <div class="reveal nd-eyebrow" style="margin-bottom:20px;">${t('process_eyebrow')}</div>
-        <h2 class="reveal nd-h2" style="--reveal-delay:80ms;margin-bottom:72px;">${t('process_title')}</h2>
+        <div class="nd-head2" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:72px;">
+          <h2 class="reveal nd-h2" style="--reveal-delay:80ms;">${t('process_title')}</h2>
+          <p class="reveal" style="--reveal-delay:140ms;margin:0;font-family:var(--font-serif);font-size:18px;line-height:1.65;color:var(--slate);">${t('process_lede')}</p>
+        </div>
 
         <div style="position:relative;">
           <div class="nd-proceso-track">
@@ -42,6 +45,24 @@ export function processMarkup(lang: Lang): string {
           <div class="nd-proceso" style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;">
             ${STEPS.map(step).join('')}
           </div>
+        </div>
+
+        <!-- The same phases as a table: the most reliably extracted format for
+             "how long / what do I get" questions. Deliverable and timeline come
+             from the same i18n strings the cards use. -->
+        <div class="reveal" style="--reveal-delay:120ms;margin-top:72px;overflow-x:auto;">
+          <table class="nd-table nd-table--light">
+            <caption>${t('process_table_caption')}</caption>
+            <thead>
+              <tr><th scope="col">${t('process_table_phase')}</th><th scope="col">${t('process_table_deliverable')}</th><th scope="col">${t('process_table_time')}</th></tr>
+            </thead>
+            <tbody>
+              ${STEPS.map((s) => {
+                const [deliverable, time] = t(s.del).split(' · ')
+                return `<tr><th scope="row">${s.n} · ${t(s.title)}</th><td>${deliverable}</td><td>${time ?? ''}</td></tr>`
+              }).join('')}
+            </tbody>
+          </table>
         </div>
       </div>
     </section>

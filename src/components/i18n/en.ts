@@ -50,6 +50,8 @@ export const en = {
   /* ── Services ───────────────────────────────────────────────────────── */
   services_eyebrow: 'Services',
   services_title: 'From diagnosis to operation.',
+  services_lede:
+    'NexaDigit offers six AI engineering services for companies in the Dominican Republic, the United States, Canada, and Latin America: strategy, custom development, autonomous agents, cloud infrastructure, security, and training. Everything starts with a free diagnosis and ends with the system operating in production.',
   services_1_title: 'AI Strategy & Consulting',
   services_1_desc:
     'We assess your processes, identify use cases with measurable returns, and design the adoption roadmap. From idea to an executable plan, with phases and budget.',
@@ -58,7 +60,7 @@ export const en = {
     'Web applications, APIs, and internal platforms built to scale: from validated MVP to enterprise-grade solution. Python/FastAPI, React/TypeScript, PostgreSQL.',
   services_3_title: 'AI Agents & Integration',
   services_3_desc:
-    'Autonomous agents that run complete workflows: research, content generation, operations. With multi-model orchestration and verification layers that control quality and cost per task.',
+    'An autonomous agent is an AI system that runs a complete workflow —research, content generation, operations— without a human in every step. We build them with multi-model orchestration and verification layers that control quality and cost per task.',
   services_4_title: 'Cloud Infrastructure',
   services_4_desc:
     'Architecture and deployment on AWS, Azure, GCP, and Cloudflare. CI/CD, edge computing, and cost optimization.',
@@ -80,8 +82,8 @@ export const en = {
   unisync_kicker: 'AEO Content Generator',
   unisync_badge: 'OPERATING 24/7',
   unisync_desc:
-    'One console to run the fleet: agents per outlet, a publishing queue, AutoPilot, and real-time metrics. Each agent owns a topic, writes with verification, and publishes to our own outlets — noticiasmma, lahora24, and quisqueyanos — with no human in the loop.',
-  unisync_how_label: 'How it works',
+    'UniSync is one console to run the fleet: agents per outlet, a publishing queue, AutoPilot, and real-time metrics. Each agent owns a topic, writes with verification, and publishes to our own outlets — noticiasmma, lahora24, and quisqueyanos — with no human in the loop.',
+  unisync_how_label: 'How does UniSync work?',
   unisync_step_1_title: 'Research',
   unisync_step_1_desc: 'Detects what people ask chatbots about our sector and picks the topics with real demand.',
   unisync_step_2_title: 'Write',
@@ -92,6 +94,21 @@ export const en = {
   unisync_step_4_desc: 'ChatGPT, Claude, Gemini, and Perplexity index that content and mention our products and services in their answers.',
   unisync_mock_sub: '7 agents · one at a time',
   unisync_publishing: 'publishing now…',
+  aeo_table_caption: 'SEO versus AEO',
+  aeo_table_seo: 'SEO',
+  aeo_table_aeo: 'AEO',
+  aeo_row_1_k: 'Goal',
+  aeo_row_1_seo: 'Appear in the list of results',
+  aeo_row_1_aeo: "Be cited inside the chatbot's answer",
+  aeo_row_2_k: 'Unit',
+  aeo_row_2_seo: 'Page and keyword',
+  aeo_row_2_aeo: 'Answer and entity',
+  aeo_row_3_k: 'Main signal',
+  aeo_row_3_seo: 'Links and domain authority',
+  aeo_row_3_aeo: 'Clarity, structure, and verifiable data',
+  aeo_row_4_k: 'Metric',
+  aeo_row_4_seo: 'Clicks',
+  aeo_row_4_aeo: 'Mentions and citations',
   unisync_toast: '<span style="font-weight:600">Article published</span> <span style="color:#7E8790">— noticiasmma.com</span>',
   unisync_console_note: 'Illustrative view of the console · sample data',
   unisync_cta: 'Discover UniSync',
@@ -109,7 +126,7 @@ export const en = {
   vigia_kicker: 'SaaS · Performance bonds',
   vigia_tagline: 'Surveillance after issuance.',
   vigia_desc:
-    "A performance bond is underwritten before it's issued; the risk shows up the day after, when the project happens far from the surety and nobody cross-checks the documents. VIGIA consolidates the file, extracts every figure with its source, checks what was declared against what is evidenced, and raises the alert before the claim arrives.",
+    'VIGIA is a SaaS for sureties that monitors performance bonds after they are issued. A performance bond guarantees that a contractor finishes the work; the risk shows up afterwards, when the project happens far from the surety and nobody cross-checks the documents. VIGIA consolidates the file, extracts every figure with its source, checks what was declared against what is evidenced, and raises the alert before the claim.',
   vigia_quote: "It doesn't underwrite, issue, or pay. Its product is the early warning and the orderly file.",
   vigia_tag_1: 'Consolidated file',
   vigia_tag_2: 'Data with provenance',
@@ -120,7 +137,7 @@ export const en = {
   casum_kicker: 'SaaS · Legal practice management',
   casum_tagline: 'The whole practice, in one place.',
   casum_desc:
-    'Legal practice management for solo lawyers and small firms in the Dominican Republic: clients, case files, deadlines, and documents, from any device. It takes the mechanical work off the lawyer: onboard a client from a photo of their ID, build and track case files, never miss a deadline, and generate the documents each procedure requires.',
+    'CASUM is a legal practice management platform for solo lawyers and small firms in the Dominican Republic: clients, case files, deadlines, and documents in one place, from any device. It removes the mechanical work from the practice: onboarding a client from a photo of their ID, case files that build themselves, deadlines that are never missed, and the documents each procedure requires.',
   casum_quote: 'It starts with corporate law — incorporations, shareholder meetings, Mercantile Registry — and expands from there to the rest of the practice.',
   casum_tag_1: 'Onboarding from an ID photo',
   casum_tag_2: 'Case files & deadlines',
@@ -137,7 +154,13 @@ export const en = {
   /* ── Process ────────────────────────────────────────────────────────── */
   process_eyebrow: 'Process',
   process_title: 'How we work.',
+  process_lede:
+    'We work in four phases with fixed deliverables and timelines: a free diagnosis in 3–5 days, a fixed-price proposal within a week, 1–2 week sprints with working demos, and continuous operation of the system in production. A typical MVP is ready in 4–8 weeks.',
   process_deliverable_label: 'DELIVERABLE:',
+  process_table_caption: 'Phases, deliverables, and timelines',
+  process_table_phase: 'Phase',
+  process_table_deliverable: 'Deliverable',
+  process_table_time: 'Timeline',
   process_1_title: 'Discovery',
   process_1_desc:
     'An initial conversation at no cost. We analyze your operation, identify where AI delivers real returns, and define the exact problem to solve.',
