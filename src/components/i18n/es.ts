@@ -40,6 +40,8 @@ export const es = {
   blog_title: 'Respuestas, no relleno.',
   blog_lede:
     'Lo que aprendemos construyendo y operando sistemas de IA, escrito para que una persona —o un motor de respuesta— encuentre la respuesta en el primer párrafo.',
+  home_blog_eyebrow: 'Blog',
+  home_blog_all: 'Ver todos los artículos',
   blog_tag_title: 'Tema: {tag}',
   blog_tag_lede: 'Artículos etiquetados con «{tag}».',
   blog_filter_label: 'Filtrar por tema',

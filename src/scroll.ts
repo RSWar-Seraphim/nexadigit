@@ -34,8 +34,10 @@ function updateActiveFromScroll() {
 
 // --- Toggle active class on nav links and move highlight if available ---
 function setActiveTab(id: string) {
-  const links = [...document.querySelectorAll<HTMLElement>('[data-link]')];
-  links.forEach(l => l.classList.toggle(ACTIVE_CLASS, l.dataset.link === id));
+  // [data-section] marks a page link (Blog) that lights up while its landing
+  // section is in view; clicking it still navigates.
+  const links = [...document.querySelectorAll<HTMLElement>('[data-link], [data-section]')];
+  links.forEach(l => l.classList.toggle(ACTIVE_CLASS, (l.dataset.link ?? l.dataset.section) === id));
   (window as any).__moveNavHighlight?.(id);
 }
 

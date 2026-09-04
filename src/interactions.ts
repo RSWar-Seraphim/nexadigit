@@ -60,7 +60,7 @@ export function initInteractions() {
   const glide = (id: string) => {
     if (!nav || !glider) return
     gliderId = id
-    const link = nav.querySelector<HTMLElement>(`a[data-link="${id}"]`)
+    const link = nav.querySelector<HTMLElement>(`a[data-link="${id}"], a[data-section="${id}"]`)
     nav.classList.add('nd-nav--glide')
     if (!link) {
       glider.classList.remove('is-on')

@@ -40,7 +40,10 @@ const LOGO_SRC = '/assets/img/nexadigit-mark.webp'
 export function navAttrs(item: NavItem, lang: Lang, opts: NavOpts): string {
   if ('href' in item) {
     const active = opts.current === item.id ? ' aria-current="page"' : ''
-    return `href="${item.href}"${active}`
+    // On the landing, a page link can still light up while its teaser section
+    // (#blog) is in view: data-section is read by the scroll-spy, never clicked.
+    const section = opts.onHome ? ` data-section="${item.id}"` : ''
+    return `href="${item.href}"${active}${section}`
   }
   if (opts.onHome) return `href="#${item.id}" data-link="${item.id}"`
   return `href="${ROUTES.home[lang]}#${item.id}"`

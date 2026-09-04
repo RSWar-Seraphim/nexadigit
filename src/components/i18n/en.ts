@@ -39,6 +39,8 @@ export const en = {
   blog_title: 'Answers, not filler.',
   blog_lede:
     'What we learn building and operating AI systems, written so that a person —or an answer engine— finds the answer in the first paragraph.',
+  home_blog_eyebrow: 'Blog · in Spanish',
+  home_blog_all: 'See all articles',
   blog_tag_title: 'Topic: {tag}',
   blog_tag_lede: 'Articles tagged "{tag}".',
   blog_filter_label: 'Filter by topic',

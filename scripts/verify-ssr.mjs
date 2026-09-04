@@ -62,7 +62,8 @@ for (const p of PAGES) {
       const q = p.faq[`faq_${i}_q`]
       ok(q && html.includes(q), `${tag} FAQ question ${i} not in served HTML`)
     }
-    ok(count(html, /<section id="/g) >= 7, `${tag} expected the 7 sections in served HTML`)
+    ok(count(html, /<section id="/g) >= 8, `${tag} expected the 8 sections in served HTML`)
+    ok(count(html, /<article class="nd-post-card"/g) >= 3, `${tag} blog teaser (3 post cards) not in served HTML`)
     ok(html.includes('id="contact-form"'), `${tag} contact form not in served HTML`)
   }
 }

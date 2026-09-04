@@ -1,6 +1,7 @@
 ---
 /* The landing page for one language. Sections are template-literal HTML built
    at build time; the client bundle (src/client/main.ts) only attaches behavior. */
+import { getCollection } from 'astro:content'
 import Base from '../layouts/Base.astro'
 import { tr, type Lang } from './i18n'
 import { ROUTES } from './i18n/routes'
@@ -10,10 +11,12 @@ import { servicesMarkup } from './Services'
 import { unisyncMarkup } from './Unisync'
 import { projectsMarkup } from './Projects'
 import { processMarkup } from './Process'
+import { blogTeaserMarkup, type TeaserPost } from './BlogTeaser'
 import { faqMarkup } from './Faq'
 import { contactMarkup } from './Contact'
 import { footerMarkup } from './Footer'
 import { homeGraph } from '../seo/schema'
+import { formatDate, isoDate, postUrl, readingMinutes, sortPosts } from '../blog/utils'
 
 interface Props {
   lang: Lang
@@ -21,7 +24,29 @@ interface Props {
 const { lang } = Astro.props
 const t = tr(lang)
 
-const sections = [heroMarkup, servicesMarkup, unisyncMarkup, projectsMarkup, processMarkup, faqMarkup, contactMarkup]
+/* The three newest posts, reduced to the fields the teaser prints. */
+const posts: TeaserPost[] = sortPosts(await getCollection('blog'))
+  .slice(0, 3)
+  .map((p) => ({
+    url: postUrl(p.id),
+    title: p.data.title,
+    description: p.data.description,
+    date: formatDate(p.data.publishedAt, lang),
+    dateIso: isoDate(p.data.publishedAt),
+    minutes: readingMinutes(p),
+    tags: p.data.tags,
+  }))
+
+const sections = [
+  heroMarkup,
+  servicesMarkup,
+  unisyncMarkup,
+  projectsMarkup,
+  processMarkup,
+  (l: Lang) => blogTeaserMarkup(l, posts),
+  faqMarkup,
+  contactMarkup,
+]
   .map((markup) => markup(lang))
   .join('')
 ---
