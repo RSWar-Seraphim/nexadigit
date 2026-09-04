@@ -129,21 +129,30 @@ export function Contact() {
             <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);animation:ndPulseDark 2.6s infinite;flex-shrink:0;"></span>${t('form_note')}
           </div>
 
+          <!-- Visually-hidden <label>s (placeholders alone aren't accessible names);
+               .sr-only is position:absolute so the labels don't take grid cells. -->
           <div class="nd-form2" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
-            <input class="nd-input" type="text" name="first_name" required autocomplete="given-name" aria-label="${t('form_first')}" placeholder="${t('form_first')}">
-            <input class="nd-input" type="text" name="last_name" autocomplete="family-name" aria-label="${t('form_last')}" placeholder="${t('form_last')}">
+            <label for="cf-first" class="sr-only">${t('form_first')}</label>
+            <input id="cf-first" class="nd-input" type="text" name="first_name" required autocomplete="given-name" placeholder="${t('form_first')}">
+            <label for="cf-last" class="sr-only">${t('form_last')}</label>
+            <input id="cf-last" class="nd-input" type="text" name="last_name" autocomplete="family-name" placeholder="${t('form_last')}">
           </div>
-          <input class="nd-input" type="email" name="email" required autocomplete="email" aria-label="${t('form_email')}" placeholder="${t('form_email')}" style="margin-bottom:12px;">
-          <input class="nd-input nd-form-optional" type="tel" name="phone" autocomplete="tel" aria-label="${t('form_phone')}" placeholder="${t('form_phone')}" style="margin-bottom:12px;">
-          <input class="nd-input nd-form-optional" type="text" name="company" autocomplete="organization" aria-label="${t('form_company')}" placeholder="${t('form_company')}" style="margin-bottom:12px;">
+          <label for="cf-email" class="sr-only">${t('form_email')}</label>
+          <input id="cf-email" class="nd-input" type="email" name="email" required autocomplete="email" placeholder="${t('form_email')}" style="margin-bottom:12px;">
+          <label for="cf-phone" class="sr-only nd-form-optional">${t('form_phone')}</label>
+          <input id="cf-phone" class="nd-input nd-form-optional" type="tel" name="phone" autocomplete="tel" placeholder="${t('form_phone')}" style="margin-bottom:12px;">
+          <label for="cf-company" class="sr-only nd-form-optional">${t('form_company')}</label>
+          <input id="cf-company" class="nd-input nd-form-optional" type="text" name="company" autocomplete="organization" placeholder="${t('form_company')}" style="margin-bottom:12px;">
           <div style="position:relative;margin-bottom:12px;">
-            <select class="nd-input" name="service" required aria-label="${t('form_service_placeholder')}">
+            <label for="cf-service" class="sr-only">${t('form_service_placeholder')}</label>
+            <select id="cf-service" class="nd-input" name="service" required>
               <option value="" disabled selected>${t('form_service_placeholder')}</option>
               ${SERVICE_OPTS.map((k) => `<option>${t(k)}</option>`).join('')}
             </select>
             <span style="position:absolute;right:15px;top:50%;transform:translateY(-50%);pointer-events:none;color:rgba(250,247,242,0.5);font-size:11px;">▾</span>
           </div>
-          <textarea class="nd-input" name="message" rows="4" aria-label="${t('form_message')}" placeholder="${t('form_message')}" style="margin-bottom:16px;"></textarea>
+          <label for="cf-message" class="sr-only">${t('form_message')}</label>
+          <textarea id="cf-message" class="nd-input" name="message" rows="4" placeholder="${t('form_message')}" style="margin-bottom:16px;"></textarea>
 
           <button data-cta-btn data-glow="0 14px 44px rgba(224,78,20,0.45)" type="submit" style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;box-sizing:border-box;background:var(--accent);color:var(--cream);border:none;cursor:pointer;font-family:var(--font-mono);font-size:14.5px;letter-spacing:0.04em;font-weight:600;padding:17px;transition:transform 0.18s ease-out, box-shadow 0.35s;">${t('form_submit')}<span class="nd-cta__arrow" data-cta-arrow>→</span></button>
         </form>

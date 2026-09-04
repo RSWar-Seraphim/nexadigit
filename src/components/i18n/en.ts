@@ -14,6 +14,10 @@ export const en = {
   a11y_lang_switch: 'Cambiar idioma a español',
   a11y_external: 'opens in a new tab',
   a11y_home: 'NexaDigit — back to top',
+  a11y_nav_main: 'Main navigation',
+  a11y_nav_hero: 'Top navigation',
+  a11y_nav_mobile: 'Mobile menu',
+  a11y_nav_footer: 'Footer navigation',
 
   /* ── Global CTA ─────────────────────────────────────────────────────── */
   cta_book: 'Book a consultation',

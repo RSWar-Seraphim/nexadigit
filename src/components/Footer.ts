@@ -28,9 +28,9 @@ export function Footer() {
 
           <div>
             <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.16em;color:var(--muted);margin-bottom:20px;">${t('footer_nav_label').toUpperCase()}</div>
-            <div style="display:flex;flex-direction:column;gap:12px;">
+            <nav aria-label="${t('a11y_nav_footer')}" style="display:flex;flex-direction:column;gap:12px;">
               ${NAV_ITEMS.map((item) => `<a href="#${item.id}" data-link="${item.id}" class="nd-flink">${t(item.key)}</a>`).join('')}
-            </div>
+            </nav>
           </div>
 
           <div>

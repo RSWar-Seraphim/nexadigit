@@ -15,6 +15,10 @@ export const es = {
   a11y_lang_switch: 'Switch language to English',
   a11y_external: 'se abre en una pestaña nueva',
   a11y_home: 'NexaDigit — volver al inicio',
+  a11y_nav_main: 'Navegación principal',
+  a11y_nav_hero: 'Navegación de inicio',
+  a11y_nav_mobile: 'Menú móvil',
+  a11y_nav_footer: 'Navegación del pie de página',
 
   /* ── CTA global ─────────────────────────────────────────────────────── */
   cta_book: 'Agendar una consulta',

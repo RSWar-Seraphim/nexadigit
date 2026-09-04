@@ -140,7 +140,7 @@ export function Header() {
       <div class="nd-wrap" style="padding:0 clamp(20px,5vw,40px);height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px;">
         ${logoMarkup(38)}
 
-        <nav class="hidden lg:flex items-center" style="gap:32px;" aria-label="${t('footer_nav_label')}">
+        <nav class="hidden lg:flex items-center" style="gap:32px;" aria-label="${t('a11y_nav_main')}">
           ${NAV_ITEMS.map(
             (item) => `<a href="#${item.id}" data-link="${item.id}" class="nd-link">${t(item.key)}</a>`
           ).join('')}
@@ -168,7 +168,7 @@ export function Header() {
         </button>
       </div>
 
-      <nav class="flex-1 flex flex-col justify-center" style="padding:0 24px;" aria-label="${t('footer_nav_label')}">
+      <nav class="flex-1 flex flex-col justify-center" style="padding:0 24px;" aria-label="${t('a11y_nav_mobile')}">
         <ul class="flex flex-col" style="gap:4px;">
           ${NAV_ITEMS.map(
             (item) => `

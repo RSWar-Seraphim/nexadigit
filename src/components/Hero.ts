@@ -58,7 +58,7 @@ export function Hero() {
         <a href="#top" data-link="top" style="display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;">
           <img src="/assets/img/nexadigit-mark.webp" width="249" height="318" alt="NexaDigit" style="height:42px;width:auto;display:block;">
         </a>
-        <nav class="hidden md:flex" style="align-items:center;gap:22px;flex-shrink:0;">
+        <nav class="hidden md:flex" style="align-items:center;gap:22px;flex-shrink:0;" aria-label="${t('a11y_nav_hero')}">
           ${NAV_ITEMS.map(
             (item) => `<a href="#${item.id}" data-link="${item.id}" class="nd-link nd-link--muted">${t(item.key)}</a>`
           ).join('')}
