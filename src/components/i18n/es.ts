@@ -170,8 +170,8 @@ export const es = {
   casum_kicker: 'SaaS · Gestión legal',
   casum_tagline: 'El despacho completo, en un solo lugar.',
   casum_desc:
-    'CASUM es una plataforma de gestión legal para abogados independientes y firmas pequeñas de República Dominicana: clientes, expedientes, plazos y documentos en un solo lugar, desde cualquier dispositivo. Elimina el trabajo mecánico del despacho: alta de clientes con una foto de la cédula, expedientes que se arman solos, plazos que no se pierden y los documentos que cada trámite exige.',
-  casum_quote: 'Arranca por derecho corporativo — sociedades, asambleas, Registro Mercantil — y de ahí se extiende al resto del ejercicio.',
+    'CASUM es una plataforma de gestión legal para abogados independientes y firmas pequeñas del mercado hispanohablante: clientes, expedientes, plazos y documentos en un solo lugar, desde cualquier dispositivo. Elimina el trabajo mecánico del despacho: alta de clientes con una foto de la cédula, expedientes que se arman solos, plazos que no se pierden y los documentos que cada trámite exige.',
+  casum_quote: 'Primera fase: República Dominicana y derecho corporativo — sociedades, asambleas, Registro Mercantil —. De ahí se extiende al resto del ejercicio y a los demás países de habla hispana.',
   casum_tag_1: 'Alta desde la cédula',
   casum_tag_2: 'Expedientes y plazos',
   casum_tag_3: 'Generación documental',

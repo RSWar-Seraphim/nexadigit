@@ -169,8 +169,8 @@ export const en = {
   casum_kicker: 'SaaS · Legal practice management',
   casum_tagline: 'The whole practice, in one place.',
   casum_desc:
-    'CASUM is a legal practice management platform for solo lawyers and small firms in the Dominican Republic: clients, case files, deadlines, and documents in one place, from any device. It removes the mechanical work from the practice: onboarding a client from a photo of their ID, case files that build themselves, deadlines that are never missed, and the documents each procedure requires.',
-  casum_quote: 'It starts with corporate law — incorporations, shareholder meetings, Mercantile Registry — and expands from there to the rest of the practice.',
+    'CASUM is a legal practice management platform for solo lawyers and small firms across the Spanish-speaking market: clients, case files, deadlines, and documents in one place, from any device. It removes the mechanical work from the practice: onboarding a client from a photo of their ID, case files that build themselves, deadlines that are never missed, and the documents each procedure requires.',
+  casum_quote: 'Phase one: the Dominican Republic and corporate law — incorporations, shareholder meetings, Mercantile Registry. From there it expands to the rest of the practice and to other Spanish-speaking countries.',
   casum_tag_1: 'Onboarding from an ID photo',
   casum_tag_2: 'Case files & deadlines',
   casum_tag_3: 'Document generation',

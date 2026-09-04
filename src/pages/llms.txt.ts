@@ -31,7 +31,7 @@ Sitio principal: ${u(ROUTES.home.es)} · Versión en inglés: ${u(ROUTES.home.en
 
 - UniSync — producto interno de operación para AEO (Answer Engine Optimization): agentes que investigan qué preguntan las personas a los chatbots, redactan artículos verificados y los publican en medios propios, para que ChatGPT, Claude, Gemini y Perplexity mencionen productos y servicios. ${u(ROUTES.home.es)}#unisync
 - VIGIA — SaaS en producción para afianzadoras: vigilancia de fianzas de cumplimiento después de la emisión. Consolida el expediente documental, extrae los datos con su procedencia, cruza lo declarado contra lo evidenciado y avisa antes de que llegue el reclamo. No suscribe, no emite, no paga. ${u(ROUTES.home.es)}#produccion
-- CASUM — en construcción: plataforma de gestión legal para abogados independientes y firmas pequeñas de República Dominicana (clientes desde una foto de la cédula, expedientes, plazos, generación documental), empezando por derecho corporativo. ${u(ROUTES.home.es)}#produccion
+- CASUM — en construcción: plataforma de gestión legal para abogados independientes y firmas pequeñas del mercado hispanohablante (clientes desde una foto de la cédula, expedientes, plazos, generación documental). Primera fase: República Dominicana y derecho corporativo. ${u(ROUTES.home.es)}#produccion
 - ProDoctivity DGP (Document Processing Generator) — en desarrollo: librería que NexaDigit construye para ProDoctivity y que se integra en cualquier sistema que necesite clasificar documentos, extraer sus datos, crear plantillas y generar documentos a partir de ellas. ${u(ROUTES.home.es)}#produccion
 
 ## Medios operados con UniSync
