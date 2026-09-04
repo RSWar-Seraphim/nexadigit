@@ -10,6 +10,7 @@ import { tr, type Key, type Lang } from './i18n'
 
 export const FAQ_ITEMS: ReadonlyArray<{ q: Key; a: Key }> = [
   { q: 'faq_1_q', a: 'faq_1_a' },
+  { q: 'faq_7_q', a: 'faq_7_a' },
   { q: 'faq_2_q', a: 'faq_2_a' },
   { q: 'faq_3_q', a: 'faq_3_a' },
   { q: 'faq_4_q', a: 'faq_4_a' },

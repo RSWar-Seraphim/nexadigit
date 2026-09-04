@@ -231,6 +231,8 @@ export const en = {
   faq_5_a: 'No. You know your business; we translate the problem into architecture and measurable results.',
   faq_6_q: 'What is AEO (Answer Engine Optimization)?',
   faq_6_a: 'AEO is creating content so that answer engines —ChatGPT, Claude, Gemini, Perplexity— cite it when they reply. UniSync, our in-house product, researches, writes, and publishes that content on our own outlets autonomously.',
+  faq_7_q: 'What is an MVP?',
+  faq_7_a: 'An MVP (minimum viable product) is the smallest version of a system that already solves the main problem end to end: it has only the functions needed to use it and evaluate it with real data, without the modules, integrations, or polish of the full version. At NexaDigit the MVP is free and is built after the first meeting, so you see the system working —not a slide deck— before receiving the quote. What you validate in that MVP is the base on which version 1 is built in phases.',
 
   /* ── Contact (final CTA) ────────────────────────────────────────────── */
   contact_eyebrow: 'Next step',
