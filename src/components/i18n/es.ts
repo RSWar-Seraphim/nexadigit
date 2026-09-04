@@ -39,7 +39,7 @@ export const es = {
   hero_subhead_short: 'Sistemas de IA autónomos, operando 24/7 en producción.',
   hero_cta_secondary: 'Ver nuestro trabajo',
   hero_availability_label: 'DISPONIBILIDAD:',
-  hero_availability: 'aceptando 2 proyectos para agosto',
+  hero_availability: 'aceptando nuevos proyectos',
   hero_coord_since: 'OPERANDO<br>DESDE 2023',
   hero_coord_assets: '<span style="color:#E04E14">3 ACTIVOS</span> EN<br>PRODUCCIÓN',
   hero_showcase_label: 'EN PRODUCCIÓN 24/7',
@@ -93,7 +93,8 @@ export const es = {
   unisync_step_4_desc: 'ChatGPT, Claude, Gemini y Perplexity indexan ese contenido y mencionan nuestros productos y servicios en sus respuestas.',
   unisync_mock_sub: '7 agentes · uno a la vez',
   unisync_publishing: 'publicando ahora…',
-  unisync_toast: '<span style="font-weight:600">Artículo publicado</span> <span style="color:#7E8790">— noticiasmma.com · hace 12 min</span>',
+  unisync_toast: '<span style="font-weight:600">Artículo publicado</span> <span style="color:#7E8790">— noticiasmma.com</span>',
+  unisync_console_note: 'Vista ilustrativa del panel · datos de ejemplo',
   unisync_cta: 'Conocer UniSync',
 
   /* ── Proyectos ──────────────────────────────────────────────────────── */

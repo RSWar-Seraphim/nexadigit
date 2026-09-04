@@ -8,7 +8,7 @@ import { t, onLangChange } from './i18n'
 import { notify } from './notify'
 import { observeReveals, prefersReducedMotion } from '../utils/motion'
 
-const CONTACT_EMAIL = 'info@nexadigit.io'
+const CONTACT_EMAIL = 'kreyes@nexadigit.io'
 let ctaPlayed = false
 
 function headlineMarkup(): string {

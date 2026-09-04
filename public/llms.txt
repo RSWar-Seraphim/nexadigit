@@ -2,7 +2,7 @@
 
 > NexaDigit es una empresa de ingeniería de IA en Santo Domingo, República Dominicana. Diseña, construye y opera software con agentes autónomos: plataformas SaaS a medida, UniSync (su motor interno de contenido para AEO) y medios digitales que publican 24/7.
 
-Sitio principal: https://nexadigit.io/ · Idioma principal: español (interfaz también en inglés). Atiende clientes en República Dominicana, Estados Unidos, Canadá y Latinoamérica, en remoto.
+Sitio principal: https://nexadigit.io/ · Operando desde 2023 · Idioma principal: español (interfaz también en inglés). Atiende clientes en República Dominicana, Estados Unidos, Canadá y Latinoamérica, en remoto.
 
 ## Qué hace NexaDigit
 
@@ -31,6 +31,7 @@ Sitio principal: https://nexadigit.io/ · Idioma principal: español (interfaz t
 
 ## Contacto
 
+- Correo: kreyes@nexadigit.io
 - Formulario y agenda de consulta: https://nexadigit.io/#contacto
 - Discord: https://discord.gg/3sbzSSW9vd
 - LinkedIn: https://www.linkedin.com/company/107399409

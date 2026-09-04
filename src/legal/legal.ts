@@ -19,7 +19,7 @@ interface Content {
   contactText: string // may include the {email} placeholder
 }
 
-const EMAIL = 'hola@nexadigit.io'
+const EMAIL = 'kreyes@nexadigit.io'
 const LOGO = '/assets/img/nexadigit-mark.webp'
 
 const UI = {

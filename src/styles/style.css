@@ -957,8 +957,8 @@ textarea.nd-input { line-height: 1.5; resize: vertical; }
   .nd-proj-draft { height: 260px !important; }
   .nd-proj-draft__wire { display: none; }
 
-  /* Catálogo: the dashboard mock is a desktop device — hide it on phones */
-  #unisync .panel-rise { display: none !important; }
+  /* Catálogo: the dashboard mock is a desktop device — hide it (and its note) on phones */
+  #unisync .panel-rise, #unisync .nd-console-note { display: none !important; }
 
   /* Proyectos: fill the VIGIA preview (crop to top) instead of leaving black space */
   .nd-prod-shot { height: 240px !important; }

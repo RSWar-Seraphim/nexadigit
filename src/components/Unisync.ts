@@ -159,6 +159,7 @@ export function Unisync() {
             <span>${t('unisync_toast')}</span>
           </div>
         </div>
+        <div class="nd-console-note" style="margin-top:34px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(250,247,242,0.4);text-align:right;">${t('unisync_console_note')}</div>
       </div>
       <div class="seam" style="height:2px;background:var(--accent);box-shadow:0 0 12px rgba(224,78,20,0.35);"></div>
     `
