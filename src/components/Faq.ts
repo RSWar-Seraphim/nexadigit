@@ -27,7 +27,7 @@ export function faqMarkup(lang: Lang): string {
 
   return `
     <section id="preguntas" data-screen-label="Preguntas" style="border-bottom:1px solid var(--line);">
-      <div class="nd-wrap nd-faq-grid" style="padding:104px clamp(20px,5vw,40px) 112px;border-left:1px solid var(--line);border-right:1px solid var(--line);display:grid;grid-template-columns:1fr 1.4fr;gap:72px;align-items:start;">
+      <div class="nd-wrap nd-faq-grid" style="padding:104px clamp(20px,5vw,40px) 112px;border-left:1px solid var(--line);border-right:1px solid var(--line);display:grid;grid-template-columns:1fr 1.4fr;gap:72px;align-items:center;">
         <div>
           <div class="reveal nd-eyebrow" style="margin-bottom:20px;">${t('faq_eyebrow')}</div>
           <h2 class="reveal" style="--reveal-delay:80ms;margin:0;font-family:var(--font-display);font-weight:700;font-size:46px;letter-spacing:-0.03em;line-height:1.08;color:var(--ink);">${t('faq_title')}</h2>
