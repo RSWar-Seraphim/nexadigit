@@ -1,0 +1,108 @@
+---
+title: '¿Cómo empezar a adoptar IA en una PyME dominicana sin equipo técnico?'
+description: 'Se empieza por un diagnóstico de procesos, no por una herramienta: un caso medible y acotado, precio y plazo por escrito, y operación tras la entrega. El socio tecnológico asume lo técnico.'
+slug: como-adoptar-ia-en-una-pyme-dominicana-sin-equipo-tecnico
+publishedAt: 2026-09-04
+updatedAt: 2026-09-04
+author: Equipo NexaDigit
+tags: ['PyMEs', 'Adopción de IA', 'Servicios', 'Proceso']
+faq:
+  - q: '¿Necesito contratar programadores para usar IA en mi empresa?'
+    a: 'No para empezar. Lo que necesita es alguien de su equipo que conozca bien el proceso a mejorar y que pueda dedicar unas horas por sprint a probar y dar feedback. La arquitectura, el desarrollo y la operación los asume el socio tecnológico.'
+  - q: '¿Cuánto tarda un primer proyecto de IA?'
+    a: 'En NexaDigit, un MVP típico está listo en 4–8 semanas: 3–5 días de diagnóstico, una semana de propuesta y sprints de 1–2 semanas con demos funcionales al final de cada uno. Los plazos se fijan por escrito antes de empezar.'
+  - q: '¿Cómo sé si un caso de uso va a dar retorno?'
+    a: 'Si puede medirlo antes de empezar. Horas de una persona por semana, tiempo de respuesta a un cliente, errores por mes, documentos procesados por día. Un caso que no puede medirse antes no podrá demostrar retorno después.'
+  - q: '¿Qué pasa si el proyecto no funciona?'
+    a: 'El diagnóstico existe precisamente para descartar casos que no van a funcionar antes de invertir. Si durante los sprints el resultado no alcanza lo pactado, las demos lo muestran a tiempo y se ajusta el alcance sobre datos reales, no al final.'
+---
+
+import Callout from '../../components/Callout.astro'
+
+## ¿Por dónde se empieza?
+
+**Se empieza por un diagnóstico de la operación, no por una herramienta.** La pregunta correcta no es "¿qué IA compro?" sino "¿en qué parte de mi proceso una persona pasa horas leyendo, clasificando, redactando o buscando información que ya existe?". Ahí es donde la IA genera retorno medible; el resto es novedad.
+
+Un diagnóstico útil dura días, no meses. En NexaDigit toma [3–5 días](/#proceso) y no tiene costo: una conversación inicial, un análisis de la operación tal como es hoy y una lista de oportunidades priorizadas por retorno y por facilidad de implementación. La salida es un documento que dice qué caso conviene atacar primero, qué se va a medir y qué no vale la pena automatizar todavía.
+
+Si el diagnóstico concluye que no hay un caso claro, esa también es una respuesta válida —y más barata que descubrirlo después de un proyecto.
+
+## ¿Qué casos de uso suelen dar retorno primero?
+
+**Los casos que dan retorno primero son los que combinan mucho volumen de trabajo repetitivo, entradas en texto o documentos, y un resultado fácil de medir.** No son los más vistosos; son los que liberan horas cada semana desde el primer mes.
+
+| Caso de uso | Señal de que aplica en su empresa | Qué se mide |
+| --- | --- | --- |
+| Atención y respuesta a consultas por correo o chat | Alguien contesta las mismas preguntas muchas veces al día | Tiempo de primera respuesta, consultas resueltas sin intervención |
+| Clasificación y extracción de documentos | Facturas, contratos, cédulas o formularios se transcriben a mano | Documentos procesados por hora, errores de transcripción |
+| Preparación de propuestas, cotizaciones o informes | Cada documento se arma copiando de los anteriores | Horas por documento, tiempo hasta enviar |
+| Seguimiento de clientes y leads | Los seguimientos dependen de que alguien se acuerde | Leads contactados a tiempo, oportunidades perdidas |
+| Contenido para que los motores de respuesta citen la empresa | Los clientes preguntan a ChatGPT o Perplexity antes de llamar | Menciones en respuestas, consultas entrantes que citan la fuente |
+| Monitoreo de expedientes, plazos o vencimientos | Se descubren los vencimientos cuando ya pasaron | Alertas emitidas a tiempo, incidencias evitadas |
+
+Cada fila corresponde a un [servicio](/#servicios) que ya prestamos o a un producto que operamos: agentes de atención e integración, extracción documental como en [VIGIA](/#produccion), contenido AEO como en [UniSync](/#unisync). Lo que cambia por empresa es cuál conviene primero.
+
+## ¿Necesito saber de IA o contratar programadores?
+
+**No. Usted necesita conocer bien su negocio y el proceso que quiere mejorar; la arquitectura, el desarrollo y la operación son responsabilidad del socio tecnológico.** Lo que sí necesita poner de su lado es una persona de referencia: alguien que conozca el proceso de verdad, que pueda responder preguntas durante el diagnóstico y que dedique unas horas por sprint a probar el sistema y decir qué está bien y qué no.
+
+Ese rol no es técnico. Es la persona que hoy hace el trabajo o supervisa a quien lo hace. Sin ella, el proyecto se construye sobre supuestos; con ella, se construye sobre feedback real en cada demo.
+
+Lo que no hace falta: un departamento de tecnología, licencias de plataformas que nadie va a configurar, ni un "responsable de IA" contratado antes de saber qué se va a construir.
+
+<Callout label="Una regla simple">
+Si nadie en su empresa puede describir el proceso paso a paso, todavía no está listo para automatizarlo. Descríbalo primero —en una hoja, con quién hace qué y con qué información— y el diagnóstico será mucho más corto.
+</Callout>
+
+## ¿Cuánto cuesta y cuánto tarda?
+
+**El costo depende del alcance, pero se fija por escrito antes de empezar; el plazo de un MVP típico es de 4–8 semanas.** Así trabajamos en NexaDigit, y así conviene exigirlo a cualquier proveedor:
+
+- **Diagnóstico**: 3–5 días, sin costo. Entrega una lista de oportunidades priorizadas.
+- **Propuesta**: 1 semana. Alcance detallado, arquitectura propuesta, fases de entrega y precio cerrado por escrito. Sin horas facturables abiertas.
+- **Sprints**: ciclos de 1–2 semanas con una demo funcional al final de cada uno. Usted ve avance real y ajusta sobre lo que ve.
+- **Operación**: despliegue a producción, monitoreo continuo y soporte.
+
+Un precio cerrado obliga a definir bien el alcance, y eso es bueno para las dos partes: usted sabe qué va a recibir y cuánto va a pagar; el proveedor sabe qué tiene que entregar. Los proyectos que se cobran por hora sin alcance tienden a alargarse; los que se cobran por alcance tienden a terminar.
+
+Las cifras anteriores son las de [nuestro proceso](/#proceso). Otros proveedores tendrán otras; lo importante es que estén escritas antes de empezar.
+
+## ¿Qué pasa después de la entrega?
+
+**Después de la entrega empieza la operación: el sistema se despliega a producción, se monitorea, se mantiene y se mejora con datos reales.** Un sistema de IA no es un archivo que se entrega y se olvida; los modelos cambian, los datos cambian y los procesos cambian. Sin operación, el sistema que funcionaba en la demo deja de funcionar en silencio.
+
+Qué debe incluir la operación:
+
+- **Monitoreo** de que el sistema sigue haciendo lo que debe, con métricas que usted entienda: tareas completadas, errores, tiempo de respuesta, costo por tarea.
+- **Soporte** con un canal claro y tiempos de respuesta definidos.
+- **Mejoras** a partir de lo que el monitoreo muestra, no de lo que alguien supone.
+- **Reportes** periódicos que muestren el retorno contra lo que se midió en el diagnóstico.
+
+En NexaDigit operamos nuestros propios sistemas —UniSync y los medios que publica, VIGIA en producción— y por eso sabemos lo que exige mantener uno funcionando. Es la razón por la que no entregamos y desaparecemos.
+
+## ¿Cómo evitar los errores más comunes?
+
+**Los errores más comunes son empezar por la herramienta, elegir el caso más vistoso en lugar del más medible, no definir quién supervisa, y no presupuestar la operación.** Todos se evitan en el diagnóstico si se hacen las preguntas correctas.
+
+1. **Empezar por la herramienta.** Comprar una plataforma y buscarle un uso. Lo correcto es al revés: proceso primero, herramienta después.
+2. **Elegir el caso vistoso.** Un asistente que "responde cualquier cosa" impresiona en la demo y no ahorra horas. Un clasificador de documentos aburre y ahorra veinte horas por semana.
+3. **No definir la verificación.** Toda IA se equivoca. Decidir antes qué pasa cuando se equivoque —quién revisa, qué se bloquea, qué se deriva— es parte del diseño, no un extra.
+4. **No presupuestar la operación.** El sistema tiene costos después de la entrega: modelos, infraestructura, soporte. Deben estar en la propuesta.
+5. **No medir antes de empezar.** Sin una línea base (horas, errores, tiempos) no hay forma de demostrar retorno después.
+6. **Automatizar un proceso roto.** Si el proceso manual es confuso, automatizarlo produce confusión más rápido. Ordénelo primero.
+
+## ¿Qué preguntas hacerle a un proveedor?
+
+**Hágale preguntas cuya respuesta pueda comprobar: qué sistemas opera hoy, cómo verifica los errores de la IA, cómo cobra y qué incluye la operación.** Las respuestas separan a quien construye sistemas de quien vende demos.
+
+- ¿Qué sistemas con IA tienen funcionando en producción hoy y desde cuándo?
+- ¿Cómo detectan y corrigen los errores del modelo antes de que lleguen al cliente?
+- ¿El precio es cerrado por escrito o por horas abiertas?
+- ¿Cada cuánto veré una demo funcional?
+- ¿Qué incluye la operación después de la entrega y cuánto cuesta?
+- ¿Qué pasa con mis datos: dónde se procesan y quién puede verlos?
+- ¿Qué caso de uso me recomiendan **no** hacer todavía, y por qué?
+
+La última pregunta es la más útil. Un proveedor que solo dice que sí no ha hecho un diagnóstico.
+
+Si quiere empezar por el suyo, la [conversación inicial](/#contacto) no tiene costo y en 3–5 días tendrá la lista priorizada.

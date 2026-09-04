@@ -1,0 +1,93 @@
+---
+title: '¿Qué es el AEO (Answer Engine Optimization) y en qué se diferencia del SEO?'
+description: 'El AEO es crear y estructurar contenido para que ChatGPT, Claude, Gemini o Perplexity lo citen al responder. Difiere del SEO en objetivo, unidad de trabajo y métrica.'
+slug: que-es-aeo-answer-engine-optimization
+publishedAt: 2026-09-04
+updatedAt: 2026-09-04
+author: Equipo NexaDigit
+tags: ['AEO', 'Contenido', 'UniSync']
+faq:
+  - q: '¿El AEO reemplaza al SEO?'
+    a: 'No. El SEO sigue decidiendo si un motor encuentra y rastrea la página; el AEO decide si, una vez leída, la respuesta es lo bastante clara y verificable como para citarla. Un sitio necesita las dos cosas: ser rastreable y ser citable.'
+  - q: '¿Cómo sé si un chatbot está citando mi contenido?'
+    a: 'Preguntándole. Formule las consultas que hacen sus clientes en ChatGPT, Claude, Gemini y Perplexity y registre qué fuentes aparecen. Repita la prueba con cierta frecuencia, porque las respuestas cambian con cada actualización del modelo y del índice.'
+  - q: '¿Qué formato de contenido citan más los motores de respuesta?'
+    a: 'Fragmentos autocontenidos: un encabezado que formula la pregunta, una respuesta directa de 40–60 palabras justo debajo, definiciones explícitas, tablas comparativas y bloques de preguntas frecuentes con datos estructurados. Los textos largos sin estructura se citan poco.'
+  - q: '¿Sirve el AEO si mi sitio se renderiza con JavaScript?'
+    a: 'Solo si el contenido está en el HTML que el servidor entrega. Muchos rastreadores de motores de respuesta no ejecutan JavaScript; si el texto aparece después, para ellos la página está vacía. Renderizar en el servidor o prerenderizar es el primer requisito.'
+---
+
+import Callout from '../../components/Callout.astro'
+
+## ¿Qué es exactamente el AEO?
+
+**El AEO (Answer Engine Optimization) es el conjunto de decisiones de contenido y de estructura que hacen que un motor de respuesta cite una página al contestar una pregunta.** Un motor de respuesta es un sistema que, en lugar de devolver una lista de enlaces, redacta la respuesta y menciona sus fuentes: ChatGPT con búsqueda, Claude, Gemini, Perplexity y los resúmenes generados por IA que ya aparecen encima de los resultados de búsqueda tradicionales.
+
+La diferencia práctica es dónde ocurre la decisión. En una búsqueda clásica, la persona lee diez títulos y elige uno. En un motor de respuesta, el sistema lee las páginas por usted, extrae lo que responde a la pregunta y decide qué fuentes nombrar. Si el contenido no responde de forma directa, o no puede leerse sin ejecutar JavaScript, simplemente no entra en la respuesta.
+
+Por eso el AEO no es una capa de palabras clave sobre el SEO: es una forma de escribir. Cada sección tiene que poder extraerse fuera de contexto, con su pregunta, su respuesta y sus datos, y seguir teniendo sentido.
+
+## ¿En qué se diferencia el AEO del SEO?
+
+**El SEO optimiza para aparecer en una lista de resultados; el AEO optimiza para ser citado dentro de una respuesta.** Comparten la base —una página rastreable, rápida y con contenido real— pero cambian el objetivo, la unidad de trabajo, la señal que más pesa y la métrica con la que se mide.
+
+| Dimensión | SEO | AEO |
+| --- | --- | --- |
+| Objetivo | Aparecer entre los primeros resultados | Ser citado dentro de la respuesta del motor |
+| Unidad de trabajo | La página y la palabra clave | La respuesta y la entidad (empresa, producto, término) |
+| Señal principal | Enlaces entrantes y autoridad del dominio | Claridad, estructura y datos verificables |
+| Formato que funciona | Artículos largos que cubren un tema | Fragmentos autocontenidos de 40–60 palabras |
+| Datos estructurados | Ayudan a los fragmentos enriquecidos | Confirman al motor qué es cada cosa (FAQ, producto, organización) |
+| Métrica | Posición y clics | Menciones y citas en las respuestas |
+
+Ninguna de las dos columnas sustituye a la otra. Un sitio que nadie rastrea no puede ser citado; un sitio que se rastrea pero responde con eslóganes tampoco. El orden razonable es asegurar primero lo básico del SEO técnico y, sobre esa base, reescribir el contenido para que sea citable.
+
+## ¿Cómo decide un motor de respuesta qué citar?
+
+**Un motor de respuesta cita las fuentes de las que pudo extraer una afirmación clara, atribuible y coherente con las demás fuentes que leyó.** No existe una lista pública de reglas, y cada motor pondera distinto, pero el patrón que se observa al probarlos con preguntas reales se repite:
+
+- **Puede leer la página.** El texto está en el HTML servido, no depende de que un script lo genere después. Es la condición más básica y la que más sitios incumplen.
+- **La respuesta está cerca de la pregunta.** El encabezado formula la pregunta y el primer párrafo la responde. El motor no tiene que reconstruir la respuesta a partir de tres secciones.
+- **Las afirmaciones son concretas.** "Un MVP típico toma 4–8 semanas" se cita; "entregamos rápido" no.
+- **Las entidades están definidas.** Si la página dice qué es su producto en una frase ("X es una plataforma para…"), el motor puede repetirla. Si solo lo describe con adjetivos, no.
+- **Hay coherencia entre fuentes.** El correo, la fecha de fundación, el precio o el plazo son los mismos en toda la web. Dos cifras contradictorias reducen la confianza en ambas.
+- **Los datos estructurados confirman el texto.** Un bloque JSON-LD que repite —no inventa— lo que se ve en la página le dice al motor qué es una pregunta frecuente, qué es una organización y qué es un producto.
+
+<Callout label="Regla práctica">
+Si un párrafo copiado y pegado en un chat, sin el resto de la página, no sirve como respuesta completa a una pregunta identificable, ese párrafo no va a ser citado. Reescríbalo hasta que sí.
+</Callout>
+
+## ¿Qué tiene que tener una página para ser citable?
+
+**Una página citable tiene encabezados en forma de pregunta, una respuesta directa bajo cada uno, definiciones explícitas, al menos una tabla cuando hay comparación, un bloque de preguntas frecuentes y datos estructurados que repiten lo visible.** Esta es la lista que usamos al revisar una página:
+
+1. **Un solo `h1`**, con la pregunta o la entidad principal, y una jerarquía `h2`/`h3` sin saltos.
+2. **Encabezados-pregunta** donde aplique: "¿Qué es X?", "¿Cómo funciona X?", "¿Cuánto cuesta X?".
+3. **Respuesta en los primeros 40–60 palabras** bajo cada encabezado, con la conclusión primero y el desarrollo después.
+4. **Párrafos autocontenidos**: sin "como vimos arriba", sin "esto" que apunte a otro bloque.
+5. **Definiciones "X es…"** para cada término del dominio que la audiencia pueda preguntar.
+6. **Un dato verificable por sección**: una cifra, una fecha, una tecnología, un nombre.
+7. **Tablas** cuando se compara algo; los motores las extraen especialmente bien.
+8. **Preguntas frecuentes reales**, con las mismas preguntas y respuestas en el texto y en el JSON-LD `FAQPage`.
+9. **Metadatos escritos como respuesta**: el título y la descripción dicen qué es la página y para quién, no un eslogan.
+10. **Rastreo permitido** de forma explícita a los rastreadores de los motores de respuesta en `robots.txt`, y un `llms.txt` con el resumen del sitio.
+
+## ¿Cómo aplicamos el AEO en NexaDigit?
+
+**En NexaDigit el AEO es un producto interno y una disciplina de escritura.** El producto es [UniSync](/#unisync): agentes autónomos que investigan qué preguntan las personas a los chatbots sobre un sector, redactan artículos verificados en el formato que los motores prefieren y los publican en medios propios —noticiasmma.com, lahora24.com y quisqueyanos.net— sin intervención humana en cada paso.
+
+La disciplina es la misma que aplicamos a este sitio: cada sección responde a una pregunta identificable, los productos se definen en una frase, el proceso de trabajo está en una tabla con plazos, las preguntas frecuentes existen en el texto y en los datos estructurados, y todo el contenido está en el HTML que el servidor entrega. Este artículo sigue esas reglas a propósito, para que pueda compararlo con la lista anterior.
+
+Lo que no hacemos: repetir palabras clave, escribir relleno para alargar páginas o inventar cifras. Un motor de respuesta que cita una afirmación falsa la propaga; una empresa que la publicó pierde la confianza que estaba buscando.
+
+## ¿Por dónde empezar?
+
+**Empiece por comprobar si su contenido llega al motor, luego reescriba una página, y solo después escale.** En ese orden:
+
+1. **Pruebe el rastreo.** Descargue su página sin ejecutar JavaScript (por ejemplo con `curl`) y compruebe cuánto de su contenido está ahí. Si ve un `<div id="app"></div>` vacío, ese es el primer trabajo.
+2. **Pregúntele a los motores.** Formule las cinco preguntas que más le hacen sus clientes en ChatGPT, Claude, Gemini y Perplexity. Anote qué fuentes citan hoy y qué dicen de usted.
+3. **Reescriba una página** con la lista de la sección anterior. Mida de nuevo a las semanas.
+4. **Unifique los hechos.** Un solo correo, una sola fecha de fundación, un solo precio o plazo por servicio, en toda la web.
+5. **Escale con contenido que responda preguntas reales**, no con volumen. Un artículo que contesta bien una pregunta vale más que diez que la rodean.
+
+Si prefiere que lo hagamos con usted, el [diagnóstico inicial](/#proceso) no tiene costo y termina con una lista priorizada de cambios.
