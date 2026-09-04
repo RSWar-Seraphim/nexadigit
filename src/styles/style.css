@@ -839,8 +839,12 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
   opacity: 0.7;
 }
 .nd-proj-draft__wire > span { border: 1px dashed var(--line-strong); }
-.nd-proj-draft__wire > span:first-child { grid-row: 1 / 4; }
-.nd-proj-draft__wire > span:nth-child(2) { grid-column: 2 / 4; }
+/* 'app': sidebar + toolbar + rows (CASUM) */
+.nd-proj-draft__wire--app > span:first-child { grid-row: 1 / 4; }
+.nd-proj-draft__wire--app > span:nth-child(2) { grid-column: 2 / 4; }
+/* 'doc': a tall page on the left, its extracted fields stacked on the right (DGP) */
+.nd-proj-draft__wire--doc { grid-template-columns: 1.1fr 1fr; grid-template-rows: repeat(5, 1fr); }
+.nd-proj-draft__wire--doc > span:first-child { grid-row: 1 / 6; }
 .nd-proj-draft__mark {
   position: relative;
   display: flex;
@@ -860,6 +864,15 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
   background: var(--ink);
   -webkit-mask: url(/assets/img/logo-casum.svg) center / contain no-repeat;
   mask: url(/assets/img/logo-casum.svg) center / contain no-repeat;
+}
+/* ProDoctivity wordmark (transparent PNG) — same ink treatment */
+.nd-dgp-mark {
+  display: block;
+  width: 260px;
+  aspect-ratio: 500 / 84;
+  background: var(--ink);
+  -webkit-mask: url(/assets/img/logo-prodoctivity.png) center / contain no-repeat;
+  mask: url(/assets/img/logo-prodoctivity.png) center / contain no-repeat;
 }
 
 /* digital-assets strip at the foot of the section */
@@ -1175,6 +1188,9 @@ textarea.nd-input { line-height: 1.5; resize: vertical; }
   .nd-post-grid { grid-template-columns: 1fr !important; }
   .nd-prose { font-size: 16.5px; }
   .nd-prose h2 { font-size: 26px; }
+  /* Proyectos: the status badge already sits in the text column — drop it from
+     the mock's chrome bar so long product names fit the URL pill */
+  .nd-chrome-status { display: none !important; }
   /* Proyectos: tighter tail, smaller product names, shorter CASUM placeholder */
   .nd-proj-bottom { height: 44px !important; }
   .nd-proj-text h3 { font-size: 32px !important; }

@@ -1,10 +1,10 @@
 // ══════════════════════════════════════════════════════════════════════════════
-// PROYECTOS — the proof section. The SaaS platforms NexaDigit builds, laid out
-// as numbered editorial case rows: a text column (status, kicker, tagline,
+// PROYECTOS — the proof section. The software NexaDigit builds, laid out as
+// numbered editorial case rows: a text column (status, kicker, tagline,
 // capability chips, pull-quote) beside a browser mock. VIGIA's real dashboard
-// screenshot scrolls on hover; CASUM, still in construction, shows its wordmark
-// floating over a drafting grid. Closes with the strip of media assets that
-// UniSync agents operate 24/7. Pure markup.
+// screenshot scrolls on hover; CASUM and ProDoctivity DGP, still in progress,
+// show their wordmark floating over a drafting grid. Closes with the strip of
+// media assets that UniSync agents operate 24/7. Pure markup.
 // ══════════════════════════════════════════════════════════════════════════════
 import { tr, type Key, type Lang } from './i18n'
 
@@ -22,10 +22,12 @@ export const DIGITAL_ASSETS: DigitalAsset[] = [
   { name: 'quisqueyanos.net', url: 'https://quisqueyanos.net', descKey: 'assets_quisqueyanos_desc', dotDelay: ' 1.2s' },
 ]
 
+type Status = 'live' | 'building' | 'developing'
+
 interface Project {
   num: string
   name: string
-  live: boolean
+  status: Status
   kicker: Key
   tagline: Key
   desc: Key
@@ -38,40 +40,57 @@ interface Project {
   textCol: string
   mockCol: string
   delay: number
+  /* Not-yet-live projects: wordmark (CSS mask class) over a drafting wireframe. */
+  draft?: { markClass: string; markLabel: string; caption: Key; wire: 'app' | 'doc' }
 }
 
 export const PROJECTS: Project[] = [
   {
-    num: '01', name: 'VIGIA', live: true,
+    num: '01', name: 'VIGIA', status: 'live',
     kicker: 'vigia_kicker', tagline: 'vigia_tagline', desc: 'vigia_desc', quote: 'vigia_quote',
     tags: ['vigia_tag_1', 'vigia_tag_2', 'vigia_tag_3', 'vigia_tag_4'],
     caption: 'vigia_caption', captionTag: 'projects_private',
     textCol: '1 / 5', mockCol: '5 / 13', delay: 0,
   },
   {
-    num: '02', name: 'CASUM', live: false,
+    num: '02', name: 'CASUM', status: 'building',
     kicker: 'casum_kicker', tagline: 'casum_tagline', desc: 'casum_desc', quote: 'casum_quote',
     tags: ['casum_tag_1', 'casum_tag_2', 'casum_tag_3', 'casum_tag_4'],
     caption: 'casum_caption', captionTag: 'projects_soon',
     textCol: '8 / 13', mockCol: '1 / 8', delay: 0,
+    draft: { markClass: 'nd-casum-mark', markLabel: 'CASUM', caption: 'casum_mock_caption', wire: 'app' },
+  },
+  {
+    num: '03', name: 'ProDoctivity DGP', status: 'developing',
+    kicker: 'dgp_kicker', tagline: 'dgp_tagline', desc: 'dgp_desc', quote: 'dgp_quote',
+    tags: ['dgp_tag_1', 'dgp_tag_2', 'dgp_tag_3', 'dgp_tag_4'],
+    caption: 'dgp_caption', captionTag: 'projects_soon',
+    textCol: '1 / 6', mockCol: '6 / 13', delay: 0,
+    draft: { markClass: 'nd-dgp-mark', markLabel: 'ProDoctivity', caption: 'dgp_mock_caption', wire: 'doc' },
   },
 ]
 
 const VIGIA_SHOT = { src: '/assets/img/vigia-preview.webp', w: 1400, h: 1210, height: 520 }
 
+const STATUS_KEY: Record<Status, Key> = {
+  live: 'projects_status_live',
+  building: 'projects_status_building',
+  developing: 'projects_status_developing',
+}
+
 export function projectsMarkup(lang: Lang): string {
   const t = tr(lang)
 
-  const statusBadge = (live: boolean) =>
-    live
-      ? `<span class="nd-status nd-status--live"><span class="nd-status__dot"></span>${t('projects_status_live')}</span>`
-      : `<span class="nd-status nd-status--building"><span class="nd-status__dot"></span>${t('projects_status_building')}</span>`
+  const statusBadge = (s: Status) =>
+    s === 'live'
+      ? `<span class="nd-status nd-status--live"><span class="nd-status__dot"></span>${t(STATUS_KEY[s])}</span>`
+      : `<span class="nd-status nd-status--building"><span class="nd-status__dot"></span>${t(STATUS_KEY[s])}</span>`
 
   const textCell = (p: Project) => `
     <div class="nd-proj-text reveal" style="grid-column:${p.textCol};grid-row:1;--reveal-delay:${p.delay}ms;">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:30px;">
         <span style="font-family:var(--font-mono);font-size:12px;color:var(--muted);">${p.num}</span>
-        ${statusBadge(p.live)}
+        ${statusBadge(p.status)}
       </div>
       <h3 style="margin:0 0 10px;font-family:var(--font-display);font-weight:700;font-size:40px;letter-spacing:-0.03em;line-height:1;color:var(--ink);">${p.name}</h3>
       <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;">${t(p.kicker)}</div>
@@ -83,17 +102,17 @@ export function projectsMarkup(lang: Lang): string {
       <blockquote style="margin:0;padding:2px 0 2px 16px;border-left:2px solid var(--accent);font-family:var(--font-serif);font-style:italic;font-size:14.5px;line-height:1.6;color:var(--slate);">${t(p.quote)}</blockquote>
     </div>`
 
-  /* Browser chrome shared by both mocks. */
+  /* Browser chrome shared by all mocks. */
   const chrome = (p: Project) => {
-    const dot = p.live
+    const live = p.status === 'live'
+    const dot = live
       ? '<span style="width:7px;height:7px;border-radius:50%;background:var(--accent);animation:ndPulse 2.6s infinite;"></span>'
       : '<span style="width:7px;height:7px;border-radius:50%;border:1.5px dashed var(--line-strong);box-sizing:border-box;"></span>'
-    const status = p.live ? t('projects_status_live') : t('projects_status_building')
     return `
     <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--bg);">
       <span style="display:flex;gap:6px;"><span style="width:9px;height:9px;border-radius:50%;background:#DEDED6;"></span><span style="width:9px;height:9px;border-radius:50%;background:#DEDED6;"></span><span style="width:9px;height:9px;border-radius:50%;background:#DEDED6;"></span></span>
-      <span style="flex:1;display:flex;align-items:center;justify-content:center;gap:9px;border:1px solid var(--line);background:var(--surface);padding:5px 14px;border-radius:999px;font-family:var(--font-mono);font-size:12px;color:var(--ink);">${dot}${p.name.toLowerCase()}</span>
-      <span style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.12em;font-weight:600;color:${p.live ? 'var(--accent)' : 'var(--muted)'};">${status}</span>
+      <span style="flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:9px;border:1px solid var(--line);background:var(--surface);padding:5px 14px;border-radius:999px;font-family:var(--font-mono);font-size:12px;color:var(--ink);white-space:nowrap;">${dot}${p.name.toLowerCase()}</span>
+      <span class="nd-chrome-status" style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.12em;font-weight:600;white-space:nowrap;color:${live ? 'var(--accent)' : 'var(--muted)'};">${t(STATUS_KEY[p.status])}</span>
     </div>`
   }
 
@@ -112,24 +131,29 @@ export function projectsMarkup(lang: Lang): string {
       ${captionRow(p)}
     </div>`
 
-  /* No UI to show yet: the wordmark floats over a drafting grid + dashed wireframe. */
-  const draftMock = (p: Project) => `
+  /* No UI to show yet: the wordmark floats over a drafting grid + dashed wireframe
+     ('app' = sidebar + rows, 'doc' = a page beside its extracted fields). */
+  const draftMock = (p: Project) => {
+    const d = p.draft!
+    const wires = d.wire === 'app' ? 6 : 6
+    return `
     <div class="nd-prod-card reveal" style="grid-column:${p.mockCol};grid-row:1;--reveal-delay:${p.delay + 90}ms;">
       ${chrome(p)}
       <div class="nd-proj-draft">
-        <div class="nd-proj-draft__wire" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="nd-proj-draft__wire nd-proj-draft__wire--${d.wire}" aria-hidden="true">${'<span></span>'.repeat(wires)}</div>
         <div class="nd-proj-draft__mark">
-          <span class="nd-casum-mark" role="img" aria-label="CASUM"></span>
-          <span style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.14em;color:var(--muted);text-align:center;">${t('casum_mock_caption')}</span>
+          <span class="${d.markClass}" role="img" aria-label="${d.markLabel}"></span>
+          <span style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.14em;color:var(--muted);text-align:center;">${t(d.caption)}</span>
         </div>
       </div>
       ${captionRow(p)}
     </div>`
+  }
 
   const projectRow = (p: Project, i: number) => `
     <div class="nd-proj-row" style="display:grid;grid-template-columns:repeat(12,1fr);gap:28px;align-items:start;${i ? 'margin-top:72px;padding-top:64px;border-top:1px solid var(--line);' : ''}">
       ${textCell(p)}
-      ${p.live ? liveMock(p) : draftMock(p)}
+      ${p.status === 'live' ? liveMock(p) : draftMock(p)}
     </div>`
 
   const assetCell = (a: DigitalAsset, i: number) => `
