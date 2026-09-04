@@ -856,24 +856,8 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
   border: 1px solid var(--line);
   box-shadow: 0 18px 48px rgb(21 23 28 / 0.08);
 }
-/* wordmark recolored to ink through a mask (the SVG ships in its own blue) */
-.nd-casum-mark {
-  display: block;
-  width: 220px;
-  aspect-ratio: 3 / 1;
-  background: var(--ink);
-  -webkit-mask: url(/assets/img/logo-casum.svg) center / contain no-repeat;
-  mask: url(/assets/img/logo-casum.svg) center / contain no-repeat;
-}
-/* ProDoctivity wordmark (transparent PNG) — same ink treatment */
-.nd-dgp-mark {
-  display: block;
-  width: 260px;
-  aspect-ratio: 500 / 84;
-  background: var(--ink);
-  -webkit-mask: url(/assets/img/logo-prodoctivity.png) center / contain no-repeat;
-  mask: url(/assets/img/logo-prodoctivity.png) center / contain no-repeat;
-}
+/* brand wordmarks in their original colors (width set inline per mark) */
+.nd-draft-mark { display: block; height: auto; max-width: 100%; }
 
 /* digital-assets strip at the foot of the section */
 .nd-asset-cell {

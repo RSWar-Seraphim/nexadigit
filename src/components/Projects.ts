@@ -40,8 +40,8 @@ interface Project {
   textCol: string
   mockCol: string
   delay: number
-  /* Not-yet-live projects: wordmark (CSS mask class) over a drafting wireframe. */
-  draft?: { markClass: string; markLabel: string; caption: Key; wire: 'app' | 'doc' }
+  /* Not-yet-live projects: the brand wordmark (original colors) over a drafting wireframe. */
+  draft?: { mark: { src: string; w: number; h: number; width: number; alt: string }; caption: Key; wire: 'app' | 'doc' }
 }
 
 export const PROJECTS: Project[] = [
@@ -58,7 +58,7 @@ export const PROJECTS: Project[] = [
     tags: ['casum_tag_1', 'casum_tag_2', 'casum_tag_3', 'casum_tag_4'],
     caption: 'casum_caption', captionTag: 'projects_soon',
     textCol: '8 / 13', mockCol: '1 / 8', delay: 0,
-    draft: { markClass: 'nd-casum-mark', markLabel: 'CASUM', caption: 'casum_mock_caption', wire: 'app' },
+    draft: { mark: { src: '/assets/img/logo-casum.svg', w: 2172, h: 724, width: 220, alt: 'CASUM' }, caption: 'casum_mock_caption', wire: 'app' },
   },
   {
     num: '03', name: 'ProDoctivity DGP', status: 'developing',
@@ -66,7 +66,7 @@ export const PROJECTS: Project[] = [
     tags: ['dgp_tag_1', 'dgp_tag_2', 'dgp_tag_3', 'dgp_tag_4'],
     caption: 'dgp_caption', captionTag: 'projects_soon',
     textCol: '1 / 6', mockCol: '6 / 13', delay: 0,
-    draft: { markClass: 'nd-dgp-mark', markLabel: 'ProDoctivity', caption: 'dgp_mock_caption', wire: 'doc' },
+    draft: { mark: { src: '/assets/img/logo-prodoctivity.png', w: 500, h: 84, width: 260, alt: 'ProDoctivity' }, caption: 'dgp_mock_caption', wire: 'doc' },
   },
 ]
 
@@ -142,7 +142,7 @@ export function projectsMarkup(lang: Lang): string {
       <div class="nd-proj-draft">
         <div class="nd-proj-draft__wire nd-proj-draft__wire--${d.wire}" aria-hidden="true">${'<span></span>'.repeat(wires)}</div>
         <div class="nd-proj-draft__mark">
-          <span class="${d.markClass}" role="img" aria-label="${d.markLabel}"></span>
+          <img class="nd-draft-mark" src="${d.mark.src}" width="${d.mark.w}" height="${d.mark.h}" alt="${d.mark.alt}" loading="lazy" decoding="async" style="width:${d.mark.width}px;">
           <span style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.14em;color:var(--muted);text-align:center;">${t(d.caption)}</span>
         </div>
       </div>
