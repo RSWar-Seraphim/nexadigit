@@ -8,7 +8,11 @@
 import { tr, type Lang } from './i18n'
 import { proofStripMarkup } from './ProofStrip'
 import { NAV_ITEMS, langSwitchMarkup, navAttrs } from './Header'
-import { VIGIA_URL } from './Projects'
+import { PROJECTS, VIGIA_URL } from './Projects'
+
+/* "N ACTIVOS EN PRODUCCIÓN" counts the SaaS projects that are live (VIGIA today),
+   read from PROJECTS so the number follows the status badges in Proyectos. */
+const LIVE_COUNT = PROJECTS.filter((p) => p.status === 'live').length
 
 /* The showcase row under the hero: the SaaS projects — what is live (VIGIA)
    and what is still under construction. The media outlets UniSync operates are
@@ -122,7 +126,7 @@ export function heroMarkup(lang: Lang): string {
         <div data-hero-fade class="nd-hero-coords hidden md:flex" style="flex-direction:column;gap:16px;text-align:right;font-family:var(--font-mono);font-size:12px;letter-spacing:0.1em;color:var(--muted);line-height:1.7;padding-bottom:10px;white-space:nowrap;">
           <span>18.4861° N<br>69.9312° W</span>
           <span>${t('hero_coord_since')}</span>
-          <span>${t('hero_coord_assets')}</span>
+          <span>${LIVE_COUNT === 1 ? t('hero_coord_assets_one') : t('hero_coord_assets_many').replace('{n}', String(LIVE_COUNT))}</span>
         </div>
       </div>
 

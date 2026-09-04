@@ -74,7 +74,9 @@ export const es = {
   hero_availability_label: 'DISPONIBILIDAD:',
   hero_availability: 'aceptando nuevos proyectos',
   hero_coord_since: 'OPERANDO<br>DESDE 2023',
-  hero_coord_assets: '<span style="color:#E04E14">3 ACTIVOS</span> EN<br>PRODUCCIÓN',
+  // The count is the number of PROJECTS with status 'live' (Hero.ts picks one/many).
+  hero_coord_assets_one: '<span style="color:#E04E14">1 ACTIVO</span> EN<br>PRODUCCIÓN',
+  hero_coord_assets_many: '<span style="color:#E04E14">{n} ACTIVOS</span> EN<br>PRODUCCIÓN',
   hero_showcase_label: 'EN PRODUCCIÓN 24/7',
 
   /* ── Barra de modelos (marquee de IA) ───────────────────────────────── */

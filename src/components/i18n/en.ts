@@ -73,7 +73,8 @@ export const en = {
   hero_availability_label: 'AVAILABILITY:',
   hero_availability: 'accepting new projects',
   hero_coord_since: 'OPERATING<br>SINCE 2023',
-  hero_coord_assets: '<span style="color:#E04E14">3 ASSETS</span> IN<br>PRODUCTION',
+  hero_coord_assets_one: '<span style="color:#E04E14">1 ASSET</span> IN<br>PRODUCTION',
+  hero_coord_assets_many: '<span style="color:#E04E14">{n} ASSETS</span> IN<br>PRODUCTION',
   hero_showcase_label: 'IN PRODUCTION 24/7',
 
   /* ── Model bar (AI marquee) ─────────────────────────────────────────── */
