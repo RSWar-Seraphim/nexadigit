@@ -22,7 +22,7 @@ Sitio principal: ${u(ROUTES.home.es)} · Versión en inglés: ${u(ROUTES.home.en
 
 ## Qué hace NexaDigit
 
-- Estrategia y consultoría de IA: diagnóstico inicial sin costo (3–5 días), propuesta técnica y comercial con precio cerrado por escrito (1 semana), desarrollo en sprints de 1–2 semanas con demos funcionales, y operación continua (monitoreo, soporte, mejoras). Un MVP típico toma 4–8 semanas.
+- Estrategia y consultoría de IA. Proceso: primer encuentro sin costo para levantar necesidades y entender el sistema deseado; MVP gratuito de demostración; cotización por escrito con el costo inicial de la primera versión y un costo anual de soporte (requerimientos posteriores, asistencia técnica, mantenimiento); desarrollo por fases de entrega (Fase 0, Fase 1, Fase 2…) con informe detallado en cada fase hasta entregar la versión 1.
 - Desarrollo de software a medida: aplicaciones web, APIs y plataformas internas con Python/FastAPI, React/TypeScript y PostgreSQL.
 - Agentes de IA e integración: agentes autónomos que ejecutan flujos completos (investigación, generación de contenido, operaciones) con orquestación multi-modelo (${MODELS.join(', ')}) y capas de verificación de calidad y costo.
 - Infraestructura cloud (AWS, Azure, GCP, Cloudflare; CI/CD, edge), seguridad empresarial (OWASP) y capacitación empresarial en IA.

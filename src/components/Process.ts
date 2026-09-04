@@ -47,19 +47,19 @@ export function processMarkup(lang: Lang): string {
           </div>
         </div>
 
-        <!-- The same phases as a table: the most reliably extracted format for
-             "how long / what do I get" questions. Deliverable and timeline come
-             from the same i18n strings the cards use. -->
+        <!-- The same steps as a table: the most reliably extracted format for
+             "what do I get / what does it cost" questions. Deliverable and cost
+             come from the same i18n strings the cards use ('entregable · costo'). -->
         <div class="reveal" style="--reveal-delay:120ms;margin-top:72px;overflow-x:auto;">
           <table class="nd-table nd-table--light">
             <caption>${t('process_table_caption')}</caption>
             <thead>
-              <tr><th scope="col">${t('process_table_phase')}</th><th scope="col">${t('process_table_deliverable')}</th><th scope="col">${t('process_table_time')}</th></tr>
+              <tr><th scope="col">${t('process_table_phase')}</th><th scope="col">${t('process_table_deliverable')}</th><th scope="col">${t('process_table_cost')}</th></tr>
             </thead>
             <tbody>
               ${STEPS.map((s) => {
-                const [deliverable, time] = t(s.del).split(' · ')
-                return `<tr><th scope="row">${s.n} · ${t(s.title)}</th><td>${deliverable}</td><td>${time ?? ''}</td></tr>`
+                const [deliverable, cost] = t(s.del).split(' · ')
+                return `<tr><th scope="row">${s.n} · ${t(s.title)}</th><td>${deliverable}</td><td>${cost ?? ''}</td></tr>`
               }).join('')}
             </tbody>
           </table>

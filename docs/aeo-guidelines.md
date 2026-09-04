@@ -41,7 +41,7 @@ Reglas: el archivo va en `src/content/blog/<slug>.mdx`; `description` **es la re
 - [ ] **Al menos una tabla** (Markdown GFM) cuando hay comparación, fases, riesgos o criterios. Primera columna = concepto, cabeceras cortas, celdas de una o dos frases.
 - [ ] **Un dato concreto por sección** (cifra, fecha, tecnología, nombre). Si una sección no tiene ninguno, revísala.
 - [ ] **Un `<Callout label="…">`** como máximo cada dos secciones, para la regla práctica o la advertencia. Se importa arriba: `import Callout from '../../components/Callout.astro'`.
-- [ ] **Enlaces internos** con texto descriptivo ("el [diagnóstico inicial](/#proceso)"), nunca "haz clic aquí".
+- [ ] **Enlaces internos** con texto descriptivo ("el [primer encuentro](/#proceso)"), nunca "haz clic aquí".
 - [ ] **Cierre con siguiente paso**: último párrafo con un enlace a `/#proceso` o `/#contacto`.
 
 ## 4. Lo que no se hace
@@ -78,7 +78,7 @@ Luego, con `npm run preview`:
 ## 7. Después de publicar
 
 - Pregunta a los cuatro motores la pregunta del título a las 2 y a las 6 semanas; anota si citan el post y qué fragmento.
-- Si cambias el contenido, actualiza `updatedAt`. Si cambia un dato del sitio (plazo, precio, correo), búscalo en todos los posts: `grep -rn "4–8 semanas" src/content/blog`.
+- Si cambias el contenido, actualiza `updatedAt`. Si cambia un dato del sitio (plazo, precio, correo), búscalo en todos los posts: `grep -rn "MVP gratuito" src/content/blog`.
 - Un post que deja de ser cierto se corrige o se borra; no se deja "por el tráfico".
 
 ## Plantilla mínima
