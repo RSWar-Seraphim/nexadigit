@@ -48,6 +48,31 @@ export function initInteractions() {
     const hero = document.getElementById('top')
     const overHero = hero ? hero.getBoundingClientRect().bottom > 90 : false
     header.classList.toggle('scrolled', !overHero)
+    // Reading progress along the top edge of the bar.
+    const max = document.documentElement.scrollHeight - window.innerHeight
+    header.style.setProperty('--nd-progress', `${max > 0 ? Math.min(1, window.scrollY / max) * 100 : 0}%`)
+  }
+
+  /* ── Sliding nav indicator (fed by scroll.ts via window.__moveNavHighlight) ── */
+  const nav = document.querySelector<HTMLElement>('.nd-header .nd-nav')
+  const glider = nav?.querySelector<HTMLElement>('.nd-nav__glider')
+  let gliderId = ''
+  const glide = (id: string) => {
+    if (!nav || !glider) return
+    gliderId = id
+    const link = nav.querySelector<HTMLElement>(`a[data-link="${id}"]`)
+    nav.classList.add('nd-nav--glide')
+    if (!link) {
+      glider.classList.remove('is-on')
+      return
+    }
+    glider.style.setProperty('--x', `${link.offsetLeft}px`)
+    glider.style.width = `${link.offsetWidth}px`
+    glider.classList.add('is-on')
+  }
+  if (nav && glider) {
+    ;(window as any).__moveNavHighlight = glide
+    window.addEventListener('resize', () => gliderId && glide(gliderId), { passive: true })
   }
 
   if (reduced) {

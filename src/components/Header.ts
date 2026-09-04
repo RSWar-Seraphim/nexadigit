@@ -76,16 +76,18 @@ export function headerMarkup(lang: Lang, opts: NavOpts = { onHome: true }): stri
 
   return `
     <header role="banner" class="nd-header${scrolled}">
+      <span class="nd-header__progress" aria-hidden="true"></span>
       <div class="nd-wrap" style="padding:0 clamp(20px,5vw,40px);height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px;">
         ${logoMarkup(lang, 38, opts)}
 
-        <nav class="hidden lg:flex items-center" style="gap:32px;" aria-label="${t('a11y_nav_main')}">
+        <nav class="nd-nav hidden lg:flex items-center" style="gap:32px;" aria-label="${t('a11y_nav_main')}">
           ${NAV_ITEMS.map((item) => `<a ${navAttrs(item, lang, opts)} class="nd-link">${t(item.key)}</a>`).join('')}
+          <span class="nd-nav__glider" aria-hidden="true"></span>
         </nav>
 
         <div class="flex items-center" style="gap:16px;">
           ${langSwitchMarkup(lang, 'hidden lg:flex')}
-          <a href="${opts.onHome ? '#contacto' : ROUTES.home[lang] + '#contacto'}" data-book-meeting class="nd-pill hidden sm:inline-flex">${t('cta_book_short')}</a>
+          <a href="${opts.onHome ? '#contacto' : ROUTES.home[lang] + '#contacto'}" data-book-meeting data-cta-btn data-glow="0 10px 30px rgba(224,78,20,0.35)" class="nd-pill hidden sm:inline-flex">${t('cta_book_short')}<span class="nd-cta__arrow" data-cta-arrow>→</span></a>
           <button id="burger-btn" class="lg:hidden" style="padding:8px;margin-right:-8px;background:none;border:none;cursor:pointer;color:var(--ink);" aria-label="${t('a11y_open_menu')}" aria-controls="mobile-menu" aria-expanded="false">
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
