@@ -8,11 +8,25 @@
 import { tr, type Lang } from './i18n'
 import { proofStripMarkup } from './ProofStrip'
 import { NAV_ITEMS, langSwitchMarkup, navAttrs } from './Header'
+import { DIGITAL_ASSETS, VIGIA_URL } from './Projects'
 
-const SHOWCASE = [
-  { url: 'https://noticiasmma.com', label: 'noticiasmma', tld: '.com', delay: '' },
-  { url: 'https://lahora24.com', label: 'lahora24', tld: '.com', delay: ' 0.5s' },
-  { url: 'https://quisqueyanos.net', label: 'quisqueyanos', tld: '.net', delay: ' 1s' },
+/* The showcase row under the hero: what NexaDigit operates today (the media
+   UniSync publishes on, VIGIA) and the SaaS still under construction. A domain
+   is a link only once it is live — CASUM and Oris stay plain text until then. */
+interface Showcase {
+  label: string
+  tld: string
+  status: 'live' | 'building'
+  url?: string
+}
+const SHOWCASE: Showcase[] = [
+  ...DIGITAL_ASSETS.map((a): Showcase => {
+    const dot = a.name.indexOf('.')
+    return { label: a.name.slice(0, dot), tld: a.name.slice(dot), status: 'live', url: a.url }
+  }),
+  { label: 'vigia', tld: '.com.pa', status: 'live', url: VIGIA_URL },
+  { label: 'casum', tld: '.ai', status: 'building' },
+  { label: 'oris', tld: '.do', status: 'building' },
 ]
 
 /* Word rise: the words are hidden only when JS is on (html.js, see style.css),
@@ -21,6 +35,28 @@ const HERO_IN_SCRIPT =
   '<script>(function(){var h=document.querySelector("[data-hero-headline]");if(!h)return;' +
   'if(matchMedia("(prefers-reduced-motion: reduce)").matches){h.classList.add("hero-in");return;}' +
   'requestAnimationFrame(function(){requestAnimationFrame(function(){h.classList.add("hero-in")})})})();</script>'
+
+/* One showcase group: a mono label with its status dot (pulsing orange = live,
+   dashed = under construction) followed by the domains. Each group wraps as a
+   unit, so on narrower screens "en construcción" drops to its own line. */
+const LIVE_DOT = (size: number, delay = 0) =>
+  `<span style="width:${size}px;height:${size}px;border-radius:50%;background:var(--accent);flex-shrink:0;animation:ndPulse 2.6s infinite${delay ? ` ${delay}s` : ''};"></span>`
+const BUILDING_DOT = (size: number) =>
+  `<span style="width:${size}px;height:${size}px;border-radius:50%;border:1.5px dashed var(--line-strong);box-sizing:border-box;flex-shrink:0;"></span>`
+
+function showcaseGroup(live: boolean, label: string, items: Showcase[]): string {
+  const item = (s: Showcase, i: number) => {
+    const inner = `${live ? LIVE_DOT(6, i * 0.5) : BUILDING_DOT(6)}${s.label}<span style="color:var(--line-strong);">${s.tld}</span>`
+    return s.url
+      ? `<a href="${s.url}" target="_blank" rel="noopener" class="nd-showcase-link">${inner}</a>`
+      : `<span class="nd-showcase-link nd-showcase-link--building">${inner}</span>`
+  }
+  return `
+          <span style="display:inline-flex;align-items:center;justify-content:center;gap:20px 40px;flex-wrap:wrap;">
+            <span style="display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.16em;color:var(--muted);flex-shrink:0;">${live ? LIVE_DOT(7) : BUILDING_DOT(7)}${label}</span>
+            ${items.map(item).join('')}
+          </span>`
+}
 
 export function heroMarkup(lang: Lang): string {
   const t = tr(lang)
@@ -96,16 +132,8 @@ export function heroMarkup(lang: Lang): string {
       <!-- production showcase -->
       <div class="nd-hero-showcase" style="position:relative;z-index:1;border-top:1px solid var(--line);">
         <div data-hero-fade style="box-sizing:border-box;width:100%;padding:32px clamp(28px,5vw,76px);display:flex;align-items:center;justify-content:center;gap:20px 48px;flex-wrap:wrap;">
-          <span style="display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.16em;color:var(--muted);flex-shrink:0;">
-            <span style="width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0;animation:ndPulse 2.6s infinite;"></span>
-            ${t('hero_showcase_label')}
-          </span>
-          ${SHOWCASE.map(
-            (s) => `
-            <a href="${s.url}" target="_blank" rel="noopener" class="nd-showcase-link">
-              <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;animation:ndPulse 2.6s infinite${s.delay};"></span>${s.label}<span style="color:var(--line-strong);">${s.tld}</span>
-            </a>`
-          ).join('')}
+          ${showcaseGroup(true, t('hero_showcase_label'), SHOWCASE.filter((s) => s.status === 'live'))}
+          ${showcaseGroup(false, t('projects_status_building'), SHOWCASE.filter((s) => s.status === 'building'))}
         </div>
       </div>
 

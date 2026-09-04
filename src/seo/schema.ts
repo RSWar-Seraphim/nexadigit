@@ -8,6 +8,7 @@ import { ROUTES, SITE } from '../components/i18n/routes'
 import { FAQ_ITEMS } from '../components/Faq'
 import { CONTACT_EMAIL } from '../components/Contact'
 import { SOCIALS } from '../components/Header'
+import { VIGIA_URL } from '../components/Projects'
 import { DOCS, type Doc } from '../legal/legal'
 
 const ORG_ID = `${SITE}/#org`
@@ -59,10 +60,11 @@ function webPage(url: string, lang: Lang, name: string, description: string) {
   }
 }
 
-function softwareApp(name: string, description: string, url: string, lang: Lang) {
+function softwareApp(name: string, description: string, url: string, lang: Lang, sameAs?: string[]) {
   return {
     '@type': 'SoftwareApplication',
-    '@id': `${url}#${name.toLowerCase()}`,
+    // One fragment only: `url` already carries the section anchor.
+    '@id': `${url.split('#')[0]}#${name.toLowerCase()}`,
     name,
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Web',
@@ -70,6 +72,8 @@ function softwareApp(name: string, description: string, url: string, lang: Lang)
     url,
     inLanguage: lang,
     creator: { '@id': ORG_ID },
+    // The product's own site, when it has one (VIGIA) — ties the entity to its domain.
+    ...(sameAs ? { sameAs } : {}),
   }
 }
 
@@ -93,7 +97,7 @@ export function homeGraph(lang: Lang) {
         })),
       },
       softwareApp('UniSync', t('catalog_lede'), `${url}#unisync`, lang),
-      softwareApp('VIGIA', t('vigia_desc'), `${url}#produccion`, lang),
+      softwareApp('VIGIA', t('vigia_desc'), `${url}#produccion`, lang, [VIGIA_URL]),
     ],
   }
 }

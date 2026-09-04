@@ -395,6 +395,9 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
   transition: color .25s;
 }
 .nd-showcase-link:hover { color: var(--accent); }
+/* Under construction: no site yet, so no link — muted, no hover */
+.nd-showcase-link--building,
+.nd-showcase-link--building:hover { color: var(--muted); }
 
 /* Short hero subhead is phone-only (swapped in at ≤600px) */
 .nd-hero-sub-short { display: none; }

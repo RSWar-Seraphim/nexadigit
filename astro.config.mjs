@@ -19,6 +19,20 @@ function readDotEnv() {
   return out
 }
 
+/* ── Sitemap <lastmod> for blog posts ───────────────────────────────────────
+   Read from the post's frontmatter (updatedAt, else publishedAt) so the date in
+   the sitemap is the one the page shows. Other pages carry no lastmod: a wrong
+   date is worse than none. */
+function postLastmod(url) {
+  const m = new URL(url).pathname.match(/^\/blog\/([^/]+)\/$/)
+  if (!m) return undefined
+  const file = `src/content/blog/${m[1]}.mdx`
+  if (!existsSync(file)) return undefined
+  const fm = readFileSync(file, 'utf8')
+  const d = fm.match(/^updatedAt:\s*(\S+)/m) ?? fm.match(/^publishedAt:\s*(\S+)/m)
+  return d ? new Date(d[1]).toISOString() : undefined
+}
+
 /** @returns {import('vite').Plugin} */
 function mailerliteDev() {
   return {
@@ -73,6 +87,10 @@ export default defineConfig({
       changefreq: 'weekly',
       // Paginated index pages (/blog/2/…) are navigation, not content.
       filter: (page) => !/\/blog\/\d+\/$/.test(page),
+      serialize: (item) => {
+        const lastmod = postLastmod(item.url)
+        return lastmod ? { ...item, lastmod } : item
+      },
     }),
   ],
   vite: { plugins: [mailerliteDev()] },

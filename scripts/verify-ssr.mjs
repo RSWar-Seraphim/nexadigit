@@ -126,6 +126,9 @@ if (existsSync(resolve(dist, 'sitemap-0.xml'))) {
   ok(sm.includes('hreflang="en-US"'), 'sitemap lacks hreflang alternates for /en/')
   ok(sm.includes(`<loc>${SITE}/blog/</loc>`), 'sitemap lacks /blog/')
   ok(!/\/blog\/\d+\/<\/loc>/.test(sm), 'sitemap should not list paginated /blog/N/ pages')
+  for (const slug of postDirs) {
+    ok(new RegExp(`<loc>${SITE}/blog/${slug}/</loc>\\s*<lastmod>`).test(sm), `sitemap lacks /blog/${slug}/ with <lastmod>`)
+  }
 }
 if (existsSync(resolve(dist, 'robots.txt'))) {
   const robots = readFileSync(resolve(dist, 'robots.txt'), 'utf8')

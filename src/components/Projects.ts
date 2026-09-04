@@ -15,6 +15,10 @@ export const DIGITAL_ASSETS = [
   { name: 'quisqueyanos.net', url: 'https://quisqueyanos.net' },
 ]
 
+/* VIGIA's own site (live, private access). Used by the hero showcase, llms.txt
+   and the SoftwareApplication JSON-LD. CASUM and Oris have no public site yet. */
+export const VIGIA_URL = 'https://vigia.com.pa'
+
 type Status = 'live' | 'building' | 'developing'
 
 interface Project {
