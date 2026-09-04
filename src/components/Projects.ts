@@ -1,0 +1,177 @@
+// ══════════════════════════════════════════════════════════════════════════════
+// PROYECTOS — the proof section. The SaaS platforms NexaDigit builds, laid out
+// as numbered editorial case rows: a text column (status, kicker, tagline,
+// capability chips, pull-quote) beside a browser mock. VIGIA's real dashboard
+// screenshot scrolls on hover; CASUM, still in construction, shows its wordmark
+// floating over a drafting grid. Closes with the strip of media assets that
+// UniSync agents operate 24/7.
+// ══════════════════════════════════════════════════════════════════════════════
+import { t, onLangChange } from './i18n'
+import { observeReveals } from '../utils/motion'
+
+type Key = Parameters<typeof t>[0]
+
+interface DigitalAsset {
+  name: string
+  url: string
+  descKey: Key
+  dotDelay: string
+}
+
+/* Also consumed by the footer's "Activos" column. */
+export const DIGITAL_ASSETS: DigitalAsset[] = [
+  { name: 'noticiasmma.com', url: 'https://noticiasmma.com', descKey: 'assets_mma_desc', dotDelay: '' },
+  { name: 'lahora24.com', url: 'https://lahora24.com', descKey: 'assets_lahora_desc', dotDelay: ' 0.6s' },
+  { name: 'quisqueyanos.net', url: 'https://quisqueyanos.net', descKey: 'assets_quisqueyanos_desc', dotDelay: ' 1.2s' },
+]
+
+interface Project {
+  num: string
+  name: string
+  live: boolean
+  kicker: Key
+  tagline: Key
+  desc: Key
+  quote: Key
+  tags: Key[]
+  caption: Key
+  captionTag: Key
+  /* 12-column placement; both cells pin to grid-row 1 so a mirrored row
+     (mock left, text right) keeps text first in DOM order for mobile/reading. */
+  textCol: string
+  mockCol: string
+  delay: number
+}
+
+const PROJECTS: Project[] = [
+  {
+    num: '01', name: 'VIGIA', live: true,
+    kicker: 'vigia_kicker', tagline: 'vigia_tagline', desc: 'vigia_desc', quote: 'vigia_quote',
+    tags: ['vigia_tag_1', 'vigia_tag_2', 'vigia_tag_3', 'vigia_tag_4'],
+    caption: 'vigia_caption', captionTag: 'projects_private',
+    textCol: '1 / 5', mockCol: '5 / 13', delay: 0,
+  },
+  {
+    num: '02', name: 'CASUM', live: false,
+    kicker: 'casum_kicker', tagline: 'casum_tagline', desc: 'casum_desc', quote: 'casum_quote',
+    tags: ['casum_tag_1', 'casum_tag_2', 'casum_tag_3', 'casum_tag_4'],
+    caption: 'casum_caption', captionTag: 'projects_soon',
+    textCol: '8 / 13', mockCol: '1 / 8', delay: 0,
+  },
+]
+
+const VIGIA_SHOT = { src: '/assets/img/vigia-preview.webp', w: 1400, h: 1210, height: 520 }
+
+export function Projects() {
+  const el = document.createElement('section')
+  el.id = 'produccion'
+  el.setAttribute('data-screen-label', 'Proyectos')
+  el.style.borderBottom = '1px solid var(--line)'
+
+  const statusBadge = (live: boolean) =>
+    live
+      ? `<span class="nd-status nd-status--live"><span class="nd-status__dot"></span>${t('projects_status_live')}</span>`
+      : `<span class="nd-status nd-status--building"><span class="nd-status__dot"></span>${t('projects_status_building')}</span>`
+
+  const textCell = (p: Project) => `
+    <div class="nd-proj-text reveal" style="grid-column:${p.textCol};grid-row:1;--reveal-delay:${p.delay}ms;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:30px;">
+        <span style="font-family:var(--font-mono);font-size:12px;color:var(--muted);">${p.num}</span>
+        ${statusBadge(p.live)}
+      </div>
+      <h3 style="margin:0 0 10px;font-family:var(--font-display);font-weight:700;font-size:40px;letter-spacing:-0.03em;line-height:1;color:var(--ink);">${p.name}</h3>
+      <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;">${t(p.kicker)}</div>
+      <p style="margin:0 0 14px;font-family:var(--font-display);font-weight:600;font-size:21px;letter-spacing:-0.015em;line-height:1.3;color:var(--ink);">${t(p.tagline)}</p>
+      <p style="margin:0 0 24px;font-family:var(--font-serif);font-size:16px;line-height:1.65;color:var(--slate);">${t(p.desc)}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:28px;">
+        ${p.tags.map((k) => `<span class="nd-chip">${t(k)}</span>`).join('')}
+      </div>
+      <blockquote style="margin:0;padding:2px 0 2px 16px;border-left:2px solid var(--accent);font-family:var(--font-serif);font-style:italic;font-size:14.5px;line-height:1.6;color:var(--slate);">${t(p.quote)}</blockquote>
+    </div>`
+
+  /* Browser chrome shared by both mocks — same bones as the old media cards. */
+  const chrome = (p: Project) => {
+    const dot = p.live
+      ? '<span style="width:7px;height:7px;border-radius:50%;background:var(--accent);animation:ndPulse 2.6s infinite;"></span>'
+      : '<span style="width:7px;height:7px;border-radius:50%;border:1.5px dashed var(--line-strong);box-sizing:border-box;"></span>'
+    const status = p.live ? t('projects_status_live') : t('projects_status_building')
+    return `
+    <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--bg);">
+      <span style="display:flex;gap:6px;"><span style="width:9px;height:9px;border-radius:50%;background:#DEDED6;"></span><span style="width:9px;height:9px;border-radius:50%;background:#DEDED6;"></span><span style="width:9px;height:9px;border-radius:50%;background:#DEDED6;"></span></span>
+      <span style="flex:1;display:flex;align-items:center;justify-content:center;gap:9px;border:1px solid var(--line);background:var(--surface);padding:5px 14px;border-radius:999px;font-family:var(--font-mono);font-size:12px;color:var(--ink);">${dot}${p.name.toLowerCase()}</span>
+      <span style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.12em;font-weight:600;color:${p.live ? 'var(--accent)' : 'var(--muted)'};">${status}</span>
+    </div>`
+  }
+
+  const captionRow = (p: Project) => `
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 20px;border-top:1px solid var(--line);">
+      <span style="font-family:var(--font-serif);font-size:14.5px;line-height:1.5;color:var(--slate);">${t(p.caption)}</span>
+      <span style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.12em;color:var(--muted);white-space:nowrap;">${t(p.captionTag)}</span>
+    </div>`
+
+  const liveMock = (p: Project) => `
+    <div class="nd-prod-card reveal" style="grid-column:${p.mockCol};grid-row:1;--reveal-delay:${p.delay + 90}ms;--shot-h:${VIGIA_SHOT.height}px;">
+      ${chrome(p)}
+      <div class="nd-prod-shot" style="height:${VIGIA_SHOT.height}px;">
+        <img src="${VIGIA_SHOT.src}" width="${VIGIA_SHOT.w}" height="${VIGIA_SHOT.h}" alt="${t('vigia_shot_alt')}" loading="lazy" decoding="async">
+      </div>
+      ${captionRow(p)}
+    </div>`
+
+  /* No UI to show yet: the wordmark floats over a drafting grid + dashed wireframe. */
+  const draftMock = (p: Project) => `
+    <div class="nd-prod-card reveal" style="grid-column:${p.mockCol};grid-row:1;--reveal-delay:${p.delay + 90}ms;">
+      ${chrome(p)}
+      <div class="nd-proj-draft">
+        <div class="nd-proj-draft__wire" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="nd-proj-draft__mark">
+          <span class="nd-casum-mark" role="img" aria-label="CASUM"></span>
+          <span style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.14em;color:var(--muted);text-align:center;">${t('casum_mock_caption')}</span>
+        </div>
+      </div>
+      ${captionRow(p)}
+    </div>`
+
+  const projectRow = (p: Project, i: number) => `
+    <div class="nd-proj-row" style="display:grid;grid-template-columns:repeat(12,1fr);gap:28px;align-items:start;${i ? 'margin-top:72px;padding-top:64px;border-top:1px solid var(--line);' : ''}">
+      ${textCell(p)}
+      ${p.live ? liveMock(p) : draftMock(p)}
+    </div>`
+
+  const assetCell = (a: DigitalAsset, i: number) => `
+    <a href="${a.url}" target="_blank" rel="noopener" class="nd-asset-cell" style="${i ? 'border-left:1px solid var(--line);' : ''}">
+      <span style="display:flex;align-items:center;gap:9px;font-family:var(--font-mono);font-size:12.5px;color:var(--ink);"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;animation:ndPulse 2.6s infinite${a.dotDelay};"></span>${a.name}</span>
+      <span style="font-family:var(--font-serif);font-size:14px;line-height:1.5;color:var(--slate);">${t(a.descKey)}</span>
+      <span class="nd-visit">${t('projects_visit')} →<span class="sr-only"> (${t('a11y_external')})</span></span>
+    </a>`
+
+  const render = () => {
+    el.innerHTML = `
+      <div class="nd-wrap" style="padding:104px clamp(20px,5vw,40px) 0;border-left:1px solid var(--line);border-right:1px solid var(--line);">
+        <div class="reveal nd-eyebrow" style="margin-bottom:20px;">${t('projects_eyebrow')}</div>
+        <div class="nd-head2" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:72px;">
+          <h2 class="reveal nd-h2" style="--reveal-delay:80ms;">${t('projects_title')}</h2>
+          <p class="reveal" style="--reveal-delay:140ms;margin:0;font-family:var(--font-serif);font-size:18px;line-height:1.65;color:var(--slate);">${t('projects_lede')}</p>
+        </div>
+
+        ${PROJECTS.map(projectRow).join('')}
+
+        <div class="nd-assets-strip reveal" style="margin-top:96px;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 2fr;">
+          <div style="padding:32px 32px 32px 0;border-right:1px solid var(--line);">
+            <div class="nd-eyebrow" style="font-size:11px;margin-bottom:10px;">${t('assets_strip_label')}</div>
+            <p style="margin:0;font-family:var(--font-serif);font-size:15px;line-height:1.6;color:var(--slate);max-width:340px;">${t('assets_strip_lede')}</p>
+          </div>
+          <div class="nd-assets-strip__list" style="display:grid;grid-template-columns:repeat(3,1fr);">
+            ${DIGITAL_ASSETS.map(assetCell).join('')}
+          </div>
+        </div>
+        <div class="nd-proj-bottom" style="height:96px;"></div>
+      </div>
+    `
+    observeReveals(el)
+  }
+
+  render()
+  onLangChange(render)
+  return el
+}

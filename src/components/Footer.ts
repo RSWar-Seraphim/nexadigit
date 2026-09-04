@@ -4,7 +4,7 @@
 // ══════════════════════════════════════════════════════════════════════════════
 import { t, getLang, setLang, onLangChange } from './i18n'
 import { NAV_ITEMS } from './Header'
-import { DIGITAL_ASSETS } from './Assets'
+import { DIGITAL_ASSETS } from './Projects'
 
 export function Footer() {
   const el = document.createElement('footer')

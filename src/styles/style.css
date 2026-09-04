@@ -457,14 +457,69 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
 /* ══════════════════════════════════════════════════════════════════════════
    CATÁLOGO / CTA — carbon band cards
    ══════════════════════════════════════════════════════════════════════════ */
-.nd-cat-card {
-  border: 1px solid rgba(250, 247, 242, 0.14);
-  background: rgba(250, 247, 242, 0.025);
-  transition: border-color .3s;
-  min-width: 0; /* allow the card to shrink below its content min-size (grid/flex item) */
+/* "how it works" pipeline rows */
+.nd-step {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 12px;
+  padding: 15px 0;
+  border-top: 1px solid rgba(250, 247, 242, 0.1);
 }
-.nd-cat-card:hover { border-color: rgba(224, 78, 20, 0.35); }
-.nd-cat-card--light:hover { border-color: rgba(250, 247, 242, 0.35); }
+.nd-step:last-child { border-bottom: 1px solid rgba(250, 247, 242, 0.1); }
+
+/* Run Agents console — header buttons, outlet tabs, stat tiles, agent cards */
+.nd-console-btn {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  color: #C9CED3;
+  border: 1px solid #2A313B;
+  border-radius: 7px;
+  padding: 7px 13px;
+  white-space: nowrap;
+}
+.nd-console-btn--accent { color: var(--accent); border-color: rgba(224, 78, 20, 0.4); }
+.nd-console-tab {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: #7E8790;
+  padding: 10px 0;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+}
+.nd-console-tab.is-active { color: #E4E8EC; border-bottom-color: var(--accent); }
+.nd-stat-tile { background: #0F1319; border: 1px solid #1C222B; padding: 12px 14px; min-width: 0; }
+.nd-agent {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  padding: 14px;
+  background: #0F1319;
+  border: 1px solid #1C222B;
+}
+.nd-agent.is-running { border-color: rgba(224, 78, 20, 0.45); box-shadow: 0 0 0 1px rgba(224, 78, 20, 0.12), 0 0 40px rgba(224, 78, 20, 0.08); }
+.nd-agent__chip {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  color: #C9CED3;
+  border: 1px solid #2A313B;
+  border-radius: 999px;
+  padding: 3px 8px;
+  white-space: nowrap;
+}
+.nd-agent__chip--type { color: var(--accent); border-color: rgba(224, 78, 20, 0.35); }
+.nd-agent__btn { display: block; box-sizing: border-box; width: 100%; text-align: center; margin-top: 2px; }
+.nd-agent__btn--stop {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--cream);
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  padding: 6px 15px;
+}
 
 /* dashboard "Run" pill hover */
 .nd-run-btn {
@@ -496,7 +551,7 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
 .nd-unisync-btn:hover { transform: translateY(-2px); box-shadow: 0 0 32px rgba(224, 78, 20, 0.4); }
 
 /* ══════════════════════════════════════════════════════════════════════════
-   PRODUCCIÓN — site preview cards
+   PROYECTOS — case rows + browser mocks
    ══════════════════════════════════════════════════════════════════════════ */
 .nd-prod-card {
   background: var(--surface);
@@ -525,6 +580,95 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
   text-decoration: none;
 }
 .nd-visit:hover { text-decoration: underline; }
+
+/* status badge: live = orange + pulse; building = muted, dashed (a draft) */
+.nd-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  padding: 5px 12px;
+  white-space: nowrap;
+}
+.nd-status__dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.nd-status--live { color: var(--accent); border: 1px solid rgba(224, 78, 20, 0.4); }
+.nd-status--live .nd-status__dot { background: var(--accent); animation: ndPulse 2.6s infinite; }
+.nd-status--building { color: var(--muted); border: 1px dashed var(--line-strong); }
+.nd-status--building .nd-status__dot { border: 1.5px dashed var(--line-strong); box-sizing: border-box; }
+
+/* capability chips (cream twin of the Oris tags) */
+.nd-chip {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.03em;
+  color: var(--slate);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 5px 12px;
+}
+
+/* CASUM placeholder: drafting grid + dashed wireframe under a floating wordmark */
+.nd-proj-draft {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--panel);
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: center;
+}
+.nd-proj-draft__wire {
+  position: absolute;
+  inset: 28px;
+  display: grid;
+  grid-template-columns: 150px 1fr 1fr;
+  grid-template-rows: 44px 1fr 1fr;
+  gap: 14px;
+  opacity: 0.7;
+}
+.nd-proj-draft__wire > span { border: 1px dashed var(--line-strong); }
+.nd-proj-draft__wire > span:first-child { grid-row: 1 / 4; }
+.nd-proj-draft__wire > span:nth-child(2) { grid-column: 2 / 4; }
+.nd-proj-draft__mark {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 30px 40px 26px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: 0 18px 48px rgb(21 23 28 / 0.08);
+}
+/* wordmark recolored to ink through a mask (the SVG ships in its own blue) */
+.nd-casum-mark {
+  display: block;
+  width: 220px;
+  aspect-ratio: 3 / 1;
+  background: var(--ink);
+  -webkit-mask: url(/assets/img/logo-casum.svg) center / contain no-repeat;
+  mask: url(/assets/img/logo-casum.svg) center / contain no-repeat;
+}
+
+/* digital-assets strip at the foot of the section */
+.nd-asset-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 28px;
+  text-decoration: none;
+  transition: background .25s;
+}
+.nd-asset-cell:hover { background: var(--surface); }
+.nd-asset-cell:hover .nd-visit { text-decoration: underline; }
 
 /* ══════════════════════════════════════════════════════════════════════════
    FAQ accordion
@@ -756,8 +900,14 @@ textarea.nd-input { line-height: 1.5; resize: vertical; }
 @media (max-width: 1000px) {
   .nd-catalogo { grid-template-columns: 1fr !important; }
   .nd-cta-block { grid-template-columns: 1fr !important; gap: 44px !important; }
-  .nd-prod-grid { grid-template-columns: 1fr !important; }
-  .nd-prod-grid > div { grid-column: auto !important; margin-top: 0 !important; }
+  /* Proyectos: stack each case row (text first), then the assets strip */
+  .nd-proj-row { grid-template-columns: 1fr !important; }
+  .nd-proj-row > * { grid-column: auto !important; grid-row: auto !important; }
+  .nd-assets-strip { grid-template-columns: 1fr !important; }
+  .nd-assets-strip > div:first-child { border-right: 0 !important; border-bottom: 1px solid var(--line); padding-right: 0 !important; }
+  .nd-assets-strip__list { grid-template-columns: 1fr !important; }
+  .nd-asset-cell { border-left: 0 !important; border-top: 1px solid var(--line); padding: 20px 0 !important; }
+  .nd-asset-cell:first-child { border-top: 0; }
 }
 @media (max-width: 860px) {
   .nd-head2 { grid-template-columns: 1fr !important; gap: 18px !important; margin-bottom: 40px !important; }
@@ -768,6 +918,9 @@ textarea.nd-input { line-height: 1.5; resize: vertical; }
   .nd-services { grid-template-columns: 1fr 1fr !important; }
   .nd-service--dark { grid-column: span 2 !important; }
   .nd-h2 { font-size: 40px !important; }
+  /* UniSync console: one agent card per row, no sidebar on tablets */
+  .nd-agents { grid-template-columns: 1fr !important; }
+  .nd-console-side { display: none !important; }
 }
 @media (max-width: 600px) {
   .nd-services { grid-template-columns: 1fr !important; }
@@ -798,14 +951,16 @@ textarea.nd-input { line-height: 1.5; resize: vertical; }
   /* Eyebrow: drop the location on phones — just "Ingeniería de IA" */
   .nd-eyebrow-loc { display: none !important; }
 
-  /* Producción: hide the metric counters on phones */
-  .nd-metrics { display: none !important; }
-  .nd-prod-bottom { height: 44px !important; }
+  /* Proyectos: tighter tail, smaller product names, shorter CASUM placeholder */
+  .nd-proj-bottom { height: 44px !important; }
+  .nd-proj-text h3 { font-size: 32px !important; }
+  .nd-proj-draft { height: 260px !important; }
+  .nd-proj-draft__wire { display: none; }
 
   /* Catálogo: the dashboard mock is a desktop device — hide it on phones */
   #unisync .panel-rise { display: none !important; }
 
-  /* Producción: fill each preview (crop to top) instead of leaving black space */
+  /* Proyectos: fill the VIGIA preview (crop to top) instead of leaving black space */
   .nd-prod-shot { height: 240px !important; }
   .nd-prod-shot img { height: 100% !important; object-fit: cover; object-position: top center; transform: none !important; }
 

@@ -1,6 +1,6 @@
 /******************************************************************************
  *  main.ts — composition root
- *  Header → Hero(+ProofStrip) → Services → Unisync(Catálogo) → Assets(Producción)
+ *  Header → Hero(+ProofStrip) → Services → Unisync(Catálogo) → Projects(Proyectos)
  *  → Process → Faq → Contact → Footer
  ******************************************************************************/
 
@@ -9,7 +9,7 @@ import { Header }   from './components/Header';
 import { Hero }     from './components/Hero';
 import { Services } from './components/Services';
 import { Unisync }  from './components/Unisync';
-import { Assets }   from './components/Assets';
+import { Projects } from './components/Projects';
 import { Process }  from './components/Process';
 import { Faq }      from './components/Faq';
 import { Contact }  from './components/Contact';
@@ -37,7 +37,7 @@ function renderApp() {
   initInteractions();
 
   const mountRest = () => {
-    main.append(Services(), Unisync(), Assets(), Process(), Faq(), Contact());
+    main.append(Services(), Unisync(), Projects(), Process(), Faq(), Contact());
     app.append(Footer());
   };
   if ('requestIdleCallback' in window) {
