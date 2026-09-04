@@ -1,6 +1,10 @@
 {
   "name": "NexaDigit",
   "short_name": "NexaDigit",
+  "description": "Ingeniería de IA en Santo Domingo, RD: software con agentes autónomos, SaaS a medida y contenido AEO.",
+  "lang": "es",
+  "start_url": "/",
+  "scope": "/",
   "icons": [
     {
       "src": "/assets/favicon/android-chrome-192x192.png",

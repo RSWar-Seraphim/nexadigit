@@ -1,0 +1,37 @@
+# NexaDigit
+
+> NexaDigit es una empresa de ingeniería de IA en Santo Domingo, República Dominicana. Diseña, construye y opera software con agentes autónomos: plataformas SaaS a medida, UniSync (su motor interno de contenido para AEO) y medios digitales que publican 24/7.
+
+Sitio principal: https://nexadigit.io/ · Idioma principal: español (interfaz también en inglés). Atiende clientes en República Dominicana, Estados Unidos, Canadá y Latinoamérica, en remoto.
+
+## Qué hace NexaDigit
+
+- Estrategia y consultoría de IA: diagnóstico inicial sin costo (3–5 días), propuesta técnica y comercial con precio cerrado por escrito (1 semana), desarrollo en sprints de 1–2 semanas con demos funcionales, y operación continua (monitoreo, soporte, mejoras). Un MVP típico toma 4–8 semanas.
+- Desarrollo de software a medida: aplicaciones web, APIs y plataformas internas con Python/FastAPI, React/TypeScript y PostgreSQL.
+- Agentes de IA e integración: agentes autónomos que ejecutan flujos completos (investigación, generación de contenido, operaciones) con orquestación multi-modelo (Claude, OpenAI, Gemini, DeepSeek, Mistral, Llama, Grok, Perplexity) y capas de verificación de calidad y costo.
+- Infraestructura cloud (AWS, Azure, GCP, Cloudflare; CI/CD, edge), seguridad empresarial (OWASP) y capacitación empresarial en IA.
+
+## Productos
+
+- UniSync — producto interno de operación para AEO (Answer Engine Optimization): agentes que investigan qué preguntan las personas a los chatbots, redactan artículos verificados y los publican en medios propios, para que ChatGPT, Claude, Gemini y Perplexity mencionen productos y servicios. https://nexadigit.io/#unisync
+- VIGIA — SaaS en producción para afianzadoras: vigilancia de fianzas de cumplimiento después de la emisión. Consolida el expediente documental, extrae los datos con su procedencia, cruza lo declarado contra lo evidenciado y avisa antes de que llegue el reclamo. No suscribe, no emite, no paga. https://nexadigit.io/#produccion
+- CASUM — en construcción: plataforma de gestión legal para abogados independientes y firmas pequeñas de República Dominicana (clientes desde una foto de la cédula, expedientes, plazos, generación documental), empezando por derecho corporativo. https://nexadigit.io/#produccion
+
+## Medios operados con UniSync
+
+- https://noticiasmma.com — cobertura de MMA y UFC en español
+- https://lahora24.com — actualidad de tecnología e IA
+- https://quisqueyanos.net — periodismo dominicano
+
+## Páginas
+
+- [Inicio](https://nexadigit.io/): servicios, UniSync, proyectos, proceso de trabajo, preguntas frecuentes y contacto
+- [Política de privacidad](https://nexadigit.io/privacidad.html)
+- [Términos y condiciones](https://nexadigit.io/terminos.html)
+
+## Contacto
+
+- Formulario y agenda de consulta: https://nexadigit.io/#contacto
+- Discord: https://discord.gg/3sbzSSW9vd
+- LinkedIn: https://www.linkedin.com/company/107399409
+- Instagram: https://www.instagram.com/nexadigit.io
