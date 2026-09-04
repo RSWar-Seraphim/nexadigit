@@ -170,6 +170,8 @@ export const en = {
   faq_4_a: 'Yes, we work remotely with clients in the U.S., Canada, and Latin America, in Spanish or English.',
   faq_5_q: 'Do I need to know about AI to work with you?',
   faq_5_a: 'No. You know your business; we translate the problem into architecture and measurable results.',
+  faq_6_q: 'What is AEO (Answer Engine Optimization)?',
+  faq_6_a: 'AEO is creating content so that answer engines —ChatGPT, Claude, Gemini, Perplexity— cite it when they reply. UniSync, our in-house product, researches, writes, and publishes that content on our own outlets autonomously.',
 
   /* ── Contact (final CTA) ────────────────────────────────────────────── */
   contact_eyebrow: 'Next step',

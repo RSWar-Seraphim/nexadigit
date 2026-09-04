@@ -24,6 +24,88 @@
   <meta name="twitter:description" content="Diseñamos, desarrollamos y operamos software con agentes de IA autónomos, 24/7 en producción." />
 
   <!-- ========================================================= -->
+  <!-- 1b. DATOS ESTRUCTURADOS — estáticos, URLs absolutas.       -->
+  <!--     FAQPage repite literalmente las Q/A de i18n/es.ts      -->
+  <!--     (faq_1…faq_6): si cambia el copy, cambia aquí.         -->
+  <!-- ========================================================= -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://nexadigit.io/#org",
+        "name": "NexaDigit",
+        "url": "https://nexadigit.io/",
+        "logo": { "@type": "ImageObject", "url": "https://nexadigit.io/assets/img/nexadigit-mark.webp" },
+        "description": "Empresa de ingeniería de IA en Santo Domingo, República Dominicana: diseña, construye y opera software con agentes autónomos, plataformas SaaS a medida y contenido AEO.",
+        "address": { "@type": "PostalAddress", "addressLocality": "Santo Domingo", "addressCountry": "DO" },
+        "areaServed": ["República Dominicana", "Estados Unidos", "Canadá", "Latinoamérica"],
+        "sameAs": [
+          "https://discord.gg/3sbzSSW9vd",
+          "https://www.linkedin.com/company/107399409",
+          "https://www.instagram.com/nexadigit.io"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://nexadigit.io/#website",
+        "url": "https://nexadigit.io/",
+        "name": "NexaDigit",
+        "inLanguage": ["es", "en"],
+        "publisher": { "@id": "https://nexadigit.io/#org" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://nexadigit.io/#webpage",
+        "url": "https://nexadigit.io/",
+        "name": "NexaDigit — Ingeniería de IA · Sistemas autónomos en producción",
+        "inLanguage": "es",
+        "isPartOf": { "@id": "https://nexadigit.io/#website" },
+        "about": { "@id": "https://nexadigit.io/#org" }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://nexadigit.io/#faq",
+        "inLanguage": "es",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "¿Cuánto cuesta un proyecto?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Depende del alcance, pero siempre con precio cerrado por escrito antes de empezar. El diagnóstico inicial no tiene costo." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Cuánto tarda?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Un MVP típico: 4–8 semanas en sprints de 1–2 semanas con demos funcionales en cada uno." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué pasa después de la entrega?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Operación: monitoreo, soporte y mejoras continuas. No entregamos y desaparecemos — operamos sistemas propios y sabemos lo que exige producción." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Trabajan con empresas fuera de República Dominicana?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Sí, trabajamos en remoto con clientes de EE.UU., Canadá y Latinoamérica, en español o inglés." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Necesito saber de IA para trabajar con ustedes?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No. Usted conoce su negocio; nosotros traducimos el problema a arquitectura y resultados medibles." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué es el AEO (Answer Engine Optimization)?",
+            "acceptedAnswer": { "@type": "Answer", "text": "AEO es crear contenido para que los motores de respuesta —ChatGPT, Claude, Gemini, Perplexity— lo citen al contestar. UniSync, nuestro producto interno, investiga, redacta y publica ese contenido en medios propios de forma autónoma." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- ========================================================= -->
   <!-- 2. PRECONNECTS                                            -->
   <!-- ========================================================= -->
   <link rel="preconnect" href="https://assets.calendly.com" crossorigin>

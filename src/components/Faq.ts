@@ -11,6 +11,7 @@ const ITEMS = [
   { q: 'faq_3_q', a: 'faq_3_a' },
   { q: 'faq_4_q', a: 'faq_4_a' },
   { q: 'faq_5_q', a: 'faq_5_a' },
+  { q: 'faq_6_q', a: 'faq_6_a' },
 ] as const
 
 const CHEVRON =

@@ -1,8 +1,9 @@
 // ══════════════════════════════════════════════════════════════════════════════
 // HEADER — fixed nav, transparent over the hero → frosted cream past it
-// (the .scrolled toggle is driven by interactions.ts). Owns per-language SEO
-// side effects: title, meta description, OG tags, canonical/hreflang and
-// Organization JSON-LD. The "Agendar consulta" pill opens the Calendly popup.
+// (the .scrolled toggle is driven by interactions.ts). Owns the per-language
+// title/description/OG/Twitter text updates. Canonical and JSON-LD are static
+// in index.html (absolute URLs) — never emitted from here. The "Agendar
+// consulta" pill opens the Calendly popup.
 // ══════════════════════════════════════════════════════════════════════════════
 import { t, getLang, setLang, onLangChange } from './i18n'
 
@@ -56,34 +57,6 @@ function ensureSkipLink() {
   a.textContent = t('a11y_skip')
 }
 
-function ensureHreflang() {
-  const lang = getLang()
-  const other = lang === 'es' ? 'en' : 'es'
-  const base = location.origin + '/'
-  ;[['canonical', lang], ['alternate', other]].forEach(([rel, l]) => {
-    let link = document.querySelector<HTMLLinkElement>(
-      `link[rel="${rel}"]${rel === 'alternate' ? `[hreflang="${l}"]` : ''}`
-    )
-    if (!link) {
-      link = document.createElement('link')
-      link.rel = rel as string
-      if (rel === 'alternate') link.hreflang = l as string
-      document.head.appendChild(link)
-    }
-    link.href = base + (l === 'es' ? 'es/' : 'en/')
-  })
-}
-
-function injectJsonLdOnce(id: string, obj: Record<string, unknown>) {
-  if (!document.getElementById(id)) {
-    const s = document.createElement('script')
-    s.id = id
-    s.type = 'application/ld+json'
-    s.textContent = JSON.stringify(obj)
-    document.head.appendChild(s)
-  }
-}
-
 function setMeta(selector: string, create: () => HTMLMetaElement, content: string) {
   let meta = document.querySelector<HTMLMetaElement>(selector)
   if (!meta) {
@@ -115,11 +88,17 @@ function updateDocumentMeta() {
     }, content)
   })
 
-  setMeta('meta[name="twitter:title"]', () => {
-    const m = document.createElement('meta')
-    m.name = 'twitter:title'
-    return m
-  }, t('meta_title'))
+  const tw: Array<[string, string]> = [
+    ['twitter:title', t('meta_title')],
+    ['twitter:description', t('meta_description')],
+  ]
+  tw.forEach(([name, content]) => {
+    setMeta(`meta[name="${name}"]`, () => {
+      const m = document.createElement('meta')
+      m.name = name
+      return m
+    }, content)
+  })
 }
 
 const lockScroll = () => document.documentElement.classList.add('overflow-hidden')
@@ -156,20 +135,6 @@ export function Header() {
 
     ensureSkipLink()
     updateDocumentMeta()
-    ensureHreflang()
-    injectJsonLdOnce('org-json', {
-      '@context': 'https://schema.org',
-      '@type': 'Organization',
-      name: 'NexaDigit',
-      url: location.origin,
-      logo: location.origin + '/assets/img/nexadigit-mark.webp',
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Santo Domingo',
-        addressCountry: 'DO',
-      },
-      sameAs: SOCIALS.map((s) => s.url),
-    })
 
     headerEl.innerHTML = `
       <div class="nd-wrap" style="padding:0 clamp(20px,5vw,40px);height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px;">
