@@ -1,0 +1,14 @@
+---
+import type { GetStaticPaths } from 'astro'
+import { getCollection } from 'astro:content'
+import BlogLayout from '../../components/BlogLayout.astro'
+import { allTags, sortPosts } from '../../blog/utils'
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = sortPosts(await getCollection('blog'))
+  return paginate(posts, { pageSize: 6, props: { tags: allTags(posts) } })
+}) satisfies GetStaticPaths
+
+const { page, tags } = Astro.props
+---
+<BlogLayout page={page} tags={tags} />

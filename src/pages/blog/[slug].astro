@@ -1,0 +1,17 @@
+---
+import type { GetStaticPaths } from 'astro'
+import { getCollection } from 'astro:content'
+import PostLayout from '../../components/PostLayout.astro'
+import { relatedPosts, sortPosts } from '../../blog/utils'
+
+export const getStaticPaths = (async () => {
+  const posts = sortPosts(await getCollection('blog'))
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post, related: relatedPosts(post, posts) },
+  }))
+}) satisfies GetStaticPaths
+
+const { post, related } = Astro.props
+---
+<PostLayout post={post} related={related} />

@@ -29,6 +29,37 @@ export const en = {
   nav_production: 'Projects',
   nav_process: 'Process',
   nav_contact: 'Contact',
+  nav_blog: 'Blog',
+
+  /* ── Blog ───────────────────────────────────────────────────────────── */
+  blog_meta_title: 'Blog — AI engineering, AEO and autonomous agents · NexaDigit',
+  blog_meta_description:
+    'NexaDigit articles on AEO, autonomous AI agents, performance bonds and AI adoption in SMEs: direct answers, tables and frequently asked questions.',
+  blog_eyebrow: 'Blog',
+  blog_title: 'Answers, not filler.',
+  blog_lede:
+    'What we learn building and operating AI systems, written so that a person —or an answer engine— finds the answer in the first paragraph.',
+  blog_tag_title: 'Topic: {tag}',
+  blog_tag_lede: 'Articles tagged "{tag}".',
+  blog_filter_label: 'Filter by topic',
+  blog_all: 'All',
+  blog_read: 'Read',
+  blog_min_read: '{n} min read',
+  blog_published: 'Published on',
+  blog_updated: 'Updated on',
+  blog_by: 'By',
+  blog_toc: 'In this article',
+  blog_faq_title: 'Frequently asked questions',
+  blog_related: 'Related articles',
+  blog_prev: '← Newer',
+  blog_next: 'Older →',
+  blog_page_of: 'Page {n} of {total}',
+  blog_crumb_home: 'Home',
+  blog_crumbs_label: 'Breadcrumbs',
+  blog_author_role: 'AI engineering · Santo Domingo, DR',
+  blog_cta_title: 'Have a similar problem?',
+  blog_cta_sub: 'Tell us about it in a 30-minute call. The initial diagnosis is free.',
+  blog_cta_secondary: 'See how we work',
 
   /* ── Hero ───────────────────────────────────────────────────────────── */
   hero_eyebrow: 'AI Engineering · Santo Domingo, DR',

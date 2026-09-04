@@ -4,10 +4,10 @@
 // ══════════════════════════════════════════════════════════════════════════════
 import { tr, type Lang } from './i18n'
 import { ROUTES } from './i18n/routes'
-import { NAV_ITEMS } from './Header'
+import { NAV_ITEMS, navAttrs, type NavOpts } from './Header'
 import { DIGITAL_ASSETS } from './Projects'
 
-export function footerMarkup(lang: Lang): string {
+export function footerMarkup(lang: Lang, opts: NavOpts = { onHome: true }): string {
   const t = tr(lang)
   const year = new Date().getFullYear()
 
@@ -33,7 +33,7 @@ export function footerMarkup(lang: Lang): string {
           <div>
             <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.16em;color:var(--muted);margin-bottom:20px;">${t('footer_nav_label').toUpperCase()}</div>
             <nav aria-label="${t('a11y_nav_footer')}" style="display:flex;flex-direction:column;gap:12px;">
-              ${NAV_ITEMS.map((item) => `<a href="#${item.id}" data-link="${item.id}" class="nd-flink">${t(item.key)}</a>`).join('')}
+              ${NAV_ITEMS.map((item) => `<a ${navAttrs(item, lang, opts)} class="nd-flink">${t(item.key)}</a>`).join('')}
             </nav>
           </div>
 
@@ -59,6 +59,7 @@ export function footerMarkup(lang: Lang): string {
           <span style="display:flex;align-items:center;gap:22px;flex-wrap:wrap;">
             <a href="${ROUTES.privacy[lang]}" class="nd-legal-link">${t('footer_privacy')}</a>
             <a href="${ROUTES.terms[lang]}" class="nd-legal-link">${t('footer_terms')}</a>
+            <a href="/rss.xml" class="nd-legal-link">RSS</a>
             <span style="display:flex;align-items:center;gap:9px;"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);animation:ndPulse 2.6s infinite;"></span>${t('footer_operating')}</span>
           </span>
         </div>

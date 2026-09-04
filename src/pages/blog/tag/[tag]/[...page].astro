@@ -1,0 +1,20 @@
+---
+import type { GetStaticPaths } from 'astro'
+import { getCollection } from 'astro:content'
+import BlogLayout from '../../../../components/BlogLayout.astro'
+import { allTags, slugify, sortPosts } from '../../../../blog/utils'
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = sortPosts(await getCollection('blog'))
+  const tags = allTags(posts)
+  return tags.flatMap((tag) =>
+    paginate(
+      posts.filter((p) => p.data.tags.includes(tag)),
+      { params: { tag: slugify(tag) }, props: { tag, tags }, pageSize: 6 }
+    )
+  )
+}) satisfies GetStaticPaths
+
+const { page, tag, tags } = Astro.props
+---
+<BlogLayout page={page} tags={tags} tag={tag} />

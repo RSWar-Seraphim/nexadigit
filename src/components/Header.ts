@@ -3,6 +3,8 @@
 // (the .scrolled toggle is driven by interactions.ts), plus the off-canvas
 // mobile menu. Pure markup: burger/menu behavior lives in src/client/header.ts.
 // The ES/EN switch is a plain link to the other language's URL.
+// On pages without a hero (blog, legal) the header renders already .scrolled
+// and section links point back to the landing (/#servicios).
 // ══════════════════════════════════════════════════════════════════════════════
 import { tr, otherLang, type Lang } from './i18n'
 import { ROUTES } from './i18n/routes'
@@ -13,15 +15,36 @@ export const SOCIALS = [
   { key: 'instagram', url: 'https://www.instagram.com/nexadigit.io' },
 ]
 
+/* `id` items are landing sections; `href` items are standalone pages. */
 export const NAV_ITEMS = [
   { id: 'servicios', key: 'nav_services' },
   { id: 'unisync', key: 'nav_unisync' },
   { id: 'produccion', key: 'nav_production' },
   { id: 'proceso', key: 'nav_process' },
+  { id: 'blog', key: 'nav_blog', href: '/blog/' },
   { id: 'contacto', key: 'nav_contact' },
 ] as const
 
+export type NavItem = (typeof NAV_ITEMS)[number]
+
+export interface NavOpts {
+  /** true on the landing page: section links scroll; false: they navigate to /#id */
+  onHome: boolean
+  /** id of the current standalone page (e.g. 'blog') to mark it active */
+  current?: string
+}
+
 const LOGO_SRC = '/assets/img/nexadigit-mark.webp'
+
+/** href + data attributes for a nav item in a given context. */
+export function navAttrs(item: NavItem, lang: Lang, opts: NavOpts): string {
+  if ('href' in item) {
+    const active = opts.current === item.id ? ' aria-current="page"' : ''
+    return `href="${item.href}"${active}`
+  }
+  if (opts.onHome) return `href="#${item.id}" data-link="${item.id}"`
+  return `href="${ROUTES.home[lang]}#${item.id}"`
+}
 
 /* Minimalist ES/EN switch, shared by the fixed header and the hero's floating
    top bar. The current language is inert text; the other one is a link. */
@@ -36,33 +59,33 @@ export function langSwitchMarkup(lang: Lang, extraClass = ''): string {
   )}<span class="nd-lang-sep" aria-hidden="true">/</span>${opt('en')}</div>`
 }
 
-export function logoMarkup(lang: Lang, height = 42, extra = ''): string {
+export function logoMarkup(lang: Lang, height = 42, opts: NavOpts = { onHome: true }, extra = ''): string {
   const t = tr(lang)
+  const href = opts.onHome ? `href="#top" data-link="top"` : `href="${ROUTES.home[lang]}"`
   return `
-    <a href="#top" data-link="top" class="flex items-center gap-2.5 ${extra}" aria-label="${t('a11y_home')}" style="text-decoration:none;">
+    <a ${href} class="flex items-center gap-2.5 ${extra}" aria-label="${t('a11y_home')}" style="text-decoration:none;">
       <img src="${LOGO_SRC}" width="249" height="318" alt="NexaDigit" style="height:${height}px;width:auto;display:block;">
     </a>
   `
 }
 
-export function headerMarkup(lang: Lang): string {
+export function headerMarkup(lang: Lang, opts: NavOpts = { onHome: true }): string {
   const t = tr(lang)
   const other = otherLang(lang)
+  const scrolled = opts.onHome ? '' : ' scrolled'
 
   return `
-    <header role="banner" class="nd-header">
+    <header role="banner" class="nd-header${scrolled}">
       <div class="nd-wrap" style="padding:0 clamp(20px,5vw,40px);height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px;">
-        ${logoMarkup(lang, 38)}
+        ${logoMarkup(lang, 38, opts)}
 
         <nav class="hidden lg:flex items-center" style="gap:32px;" aria-label="${t('a11y_nav_main')}">
-          ${NAV_ITEMS.map(
-            (item) => `<a href="#${item.id}" data-link="${item.id}" class="nd-link">${t(item.key)}</a>`
-          ).join('')}
+          ${NAV_ITEMS.map((item) => `<a ${navAttrs(item, lang, opts)} class="nd-link">${t(item.key)}</a>`).join('')}
         </nav>
 
         <div class="flex items-center" style="gap:16px;">
           ${langSwitchMarkup(lang, 'hidden lg:flex')}
-          <a href="#contacto" data-book-meeting class="nd-pill hidden sm:inline-flex">${t('cta_book_short')}</a>
+          <a href="${opts.onHome ? '#contacto' : ROUTES.home[lang] + '#contacto'}" data-book-meeting class="nd-pill hidden sm:inline-flex">${t('cta_book_short')}</a>
           <button id="burger-btn" class="lg:hidden" style="padding:8px;margin-right:-8px;background:none;border:none;cursor:pointer;color:var(--ink);" aria-label="${t('a11y_open_menu')}" aria-controls="mobile-menu" aria-expanded="false">
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
@@ -74,7 +97,7 @@ export function headerMarkup(lang: Lang): string {
 
     <div id="mobile-menu" class="fixed inset-0 z-[100] transform -translate-x-full transition-transform duration-300 ease-out flex flex-col lg:hidden" style="background:var(--bg);">
       <div class="flex items-center justify-between" style="height:72px;padding:0 24px;border-bottom:1px solid var(--line);">
-        ${logoMarkup(lang, 34)}
+        ${logoMarkup(lang, 34, opts)}
         <button id="close-menu-btn" style="padding:8px;margin-right:-8px;background:none;border:none;cursor:pointer;color:var(--ink);" aria-label="${t('a11y_close_menu')}">
           <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -83,15 +106,15 @@ export function headerMarkup(lang: Lang): string {
       </div>
 
       <nav class="flex-1 flex flex-col justify-center" style="padding:0 24px;" aria-label="${t('a11y_nav_mobile')}">
-        <ul class="flex flex-col" style="gap:4px;">
+        <ul class="flex flex-col" style="gap:4px;list-style:none;margin:0;padding:0;">
           ${NAV_ITEMS.map(
             (item) => `
-            <li data-link="${item.id}" class="mobile-nav-item">
-              <span style="display:block;padding:14px 0;font-family:var(--font-display);font-weight:600;font-size:26px;letter-spacing:-0.02em;color:var(--ink);cursor:pointer;">${t(item.key)}</span>
+            <li class="mobile-nav-item">
+              <a ${navAttrs(item, lang, opts)} style="display:block;padding:14px 0;font-family:var(--font-display);font-weight:600;font-size:26px;letter-spacing:-0.02em;color:var(--ink);text-decoration:none;">${t(item.key)}</a>
             </li>`
           ).join('')}
         </ul>
-        <a href="#contacto" data-book-meeting class="nd-pill" style="margin-top:28px;width:100%;justify-content:center;padding:14px 20px;">${t('cta_book')}</a>
+        <a href="${opts.onHome ? '#contacto' : ROUTES.home[lang] + '#contacto'}" data-book-meeting class="nd-pill" style="margin-top:28px;width:100%;justify-content:center;padding:14px 20px;">${t('cta_book')}</a>
       </nav>
 
       <div style="padding:24px;border-top:1px solid var(--line);">

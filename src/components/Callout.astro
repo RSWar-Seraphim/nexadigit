@@ -1,0 +1,13 @@
+---
+/* Editorial callout for MDX posts: a mono label + serif body on the warm panel.
+   Usage in .mdx:  import Callout from '../../components/Callout.astro'
+                   <Callout label="En la práctica">…</Callout> */
+interface Props {
+  label?: string
+}
+const { label = 'Nota' } = Astro.props
+---
+<aside class="nd-callout">
+  <div class="nd-callout__label">{label}</div>
+  <div class="nd-callout__body"><slot /></div>
+</aside>

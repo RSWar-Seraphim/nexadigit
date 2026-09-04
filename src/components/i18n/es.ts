@@ -30,6 +30,37 @@ export const es = {
   nav_production: 'Proyectos',
   nav_process: 'Proceso',
   nav_contact: 'Contacto',
+  nav_blog: 'Blog',
+
+  /* ── Blog ───────────────────────────────────────────────────────────── */
+  blog_meta_title: 'Blog — Ingeniería de IA, AEO y agentes autónomos · NexaDigit',
+  blog_meta_description:
+    'Artículos de NexaDigit sobre AEO, agentes de IA autónomos, fianzas de cumplimiento y adopción de IA en PyMEs: respuestas directas, tablas y preguntas frecuentes.',
+  blog_eyebrow: 'Blog',
+  blog_title: 'Respuestas, no relleno.',
+  blog_lede:
+    'Lo que aprendemos construyendo y operando sistemas de IA, escrito para que una persona —o un motor de respuesta— encuentre la respuesta en el primer párrafo.',
+  blog_tag_title: 'Tema: {tag}',
+  blog_tag_lede: 'Artículos etiquetados con «{tag}».',
+  blog_filter_label: 'Filtrar por tema',
+  blog_all: 'Todos',
+  blog_read: 'Leer',
+  blog_min_read: '{n} min de lectura',
+  blog_published: 'Publicado el',
+  blog_updated: 'Actualizado el',
+  blog_by: 'Por',
+  blog_toc: 'En este artículo',
+  blog_faq_title: 'Preguntas frecuentes',
+  blog_related: 'Artículos relacionados',
+  blog_prev: '← Más recientes',
+  blog_next: 'Anteriores →',
+  blog_page_of: 'Página {n} de {total}',
+  blog_crumb_home: 'Inicio',
+  blog_crumbs_label: 'Migas de pan',
+  blog_author_role: 'Ingeniería de IA · Santo Domingo, RD',
+  blog_cta_title: '¿Tiene un problema parecido?',
+  blog_cta_sub: 'Cuéntenoslo en una llamada de 30 minutos. El diagnóstico inicial no tiene costo.',
+  blog_cta_secondary: 'Ver cómo trabajamos',
 
   /* ── Hero ───────────────────────────────────────────────────────────── */
   hero_eyebrow: 'Ingeniería de IA · Santo Domingo, RD',

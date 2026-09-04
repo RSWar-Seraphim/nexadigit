@@ -38,11 +38,14 @@ export function initHeader(): void {
     if (isOpen() && !menu.contains(e.target as Node)) close()
   })
 
-  menu.querySelectorAll<HTMLLIElement>('.mobile-nav-item').forEach((item) => {
-    item.addEventListener('click', (e) => {
-      e.preventDefault()
-      const id = item.dataset.link
+  /* Section links on the landing scroll after the menu slides away; links to
+     other pages (Blog, /#… from a subpage) simply navigate. */
+  menu.querySelectorAll<HTMLAnchorElement>('.mobile-nav-item a').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      const id = link.dataset.link
       if (!id) return
+      e.preventDefault()
+      e.stopPropagation()
       close(() => {
         document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
         setTimeout(unlockScroll, 300)

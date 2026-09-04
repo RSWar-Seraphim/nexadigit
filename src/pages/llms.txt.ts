@@ -2,15 +2,18 @@
 // (llmstxt.org). Built from the same facts the pages publish; URLs derive
 // from the route map so they can't go stale.
 import type { APIRoute } from 'astro'
+import { getCollection } from 'astro:content'
 import { ROUTES, SITE } from '../components/i18n/routes'
 import { CONTACT_EMAIL } from '../components/Contact'
 import { DIGITAL_ASSETS } from '../components/Projects'
 import { SOCIALS } from '../components/Header'
 import { MODELS } from '../components/ProofStrip'
+import { postUrl, sortPosts } from '../blog/utils'
 
 const u = (path: string) => SITE + path
 
-export const GET: APIRoute = () => {
+export const GET: APIRoute = async () => {
+  const posts = sortPosts(await getCollection('blog'))
   const body = `# NexaDigit
 
 > NexaDigit es una empresa de ingeniería de IA en Santo Domingo, República Dominicana. Diseña, construye y opera software con agentes autónomos: plataformas SaaS a medida, UniSync (su motor interno de contenido para AEO) y medios digitales que publican 24/7.
@@ -40,6 +43,11 @@ ${DIGITAL_ASSETS.map((a) => `- ${a.url}`).join('\n')}
 - [Home (English)](${u(ROUTES.home.en)})
 - [Política de privacidad](${u(ROUTES.privacy.es)}) · [Privacy Policy](${u(ROUTES.privacy.en)})
 - [Términos y condiciones](${u(ROUTES.terms.es)}) · [Terms & Conditions](${u(ROUTES.terms.en)})
+
+## Blog (español)
+
+- [Índice del blog](${u('/blog/')}) · [RSS](${u('/rss.xml')})
+${posts.map((p) => `- [${p.data.title}](${u(postUrl(p.id))}): ${p.data.description}`).join('\n')}
 
 ## Contacto
 

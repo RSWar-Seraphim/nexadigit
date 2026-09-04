@@ -1,6 +1,6 @@
 // Post-build gate: every page must be complete in the served HTML (no JS
 // needed), with the SEO/AEO surface an answer engine reads. Fails the build.
-import { existsSync, readFileSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 
 const dist = resolve(process.cwd(), 'dist')
@@ -67,7 +67,55 @@ for (const p of PAGES) {
   }
 }
 
-for (const f of ['robots.txt', 'llms.txt', 'sitemap-index.xml', 'sitemap-0.xml', '_redirects', '_headers']) {
+/* ── Blog: index + every post must be complete in the served HTML ─────────── */
+const blogIndex = resolve(dist, 'blog/index.html')
+ok(existsSync(blogIndex), 'dist/blog/index.html missing')
+if (existsSync(blogIndex)) {
+  const html = readFileSync(blogIndex, 'utf8')
+  ok(count(html, /<h1[\s>]/g) === 1, '[blog/index.html] expected 1 <h1>')
+  ok(html.includes(`<link rel="canonical" href="${SITE}/blog/"`), '[blog/index.html] canonical must be /blog/')
+  ok(html.includes('"CollectionPage"'), '[blog/index.html] JSON-LD lacks CollectionPage')
+  ok(count(html, /<article class="nd-post-card"/g) >= 1, '[blog/index.html] no post cards')
+}
+const postDirs = existsSync(resolve(dist, 'blog'))
+  ? readdirSync(resolve(dist, 'blog'), { withFileTypes: true })
+      .filter((d) => d.isDirectory() && d.name !== 'tag' && !/^\d+$/.test(d.name))
+      .map((d) => d.name)
+  : []
+ok(postDirs.length >= 4, `expected ≥4 published posts, found ${postDirs.length}`)
+for (const slug of postDirs) {
+  const file = resolve(dist, 'blog', slug, 'index.html')
+  const tag = `[blog/${slug}]`
+  if (!existsSync(file)) {
+    failures.push(`${tag} index.html missing`)
+    continue
+  }
+  const html = readFileSync(file, 'utf8')
+  ok(count(html, /<h1[\s>]/g) === 1, `${tag} expected 1 <h1>`)
+  ok(count(html, /<h2[\s>]/g) >= 4, `${tag} expected ≥4 <h2> (question headings + FAQ)`)
+  ok(html.includes(`<link rel="canonical" href="${SITE}/blog/${slug}/"`), `${tag} canonical`)
+  ok(count(html, /<table[\s>]/g) >= 1, `${tag} expected ≥1 <table>`)
+  ok(count(html, /<details class="nd-faq-d"/g) >= 3, `${tag} expected ≥3 FAQ items`)
+  ok(html.includes('property="og:type" content="article"'), `${tag} og:type article`)
+  const ld = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)
+  ok(ld, `${tag} JSON-LD missing`)
+  if (ld) {
+    try {
+      const graph = JSON.parse(ld[1])['@graph'].map((n) => n['@type'])
+      for (const type of ['Organization', 'BlogPosting', 'BreadcrumbList', 'FAQPage']) ok(graph.includes(type), `${tag} JSON-LD lacks ${type}`)
+    } catch (e) {
+      failures.push(`${tag} JSON-LD does not parse: ${e.message}`)
+    }
+  }
+  const text = html.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, '').replace(/<[^>]+>/g, ' ')
+  const wordsInProse = (html.match(/<div class="nd-prose">([\s\S]*?)<aside class="nd-toc">|<div class="nd-prose">([\s\S]*?)<\/div>\s*<\/div>\s*<section class="nd-post__faq"/) || ['', ''])
+  const proseText = (wordsInProse[1] || wordsInProse[2] || '').replace(/<[^>]+>/g, ' ')
+  const nWords = proseText.trim().split(/\s+/).filter(Boolean).length
+  ok(nWords >= 1100 && nWords <= 2000, `${tag} prose is ${nWords} words (want 1200–1800 ±)`)
+  void text
+}
+
+for (const f of ['robots.txt', 'llms.txt', 'sitemap-index.xml', 'sitemap-0.xml', 'rss.xml', '_redirects', '_headers']) {
   ok(existsSync(resolve(dist, f)), `dist/${f} missing`)
 }
 if (existsSync(resolve(dist, 'sitemap-0.xml'))) {
@@ -76,6 +124,8 @@ if (existsSync(resolve(dist, 'sitemap-0.xml'))) {
     ok(sm.includes(`<loc>${SITE}${path}</loc>`), `sitemap lacks ${path}`)
   }
   ok(sm.includes('hreflang="en-US"'), 'sitemap lacks hreflang alternates for /en/')
+  ok(sm.includes(`<loc>${SITE}/blog/</loc>`), 'sitemap lacks /blog/')
+  ok(!/\/blog\/\d+\/<\/loc>/.test(sm), 'sitemap should not list paginated /blog/N/ pages')
 }
 if (existsSync(resolve(dist, 'robots.txt'))) {
   const robots = readFileSync(resolve(dist, 'robots.txt'), 'utf8')

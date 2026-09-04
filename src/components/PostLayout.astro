@@ -1,0 +1,145 @@
+---
+/* One blog post: breadcrumbs, header (tags · date · reading time), lede written
+   as the direct answer, prose + sticky TOC, FAQ (rendered <details> + FAQPage
+   JSON-LD), author block, related posts, final CTA. Everything is in the
+   served HTML; the only JS is the shared header/Calendly behavior. */
+import { render } from 'astro:content'
+import Base from '../layouts/Base.astro'
+import { tr } from './i18n'
+import { ROUTES, SITE } from './i18n/routes'
+import { headerMarkup } from './Header'
+import { footerMarkup } from './Footer'
+import { postGraph } from '../seo/schema'
+import { BLOG_URL, formatDate, isoDate, postUrl, readingMinutes, tagUrl, wordCount, type Post } from '../blog/utils'
+
+interface Props {
+  post: Post
+  related: Post[]
+}
+const { post, related } = Astro.props
+const t = tr('es')
+const fill = (s: string, vars: Record<string, string | number>) =>
+  Object.entries(vars).reduce((acc, [k, v]) => acc.replace(`{${k}}`, String(v)), s)
+
+const { Content, headings } = await render(post)
+const toc = headings.filter((h) => h.depth === 2 || h.depth === 3)
+const path = postUrl(post.id)
+const url = SITE + path
+const minutes = readingMinutes(post)
+const words = wordCount(post)
+const d = post.data
+const nav = { onHome: false, current: 'blog' }
+const title = `${d.title} — NexaDigit`
+---
+<Base
+  lang="es"
+  title={title}
+  description={d.description}
+  path={path}
+  alternates={{ es: path }}
+  jsonLd={postGraph(post, url, minutes, words)}
+  ogType="article"
+  published={d.publishedAt}
+  updated={d.updatedAt}
+>
+  <Fragment set:html={headerMarkup('es', nav)} />
+  <main id="main" class="nd-blog">
+    <article class="nd-wrap nd-blog__wrap nd-post">
+      <nav class="nd-crumbs" aria-label={t('blog_crumbs_label')}>
+        <ol>
+          <li><a href="/">{t('blog_crumb_home')}</a></li>
+          <li><a href={BLOG_URL}>Blog</a></li>
+          <li aria-current="page">{d.title}</li>
+        </ol>
+      </nav>
+
+      <header class="nd-post__head">
+        <div class="nd-post__meta">
+          <span class="nd-post__tags">{d.tags.map((tg) => <a href={tagUrl(tg)} class="nd-chip">{tg}</a>)}</span>
+          <span class="nd-post__dates">
+            <span>{t('blog_published')} <time datetime={isoDate(d.publishedAt)}>{formatDate(d.publishedAt)}</time></span>
+            {d.updatedAt && d.updatedAt.getTime() !== d.publishedAt.getTime() && (
+              <span> · {t('blog_updated')} <time datetime={isoDate(d.updatedAt)}>{formatDate(d.updatedAt)}</time></span>
+            )}
+            <span> · {fill(t('blog_min_read'), { n: minutes })}</span>
+          </span>
+        </div>
+        <h1>{d.title}</h1>
+        <p class="nd-post__lede">{d.description}</p>
+      </header>
+
+      <div class="nd-post__grid">
+        <div class="nd-prose">
+          <Content />
+        </div>
+        {toc.length > 0 && (
+          <aside class="nd-toc">
+            <nav aria-label={t('blog_toc')}>
+              <div class="nd-toc__label">{t('blog_toc')}</div>
+              <ul>
+                {toc.map((h) => (
+                  <li class={`d${h.depth}`}><a href={`#${h.slug}`}>{h.text}</a></li>
+                ))}
+              </ul>
+            </nav>
+          </aside>
+        )}
+      </div>
+
+      <section class="nd-post__faq" aria-labelledby="post-faq-title">
+        <h2 id="post-faq-title">{t('blog_faq_title')}</h2>
+        {d.faq.map((f) => (
+          <details class="nd-faq-d">
+            <summary><h3>{f.q}</h3><span class="nd-faq-d__mark" aria-hidden="true"></span></summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </section>
+
+      <footer class="nd-post__author">
+        <img src="/assets/img/nexadigit-mark.webp" width="249" height="318" alt="" style="height:44px;width:auto;">
+        <div>
+          <div class="nd-post__author-name">{t('blog_by')} {d.author}</div>
+          <div class="nd-post__author-role">{t('blog_author_role')}</div>
+        </div>
+      </footer>
+    </article>
+
+    {related.length > 0 && (
+      <section class="nd-wrap nd-blog__wrap nd-related" aria-labelledby="related-title">
+        <h2 id="related-title" class="nd-related__title">{t('blog_related')}</h2>
+        <div class="nd-post-grid">
+          {related.map((p) => (
+            <article class="nd-post-card">
+              <a href={postUrl(p.id)}>
+                <div class="nd-post-card__meta">
+                  <time datetime={isoDate(p.data.publishedAt)}>{formatDate(p.data.publishedAt)}</time>
+                  <span aria-hidden="true">·</span>
+                  <span>{fill(t('blog_min_read'), { n: readingMinutes(p) })}</span>
+                </div>
+                <h3>{p.data.title}</h3>
+                <p>{p.data.description}</p>
+                <span class="nd-visit">{t('blog_read')} →</span>
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <section class="nd-post-cta" aria-labelledby="post-cta-title">
+      <div class="nd-wrap nd-blog__wrap nd-post-cta__inner">
+        <div>
+          <div class="nd-eyebrow" style="margin-bottom:14px;">{t('contact_eyebrow')}</div>
+          <h2 id="post-cta-title">{t('blog_cta_title')}</h2>
+          <p>{t('blog_cta_sub')}</p>
+        </div>
+        <div class="nd-post-cta__actions">
+          <a href={`${ROUTES.home.es}#contacto`} data-book-meeting class="nd-pill">{t('cta_book')}</a>
+          <a href={`${ROUTES.home.es}#proceso`} class="nd-btn-ghost">{t('blog_cta_secondary')}</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Fragment set:html={footerMarkup('es', nav)} />
+</Base>

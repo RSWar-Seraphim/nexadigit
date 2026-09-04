@@ -1,6 +1,7 @@
 // @ts-check
 import { existsSync, readFileSync } from 'node:fs'
 import { defineConfig } from 'astro/config'
+import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import { onRequestPost } from './functions/api/mailerlite'
 
@@ -66,9 +67,12 @@ export default defineConfig({
     routing: { prefixDefaultLocale: false },
   },
   integrations: [
+    mdx(),
     sitemap({
       i18n: { defaultLocale: 'es', locales: { es: 'es-DO', en: 'en-US' } },
       changefreq: 'weekly',
+      // Paginated index pages (/blog/2/…) are navigation, not content.
+      filter: (page) => !/\/blog\/\d+\/$/.test(page),
     }),
   ],
   vite: { plugins: [mailerliteDev()] },

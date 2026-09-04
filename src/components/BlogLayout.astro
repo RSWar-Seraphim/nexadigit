@@ -1,0 +1,84 @@
+---
+/* Blog index and tag pages: breadcrumbs, title + lede, tag filter, card grid,
+   pagination. Spanish only (the blog has no English twin yet), so the page
+   declares hreflang es + x-default and no en. */
+import type { Page } from 'astro'
+import Base from '../layouts/Base.astro'
+import { tr } from './i18n'
+import { SITE } from './i18n/routes'
+import { headerMarkup } from './Header'
+import { footerMarkup } from './Footer'
+import { blogIndexGraph } from '../seo/schema'
+import { BLOG_URL, formatDate, postUrl, readingMinutes, tagUrl, type Post } from '../blog/utils'
+
+interface Props {
+  page: Page<Post>
+  tags: string[]
+  tag?: string
+}
+const { page, tags, tag } = Astro.props
+const t = tr('es')
+const fill = (s: string, vars: Record<string, string | number>) =>
+  Object.entries(vars).reduce((acc, [k, v]) => acc.replace(`{${k}}`, String(v)), s)
+
+const path = new URL(page.url.current, SITE).pathname.replace(/\/?$/, '/')
+const title = tag ? `${fill(t('blog_tag_title'), { tag })} — Blog · NexaDigit` : t('blog_meta_title')
+const description = tag ? `${fill(t('blog_tag_lede'), { tag })} ${t('blog_meta_description')}` : t('blog_meta_description')
+const heading = tag ? fill(t('blog_tag_title'), { tag }) : t('blog_title')
+const lede = tag ? fill(t('blog_tag_lede'), { tag }) : t('blog_lede')
+const nav = { onHome: false, current: 'blog' }
+---
+<Base lang="es" title={title} description={description} path={path} alternates={{ es: path }} jsonLd={blogIndexGraph(SITE + path, title, description, tag)}>
+  <Fragment set:html={headerMarkup('es', nav)} />
+  <main id="main" class="nd-blog">
+    <div class="nd-wrap nd-blog__wrap">
+      <nav class="nd-crumbs" aria-label={t('blog_crumbs_label')}>
+        <ol>
+          <li><a href="/">{t('blog_crumb_home')}</a></li>
+          {tag ? <li><a href={BLOG_URL}>Blog</a></li> : <li aria-current="page">Blog</li>}
+          {tag && <li aria-current="page">{tag}</li>}
+        </ol>
+      </nav>
+
+      <div class="nd-eyebrow" style="margin-bottom:20px;">{t('blog_eyebrow')}</div>
+      <div class="nd-head2" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:44px;">
+        <h1 class="nd-h2">{heading}</h1>
+        <p style="margin:0;font-family:var(--font-serif);font-size:18px;line-height:1.65;color:var(--slate);">{lede}</p>
+      </div>
+
+      <nav class="nd-tags" aria-label={t('blog_filter_label')}>
+        <a href={BLOG_URL} class={`nd-tag${tag ? '' : ' is-active'}`} aria-current={tag ? undefined : 'page'}>{t('blog_all')}</a>
+        {tags.map((tg) => (
+          <a href={tagUrl(tg)} class={`nd-tag${tg === tag ? ' is-active' : ''}`} aria-current={tg === tag ? 'page' : undefined}>{tg}</a>
+        ))}
+      </nav>
+
+      <div class="nd-post-grid">
+        {page.data.map((post) => (
+          <article class="nd-post-card">
+            <a href={postUrl(post.id)}>
+              <div class="nd-post-card__meta">
+                <time datetime={post.data.publishedAt.toISOString().slice(0, 10)}>{formatDate(post.data.publishedAt)}</time>
+                <span aria-hidden="true">·</span>
+                <span>{fill(t('blog_min_read'), { n: readingMinutes(post) })}</span>
+              </div>
+              <h2>{post.data.title}</h2>
+              <p>{post.data.description}</p>
+              <span class="nd-post-card__tags">{post.data.tags.map((tg) => <span class="nd-chip">{tg}</span>)}</span>
+              <span class="nd-visit">{t('blog_read')} →</span>
+            </a>
+          </article>
+        ))}
+      </div>
+
+      {page.lastPage > 1 && (
+        <nav class="nd-pagination" aria-label="Paginación">
+          {page.url.prev ? <a href={page.url.prev.replace(/\/?$/, '/')}>{t('blog_prev')}</a> : <span></span>}
+          <span>{fill(t('blog_page_of'), { n: page.currentPage, total: page.lastPage })}</span>
+          {page.url.next ? <a href={page.url.next.replace(/\/?$/, '/')}>{t('blog_next')}</a> : <span></span>}
+        </nav>
+      )}
+    </div>
+  </main>
+  <Fragment set:html={footerMarkup('es', nav)} />
+</Base>

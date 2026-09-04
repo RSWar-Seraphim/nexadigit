@@ -7,7 +7,7 @@
 // ══════════════════════════════════════════════════════════════════════════════
 import { tr, type Lang } from './i18n'
 import { proofStripMarkup } from './ProofStrip'
-import { NAV_ITEMS, langSwitchMarkup } from './Header'
+import { NAV_ITEMS, langSwitchMarkup, navAttrs } from './Header'
 
 const SHOWCASE = [
   { url: 'https://noticiasmma.com', label: 'noticiasmma', tld: '.com', delay: '' },
@@ -59,7 +59,7 @@ export function heroMarkup(lang: Lang): string {
         </a>
         <nav class="hidden md:flex" style="align-items:center;gap:22px;flex-shrink:0;" aria-label="${t('a11y_nav_hero')}">
           ${NAV_ITEMS.map(
-            (item) => `<a href="#${item.id}" data-link="${item.id}" class="nd-link nd-link--muted">${t(item.key)}</a>`
+            (item) => `<a ${navAttrs(item, lang, { onHome: true })} class="nd-link nd-link--muted">${t(item.key)}</a>`
           ).join('')}
         </nav>
         <div style="display:flex;align-items:center;gap:16px;flex-shrink:0;">
