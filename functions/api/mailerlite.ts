@@ -1,7 +1,7 @@
 // functions/api/mailerlite.ts — Cloudflare Pages Function · POST /api/mailerlite
 // Creates a MailerLite subscriber from the "Solicitar propuesta" form. Runs on
-// the Cloudflare Workers runtime (NOT the Vercel handler in ../api). Secrets are
-// read from the Pages project env vars: MAILERLITE_API_KEY, MAILERLITE_GROUP_ID.
+// Cloudflare Pages; in production (Vercel) ../../api/mailerlite.ts adapts Node (req, res)
+// to this same handler. Secrets: env vars MAILERLITE_API_KEY, MAILERLITE_GROUP_ID.
 // Typed dependency-free so the local `tsc` (scoped to src/) never sees it.
 
 interface Env {
