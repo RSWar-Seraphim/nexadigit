@@ -1,7 +1,7 @@
 // functions/api/mailerlite.ts — Cloudflare Pages Function · POST /api/mailerlite
 // Creates a MailerLite subscriber from the "Solicitar propuesta" form. Runs on
-// Cloudflare Pages; in production (Vercel) ../../api/mailerlite.ts adapts Node (req, res)
-// to this same handler. Secrets: env vars MAILERLITE_API_KEY, MAILERLITE_GROUP_ID.
+// Cloudflare Pages and in `astro dev`. Production (Vercel) runs ../../api/mailerlite.ts,
+// a self-contained copy of this logic — keep both in sync. Secrets: env vars.
 // Typed dependency-free so the local `tsc` (scoped to src/) never sees it.
 
 interface Env {

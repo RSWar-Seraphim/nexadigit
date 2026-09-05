@@ -1,47 +1,85 @@
 // api/mailerlite.ts — Vercel Function · POST /api/mailerlite
 // nexadigit.io is served by Vercel (Cloudflare only proxies DNS), so THIS is the
-// handler that runs in production. It adapts Node's (req, res) to the Web
-// Request/Response handler in ../functions/api/mailerlite.ts, so Vercel,
-// Cloudflare Pages and `astro dev` share one implementation. Secrets come from
-// the Vercel project env vars: MAILERLITE_API_KEY, MAILERLITE_GROUP_ID.
+// handler that runs in production. Secrets come from the Vercel project env
+// vars: MAILERLITE_API_KEY, MAILERLITE_GROUP_ID.
+//
+// Deliberately self-contained (no runtime imports): the project is ESM
+// ("type": "module") and a relative import from here failed at invocation on
+// Vercel (FUNCTION_INVOCATION_FAILED). functions/api/mailerlite.ts is the same
+// logic in Web Request/Response form for `astro dev` and Cloudflare Pages —
+// keep the two in sync.
 import type { IncomingMessage, ServerResponse } from 'node:http'
-import { onRequestOptions, onRequestPost } from '../functions/api/mailerlite'
 
-type Req = IncomingMessage & { body?: unknown }
+type VercelReq = IncomingMessage & { body?: unknown }
 
-/* Vercel pre-parses JSON bodies into req.body; fall back to the raw stream. */
-async function rawBody(req: Req): Promise<string> {
-  if (req.body !== undefined && req.body !== null) {
-    return typeof req.body === 'string' ? req.body : JSON.stringify(req.body)
-  }
-  const chunks: Buffer[] = []
-  for await (const chunk of req) chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk)
-  return Buffer.concat(chunks).toString('utf8')
+interface FormBody {
+  firstName?: string
+  lastName?: string
+  email?: string
+  message?: string
 }
 
-export default async function handler(req: Req, res: ServerResponse): Promise<void> {
-  const method = req.method ?? 'GET'
-  const headers = new Headers()
-  for (const [key, value] of Object.entries(req.headers)) {
-    if (typeof value === 'string') headers.set(key, value)
-    else if (Array.isArray(value)) headers.set(key, value.join(', '))
-  }
-  const request = new Request(`https://${req.headers.host ?? 'nexadigit.io'}/api/mailerlite`, {
-    method,
-    headers,
-    body: method === 'POST' ? await rawBody(req) : undefined,
-  })
-  const env = {
-    MAILERLITE_API_KEY: process.env.MAILERLITE_API_KEY ?? '',
-    MAILERLITE_GROUP_ID: process.env.MAILERLITE_GROUP_ID ?? '',
-  }
+const ALLOWED_ORIGINS = ['https://nexadigit.io', 'https://www.nexadigit.io', 'http://localhost:4321']
 
-  let out: Response
-  if (method === 'OPTIONS') out = await onRequestOptions({ request })
-  else if (method === 'POST') out = await onRequestPost({ request, env })
-  else out = new Response(JSON.stringify({ error: 'Method not allowed' }), { status: 405, headers: { 'Content-Type': 'application/json' } })
+function setCors(req: VercelReq, res: ServerResponse): void {
+  const origin = typeof req.headers.origin === 'string' ? req.headers.origin : ''
+  if (ALLOWED_ORIGINS.includes(origin)) res.setHeader('Access-Control-Allow-Origin', origin)
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+}
 
-  res.statusCode = out.status
-  out.headers.forEach((value, key) => res.setHeader(key, value))
-  res.end(await out.text())
+function send(res: ServerResponse, status: number, payload: unknown): void {
+  res.statusCode = status
+  res.setHeader('Content-Type', 'application/json')
+  res.end(JSON.stringify(payload))
+}
+
+/* Vercel parses JSON bodies into req.body (object); accept a raw string too. */
+function parseBody(raw: unknown): FormBody | null {
+  if (raw && typeof raw === 'object') return raw as FormBody
+  if (typeof raw === 'string') {
+    try {
+      return JSON.parse(raw) as FormBody
+    } catch {
+      return null
+    }
+  }
+  return null
+}
+
+export default async function handler(req: VercelReq, res: ServerResponse): Promise<void> {
+  setCors(req, res)
+  if (req.method === 'OPTIONS') {
+    res.statusCode = 204
+    res.end()
+    return
+  }
+  if (req.method !== 'POST') return send(res, 405, { error: 'Method not allowed' })
+
+  const body = parseBody(req.body)
+  if (!body) return send(res, 400, { error: 'invalid_json' })
+  const { firstName = '', lastName = '', email = '', message = '' } = body
+
+  try {
+    const resp = await fetch(
+      `https://api.mailerlite.com/api/v2/groups/${process.env.MAILERLITE_GROUP_ID ?? ''}/subscribers`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-MailerLite-ApiKey': process.env.MAILERLITE_API_KEY ?? '',
+        },
+        body: JSON.stringify({
+          email,
+          name: `${firstName} ${lastName}`.trim(),
+          fields: { first_name: firstName, last_name: lastName, message },
+        }),
+      }
+    )
+    const data: any = await resp.json().catch(() => ({}))
+    if (!resp.ok) return send(res, 400, { error: data?.error?.message || 'Failed to subscribe' })
+    return send(res, 200, { ok: true })
+  } catch {
+    return send(res, 500, { error: 'internal_server_error' })
+  }
 }
