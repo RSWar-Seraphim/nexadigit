@@ -21,7 +21,9 @@ const ES = i18nKeys('es.ts')
 const EN = i18nKeys('en.ts')
 
 const PAGES = [
-  { file: 'index.html', lang: 'es', path: '/', h1: 1, minH2: 6, faq: ES, types: ['Organization', 'WebSite', 'WebPage', 'FAQPage', 'SoftwareApplication'] },
+  // '/' is the temporary coming-soon page (src/pages/index.astro) — checked separately below.
+  // Restore this entry when the full home comes back:
+  // { file: 'index.html', lang: 'es', path: '/', h1: 1, minH2: 6, faq: ES, types: ['Organization', 'WebSite', 'WebPage', 'FAQPage', 'SoftwareApplication'] },
   { file: 'en/index.html', lang: 'en', path: '/en/', h1: 1, minH2: 6, faq: EN, types: ['Organization', 'WebSite', 'WebPage', 'FAQPage', 'SoftwareApplication'] },
   { file: 'privacidad/index.html', lang: 'es', path: '/privacidad/', h1: 1, minH2: 7, types: ['Organization', 'WebSite', 'WebPage', 'BreadcrumbList'] },
   { file: 'terminos/index.html', lang: 'es', path: '/terminos/', h1: 1, minH2: 8, types: ['Organization', 'WebSite', 'WebPage', 'BreadcrumbList'] },
@@ -69,6 +71,17 @@ for (const p of PAGES) {
 }
 
 /* ── Blog: index + every post must be complete in the served HTML ─────────── */
+{
+  const home = resolve(dist, 'index.html')
+  ok(existsSync(home), 'dist/index.html missing')
+  if (existsSync(home)) {
+    const html = readFileSync(home, 'utf8')
+    ok(count(html, /<h1[\s>]/g) === 1, '[index.html] expected 1 <h1>')
+    ok(html.includes(`<link rel="canonical" href="${SITE}/"`), '[index.html] canonical must be /')
+    ok(html.includes('id="cs-form"'), '[index.html] coming-soon form missing')
+  }
+}
+
 const blogIndex = resolve(dist, 'blog/index.html')
 ok(existsSync(blogIndex), 'dist/blog/index.html missing')
 if (existsSync(blogIndex)) {

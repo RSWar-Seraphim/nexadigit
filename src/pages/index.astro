@@ -1,4 +1,209 @@
 ---
-import HomePage from '../components/HomePage.astro'
+/* Coming soon — temporary home while the site is rebuilt.
+   Ported 1:1 from the Claude Design file "Coming Soon NexaDigit.dc.html"
+   (background "generado", countdown on, motion on).
+   To bring the full site back, restore:
+     import HomePage from '../components/HomePage.astro'
+     <HomePage lang="es" />  */
+const LAUNCH = '2026-12-01T09:00:00'
+const year = new Date().getFullYear()
+
+const beams = [
+  // left, top, width, rotate°, opacity, duration s, delay s, thickness px
+  ['30%', '0%', '90vw', 24, 0.9, 6, 0, 2],
+  ['48%', '108%', '80vw', -58, 0.85, 7, 1.2, 3],
+  ['56%', '100%', '90vw', -36, 0.5, 9, 0.6, 1],
+  ['92%', '-4%', '60vw', 118, 0.7, 8, 2, 2],
+  ['20%', '104%', '100vw', -22, 0.35, 10, 0.3, 1],
+] as const
+const beamStyle = ([left, top, w, rot, op, dur, delay, thick]: (typeof beams)[number]) =>
+  `left:${left};top:${top};width:${w};height:${thick}px;transform:rotate(${rot}deg);transform-origin:0 50%;` +
+  `background:linear-gradient(90deg,rgba(228,80,27,0) 0%,rgba(255,138,76,${op}) 45%,rgba(255,200,160,${op}) 55%,rgba(228,80,27,0) 100%);` +
+  `box-shadow:0 0 18px rgba(228,80,27,${+(op * 0.8).toFixed(2)});animation:nd-beam ${dur}s ease-in-out ${delay}s infinite alternate`
+
+const planes = [
+  ['polygon(58% 100%, 100% 22%, 100% 100%)', '320deg', 0.28],
+  ['polygon(48% 100%, 78% 30%, 86% 30%, 62% 100%)', '20deg', 0.22],
+  ['polygon(30% 0, 62% 0, 72% 48%)', '180deg', 0.12],
+] as const
+
+const units = [
+  ['d', 'Días'],
+  ['h', 'Horas'],
+  ['m', 'Min'],
+  ['s', 'Seg'],
+] as const
 ---
-<HomePage lang="es" />
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NexaDigit · Muy pronto</title>
+    <meta name="description" content="Estamos renovando nuestro sitio. Mientras tanto, seguimos construyendo software a medida y agentes de IA para empresas." />
+    <meta name="theme-color" content="#0B0B0C" />
+    <link rel="canonical" href="https://nexadigit.io/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="NexaDigit · Muy pronto" />
+    <meta property="og:description" content="Ingeniería de IA en Santo Domingo, RD. Estamos renovando nuestro sitio." />
+    <meta property="og:url" content="https://nexadigit.io/" />
+    <meta property="og:image" content="https://nexadigit.io/assets/img/og-cover.jpg" />
+    <link rel="icon" href="/assets/favicon/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png" />
+    <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="/assets/favicon/site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+    <style is:inline>
+      *,*::before,*::after{box-sizing:border-box}
+      [hidden]{display:none!important}
+      html,body{margin:0;background:#0B0B0C;color:#FAF6F1;min-height:100%}
+      body{font-size:15px;line-height:1.55}
+      img{display:block;max-width:100%}
+      a{color:#FAF6F1;text-decoration:none}
+      a:hover{color:#FF8A4C}
+      :focus{outline:none}
+      :focus-visible{outline:2px solid #E4501B;outline-offset:2px}
+      ::selection{background:rgba(228,80,27,.3)}
+      ::placeholder{color:rgba(250,246,241,0.4)}
+      .abs{position:absolute;pointer-events:none}
+      .cs-btn{transition:background .25s,color .25s}
+      .cs-btn:hover{background:#E4501B!important;color:#FAF6F1!important}
+      .cs-btn:disabled{opacity:.6;cursor:wait!important}
+      .cs-mail:hover{color:#FF8A4C!important}
+      .cs-foot-link:hover{color:#FAF6F1!important}
+      @keyframes nd-rise{from{opacity:0;transform:translateY(60%)}to{opacity:1;transform:none}}
+      @keyframes nd-fade{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+      @keyframes nd-line{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+      @keyframes nd-imgdrift{0%{transform:scale(1) translate(0,0)}100%{transform:scale(1.05) translate(-1.5%,1%)}}
+      @keyframes nd-glowbreath{0%{opacity:.7;filter:brightness(.9)}100%{opacity:1;filter:brightness(1.1)}}
+      @keyframes nd-beam{0%{opacity:.45;filter:brightness(.85)}100%{opacity:1;filter:brightness(1.2)}}
+      @keyframes nd-pulse{0%{box-shadow:0 0 0 0 rgba(228,80,27,.65)}70%{box-shadow:0 0 0 9px rgba(228,80,27,0)}100%{box-shadow:0 0 0 0 rgba(228,80,27,0)}}
+      [data-rise]{animation:nd-rise 1s cubic-bezier(.2,.7,.2,1) both}
+      [data-fade]{animation:nd-fade .9s cubic-bezier(.2,.7,.2,1) both}
+      [data-line]{transform-origin:left;animation:nd-line 1.2s cubic-bezier(.2,.7,.2,1) both}
+      [data-pulse]{animation:nd-pulse 2s ease-out infinite}
+      @media (max-width:1200px){[data-cs-bottom]{grid-template-columns:minmax(0,1fr)!important;row-gap:40px!important}[data-cs-count]{justify-self:start!important}}
+      @media (max-width:767px){[data-pad]{padding-left:20px!important;padding-right:20px!important}[data-cs-hl]{font-size:56px!important}[data-cs-form]{flex-direction:column!important}[data-cs-form]>*{width:100%!important;flex:none!important}[data-cs-foot]{flex-direction:column!important;align-items:flex-start!important}[data-cs-num]{font-size:48px!important}}
+      @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+    </style>
+  </head>
+  <body>
+    <main style="position:relative;min-height:100vh;display:flex;flex-direction:column;overflow:hidden;font-family:'Sora',sans-serif;color:#FAF6F1;background:#0B0B0C">
+      <div aria-hidden="true" style="position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:#0B0B0C">
+        <div style="position:absolute;inset:-4%;animation:nd-imgdrift 26s ease-in-out infinite alternate">
+          <div class="abs" style="right:-18%;bottom:-40%;width:80vw;height:80vw;border-radius:50%;background:radial-gradient(closest-side,rgba(228,80,27,0.42),rgba(228,80,27,0.12) 55%,rgba(228,80,27,0) 100%);animation:nd-glowbreath 8s ease-in-out infinite alternate"></div>
+          <div class="abs" style="left:-25%;bottom:-35%;width:55vw;height:55vw;border-radius:50%;background:radial-gradient(closest-side,rgba(228,80,27,0.22),rgba(228,80,27,0) 100%)"></div>
+          {planes.map(([clip, from, op]) => (
+            <div class="abs" style={`inset:0;clip-path:${clip};background:linear-gradient(${from},rgba(228,80,27,${op}) 0%,rgba(228,80,27,0) 70%)`}></div>
+          ))}
+          {beams.map((b) => <div class="abs" style={beamStyle(b)}></div>)}
+        </div>
+        <div class="abs" style="inset:0;opacity:0.06;background-image:linear-gradient(rgba(250,246,241,1) 1px,transparent 1px),linear-gradient(90deg,rgba(250,246,241,1) 1px,transparent 1px);background-size:120px 120px;-webkit-mask-image:radial-gradient(ellipse at 70% 60%,#000 0%,transparent 75%);mask-image:radial-gradient(ellipse at 70% 60%,#000 0%,transparent 75%)"></div>
+        <div class="abs" style="inset:0;background:linear-gradient(100deg,#0B0B0C 0%,rgba(11,11,12,0.85) 30%,rgba(11,11,12,0) 65%)"></div>
+      </div>
+      <div aria-hidden="true" style="position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(11,11,12,0.35) 0%,rgba(11,11,12,0) 30%,rgba(11,11,12,0.55) 75%,#0B0B0C 100%)"></div>
+
+      <header data-pad style="position:relative;z-index:5;height:80px;padding:0 64px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+        <img src="/assets/img/nexadigit-wordmark.svg" alt="NexaDigit" width="179" height="52" style="height:52px;width:auto;display:block;filter:brightness(0) invert(1)" />
+        <div style="display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(250,246,241,0.7)">
+          <span data-pulse style="width:8px;height:8px;border-radius:50%;background:#E4501B;flex-shrink:0"></span>
+          <span style="white-space:nowrap">En construcción</span>
+        </div>
+      </header>
+
+      <div data-pad style="position:relative;z-index:5;flex:1;display:flex;flex-direction:column;padding:0 64px 48px">
+        <div style="padding-top:clamp(72px,18vh,220px)">
+          <div data-fade style="display:flex;align-items:center;gap:14px;margin-bottom:28px;font-size:14px;color:rgba(250,246,241,0.8)">
+            <span data-line style="width:28px;height:2px;background:#E4501B;flex-shrink:0"></span>
+            <span>Ingeniería de IA en Santo Domingo, RD · desde 2023</span>
+          </div>
+          <h1 data-cs-hl style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(72px,10vw,168px);line-height:0.9;letter-spacing:-0.01em;text-transform:uppercase;color:#FAF6F1">
+            <span style="display:block;overflow:hidden;padding-bottom:0.04em"><span data-rise style="display:block;animation-delay:150ms">Muy pronto<span style="color:#E4501B">.</span></span></span>
+          </h1>
+          <p data-fade style="margin:28px 0 0;max-width:560px;font-size:17px;line-height:1.6;color:rgba(250,246,241,0.82);text-wrap:pretty;animation-delay:450ms">Estamos renovando nuestro sitio. Mientras tanto, seguimos construyendo software a medida y agentes de IA para empresas.</p>
+        </div>
+
+        <div data-cs-bottom data-fade style="margin-top:auto;padding-top:72px;display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:48px;align-items:end;animation-delay:650ms">
+          <div style="display:flex;flex-direction:column;gap:14px;max-width:520px">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#E4501B">Avísame del lanzamiento</span>
+            <form id="cs-form" data-cs-form style="display:flex;gap:0;border:1px solid rgba(250,246,241,0.18)">
+              <input id="cs-email" type="email" name="email" required autocomplete="email" placeholder="tu@empresa.com" aria-label="Correo electrónico" style="flex:1;min-width:0;height:52px;padding:0 18px;background:rgba(11,11,12,0.6);border:0;border-radius:0;color:#FAF6F1;font-family:'Sora',sans-serif;font-size:15px;outline:none" />
+              <button type="submit" class="cs-btn" style="height:52px;min-width:180px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:20px;background:#FAF6F1;color:#0B0B0C;border:0;border-radius:0;cursor:pointer;font-family:'JetBrains Mono',monospace;font-weight:500;font-size:11px;letter-spacing:0.12em;text-transform:uppercase">
+                <span>Notificarme</span><span>→</span>
+              </button>
+            </form>
+            <div id="cs-sent" hidden role="status" style="min-height:52px;padding:0 18px;display:flex;align-items:center;gap:12px;border:1px solid rgba(228,80,27,0.45);background:rgba(228,80,27,0.08);font-size:15px;color:#FAF6F1">
+              <span style="color:#E4501B">✓</span><span>Listo. Te escribiremos a <span id="cs-sent-email"></span>.</span>
+            </div>
+            <span id="cs-error" hidden role="alert" style="font-size:13px;color:#FF8A4C">No pudimos registrar tu correo. Inténtalo de nuevo en un momento.</span>
+            <span style="font-size:13px;color:#A8A29E">¿Un proyecto que no puede esperar? Escríbenos a <a href="mailto:hola@nexadigit.io" class="cs-mail" style="color:#FAF6F1;border-bottom:1px solid rgba(228,80,27,0.6)">hola@nexadigit.io</a></span>
+          </div>
+
+          <div data-cs-count role="timer" aria-label="Tiempo para el lanzamiento" style="justify-self:end;display:flex;gap:0;border-top:1px solid rgba(250,246,241,0.18)">
+            {units.map(([k, label]) => (
+              <div style="padding:18px 28px 0 0;margin-right:28px;min-width:72px;display:flex;flex-direction:column;gap:8px">
+                <span data-cs-num data-unit={k} style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:72px;line-height:0.9;font-variant-numeric:tabular-nums;color:#FAF6F1">00</span>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#A8A29E">{label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <footer data-pad data-cs-foot style="position:relative;z-index:5;padding:20px 64px;border-top:1px solid rgba(250,246,241,0.12);display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#A8A29E">
+        <span>© {year} NexaDigit · Santo Domingo, RD</span>
+        <div style="display:flex;gap:24px">
+          <a href="https://www.linkedin.com/company/107399409" target="_blank" rel="noopener" class="cs-foot-link" style="color:#A8A29E">LinkedIn</a>
+          <a href="https://www.instagram.com/nexadigit.io" target="_blank" rel="noopener" class="cs-foot-link" style="color:#A8A29E">Instagram</a>
+          <a href="mailto:hola@nexadigit.io" class="cs-foot-link" style="color:#A8A29E">Email</a>
+        </div>
+      </footer>
+    </main>
+
+    <script is:inline define:vars={{ LAUNCH }}>
+      const target = new Date(LAUNCH).getTime()
+      const els = {}
+      document.querySelectorAll('[data-unit]').forEach((el) => (els[el.dataset.unit] = el))
+      const pad = (n) => String(n).padStart(2, '0')
+      const tick = () => {
+        let d = Math.max(0, isNaN(target) ? 0 : target - Date.now())
+        const days = Math.floor(d / 864e5); d -= days * 864e5
+        const h = Math.floor(d / 36e5); d -= h * 36e5
+        const m = Math.floor(d / 6e4); const s = Math.floor((d - m * 6e4) / 1000)
+        els.d.textContent = pad(days); els.h.textContent = pad(h)
+        els.m.textContent = pad(m); els.s.textContent = pad(s)
+      }
+      tick()
+      setInterval(tick, 1000)
+
+      const form = document.getElementById('cs-form')
+      const input = document.getElementById('cs-email')
+      const err = document.getElementById('cs-error')
+      form.addEventListener('submit', async (ev) => {
+        ev.preventDefault()
+        const email = input.value.trim()
+        if (!email) return
+        const btn = form.querySelector('button')
+        btn.disabled = true
+        err.hidden = true
+        try {
+          const res = await fetch('/api/mailerlite', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, message: 'coming-soon' }),
+          })
+          if (!res.ok) throw new Error(String(res.status))
+          document.getElementById('cs-sent-email').textContent = email
+          form.hidden = true
+          document.getElementById('cs-sent').hidden = false
+        } catch {
+          err.hidden = false
+          btn.disabled = false
+        }
+      })
+    </script>
+  </body>
+</html>
