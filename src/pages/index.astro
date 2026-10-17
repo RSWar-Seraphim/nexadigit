@@ -85,8 +85,12 @@ const units = [
       [data-fade]{animation:nd-fade .9s cubic-bezier(.2,.7,.2,1) both}
       [data-line]{transform-origin:left;animation:nd-line 1.2s cubic-bezier(.2,.7,.2,1) both}
       [data-pulse]{animation:nd-pulse 2s ease-out infinite}
-      @media (max-width:1200px){[data-cs-bottom]{grid-template-columns:minmax(0,1fr)!important;row-gap:40px!important}[data-cs-count]{justify-self:start!important}}
-      @media (max-width:767px){[data-pad]{padding-left:20px!important;padding-right:20px!important}[data-cs-hl]{font-size:56px!important}[data-cs-form]{flex-direction:column!important}[data-cs-form]>*{width:100%!important;flex:none!important}[data-cs-foot]{flex-direction:column!important;align-items:flex-start!important}[data-cs-num]{font-size:48px!important}}
+      @media (min-width:1024px) and (max-width:1200px){[data-cs-bottom]{column-gap:32px!important}[data-cs-signup]{max-width:460px!important}[data-cs-count]{column-gap:24px!important}}
+      @media (max-width:1023px){[data-cs-bottom]{grid-template-columns:minmax(0,1fr)!important;row-gap:40px!important}[data-cs-count]{justify-self:start!important}}
+      @media (max-width:767px){[data-pad]{padding-left:20px!important;padding-right:20px!important}[data-cs-head]{height:68px!important}[data-cs-top]{padding-top:clamp(32px,9vh,96px)!important}[data-cs-logo]{height:40px!important}[data-cs-hl]{font-size:clamp(48px,15vw,64px)!important}[data-cs-form]{flex-direction:column!important}[data-cs-form]>*{width:100%!important;flex:none!important}[data-cs-foot]{flex-direction:column!important;align-items:flex-start!important}[data-cs-count]{justify-self:stretch!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;column-gap:12px!important}[data-cs-num]{font-size:clamp(40px,12vw,52px)!important}}
+      @media (max-width:380px){[data-cs-logo]{height:34px!important}[data-cs-badge]{font-size:10px!important;letter-spacing:0.08em!important;gap:8px!important}}
+      @media (min-width:768px) and (max-height:820px){[data-cs-hl]{font-size:clamp(64px,min(10vw,17vh),168px)!important}[data-cs-num]{font-size:clamp(48px,8vh,72px)!important}}
+      @media (max-height:500px) and (orientation:landscape){[data-cs-top]{padding-top:32px!important}[data-cs-hl]{font-size:64px!important}}
       @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
     </style>
   </head>
@@ -106,19 +110,19 @@ const units = [
       </div>
       <div aria-hidden="true" style="position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(11,11,12,0.35) 0%,rgba(11,11,12,0) 30%,rgba(11,11,12,0.55) 75%,#0B0B0C 100%)"></div>
 
-      <header data-pad style="position:relative;z-index:5;height:80px;padding:0 64px;display:flex;align-items:center;justify-content:space-between;gap:24px">
-        <img src="/assets/img/nexadigit-wordmark.svg" alt="NexaDigit" width="179" height="52" style="height:52px;width:auto;display:block;filter:brightness(0) invert(1)" />
-        <div style="display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(250,246,241,0.7)">
+      <header data-pad data-cs-head style="position:relative;z-index:5;height:80px;padding:0 64px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+        <img src="/assets/img/nexadigit-wordmark.svg" alt="NexaDigit" width="179" height="52" data-cs-logo style="height:52px;width:auto;display:block;filter:brightness(0) invert(1)" />
+        <div data-cs-badge style="display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(250,246,241,0.7)">
           <span data-pulse style="width:8px;height:8px;border-radius:50%;background:#E4501B;flex-shrink:0"></span>
           <span style="white-space:nowrap">En construcción</span>
         </div>
       </header>
 
       <div data-pad style="position:relative;z-index:5;flex:1;display:flex;flex-direction:column;padding:0 64px 48px">
-        <div style="padding-top:clamp(72px,18vh,220px)">
+        <div data-cs-top style="padding-top:clamp(48px,14vh,220px)">
           <div data-fade style="display:flex;align-items:center;gap:14px;margin-bottom:28px;font-size:14px;color:rgba(250,246,241,0.8)">
             <span data-line style="width:28px;height:2px;background:#E4501B;flex-shrink:0"></span>
-            <span>Ingeniería de IA en Santo Domingo, RD · desde 2023</span>
+            <span style="text-wrap:balance">Ingeniería de IA en Santo Domingo, RD · desde 2023</span>
           </div>
           <h1 data-cs-hl style="margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(72px,10vw,168px);line-height:0.9;letter-spacing:-0.01em;text-transform:uppercase;color:#FAF6F1">
             <span style="display:block;overflow:hidden;padding-bottom:0.04em"><span data-rise style="display:block;animation-delay:150ms">Muy pronto<span style="color:#E4501B">.</span></span></span>
@@ -126,8 +130,8 @@ const units = [
           <p data-fade style="margin:28px 0 0;max-width:560px;font-size:17px;line-height:1.6;color:rgba(250,246,241,0.82);text-wrap:pretty;animation-delay:450ms">Estamos renovando nuestro sitio. Mientras tanto, seguimos construyendo software a medida y agentes de IA para empresas.</p>
         </div>
 
-        <div data-cs-bottom data-fade style="margin-top:auto;padding-top:72px;display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:48px;align-items:end;animation-delay:650ms">
-          <div style="display:flex;flex-direction:column;gap:14px;max-width:520px">
+        <div data-cs-bottom data-fade style="margin-top:auto;padding-top:clamp(40px,8vh,72px);display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:48px;align-items:end;animation-delay:650ms">
+          <div data-cs-signup style="display:flex;flex-direction:column;gap:14px;max-width:520px">
             <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#E4501B">Avísame del lanzamiento</span>
             <form id="cs-form" data-cs-form style="display:flex;gap:0;border:1px solid rgba(250,246,241,0.18)">
               <input id="cs-email" type="email" name="email" required autocomplete="email" placeholder="tu@empresa.com" aria-label="Correo electrónico" style="flex:1;min-width:0;height:52px;padding:0 18px;background:rgba(11,11,12,0.6);border:0;border-radius:0;color:#FAF6F1;font-family:'Sora',sans-serif;font-size:15px;outline:none" />
@@ -142,9 +146,9 @@ const units = [
             <span style="font-size:13px;color:#A8A29E">¿Un proyecto que no puede esperar? Escríbenos a <a href="mailto:hola@nexadigit.io" class="cs-mail" style="color:#FAF6F1;border-bottom:1px solid rgba(228,80,27,0.6)">hola@nexadigit.io</a></span>
           </div>
 
-          <div data-cs-count role="timer" aria-label="Tiempo para el lanzamiento" style="justify-self:end;display:flex;gap:0;border-top:1px solid rgba(250,246,241,0.18)">
+          <div data-cs-count role="timer" aria-label="Tiempo para el lanzamiento" style="justify-self:end;display:grid;grid-template-columns:repeat(4,minmax(72px,auto));column-gap:clamp(24px,3vw,56px);border-top:1px solid rgba(250,246,241,0.18)">
             {units.map(([k, label]) => (
-              <div style="padding:18px 28px 0 0;margin-right:28px;min-width:72px;display:flex;flex-direction:column;gap:8px">
+              <div style="padding-top:18px;display:flex;flex-direction:column;gap:8px">
                 <span data-cs-num data-unit={k} style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:72px;line-height:0.9;font-variant-numeric:tabular-nums;color:#FAF6F1">00</span>
                 <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#A8A29E">{label}</span>
               </div>
